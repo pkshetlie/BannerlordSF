@@ -8,6 +8,7 @@ use App\Entity\UserScore;
 use App\Repository\UserScoreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -17,8 +18,10 @@ class ApiController extends AbstractController
     /**
      * @Route("/api/points/{apiKey}/{points}",name="api_points")
      */
-    public function api(string $apiKey, int $points)
+    public function api(Request $request)
     {
+        $apiKey = $request->get('apiKey');
+        $points = $request->get('points');
         $entityManager = $this->getDoctrine()->getManager();
         /** @var UserScore $api */
         $api = $entityManager->getRepository(UserScore::class)->findBy(["apiKey" => $apiKey]);
