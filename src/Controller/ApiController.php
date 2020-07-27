@@ -34,7 +34,7 @@ class ApiController extends AbstractController
     /**
      * @Route("/api/",name="api_index")
      */
-    public function index(string $apiKey, int $points)
+    public function index()
     {
         $entityManager = $this->getDoctrine()->getManager();
         /** @var UserScore $api */
