@@ -40,6 +40,6 @@ class ApiController extends AbstractController
         /** @var UserScore $api */
         $api = $entityManager->getRepository(UserScore::class)->findBy(['apiKey'=> "0ddd63424b5af786fdd47bcc9209bcf3"]);
 
-        return $this->render('Frontend/Api/index.html.twig',['scores'=>$api]);
+        return $this->render('Frontend/Api/index.html.twig',['api'=>$api]);
     }
 }
