@@ -15,7 +15,7 @@ class ApiController extends AbstractController
 {
 
     /**
-     * @Route("/api/points/{apiKey}/{points}",name="home")
+     * @Route("/api/points/{apiKey}/{points}",name="api_points")
      */
     public function api(string $apiKey, int $points)
     {
@@ -28,6 +28,9 @@ class ApiController extends AbstractController
         }
         return new Response('OK');
     }
+    /**
+     * @Route("/api/",name="api_index")
+     */
     public function index(string $apiKey, int $points)
     {
         $entityManager = $this->getDoctrine()->getManager();
