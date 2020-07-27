@@ -24,7 +24,7 @@ class ApiController extends AbstractController
         $points = $request->get('points');
         $entityManager = $this->getDoctrine()->getManager();
         /** @var UserScore $api */
-        $api = $entityManager->getRepository(UserScore::class)->findBy(["apiKey" => $apiKey]);
+        $api = $entityManager->getRepository(UserScore::class)->findOneBy(["apiKey" => $apiKey]);
         if ($api != null) {
             $api->setPoints($points);
             $entityManager->flush();
