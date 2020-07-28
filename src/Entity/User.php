@@ -3,11 +3,15 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class User implements UserInterface
 {
@@ -33,6 +37,26 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @ORM\OneToMany(targetEntity=UserScore::class, mappedBy="user")
+     */
+    private $userScores;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $apiKey;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isVerified = false;
+
+    public function __construct()
+    {
+        $this->userScores = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -110,5 +134,60 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection|UserScore[]
+     */
+    public function getUserScores(): Collection
+    {
+        return $this->userScores;
+    }
+
+    public function addUserScore(UserScore $userScore): self
+    {
+        if (!$this->userScores->contains($userScore)) {
+            $this->userScores[] = $userScore;
+            $userScore->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserScore(UserScore $userScore): self
+    {
+        if ($this->userScores->contains($userScore)) {
+            $this->userScores->removeElement($userScore);
+            // set the owning side to null (unless already changed)
+            if ($userScore->getUser() === $this) {
+                $userScore->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getApiKey(): ?string
+    {
+        return $this->apiKey;
+    }
+
+    public function setApiKey(string $apiKey): self
+    {
+        $this->apiKey = $apiKey;
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
     }
 }

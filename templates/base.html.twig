@@ -8,6 +8,7 @@
         {% endblock %}
     </head>
     <body>
+    {% include 'Frontend/base_template/navbar.html.twig' %}
         {% block body %}
         <div class="container">
             {% block container %}{% endblock %}
@@ -17,5 +18,7 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+    {% include 'Frontend/base_template/footer.html.twig' %}
+
     </body>
 </html>

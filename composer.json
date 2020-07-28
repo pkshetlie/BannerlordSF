@@ -2,7 +2,7 @@
     "type": "project",
     "license": "proprietary",
     "require": {
-        "php": "^7.2.5",
+        "php": "7.4.*",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "composer/package-versions-deprecated": "^1.10",
@@ -39,6 +39,7 @@
         "symfony/webpack-encore-bundle": "^1.7",
         "symfony/webpack-encore-pack": "^1.0",
         "symfony/yaml": "5.1.*",
+        "symfonycasts/verify-email-bundle": "^1.0",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/twig": "^2.12|^3.0"
     },

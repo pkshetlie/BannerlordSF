@@ -17,31 +17,32 @@ class UserScore
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $apiKey;
+
 
     /**
      * @ORM\Column(type="integer")
      */
     private $points;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $runNumber;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="userScores")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $challengeEdition;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getApiKey(): ?string
-    {
-        return $this->apiKey;
-    }
-
-    public function setApiKey(string $apiKey): self
-    {
-        $this->apiKey = $apiKey;
-
-        return $this;
     }
 
     public function getPoints(): ?int
@@ -52,6 +53,42 @@ class UserScore
     public function setPoints(int $points): self
     {
         $this->points = $points;
+
+        return $this;
+    }
+
+    public function getRunNumber(): ?int
+    {
+        return $this->runNumber;
+    }
+
+    public function setRunNumber(int $runNumber): self
+    {
+        $this->runNumber = $runNumber;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getChallengeEdition(): ?int
+    {
+        return $this->challengeEdition;
+    }
+
+    public function setChallengeEdition(int $challengeEdition): self
+    {
+        $this->challengeEdition = $challengeEdition;
 
         return $this;
     }
