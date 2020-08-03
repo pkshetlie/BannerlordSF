@@ -13,10 +13,6 @@ class ChallengeType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('dateStart')
-            ->add('dateEnd')
-            ->add('hourStart')
-            ->add('hourEnd')
             ->add('description')
             ->add('type')
             ->add('banner')

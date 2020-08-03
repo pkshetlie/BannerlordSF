@@ -25,26 +25,6 @@ class Challenge
     private $title;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $dateStart;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $dateEnd;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $hourStart;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $hourEnd;
-
-    /**
      * @ORM\Column(type="text")
      */
     private $description;
@@ -103,54 +83,6 @@ class Challenge
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    public function getDateStart(): ?\DateTimeInterface
-    {
-        return $this->dateStart;
-    }
-
-    public function setDateStart(\DateTimeInterface $dateStart): self
-    {
-        $this->dateStart = $dateStart;
-
-        return $this;
-    }
-
-    public function getDateEnd(): ?\DateTimeInterface
-    {
-        return $this->dateEnd;
-    }
-
-    public function setDateEnd(\DateTimeInterface $dateEnd): self
-    {
-        $this->dateEnd = $dateEnd;
-
-        return $this;
-    }
-
-    public function getHourStart(): ?string
-    {
-        return $this->hourStart;
-    }
-
-    public function setHourStart(string $hourStart): self
-    {
-        $this->hourStart = $hourStart;
-
-        return $this;
-    }
-
-    public function getHourEnd(): ?string
-    {
-        return $this->hourEnd;
-    }
-
-    public function setHourEnd(string $hourEnd): self
-    {
-        $this->hourEnd = $hourEnd;
 
         return $this;
     }
