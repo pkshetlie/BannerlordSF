@@ -10,10 +10,21 @@
     <body>
     {% include 'Frontend/base_template/navbar.html.twig' %}
         {% block body %}
-        <div class="container">
+    <section class="section section-shaped section-lg">
+        <div class="shape shape-style-1 bg-gradient-default">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        </div>
+        <div class="container pt-lg-7">
             {% block container %}{% endblock %}
         </div>
-
+    </section>
         {% endblock %}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
