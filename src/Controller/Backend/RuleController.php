@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Backend;
 
 use App\Entity\Rule;
 use App\Form\RuleType;
@@ -20,7 +20,7 @@ class RuleController extends AbstractController
      */
     public function index(RuleRepository $ruleRepository): Response
     {
-        return $this->render('rule/index.html.twig', [
+        return $this->render('backend/rule/index.html.twig', [
             'rules' => $ruleRepository->findAll(),
         ]);
     }
@@ -42,7 +42,7 @@ class RuleController extends AbstractController
             return $this->redirectToRoute('rule_index');
         }
 
-        return $this->render('rule/new.html.twig', [
+        return $this->render('backend/rule/new.html.twig', [
             'rule' => $rule,
             'form' => $form->createView(),
         ]);
@@ -53,7 +53,7 @@ class RuleController extends AbstractController
      */
     public function show(Rule $rule): Response
     {
-        return $this->render('rule/show.html.twig', [
+        return $this->render('backend/rule/show.html.twig', [
             'rule' => $rule,
         ]);
     }
@@ -72,7 +72,7 @@ class RuleController extends AbstractController
             return $this->redirectToRoute('rule_index');
         }
 
-        return $this->render('rule/edit.html.twig', [
+        return $this->render('backend/rule/edit.html.twig', [
             'rule' => $rule,
             'form' => $form->createView(),
         ]);

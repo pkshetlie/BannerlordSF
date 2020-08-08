@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Backend;
 
 use App\Entity\Participation;
 use App\Form\ParticipationType;
@@ -20,7 +20,7 @@ class ParticipationController extends AbstractController
      */
     public function index(ParticipationRepository $participationRepository): Response
     {
-        return $this->render('participation/index.html.twig', [
+        return $this->render('backend/participation/index.html.twig', [
             'participations' => $participationRepository->findAll(),
         ]);
     }
@@ -42,7 +42,7 @@ class ParticipationController extends AbstractController
             return $this->redirectToRoute('participation_index');
         }
 
-        return $this->render('participation/new.html.twig', [
+        return $this->render('backend/participation/new.html.twig', [
             'participation' => $participation,
             'form' => $form->createView(),
         ]);
@@ -53,7 +53,7 @@ class ParticipationController extends AbstractController
      */
     public function show(Participation $participation): Response
     {
-        return $this->render('participation/show.html.twig', [
+        return $this->render('backend/participation/show.html.twig', [
             'participation' => $participation,
         ]);
     }
@@ -72,7 +72,7 @@ class ParticipationController extends AbstractController
             return $this->redirectToRoute('participation_index');
         }
 
-        return $this->render('participation/edit.html.twig', [
+        return $this->render('backend/participation/edit.html.twig', [
             'participation' => $participation,
             'form' => $form->createView(),
         ]);

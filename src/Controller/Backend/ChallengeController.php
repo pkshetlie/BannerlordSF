@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Backend;
 
 use App\Entity\Challenge;
 use App\Form\ChallengeType;
@@ -20,7 +20,7 @@ class ChallengeController extends AbstractController
      */
     public function index(ChallengeRepository $challengeRepository): Response
     {
-        return $this->render('challenge/index.html.twig', [
+        return $this->render('backend/challenge/index.html.twig', [
             'challenges' => $challengeRepository->findAll(),
         ]);
     }
@@ -42,7 +42,7 @@ class ChallengeController extends AbstractController
             return $this->redirectToRoute('challenge_index');
         }
 
-        return $this->render('challenge/new.html.twig', [
+        return $this->render('backend/challenge/new.html.twig', [
             'challenge' => $challenge,
             'form' => $form->createView(),
         ]);
@@ -53,7 +53,7 @@ class ChallengeController extends AbstractController
      */
     public function show(Challenge $challenge): Response
     {
-        return $this->render('challenge/show.html.twig', [
+        return $this->render('backend/challenge/show.html.twig', [
             'challenge' => $challenge,
         ]);
     }
@@ -72,7 +72,7 @@ class ChallengeController extends AbstractController
             return $this->redirectToRoute('challenge_index');
         }
 
-        return $this->render('challenge/edit.html.twig', [
+        return $this->render('backend/challenge/edit.html.twig', [
             'challenge' => $challenge,
             'form' => $form->createView(),
         ]);

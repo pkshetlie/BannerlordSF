@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Controller;
+namespace App\Controller\Frontend;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,6 +15,6 @@ class HomePageController extends AbstractController
      */
     public function index()
     {
-        return $this->render('Frontend/HomePage/index.html.twig');
+        return $this->render('Frontend/home_page/index.html.twig');
     }
 }
