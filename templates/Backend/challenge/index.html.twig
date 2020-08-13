@@ -23,7 +23,7 @@
                 <td>{{ challenge.dateStart ? challenge.dateStart|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ challenge.dateEnd ? challenge.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ challenge.type }}</td>
-                <td>{{ challenge.challengers|length }} / {{ challenge.maxChallenger }}</td>
+                <td>{{ challenge.participations|length }} / {{ challenge.maxChallenger }}</td>
                 <td>
                     <a href="{{ path('challenge_show', {'id': challenge.id}) }}">show</a>
                     <a href="{{ path('challenge_edit', {'id': challenge.id}) }}">edit</a>
