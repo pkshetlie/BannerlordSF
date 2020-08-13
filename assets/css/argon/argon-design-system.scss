@@ -15,14 +15,14 @@ Coded by www.creative-tim.com
  */
 
 // Bootstrap Functions
-@import "~bootstrap/scss/functions";
+@import "./node_modules/bootstrap/scss/functions";
 
 // Theme Variables
 @import "argon-design-system/variables";
 
 // Bootstrap Core
 //@import "bootstrap/bootstrap";
-@import "~bootstrap/scss/bootstrap.scss";
+@import "./node_modules/bootstrap/scss/bootstrap.scss";
 
 // Theme Core
 @import "argon-design-system/theme";

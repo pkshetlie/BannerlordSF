@@ -23,7 +23,7 @@
         "gulp-load-plugins": "latest",
         "gulp-rename": "latest",
         "gulp-csso": "latest",
-        "gulp-less": "latest",
+        "gulp-sass": "latest",
         "gulp-csscomb": "latest",
         "gulp-cssbeautify": "latest",
         "gulp-autoprefixer": "latest"
