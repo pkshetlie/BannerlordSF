@@ -34,35 +34,9 @@ class RuleController extends AbstractController
      */
     public function new(Request $request): Response
     {
-        $rule = new Rule();
-        $form = $this->createForm(RuleType::class, $rule);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($rule);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('rule_index');
-        }
-
-        return $this->render('backend/rule/new.html.twig', [
-            'rule' => $rule,
-            'form' => $form->createView(),
-        ]);
+        return $this->edit($request, new Rule());
     }
 
-    /**
-     * @Route("/{id}", name="rule_show", methods={"GET"})
-     * @param Rule $rule
-     * @return Response
-     */
-    public function show(Rule $rule): Response
-    {
-        return $this->render('backend/rule/show.html.twig', [
-            'rule' => $rule,
-        ]);
-    }
 
     /**
      * @Route("/{id}/edit", name="rule_edit", methods={"GET","POST"})
@@ -81,7 +55,7 @@ class RuleController extends AbstractController
             return $this->redirectToRoute('rule_index');
         }
 
-        return $this->render('create_edit.html.twig', [
+        return $this->render('backend/rule/create_edit.html.twig', [
             'rule' => $rule,
             'form' => $form->createView(),
         ]);
