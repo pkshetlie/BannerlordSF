@@ -17,6 +17,8 @@ class RuleController extends AbstractController
 {
     /**
      * @Route("/", name="rule_index", methods={"GET"})
+     * @param RuleRepository $ruleRepository
+     * @return Response
      */
     public function index(RuleRepository $ruleRepository): Response
     {
@@ -27,6 +29,8 @@ class RuleController extends AbstractController
 
     /**
      * @Route("/new", name="rule_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -50,6 +54,8 @@ class RuleController extends AbstractController
 
     /**
      * @Route("/{id}", name="rule_show", methods={"GET"})
+     * @param Rule $rule
+     * @return Response
      */
     public function show(Rule $rule): Response
     {
@@ -60,6 +66,9 @@ class RuleController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="rule_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Rule $rule
+     * @return Response
      */
     public function edit(Request $request, Rule $rule): Response
     {
@@ -72,7 +81,7 @@ class RuleController extends AbstractController
             return $this->redirectToRoute('rule_index');
         }
 
-        return $this->render('backend/rule/edit.html.twig', [
+        return $this->render('create_edit.html.twig', [
             'rule' => $rule,
             'form' => $form->createView(),
         ]);
@@ -80,6 +89,9 @@ class RuleController extends AbstractController
 
     /**
      * @Route("/{id}", name="rule_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param Rule $rule
+     * @return Response
      */
     public function delete(Request $request, Rule $rule): Response
     {

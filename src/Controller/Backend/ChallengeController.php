@@ -17,6 +17,8 @@ class ChallengeController extends AbstractController
 {
     /**
      * @Route("/", name="challenge_index", methods={"GET"})
+     * @param ChallengeRepository $challengeRepository
+     * @return Response
      */
     public function index(ChallengeRepository $challengeRepository): Response
     {
@@ -27,10 +29,22 @@ class ChallengeController extends AbstractController
 
     /**
      * @Route("/new", name="challenge_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
-        $challenge = new Challenge();
+        return $this->edit($request, new Challenge());
+    }
+
+    /**
+     * @Route("/{id}/edit", name="challenge_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Challenge $challenge
+     * @return Response
+     */
+    public function edit(Request $request, Challenge $challenge): Response
+    {
         $form = $this->createForm(ChallengeType::class, $challenge);
         $form->handleRequest($request);
 
@@ -42,52 +56,23 @@ class ChallengeController extends AbstractController
             return $this->redirectToRoute('challenge_index');
         }
 
-        return $this->render('backend/challenge/new.html.twig', [
+        return $this->render('backend/challenge/create_edit.html.twig', [
             'challenge' => $challenge,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="challenge_show", methods={"GET"})
-     */
-    public function show(Challenge $challenge): Response
-    {
-        return $this->render('backend/challenge/show.html.twig', [
-            'challenge' => $challenge,
-        ]);
-    }
-
-    /**
-     * @Route("/{id}/edit", name="challenge_edit", methods={"GET","POST"})
-     */
-    public function edit(Request $request, Challenge $challenge): Response
-    {
-        $form = $this->createForm(ChallengeType::class, $challenge);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('challenge_index');
-        }
-
-        return $this->render('backend/challenge/edit.html.twig', [
-            'challenge' => $challenge,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="challenge_delete", methods={"DELETE"})
+     * @Route("/{id}", name="challenge_delete", methods={"GET"})
+     * @param Request $request
+     * @param Challenge $challenge
+     * @return Response
      */
     public function delete(Request $request, Challenge $challenge): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$challenge->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($challenge);
-            $entityManager->flush();
-        }
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($challenge);
+        $entityManager->flush();
 
         return $this->redirectToRoute('challenge_index');
     }

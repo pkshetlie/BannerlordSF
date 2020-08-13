@@ -12,9 +12,7 @@ class RuleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('label')
-            ->add('isDefault')
-            ->add('challenges')
+            ->add('label', null, ['label'=>"rule.label.label"])
         ;
     }
 

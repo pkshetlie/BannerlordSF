@@ -7,7 +7,115 @@
     <body>
       <trans-unit id="dDUw20Q" resname="Please sign in">
         <source>Please sign in</source>
-        <target>__Please sign in</target>
+        <target>Merci de vous connecter</target>
+      </trans-unit>
+      <trans-unit id="QLnI9ES" resname="Challenges">
+        <source>Challenges</source>
+        <target>Challenges</target>
+      </trans-unit>
+      <trans-unit id="nz33U6Q" resname="Create new">
+        <source>Create new</source>
+        <target>Nouveau</target>
+      </trans-unit>
+      <trans-unit id="CRiIJjt" resname="challenge.label.title">
+        <source>challenge.label.title</source>
+        <target>Titre</target>
+      </trans-unit>
+      <trans-unit id="u1V_ZzV" resname="challenge.label.dateStart">
+        <source>challenge.label.dateStart</source>
+        <target>date de debut</target>
+      </trans-unit>
+      <trans-unit id="fNg1JTu" resname="challenge.label.dateEnd">
+        <source>challenge.label.dateEnd</source>
+        <target>date de fin</target>
+      </trans-unit>
+      <trans-unit id="kifFmLW" resname="challenge.label.type">
+        <source>challenge.label.type</source>
+        <target>Type</target>
+      </trans-unit>
+      <trans-unit id="H5hZ.G6" resname="challenge.label.challengers">
+        <source>challenge.label.challengers</source>
+        <target>Challengers</target>
+      </trans-unit>
+      <trans-unit id="xDTPMho" resname="challenge.label.actions">
+        <source>challenge.label.actions</source>
+        <target>actions</target>
+      </trans-unit>
+      <trans-unit id="D5lam8." resname="no records found">
+        <source>no records found</source>
+        <target>aucun enregistrement trouvé</target>
+      </trans-unit>
+      <trans-unit id="v9QCsvb" resname="Sign in">
+        <source>Sign in</source>
+        <target>Connexion</target>
+      </trans-unit>
+      <trans-unit id="MMHY0_k" resname="Forgot password?">
+        <source>Forgot password?</source>
+        <target>Mot de pass oublié ?</target>
+      </trans-unit>
+      <trans-unit id=".4ZN4fY" resname="Create new account">
+        <source>Create new account</source>
+        <target>Créer un compte</target>
+      </trans-unit>
+      <trans-unit id="8haDLQ9" resname="Thank you for supporting us!">
+        <source>Thank you for supporting us!</source>
+        <target>Merci de nous soutenir !</target>
+      </trans-unit>
+      <trans-unit id="8.DtV_t" resname="Let's get in touch on any of these platforms.">
+        <source>Let's get in touch on any of these platforms.</source>
+        <target>Restons en contact via les réseaux sociaux.</target>
+      </trans-unit>
+      <trans-unit id="tLWAqa2" resname="About us">
+        <source>About us</source>
+        <target>A propos de nous</target>
+      </trans-unit>
+      <trans-unit id="jGvAmVN" resname="Blog">
+        <source>Blog</source>
+        <target>Blog</target>
+      </trans-unit>
+      <trans-unit id="wBHWCXv" resname="License">
+        <source>License</source>
+        <target>Licence</target>
+      </trans-unit>
+      <trans-unit id="47ienTP" resname="Username">
+        <source>Username</source>
+        <target>Identifiant</target>
+      </trans-unit>
+      <trans-unit id="588_9PF" resname="Password">
+        <source>Password</source>
+        <target>Mot de passe</target>
+      </trans-unit>
+      <trans-unit id="_TJnqhH" resname="Remember me">
+        <source>Remember me</source>
+        <target>Se souvenir</target>
+      </trans-unit>
+      <trans-unit id="U0M9PNE" resname="back to list">
+        <source>back to list</source>
+        <target>retour</target>
+      </trans-unit>
+      <trans-unit id="ZkGMLsA" resname="challenge.label.description">
+        <source>challenge.label.description</source>
+        <target>Description</target>
+      </trans-unit>
+      <trans-unit id="XRGojAM" resname="challenge.label.banner">
+        <source>challenge.label.banner</source>
+        <target>Bannière</target>
+      </trans-unit>
+      <trans-unit id="PHz7l77" resname="challenge.label.maxChallenger">
+        <source>challenge.label.maxChallenger</source>
+        <target>Nombre de challenger max</target>
+      </trans-unit>
+      <trans-unit id="3cphG_d" resname="challenge.label.registrationOpening">
+        <source>challenge.label.registrationOpening</source>
+        <target>Ouverture des inscriptions</target>
+      </trans-unit>
+      <trans-unit id="mkJ4SQR" resname="challenge.label.registrationClosing">
+        <source>challenge.label.registrationClosing</source>
+        <target>Fermeture des inscriptions</target>
+      </trans-unit>
+      <trans-unit id="pq_mHj6" resname="challenge.label.rules">
+        <source>challenge.label.rules</source>
+        <target>Règles</target>
       </trans-unit>
     </body>
   </file>
