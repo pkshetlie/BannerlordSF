@@ -18,6 +18,14 @@
         "jquery": "^3.5.1",
         "node-sass": "^4.14.1",
         "popper.js": "^1.16.1",
-        "sass-loader": "8.0.0"
+        "sass-loader": "8.0.0",
+        "gulp": "latest",
+        "gulp-load-plugins": "latest",
+        "gulp-rename": "latest",
+        "gulp-csso": "latest",
+        "gulp-less": "latest",
+        "gulp-csscomb": "latest",
+        "gulp-cssbeautify": "latest",
+        "gulp-autoprefixer": "latest"
     }
 }
