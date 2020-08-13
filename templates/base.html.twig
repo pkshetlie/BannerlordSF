@@ -9,7 +9,7 @@
     </head>
     <body>
     {% include 'Frontend/base_template/navbar.html.twig' %}
-        {% block body %}
+        {% block HtmlBody %}
     <section class="section section-shaped section-lg">
         <div class="shape shape-style-1 bg-gradient-default">
         <span></span>
@@ -22,7 +22,7 @@
         <span></span>
         </div>
         <div class="container pt-lg-7">
-            {% block container %}{% endblock %}
+            {% block body %}{% endblock %}
         </div>
     </section>
         {% endblock %}

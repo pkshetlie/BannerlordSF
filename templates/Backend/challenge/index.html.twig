@@ -3,41 +3,27 @@
 {% block title %}Challenge index{% endblock %}
 
 {% block body %}
-    <h1>Challenge index</h1>
-
-    <table class="table">
+    <h1>{{ "Challenges"|trans }}</h1>
+    <a href="{{ path('challenge_new') }}">{{ "Create new"|trans }}</a>
+    <table class="table table-condensed">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>DateStart</th>
-                <th>DateEnd</th>
-                <th>HourStart</th>
-                <th>HourEnd</th>
-                <th>Description</th>
-                <th>Type</th>
-                <th>Banner</th>
-                <th>MaxChallenger</th>
-                <th>RegistrationOpening</th>
-                <th>RegistrationClosing</th>
-                <th>actions</th>
+                <th>{{ "challenge.label.title"|trans }}</th>
+                <th>{{ "challenge.label.dateStart"|trans }}</th>
+                <th>{{ "challenge.label.dateEnd"|trans }}</th>
+                <th>{{ "challenge.label.type"|trans }}</th>
+                <th>{{ "challenge.label.challengers"|trans }}</th>
+                <th>{{ "challenge.label.actions"|trans }}</th>
             </tr>
         </thead>
         <tbody>
         {% for challenge in challenges %}
             <tr>
-                <td>{{ challenge.id }}</td>
                 <td>{{ challenge.title }}</td>
                 <td>{{ challenge.dateStart ? challenge.dateStart|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ challenge.dateEnd ? challenge.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ challenge.hourStart }}</td>
-                <td>{{ challenge.hourEnd }}</td>
-                <td>{{ challenge.description }}</td>
                 <td>{{ challenge.type }}</td>
-                <td>{{ challenge.banner }}</td>
-                <td>{{ challenge.maxChallenger }}</td>
-                <td>{{ challenge.registrationOpening ? challenge.registrationOpening|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ challenge.registrationClosing ? challenge.registrationClosing|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ challenge.challengers|length }} / {{ challenge.maxChallenger }}</td>
                 <td>
                     <a href="{{ path('challenge_show', {'id': challenge.id}) }}">show</a>
                     <a href="{{ path('challenge_edit', {'id': challenge.id}) }}">edit</a>
@@ -45,11 +31,10 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="13">no records found</td>
+                <td colspan="13">{{ "no records found"|trans }}</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('challenge_new') }}">Create new</a>
 {% endblock %}

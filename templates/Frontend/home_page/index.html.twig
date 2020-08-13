@@ -1,5 +1,127 @@
 {% extends 'base.html.twig' %}
-{% block container %}
+{% block stylesheets %}
+{{ parent() }}
+    {{ encore_entry_link_tags('home') }}
+
+{% endblock %}
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 pt-4 pb-4 challenge-filter">
+                <b>Modes de jeu disponibles :</b>
+                <a href="#" class="btn btn-sm btn-dark">solo</a>
+                <a href="#" class="btn btn-sm btn-dark">multi</a>
+                <a href="#" class="btn btn-sm btn-dark">solo & multi</a>
+                <a href="#" class="btn btn-sm btn-dark">roleplay</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 bloc-challenge">
+                <div class="border-orange">
+                    <img src="img/mount-and-blade-1@2x.png" class="img-fluid"/>
+                    <h2>Bannerlord HC Challenge #3</h2>
+                    <div class="row pl-4 pr-4">
+                        <div class="col-6 d-flex flex-row">
+                            <div>
+                                <i class="fa fa-calendar fa-2x"></i>
+                            </div>
+                            <div class="date">
+                                01 aout 2020<br/>
+                                02 aout 2020
+                            </div>
+                        </div>
+                        <div class="col-6 d-flex flex-row">
+                            <div>
+                                <i class="fa fa-clock-o fa-2x"></i>
+                            </div>
+                            <div class="hours">
+                                14h00 - 22h00
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pl-4 pr-4 pt-2 pb-2">
+                        <div class="col-8">
+                            <a href="#" class="btn btn-secondary btn-block disabled btn-sm">prochainement</a>
+                        </div>
+                        <div class="col-4">
+                            <a href="#" class="btn btn-sm btn-block btn-warning">Alerte</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 bloc-challenge">
+                <div class="border-green">
+                    <img src="img/mount-and-blade-1@2x.png" class="img-fluid"/>
+                    <h2>Bannerlord HC Challenge #3</h2>
+                    <div class="row pl-4 pr-4">
+                        <div class="col-6 d-flex flex-row">
+                            <div>
+                                <i class="fa fa-calendar fa-2x"></i>
+                            </div>
+                            <div class="date">
+                                01 aout 2020<br/>
+                                02 aout 2020
+                            </div>
+                        </div>
+                        <div class="col-6 d-flex flex-row">
+                            <div>
+                                <i class="fa fa-clock-o fa-2x"></i>
+                            </div>
+                            <div class="hours">
+                                14h00 - 22h00
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pl-4 pr-4 pt-2 pb-2">
+                        <div class="col-8">
+                            <a href="#" class="btn btn-success btn-block btn-sm">Inscription ouverte</a>
+                        </div>
+                        <div class="col-4">
+                            <a href="#" class="btn btn-sm btn-block btn-success">s'inscrire</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 bloc-challenge">
+                <div class="border-red">
+                    <img src="img/mount-and-blade-1@2x.png" class="img-fluid"/>
+                    <h2>Bannerlord HC Challenge #3</h2>
+                    <div class="row pl-4 pr-4">
+                        <div class="col-6 d-flex flex-row">
+                            <div>
+                                <i class="fa fa-calendar fa-2x"></i>
+                            </div>
+                            <div class="date">
+                                01 aout 2020<br/>
+                                02 aout 2020
+                            </div>
+                        </div>
+                        <div class="col-6 d-flex flex-row">
+                            <div>
+                                <i class="fa fa-clock-o fa-2x"></i>
+                            </div>
+                            <div class="hours">
+                                14h00 - 22h00
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row pl-4 pr-4 pt-2 pb-2">
+                        <div class="col-8">
+                            <a href="#" class="btn btn-info btn-block btn-sm">13 challengers</a>
+                        </div>
+                        <div class="col-4">
+                            <a href="#" class="btn btn-sm btn-block btn-danger">Resultats</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-6">
             <h1>Bonjour !</h1>
