@@ -1,4 +1,47 @@
+/*
+ * COLORS
+ */
+
+ $brown: #707070;
+ $orange-icon: #EF8003;
+ $green: #00B42A;
+ $black: #000000;
+ $white: #ffffff;
+
+ /*
+ * IMPORTS
+ */
+@import "parts/header.scss";
+@import "parts/footer.scss";
+@import "parts/parallax.scss";
+@import "home.scss";
 @import "../css/argon/font-awesome.css";
 @import "../css/argon/nucleo-icons.css";
 @import "../css/argon/nucleo-svg.css";
 @import "../css/argon/argon-design-system";
+
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Social links */
+.nav-link-social .fa {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background-color: $orange-icon;
+    border-radius: 50%;
+    position: relative;
+    &:before {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* global */
+.bold {
+    font-weight: 600;
+}

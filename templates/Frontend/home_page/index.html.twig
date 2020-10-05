@@ -2,134 +2,72 @@
 {% block stylesheets %}
 {{ parent() }}
     {{ encore_entry_link_tags('home') }}
-
 {% endblock %}
 {% block body %}
+    <main class="wrapper">
 
-    <div class="container">
-        <div class="row">
-            <div class="col-12 pt-4 pb-4 challenge-filter">
-                <b>Modes de jeu disponibles :</b>
-                <a href="#" class="btn btn-sm btn-dark">solo</a>
-                <a href="#" class="btn btn-sm btn-dark">multi</a>
-                <a href="#" class="btn btn-sm btn-dark">solo & multi</a>
-                <a href="#" class="btn btn-sm btn-dark">roleplay</a>
-            </div>
-        </div>
+        <section class="section-parallax parallax-background bg1 home-title">
+            <h1>Bienvenue au bannerlord hardcore challenge</h1>
+        </section>
 
-        <div class="row">
-            <div class="col-md-4 bloc-challenge">
-                <div class="border-orange">
-                    <img src="img/mount-and-blade-1@2x.png" class="img-fluid"/>
-                    <h2>Bannerlord HC Challenge #3</h2>
-                    <div class="row pl-4 pr-4">
-                        <div class="col-6 d-flex flex-row">
-                            <div>
-                                <i class="fa fa-calendar fa-2x"></i>
-                            </div>
-                            <div class="date">
-                                01 aout 2020<br/>
-                                02 aout 2020
-                            </div>
-                        </div>
-                        <div class="col-6 d-flex flex-row">
-                            <div>
-                                <i class="fa fa-clock-o fa-2x"></i>
-                            </div>
-                            <div class="hours">
-                                14h00 - 22h00
-                            </div>
-                        </div>
+        <section class="section-parallax static home-presentation">
+            <div class="container">
+                <p class="text bold">Bienvenue dans la communauté des Bannerlord Hardcore Challenge !</p>
+                <p class="text">Nous organisons des challenges tous les premiers week-end de chaque mois sur Mount & Blade 2 : Bannerlord</p>
+                <p class="">Les formats varient d'une édition à l'autre en terme de durée, d'objectif(s) à atteindre, de règlement ou encore de mode(s) de jeu.</p>
+                <p class="text bold">Le seul élément permanent : le goût du challenge !</p>
+                <div class="row home-videos">
+                    <div class="col-6">
+                        <p class="text bold">Format "Classique"</p>
+                        <iframe src="https://www.youtube.com/embed/GI2eBGhshAg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
-                    <div class="row pl-4 pr-4 pt-2 pb-2">
-                        <div class="col-8">
-                            <a href="#" class="btn btn-secondary btn-block disabled btn-sm">prochainement</a>
-                        </div>
-                        <div class="col-4">
-                            <a href="#" class="btn btn-sm btn-block btn-warning">Alerte</a>
-
-                        </div>
+                    <div class="col-6">
+                        <p class="text bold">Format "Roleplay"</p>
+                        <iframe src="https://www.youtube.com/embed/44ggf_67LpE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 bloc-challenge">
-                <div class="border-green">
-                    <img src="img/mount-and-blade-1@2x.png" class="img-fluid"/>
-                    <h2>Bannerlord HC Challenge #3</h2>
-                    <div class="row pl-4 pr-4">
-                        <div class="col-6 d-flex flex-row">
-                            <div>
-                                <i class="fa fa-calendar fa-2x"></i>
-                            </div>
-                            <div class="date">
-                                01 aout 2020<br/>
-                                02 aout 2020
-                            </div>
-                        </div>
-                        <div class="col-6 d-flex flex-row">
-                            <div>
-                                <i class="fa fa-clock-o fa-2x"></i>
-                            </div>
-                            <div class="hours">
-                                14h00 - 22h00
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row pl-4 pr-4 pt-2 pb-2">
-                        <div class="col-8">
-                            <a href="#" class="btn btn-success btn-block btn-sm">Inscription ouverte</a>
-                        </div>
-                        <div class="col-4">
-                            <a href="#" class="btn btn-sm btn-block btn-success">s'inscrire</a>
-                        </div>
+        </section>
+
+        <section class="section parallax-background bg2 home-join-us">
+            <div class="container">
+                <p class="text">Tous les participants doivent diffuser leur partie en direct sur Twitch ou Discord afin que les arbitres puissent veiller au respect du règlement mais également pour nous permettre de réaliser des clips qui serviront à alimenter nos montages vidéos et nos réseaux sociaux.</p>
+                <p class="text bold">Envie de découvrir le format ou l'ambiance des challenges ? Rendez-vous sur la chaîne officielle de l'evénement !</p>
+                <div class="row home-videos">
+                    <div class="col-6 offset-3">
+                        <iframe src="https://www.youtube.com/embed/44ggf_67LpE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 bloc-challenge">
-                <div class="border-red">
-                    <img src="img/mount-and-blade-1@2x.png" class="img-fluid"/>
-                    <h2>Bannerlord HC Challenge #3</h2>
-                    <div class="row pl-4 pr-4">
-                        <div class="col-6 d-flex flex-row">
-                            <div>
-                                <i class="fa fa-calendar fa-2x"></i>
-                            </div>
-                            <div class="date">
-                                01 aout 2020<br/>
-                                02 aout 2020
-                            </div>
-                        </div>
-                        <div class="col-6 d-flex flex-row">
-                            <div>
-                                <i class="fa fa-clock-o fa-2x"></i>
-                            </div>
-                            <div class="hours">
-                                14h00 - 22h00
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row pl-4 pr-4 pt-2 pb-2">
-                        <div class="col-8">
-                            <a href="#" class="btn btn-info btn-block btn-sm">13 challengers</a>
-                        </div>
-                        <div class="col-4">
-                            <a href="#" class="btn btn-sm btn-block btn-danger">Resultats</a>
+        </section>
 
-                        </div>
+        <section class="section-parallax static home-howto-join-us">
+            <div class="container">
+                <p class="text">Vous avez 3 possibilités pour intégrer la communauté des Bannerlord Hardcore Challenge :</p>
+                <div class="row home-videos">
+                    <div class="col-4">
+                        <img src="{{ asset('build/img_01.jpg') }}">
+                        <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lacinia nisi mattis consectetur convallis. Ut ornare tempor enim, at consequat turpis.</p>
+                    </div>
+                    <div class="col-4">
+                        <img src="{{ asset('build/img_01.jpg') }}">
+                        <p class="text bold">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
+                    </div>
+                    <div class="col-4">
+                        <img src="{{ asset('build/img_01.jpg') }}">
+                        <p class="text bold">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lacinia nisi mattis consectetur convallis. Donec luctus a lectus ac aliquam. </p>
                     </div>
                 </div>
+                 <p class="text">Vous avez 3 possibilités pour intégrer la communauté des Bannerlord Hardcore Challenge :</p>
             </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-6">
-            <h1>Bonjour !</h1>
-
-        </div>
-        <div class="col-6">
-            <h2> au revoir ! </h2>
-        </div>
-    </div>
+        </section>
+        
+        <section class="section parallax-background bg3 home-don">
+            <div class="container">
+                <p class="text">Vous avez envie de nous aider à améliorer la compétition, de participer au cash prize ou de simplement de faire un don ?</p>
+                <img src="{{ asset('build/paypal.png') }}">
+            </div>
+        </section>
+    </main>
 
 {% endblock %}

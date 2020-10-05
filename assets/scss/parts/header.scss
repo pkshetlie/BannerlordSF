@@ -1,0 +1,36 @@
+/**
+ * Styles du header
+ * Version 1.0
+ * 09/2020
+ */
+
+.navbar.navbar-main {
+    padding: 0;
+    background-color: $brown;
+    .container-nav {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+    .nav-link {
+        color: #ffffff;
+        font-size: 1.2em;
+        font-family: 'Montserrat', sans-serif;
+        display: flex;
+    }
+    .home-link {
+        color: #ffffff;
+        font-size: 2em;
+        margin: 0 20px;
+    }
+    .btn-connect {
+        background-color: $green;
+        color: #ffffff;
+        padding: 10px 15px;
+    }
+    #navbar_global {
+        justify-content: center;
+    }
+} 

@@ -1,9 +1,9 @@
 {
     "devDependencies": {
-        "@symfony/webpack-encore": "^0.30.0",
+        "@symfony/webpack-encore": "^0.30.2",
         "core-js": "^3.0.0",
         "regenerator-runtime": "^0.13.2",
-        "webpack-notifier": "^1.6.0"
+        "webpack-notifier": "^1.8.0"
     },
     "license": "UNLICENSED",
     "private": true,
@@ -14,18 +14,18 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "bootstrap": "^4.5.0",
+        "bootstrap": "^4.5.2",
+        "gulp": "latest",
+        "gulp-autoprefixer": "latest",
+        "gulp-cssbeautify": "latest",
+        "gulp-csscomb": "latest",
+        "gulp-csso": "latest",
+        "gulp-load-plugins": "latest",
+        "gulp-rename": "latest",
+        "gulp-sass": "latest",
         "jquery": "^3.5.1",
         "node-sass": "^4.14.1",
         "popper.js": "^1.16.1",
-        "sass-loader": "8.0.0",
-        "gulp": "latest",
-        "gulp-load-plugins": "latest",
-        "gulp-rename": "latest",
-        "gulp-csso": "latest",
-        "gulp-sass": "latest",
-        "gulp-csscomb": "latest",
-        "gulp-cssbeautify": "latest",
-        "gulp-autoprefixer": "latest"
+        "sass-loader": "8.0.0"
     }
 }
