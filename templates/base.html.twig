@@ -9,7 +9,7 @@
         {% endblock %}
     </head>
     <body>
-    {% include 'Frontend/base_template/navbar.html.twig' %}
+    {% include 'frontend/base_template/navbar.html.twig' %}
         {% block HtmlBody %}
         <div class="shape shape-style-1 bg-gradient-default">
         <span></span>
@@ -23,7 +23,7 @@
         </div>
             {% block body %}
             {% endblock %}
-            {% include 'Frontend/base_template/footer.html.twig' %}
+            {% include 'frontend/base_template/footer.html.twig' %}
         {% endblock %}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
