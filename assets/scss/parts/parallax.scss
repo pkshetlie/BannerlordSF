@@ -1,0 +1,44 @@
+/**
+ * Styles du parallax
+ * Version 1.0
+ * 09/2020
+ */
+ 
+ .section-parallax {
+    min-height: 300px;
+    padding: 20px 0;
+ }
+
+.parallax-background {
+    background-position: 50%;
+    background-repeat: no-repeat;
+    
+    background-size: cover;
+    -webkit-background-size: cover;
+
+    transform: translate3d(0,0,0);
+    -moz-transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+}
+ 
+ .static {
+   background: $white;
+ }
+ 
+ .bg1 {
+   background-image: url("../img/img_01.jpg");
+ }
+ 
+ .bg2 {
+   background-image: url("../img/img_02.jpg");
+ }
+
+ .bg3 {
+    background-image: url("../img/img_03.jpg");
+  }
+
+
+ ///---------------
+
+
+

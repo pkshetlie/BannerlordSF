@@ -5,12 +5,12 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
+            <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
         {% endblock %}
     </head>
     <body>
     {% include 'Frontend/base_template/navbar.html.twig' %}
         {% block HtmlBody %}
-    <section class="section section-shaped section-lg">
         <div class="shape shape-style-1 bg-gradient-default">
         <span></span>
         <span></span>
@@ -21,15 +21,14 @@
         <span></span>
         <span></span>
         </div>
-        <div class="container pt-lg-7">
-            {% block body %}{% endblock %}
-        </div>
-    </section>
+            {% block body %}
+            {% endblock %}
+            {% include 'Frontend/base_template/footer.html.twig' %}
         {% endblock %}
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
-    {% include 'Frontend/base_template/footer.html.twig' %}
+   
 
     </body>
 </html>
