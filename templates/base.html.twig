@@ -11,16 +11,6 @@
     <body>
     {% include 'frontend/base_template/navbar.html.twig' %}
         {% block HtmlBody %}
-        <div class="shape shape-style-1 bg-gradient-default">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        </div>
             {% block body %}
             {% endblock %}
             {% include 'frontend/base_template/footer.html.twig' %}
@@ -28,7 +18,5 @@
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
-   
-
     </body>
 </html>

@@ -49,9 +49,17 @@
         <source>Sign in</source>
         <target>Connexion</target>
       </trans-unit>
+      <trans-unit id="MKNGH_J" resname="Sign up">
+        <source>Sign up</source>
+        <target>Inscription</target>
+      </trans-unit>
+      <trans-unit id="j5THnzp" resname="Register">
+        <source>Register</source>
+        <target>S'inscrire</target>
+      </trans-unit>
       <trans-unit id="MMHY0_k" resname="Forgot password?">
         <source>Forgot password?</source>
-        <target>Mot de pass oublié ?</target>
+        <target>Mot de passe oublié ?</target>
       </trans-unit>
       <trans-unit id=".4ZN4fY" resname="Create new account">
         <source>Create new account</source>
@@ -76,6 +84,14 @@
       <trans-unit id="wBHWCXv" resname="License">
         <source>License</source>
         <target>Licence</target>
+      </trans-unit>
+      <trans-unit id="oKfElCT" resname="Firstname">
+        <source>Firstname</source>
+        <target>Prénom</target>
+      </trans-unit>
+      <trans-unit id="yJpUrXA" resname="Lastname">
+        <source>Lastname</source>
+        <target>Nom</target>
       </trans-unit>
       <trans-unit id="47ienTP" resname="Username">
         <source>Username</source>

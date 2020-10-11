@@ -7,22 +7,46 @@
  $green: #00B42A;
  $black: #000000;
  $white: #ffffff;
+ $light-grey: #f2f2f2;
 
- /*
+/*
  * IMPORTS
  */
+ 
 @import "parts/header.scss";
 @import "parts/footer.scss";
 @import "parts/parallax.scss";
-@import "home.scss";
-@import "../css/argon/font-awesome.css";
-@import "../css/argon/nucleo-icons.css";
-@import "../css/argon/nucleo-svg.css";
-@import "../css/argon/argon-design-system";
+@import "parts/register_login.scss";
+@import "parts/home.scss";
 
+// Bootstrap Functions
+@import "./node_modules/bootstrap/scss/functions";
+@import "./node_modules/bootstrap/scss/bootstrap.scss";
+
+@import "../css/font-awesome.css";
 
 body {
     font-family: 'Montserrat', sans-serif;
+}
+
+/* =============== GLOBAL =============== */
+.bold {
+    font-weight: 600;
+}
+
+/* Buttons */
+.btn-green {
+    background-color: $green;
+    border: 1px solid $green;
+    border-radius: 25px;
+    line-height: 1;
+    color: white;
+    transition: 0.2s;
+    padding: 5px 15px;
+    &:hover {
+        background-color: $white;
+        color: $green;
+    }
 }
 
 /* Social links */
@@ -41,7 +65,77 @@ body {
     }
 }
 
-/* global */
-.bold {
-    font-weight: 600;
+/* Modals */
+.modal {
+    .card-body {
+        background-color: $light-grey;
+    }
+    .custom-control-input:checked ~ .custom-control-label::before {
+        background-color: $green;
+    }
+    .footer-modal {
+        margin: 5px;
+    }
+
+    .inscription_modal .modal-content {
+        height: 343px;
+    }
+
+    .connexion_modal .modal-content {
+        height: 343px;
+        transition: 0.2s;
+    }
+}
+
+/* loaders */
+.loading-container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e4e4e4;
+}
+
+.sb-loading {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border-top: 5px solid rgba(255, 255, 255, 0.2);
+  border-right: 5px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 5px solid rgba(255, 255, 255, 0.2);
+  border-left: 5px solid #000;
+  animation: loading 1s infinite linear;
+  position: relative;
+  box-sizing: border-box;
+  border-left-color: $brown;
+  &::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    border-radius: 50%;
+    border-top: 5px solid rgba(255, 255, 255, 0.2);
+    border-right: 5px solid #000;
+    border-bottom: 5px solid rgba(255, 255, 255, 0.2);
+    border-left: 5px solid rgba(255, 255, 255, 0.2);
+    animation: loading 3s infinite linear;
+    box-sizing: border-box;
+    border-right-color: $brown;
+  } 
+  &::after {
+    border-top-color: $brown;
+  }
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

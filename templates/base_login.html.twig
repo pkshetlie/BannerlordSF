@@ -12,89 +12,15 @@ Coded by www.creative-tim.com
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 <!DOCTYPE html>
-<html lang="">
-
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
-    <title>
-       {{ "Login" }} - HardCoreChallenge
-    </title>
-    <!--     Fonts and icons     -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-    {{ encore_entry_link_tags('app') }}
-
-</head>
-
-<body class="login-page">
-<!-- Navbar -->
-{% include 'frontend/base_template/navbar.html.twig' %}
-<!-- End Navbar -->
-<section class="section section-shaped section-lg">
-    <div class="shape shape-style-1 bg-gradient-default">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
+<div class="card bg-secondary shadow border-0">
+        {% block login_form %}
+        {% endblock %}
+</div>
+<div class="row footer-modal">
+    <div class="col-6">
+        <a href="#"><small>{{ "Forgot password?"|trans }}</small></a>
     </div>
-    <div class="container pt-lg-7">
-        <div class="row justify-content-center">
-            <div class="col-lg-5">
-                <div class="card bg-secondary shadow border-0">
-                    <div class="card-header bg-white">
-                        <div class="text-muted text-center "><small>{{ "Sign in"|trans }}</small></div>
-                    </div>
-                    <div class="card-body px-lg-5 py-lg-5">
-                       {% block login_form %}
-                        <form role="form">
-                            <div class="form-group mb-3">
-                                <div class="input-group input-group-alternative">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="ni ni-email-83"></i></span>
-                                    </div>
-                                    <input class="form-control" placeholder="Email" type="email">
-                                </div>
-                            </div>
-                            <div class="form-group focused">
-                                <div class="input-group input-group-alternative">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                                    </div>
-                                    <input class="form-control" placeholder="Password" type="password">
-                                </div>
-                            </div>
-                            <div class="custom-control custom-control-alternative custom-checkbox">
-                                <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
-                                <label class="custom-control-label" for=" customCheckLogin"><span>Remember me</span></label>
-                            </div>
-                            <div class="text-center">
-                                <button type="button" class="btn btn-primary my-4">Sign in</button>
-                            </div>
-                        </form>
-                        {% endblock %}
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-6">
-                        <a href="#" class="text-light"><small>{{ "Forgot password?"|trans }}</small></a>
-                    </div>
-                    <div class="col-6 text-right">
-                        <a href="#" class="text-light"><small> {{ "Create new account"|trans }}</small></a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="col-6 text-right">
+        <a href="#"><small> {{ "Create new account"|trans }}</small></a>
     </div>
-</section>
-
-{% include 'frontend/base_template/footer.html.twig' %}
-
-</body>
-
-</html>
+</div>

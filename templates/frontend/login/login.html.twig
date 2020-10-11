@@ -3,42 +3,46 @@
 {% block title %}Log in!{% endblock %}
 
 {% block login_form %}
-<form method="post" role="form">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+<div class="card-header bg-white">
+    <div class="text-muted text-center "><small>{{ "Sign in"|trans }}</small></div>
+</div>
+<div class="card-body px-lg-5 py-lg-5">
+    <form method="post" role="form">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
-
-    <div class="form-group mb-3">
-        <div class="input-group input-group-alternative">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="ni ni-user-run"></i></span>
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
             </div>
-    <input type="text" placeholder="{{ "Username"|trans }}"  value="{{ last_username }}" name="username" id="inputEmail" class="form-control" required autofocus>
-        </div>
-    </div>
-    <div class="form-group focused">
-        <div class="input-group input-group-alternative">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-            </div>
-            <input type="password" placeholder="{{ "Password"|trans }}" name="password" id="inputPassword" class="form-control" required/>
-        </div>
-    </div>
-    <div class="custom-control custom-control-alternative custom-checkbox">
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-        <input class="custom-control-input" name="_remember_me" id=" customCheckLogin" type="checkbox">
-        <label class="custom-control-label" for=" customCheckLogin"><span>{{ "Remember me"|trans }}</span></label>
-    </div><div class="text-center">
-        <button type="submit" class="btn btn-primary my-4">{{ "Sign in"|trans }}</button>
-    </div>
+        {% endif %}
 
-</form>
+        <div class="form-group mb-3">
+            <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-user-run"></i></span>
+                </div>
+        <input type="text" placeholder="{{ "Username"|trans }}"  value="{{ last_username }}" name="username" id="inputEmail" class="form-control" required autofocus>
+            </div>
+        </div>
+        <div class="form-group focused">
+            <div class="input-group input-group-alternative">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                </div>
+                <input type="password" placeholder="{{ "Password"|trans }}" name="password" id="inputPassword" class="form-control" required/>
+            </div>
+        </div>
+        <div class="custom-control custom-control-alternative custom-checkbox">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+            <input class="custom-control-input" name="_remember_me" id=" customCheckLogin" type="checkbox">
+            <label class="custom-control-label" for=" customCheckLogin"><span>{{ "Remember me"|trans }}</span></label>
+        </div><div class="text-center">
+            <button type="submit" class="btn btn-green">{{ "Sign in"|trans }}</button>
+        </div>
+    </form>
+</div>
 {% endblock %}
 
 

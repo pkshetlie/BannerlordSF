@@ -8,22 +8,7 @@
             <a class="home-link navbar-brand" href="/">
                 <i class="fa fa-home"></i>
             </a>
-            <div class="navbar-collapse-header">
-                <div class="row">
-                    <div class="col-6 collapse-brand">
-                        <a href="../../../index.html">
-                            <img src="../assets/img/brand/blue.png">
-                        </a>
-                    </div>
-                    <div class="col-6 collapse-close">
-                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar_global"
-                                aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
-                            <span></span>
-                            <span></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
+            
             <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
                 {% if is_granted('ROLE_ADMIN') %}
                 <li class="nav-item dropdown">
@@ -31,7 +16,7 @@
                         <i class="ni ni-ui-04 d-lg-none"></i>
                         <span class="nav-link-inner--text">Administration</span>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-xl">
+                    <div class="dropdown-menu fade-down dropdown-menu-xl">
                         <div class="dropdown-menu-inner">
                             <a href="{{ url('challenge_index') }}"
                                class="media d-flex align-items-center">
@@ -76,12 +61,23 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a href="{{ url('app_register') }}" class="nav-link" data-toggle="dropdown" role="button">
+                    <a href="#" class="nav-link" data-toggle="dropdown" role="button">
                         <i class="ni ni-collection d-lg-none"></i>
                         <span class="nav-link-inner--text">Mon Compte</span>
                     </a>
+                    <div class="dropdown-menu">
+                        <a data-target="{{ url('app_register') }}" class="dropdown-item modal-trigger" href="#inscription_modal">Inscription</a>
+                        <a data-target="{{ url('app_login') }}" class="dropdown-item modal-trigger" href="#connexion_modal">Connexion</a>
+                    </div>
                 </li>
             </ul>
+            <!-- Modals -->
+            <div class="modal fade" id="sign_modal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </nav>

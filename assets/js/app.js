@@ -1,9 +1,3 @@
-/*
- * Welcome to your app's main JavaScript file!
- *
- * We recommend including the built version of this JavaScript file
- * (and its CSS file) in your base layout (base.html.twig).
- */
 
 // any CSS you import will output into a single css file (app.css in this case)
 import '../css/app.css';
@@ -38,7 +32,7 @@ $(() => {
         return elementBottom > viewportTop && elementTop < viewportBottom;
     };
 
-    global.window.on("load scroll", () => {
+    global.window.on("scroll", () => {
         let scroll = global.document.scrollTop();
         let offset = -0.4;
 
@@ -51,6 +45,18 @@ $(() => {
                     "background-position": "50% " + (selfPosition * offset - scroll * offset) + "px"
                 });
 			}
+        });
+    });
+
+    $('.modal-trigger').click(function () {
+        $('#sign_modal .modal-content').html('<div class="loading-container"><div class="sb-loading sb-loading--blue"></div></div>');
+        $('#sign_modal .modal-content').css('min-height', '340px');
+        $('#sign_modal').modal();
+
+        let url = $(this).attr('data-target');
+        $.get(url, function (data) {
+            $('.modal-content').html(data);
+            $('#inscription_modal').modal();
         });
     });
 });

@@ -8,10 +8,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-position: 50% 0;
   h1 {
     color: $white;
     font-size: 2.8rem;
     text-transform: uppercase;
+    text-align: center;
   }
 }
 
