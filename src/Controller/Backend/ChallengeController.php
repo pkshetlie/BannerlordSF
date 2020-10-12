@@ -16,6 +16,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class ChallengeController extends AbstractController
 {
     /**
+     * @Route("/test", name="challenge_test", methods={"GET"})
+     * @return Response
+     */
+    public function test(): Response
+    {
+        return $this->render('base_backoffice.html.twig', [
+        ]);
+    }
+    /**
      * @Route("/", name="challenge_index", methods={"GET"})
      * @param ChallengeRepository $challengeRepository
      * @return Response

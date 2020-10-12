@@ -60,6 +60,15 @@
                         <a href="../examples/profile.html" class="dropdown-item">Theme Light</a>
                     </div>
                 </li>
+                {% if is_granted("ROLE_USER") %}
+                    <li class="nav-item dropdown">
+                        <a href="{{ url('app_login') }}" class="nav-link" >
+                            <i class="ni ni-collection d-lg-none"></i>
+                            <span class="nav-link-inner--text">Mon Compte</span>
+                        </a>
+
+                    </li>
+                {% else %}
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link" data-toggle="dropdown" role="button">
                         <i class="ni ni-collection d-lg-none"></i>
@@ -70,6 +79,7 @@
                         <a data-target="{{ url('app_login') }}" class="dropdown-item modal-trigger" href="#connexion_modal">Connexion</a>
                     </div>
                 </li>
+                {% endif %}
             </ul>
             <!-- Modals -->
             <div class="modal fade" id="sign_modal" tabindex="-1" role="dialog" aria-hidden="true">

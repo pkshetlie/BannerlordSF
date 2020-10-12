@@ -7,7 +7,7 @@
     <div class="text-muted text-center "><small>{{ "Sign in"|trans }}</small></div>
 </div>
 <div class="card-body px-lg-5 py-lg-5">
-    <form method="post" role="form">
+    <form action="{{ url("app_login") }}" method="post" role="form">
         {% if error %}
             <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
