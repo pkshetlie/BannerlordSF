@@ -40,13 +40,13 @@ user:
     lastname: Nom
     username: Identifiant
     email: Email
-    agreeTerms: Termes est conditions
+    agreeTerms: Termes et conditions
     discordID: ID Discord
     twitchID: ID Twitch
   placeholder:
-    lastname:
+    lastname: ''
     email: avec un @
-    firstname:
-    username:
+    firstname: ''
+    username: ''
     discordID: Pseudo#1234
     twitchID: Juste ton pseudo twitch
