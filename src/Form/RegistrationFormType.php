@@ -70,10 +70,10 @@ class RegistrationFormType extends AbstractType
                     new NotBlank([
                         'message' => 'Please enter a password',
                     ]),
-                    new Regex([
-                        'pattern' => '#^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$#',
-                        'message' => 'Votre mot de passe n\'est pas suffismeent fort, vous devez mettre au moins 8 caractère dont des majuscules '
-                    ]),
+//                    new Regex([
+//                        'pattern' => '#^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8}$#',
+//                        'message' => 'Votre mot de passe n\'est pas suffismeent fort, vous devez mettre au moins 8 caractère dont des majuscules '
+//                    ]),
                     new Length([
                         'min' => 6,
                         'minMessage' => 'Your password should be at least {{ limit }} characters',
