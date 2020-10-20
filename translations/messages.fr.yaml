@@ -41,12 +41,12 @@ user:
     username: Identifiant
     email: Email
     agreeTerms: Termes est conditions
-    discordId: ID Discord
-    twitchId: ID Twitch
+    discordID: ID Discord
+    twitchID: ID Twitch
   placeholder:
     lastname:
     email: avec un @
     firstname:
     username:
     discordID: Pseudo#1234
-    twitchId: Juste ton pseudo twitch
+    twitchID: Juste ton pseudo twitch
