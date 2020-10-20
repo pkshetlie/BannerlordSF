@@ -12,7 +12,10 @@ class ChallengeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title',null,['label'=>'challenge.label.title'])
+            ->add('title',null,['label'=>'challenge.label.title',
+                'attr' => [
+                    'placeholder' => 'challenge.placeholder.title'
+                ]])
             ->add('description',null,['label'=>'challenge.label.description'])
             ->add('type',null,['label'=>'challenge.label.type'])
             ->add('banner',null,['label'=>'challenge.label.banner'])

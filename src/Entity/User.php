@@ -73,6 +73,11 @@ class User implements UserInterface
      */
     private $participations;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $twitchID;
+
     public function __construct()
     {
         $this->userScores = new ArrayCollection();
@@ -271,6 +276,18 @@ class User implements UserInterface
                 $participation->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTwitchID(): ?string
+    {
+        return $this->twitchID;
+    }
+
+    public function setTwitchID(?string $twitchID): self
+    {
+        $this->twitchID = $twitchID;
 
         return $this;
     }

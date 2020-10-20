@@ -49,11 +49,11 @@
         <source>Sign in</source>
         <target>Connexion</target>
       </trans-unit>
-      <trans-unit id="MKNGH_J" resname="Sign up">
+      <trans-unit id="XiuOllA" resname="Sign up">
         <source>Sign up</source>
         <target>Inscription</target>
       </trans-unit>
-      <trans-unit id="j5THnzp" resname="Register">
+      <trans-unit id="u3I07BJ" resname="Register">
         <source>Register</source>
         <target>S'inscrire</target>
       </trans-unit>
@@ -85,11 +85,11 @@
         <source>License</source>
         <target>Licence</target>
       </trans-unit>
-      <trans-unit id="oKfElCT" resname="Firstname">
+      <trans-unit id="ZHz6kbI" resname="Firstname">
         <source>Firstname</source>
         <target>Prénom</target>
       </trans-unit>
-      <trans-unit id="yJpUrXA" resname="Lastname">
+      <trans-unit id="htiPHRy" resname="Lastname">
         <source>Lastname</source>
         <target>Nom</target>
       </trans-unit>
@@ -132,6 +132,10 @@
       <trans-unit id="pq_mHj6" resname="challenge.label.rules">
         <source>challenge.label.rules</source>
         <target>Règles</target>
+      </trans-unit>
+      <trans-unit id="FQn1YfJ" resname="Save">
+        <source>Save</source>
+        <target>__Save</target>
       </trans-unit>
     </body>
   </file>

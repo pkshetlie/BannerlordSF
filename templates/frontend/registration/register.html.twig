@@ -17,14 +17,14 @@
             {{ form_row(registrationForm.firstname) }}
             {{ form_row(registrationForm.username) }}
             {{ form_row(registrationForm.email) }}
-            {{ form_row(registrationForm.discordID) }}
-            
             {{ form_row(registrationForm.plainPassword, {
                 label: 'Password'
             }) }}
             {{ form_row(registrationForm.agreeTerms) }}
         </div>
          <div class="col-6">
+             {{ form_row(registrationForm.twitchID) }}
+             {{ form_row(registrationForm.discordID) }}
             <!-- Here comes the differents id and channels -->
             <!-- Twitch channel  -->
             <!-- Youtube channel  -->
