@@ -1,4 +1,14 @@
 @import "~admin-lte/build/scss/AdminLTE.scss";
 @import "~admin-lte/build/scss/AdminLTE-extra-components";
+@import "~admin-lte/build/scss/AdminLTE-plugins";
+@import "~admin-lte/build/scss/dropdown";
+
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
-@import "~chart.js/dist/Chart.css";
+.slimScrollBar {
+  background-color: white !important;
+  opacity: 0.3 !important;
+}
+
+html .control-sidebar-animate {
+  overflow-x: hidden;
+}
