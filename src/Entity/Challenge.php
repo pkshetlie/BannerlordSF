@@ -105,6 +105,11 @@ class Challenge
         return $this->description;
     }
 
+    public function isOpen(): bool
+    {
+       return $this->getRegistrationOpening() <= new \DateTime() && new \DateTime() <= $this->getRegistrationClosing();
+    }
+
     public function setDescription(string $description): self
     {
         $this->description = $description;
@@ -158,9 +163,9 @@ class Challenge
         return $this->registrationOpening;
     }
 
-    public function setRegistrationOpening(\DateTimeInterface $registrationOpening): self
+    public function setRegistrationOpening(\DateTime $registrationOpening): self
     {
-        $this->registrationOpening = $registrationOpening;
+        $this->registrationOpening = $registrationOpening->setTime(0,0,0);
 
         return $this;
     }
@@ -170,10 +175,9 @@ class Challenge
         return $this->registrationClosing;
     }
 
-    public function setRegistrationClosing(\DateTimeInterface $registrationClosing): self
+    public function setRegistrationClosing(\DateTime $registrationClosing): self
     {
-        $this->registrationClosing = $registrationClosing;
-
+        $this->registrationClosing = $registrationClosing->setTime(23,59,59);
         return $this;
     }
 

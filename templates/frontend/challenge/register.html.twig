@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('home') }}
+{% endblock %}
+{% block body %}
+    <main class="wrapper">
+
+        <section class="section-parallax parallax-background bg1 home-title">
+            <h1>{{ challenge.title }}</h1>
+        </section>
+    </main>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-8">
+                {{ challenge.description }}
+            </div>
+            <div class="col-md-4">
+                <img src="{{ asset('/uploads/challenge/banner/'~challenge.banner) }}" class="img-fluid"
+                     alt="{{ challenge.title }}"/>
+                {{ form(form) }}
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}

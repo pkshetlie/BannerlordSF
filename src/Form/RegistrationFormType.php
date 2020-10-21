@@ -45,7 +45,7 @@ class RegistrationFormType extends AbstractType
                 ]
             ])
             ->add('discordID', null, [
-                'label' => 'user.label.discordId',
+                'label' => 'user.label.discordID',
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'user.placeholder.discordID'
