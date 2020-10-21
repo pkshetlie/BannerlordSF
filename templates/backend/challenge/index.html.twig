@@ -34,7 +34,7 @@
                                 <td>{{ challenge.registrationOpening ? challenge.registrationOpening|date('Y-m-d H:i:s') : '' }}</td>
                                 <td>{{ challenge.registrationClosing ? challenge.registrationClosing|date('Y-m-d H:i:s') : '' }}</td>
                                 <td>{{ challenge.typeStr }}</td>
-                                <td>{{ challenge.participations|length }} / {{ challenge.maxChallenger }}</td>
+                                <td>{{ challenge.validatedParticipations|length }} <span data-toggle="tooltip" title="En attente">(<a href="#">{{ challenge.waitingParticipations|length }}</a>)</span> / {{ challenge.maxChallenger }}</td>
                                 <td>
                                     <a class="btn btn-sm btn-info"
                                        href="{{ path('challenge_admin_edit', {'id': challenge.id}) }}"><i

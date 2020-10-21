@@ -1,4 +1,3 @@
-
 // any CSS you import will output into a single css file (app.css in this case)
 import '../css/backoffice.scss';
 // import moment from 'moment/moment'
@@ -19,8 +18,36 @@ export {
     $
 }
 
-/** petit hack pour bootstrap file form widget */
-$(document).on("change",'[type=file]', function () {
-    let value = $(this).val().replace('C:\\fakepath\\', '').trim();
-    $(this).closest('div').find(".custom-file-label").text("" !== value ? value : $(this).attr('placeholder'));
+$(function () {
+
+    /** petit hack pour bootstrap file form widget */
+    $(document).on("change", '[type=file]', function () {
+        let value = $(this).val().replace('C:\\fakepath\\', '').trim();
+        $(this).closest('div').find(".custom-file-label").text("" !== value ? value : $(this).attr('placeholder'));
+    });
+
+    $(".ajax-link").on('click', function () {
+        var t = $(this);
+
+        $.ajax({
+            url: t.attr('href'),
+            dataType: 'json',
+            type: 'get',
+            success: function (data) {
+                console.log(data);
+                if (data.success) {
+                    if (t.data('replace') === "self") {
+                        t.html(data.replace);
+                    }
+                } else {
+                    Swal({
+                        type: 'error',
+                        message: "La requete a échoué, contactez le developpeur."
+                    });
+                }
+            }
+        });
+        return false;
+    })
+
 });

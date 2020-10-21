@@ -14,6 +14,46 @@
                 </div>
                 <div class="card-body">
                     {{ include('backend/challenge/_form.html.twig', {'button_label': 'Update'}) }}
+
+
+                    <h2>Participations</h2>
+                    <table class="table">
+                        <tr>
+                            <th>Prénom nom (pseudo)</th>
+                            <th>Date d'inscription</th>
+                            <th>Etat</th>
+                        </tr>
+                        {% for participation in challenge.waitingParticipations %}
+                            <tr>
+                                <td>{{ participation.user.fullNameUsername }}</td>
+                                <td>{{ participation.createdAt.format("d/m/Y H:i") }}</td>
+                                <td>
+                                    <a class="ajax-link"
+                                       data-replace="self"
+                                       data-toggle="tooltip"
+                                       title="Changer d'état"
+                                       href="{{ url('challenge_admin_toggle_participation',{id:participation.id}) }}">
+                                        {{ participation.enabled ? "<i class='fas fa-check text-success'></i>" :  "<i class='fas fa-times text-danger'></i>" }}
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        {% for participation in challenge.validatedParticipations %}
+                            <tr>
+                                <td>{{ participation.user.fullNameUsername }}</td>
+                                <td>{{ participation.createdAt.format("d/m/Y H:i") }}</td>
+                                <td>
+                                    <a class="ajax-link"
+                                       data-replace="self"
+                                       data-toggle="tooltip"
+                                       title="Changer d'état"
+                                       href="{{ url('challenge_admin_toggle_participation',{id:participation.id}) }}">
+                                        {{ participation.enabled ? "<i class='fas fa-check text-success'></i>" :  "<i class='fas fa-times text-danger'></i>" }}
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
                 </div>
             </div>
         </div>

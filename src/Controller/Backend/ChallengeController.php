@@ -3,11 +3,13 @@
 namespace App\Controller\Backend;
 
 use App\Entity\Challenge;
+use App\Entity\Participation;
 use App\Form\ChallengeType;
 use App\Repository\ChallengeRepository;
 use Pkshetlie\PaginationBundle\Service\Calcul;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -38,17 +40,33 @@ class ChallengeController extends AbstractController
     /**
      * @Route("/new", name="challenge_admin_new", methods={"GET","POST"})
      * @param Request $request
+     * @param SluggerInterface $slugger
      * @return Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, SluggerInterface $slugger): Response
     {
-        return $this->edit($request, new Challenge());
+        return $this->edit($request, new Challenge(), $slugger);
+    }
+
+    /**
+     * @Route("/toggle-participation/{id}", name="challenge_admin_toggle_participation", methods={"GET","POST"})
+     * @param Request $request
+     * @param Participation $participation
+     * @return Response
+     */
+    public function toggleParticipation(Request $request, Participation $participation): Response
+    {
+        $participation->setEnabled(!$participation->getEnabled());
+        $this->getDoctrine()->getManager()->flush();
+
+        return new JsonResponse(['success' => true, 'replace' => $participation->getEnabled() ? "<i class='fas fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>"]);
     }
 
     /**
      * @Route("/{id}/edit", name="challenge_admin_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Challenge $challenge
+     * @param SluggerInterface $slugger
      * @return Response
      */
     public function edit(Request $request, Challenge $challenge, SluggerInterface $slugger): Response
@@ -66,7 +84,7 @@ class ChallengeController extends AbstractController
                 $originalFilename = pathinfo($banner->getClientOriginalName(), PATHINFO_FILENAME);
                 // this is needed to safely include the file name as part of the URL
                 $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$banner->guessExtension();
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $banner->guessExtension();
 
                 // Move the file to the directory where brochures are stored
                 try {

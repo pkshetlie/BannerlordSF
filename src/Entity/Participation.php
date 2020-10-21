@@ -4,12 +4,14 @@ namespace App\Entity;
 
 use App\Repository\ParticipationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass=ParticipationRepository::class)
  */
 class Participation
 {
+    use TimestampableEntity;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

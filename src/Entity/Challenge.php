@@ -188,6 +188,20 @@ class Challenge
     {
         return $this->participations;
     }
+    /**
+     * @return Collection|Participation[]
+     */
+    public function getWaitingParticipations(): Collection
+    {
+        return $this->participations->filter(function($p){return !$p->getEnabled();});
+    }
+    /**
+     * @return Collection|Participation[]
+     */
+    public function getValidatedParticipations(): Collection
+    {
+        return $this->participations->filter(function($p){return $p->getEnabled();});
+    }
 
     public function addParticipation(Participation $participation): self
     {

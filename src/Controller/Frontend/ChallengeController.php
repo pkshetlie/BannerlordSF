@@ -62,6 +62,9 @@ class ChallengeController extends AbstractController
                 $participation->setUser($user);
                 $participation->setEnabled(false);
                 $user->addParticipation($participation);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($participation);
+                $em->flush();
                 $this->addFlash('success', "Votre demande est soumise à validation d'un membre du staff, vous recevrez un mail dès que celle ci sera validée.");
             } else {
                 $this->addFlash('danger', "Vous devez êtres connecté pour pouvoir vous inscrire.");

@@ -265,6 +265,20 @@ class User implements UserInterface
         return $this->participations;
     }
 
+    /**
+     * @param Challenge $challenge
+     * @return Participation|null
+     */
+    public function getParticipation(Challenge $challenge)
+    {
+        foreach($this->getParticipations() AS $participation){
+            if($participation->getChallenge() === $challenge){
+                return $participation;
+            }
+        }
+        return null;
+    }
+
     public function addParticipation(Participation $participation): self
     {
         if (!$this->participations->contains($participation)) {
@@ -288,6 +302,14 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getFullNameUsername()
+    {
+        return $this->getFirstname()." ".$this->getLastname()." (".$this->getUsername().")";
+}
+public function getFullName()
+    {
+        return $this->getFirstname()." ".$this->getLastname();
+}
     public function getTwitchID(): ?string
     {
         return $this->twitchID;
