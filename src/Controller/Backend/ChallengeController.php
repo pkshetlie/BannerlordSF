@@ -84,7 +84,7 @@ class ChallengeController extends AbstractController
 
             $mailer->send($message);
         }catch(\Exception $e){
-
+$x = $e;
         }
         return new JsonResponse(['success' => true, 'replace' => $participation->getEnabled() ? "<i class='fas fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>"]);
     }
