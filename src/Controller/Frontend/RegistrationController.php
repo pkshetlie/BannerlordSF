@@ -31,7 +31,10 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, UserPasswordAuthenticator $authenticator): Response
     {
         $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user,['action'=>$this->generateUrl('app_register')]);
+        $user->setCreatedAt(new \DateTime());
+        $user->setUpdatedAt(new \DateTime());
+
+        $form = $this->createForm(RegistrationFormType::class, $user, ['action' => $this->generateUrl('app_register')]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -46,19 +49,19 @@ class RegistrationController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-try {
-    // generate a signed url and email it to the user
-    $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-        (new TemplatedEmail())
-            ->from(new Address($this->getParameter('webmaster_email'), $this->getParameter('webmaster_email_name')))
-            ->to($user->getEmail())
-            ->subject('Please Confirm your Email')
-            ->htmlTemplate('frontend/registration/confirmation_email.html.twig')
-    );
-    // do anything else you need here, like send an email
-}catch (\Exception $e){
+            try {
+                // generate a signed url and email it to the user
+                $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+                    (new TemplatedEmail())
+                        ->from(new Address($this->getParameter('webmaster_email'), $this->getParameter('webmaster_email_name')))
+                        ->to($user->getEmail())
+                        ->subject('Please Confirm your Email')
+                        ->htmlTemplate('frontend/registration/confirmation_email.html.twig')
+                );
+                // do anything else you need here, like send an email
+            } catch (\Exception $e) {
 
-}
+            }
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
                 $request,

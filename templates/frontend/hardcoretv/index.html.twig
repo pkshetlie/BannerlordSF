@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('home') }}
+{% endblock %}
+{% block body %}
+<div class="container">
+    <main class="wrapper">
+        <div class="row">
+        {% for entity in entities %}
+            <div class="col-md-3">
+                <h2>{{ entity.TwitchId }}</h2>
+            <iframe
+                    frameborder="0"
+                    scrolling="no"
+                    allowfullscreen="true"
+                    width="100%"
+                    src="https://player.twitch.tv/?muted=true&channel={{ entity.TwitchId }}&parent=bannerlord.hardcore-challenge.com"></iframe>
+            </div>
+        {% endfor %}
+        </div>
+    </main>
+</div>
+{% endblock %}
