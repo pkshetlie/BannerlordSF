@@ -117,7 +117,7 @@ class Challenge
         return $this->type;
     }
 
-    public function getTypeStr(): string
+    public function getTypeStr(): ?string
     {
         return self::Types[$this->type];
     }

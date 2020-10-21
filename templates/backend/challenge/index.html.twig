@@ -13,47 +13,49 @@
                     </h3>
                 </div>
                 <div class="card-body">
+                    <a class="btn btn-success float-right"
+                       href="{{ path('challenge_admin_new') }}">{{ "Create new"|trans }}</a>
+                    <table class="table table-condensed">
+                        <thead>
+                        <tr>
+                            <th>{{ "challenge.label.title"|trans }}</th>
+                            <th>{{ "challenge.label.dateStart"|trans }}</th>
+                            <th>{{ "challenge.label.dateEnd"|trans }}</th>
+                            <th>{{ "challenge.label.type"|trans }}</th>
+                            <th>{{ "challenge.label.challengers"|trans }}</th>
+                            <th>{{ "challenge.label.actions"|trans }}</th>
+                        </tr>
+                        </thead>
 
-
-
-    <a class="btn btn-success float-right" href="{{ path('challenge_admin_new') }}">{{ "Create new"|trans }}</a>
-    <table class="table table-condensed">
-        <thead>
-            <tr>
-                <th>{{ "challenge.label.title"|trans }}</th>
-                <th>{{ "challenge.label.dateStart"|trans }}</th>
-                <th>{{ "challenge.label.dateEnd"|trans }}</th>
-                <th>{{ "challenge.label.type"|trans }}</th>
-                <th>{{ "challenge.label.challengers"|trans }}</th>
-                <th>{{ "challenge.label.actions"|trans }}</th>
-            </tr>
-        </thead>
-
-        <tbody>
-        {% for challenge in paginator.entities %}
-            <tr>
-                <td>{{ challenge.title }}</td>
-                <td>{{ challenge.registrationOpening ? challenge.registrationOpening|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ challenge.registrationClosing ? challenge.registrationClosing|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ challenge.typeStr }}</td>
-                <td>{{ challenge.participations|length }} / {{ challenge.maxChallenger }}</td>
-                <td>
-                    <a class="btn btn-sm btn-info" href="{{ path('challenge_admin_edit', {'id': challenge.id}) }}"><i class="fas fa-edit"></i></a>
-                    <a class="btn btn-sm btn-danger confirm-action" href="{{ path('challenge_admin_delete', {'id': challenge.id}) }}"><i class="fas fa-trash"></i></a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="13">{{ "no records found"|trans }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    {% import "@Pagination/Pagination/macro.twig" as macro_pagination  %}
-    {{ macro_pagination.seeMore(paginator,"Voir plus"|trans) }}
-    </div>
-    </div>
-    </div>
+                        <tbody>
+                        {% for challenge in paginator.entities %}
+                            <tr>
+                                <td>{{ challenge.title }}</td>
+                                <td>{{ challenge.registrationOpening ? challenge.registrationOpening|date('Y-m-d H:i:s') : '' }}</td>
+                                <td>{{ challenge.registrationClosing ? challenge.registrationClosing|date('Y-m-d H:i:s') : '' }}</td>
+                                <td>{{ challenge.typeStr }}</td>
+                                <td>{{ challenge.participations|length }} / {{ challenge.maxChallenger }}</td>
+                                <td>
+                                    <a class="btn btn-sm btn-info"
+                                       href="{{ path('challenge_admin_edit', {'id': challenge.id}) }}"><i
+                                                class="fas fa-edit"></i></a>
+                                    <a class="btn btn-sm btn-danger confirm-action"
+                                       href="{{ path('challenge_admin_delete', {'id': challenge.id}) }}"><i
+                                                class="fas fa-trash"></i></a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="13">{{ "no records found"|trans }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    {% import "@Pagination/Pagination/macro.twig" as macro_pagination %}
+                    {{ macro_pagination.seeMore(paginator,"Voir plus"|trans) }}
+                </div>
+            </div>
+        </div>
     </div>
 
 {% endblock %}
