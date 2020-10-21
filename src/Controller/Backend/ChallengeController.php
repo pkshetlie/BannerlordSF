@@ -54,11 +54,11 @@ class ChallengeController extends AbstractController
      * @param Participation $participation
      * @return Response
      */
-    public function toggleParticipation(Request $request, Participation $participation,\Swift_Mailer $mailer): Response
+    public function toggleParticipation(Request $request, Participation $participation, \Swift_Mailer $mailer): Response
     {
         $participation->setEnabled(!$participation->getEnabled());
         $this->getDoctrine()->getManager()->flush();
-        $message = (new \Swift_Message('Validation de votre inscription au challenge '.$participation->getChallenge()->getTitle()))
+        $message = (new \Swift_Message('Validation de votre inscription au challenge ' . $participation->getChallenge()->getTitle()))
             ->setFrom($this->getParameter('webmaster_email'))
             ->setTo($participation->getUser()->getEmail())
             ->setBody(
@@ -78,13 +78,12 @@ class ChallengeController extends AbstractController
                     ['challenge' => $participation->getChallenge()]
                 ),
                 'text/plain'
-            )
-        ;
+            );
         try {
 
             $mailer->send($message);
-        }catch(\Exception $e){
-$x = $e;
+        } catch (\Exception $e) {
+            $x = $e;
         }
         return new JsonResponse(['success' => true, 'replace' => $participation->getEnabled() ? "<i class='fas fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>"]);
     }
