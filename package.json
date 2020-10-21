@@ -29,6 +29,7 @@
         "moment": "^2.29.1",
         "node-sass": "^4.14.1",
         "popper.js": "^1.16.1",
-        "sass-loader": "8.0.0"
+        "sass-loader": "8.0.0",
+        "trumbowyg": "^2.21.0"
     }
 }

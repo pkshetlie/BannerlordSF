@@ -3,12 +3,16 @@ import '../css/backoffice.scss';
 // import moment from 'moment/moment'
 import $ from 'jquery';
 import 'admin-lte/plugins/jquery-ui/jquery-ui'
-import 'admin-lte/plugins/moment/moment-with-locales.min'
+// import 'admin-lte/plugins/moment/moment-with-locales.min'
 import 'admin-lte/plugins/bootstrap/js/bootstrap.bundle.min'
 import 'admin-lte/plugins/chart.js/Chart.bundle.min'
 import 'admin-lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min'
 // import 'admin-lte/build/js/AdminLTE'
 import 'admin-lte/plugins/summernote/summernote-bs4'
+import 'trumbowyg/dist/trumbowyg.min'
+import 'trumbowyg/dist/langs/fr.min'
+import 'trumbowyg/plugins/table/trumbowyg.table'
+import 'trumbowyg/plugins/allowtagsfrompaste/trumbowyg.allowtagsfrompaste'
 // import 'admin-lte/plugins/chart.js/Chart'
 import 'admin-lte/dist/js/pages/dashboard'
 import 'admin-lte/dist/js/adminlte.min'
@@ -19,7 +23,7 @@ export {
 }
 
 $(function () {
-
+    $.trumbowyg.svgPath = "/build/icons_trumbowyg.svg";
     /** petit hack pour bootstrap file form widget */
     $(document).on("change", '[type=file]', function () {
         let value = $(this).val().replace('C:\\fakepath\\', '').trim();
@@ -49,5 +53,24 @@ $(function () {
         });
         return false;
     })
+    $('#challenge_description').trumbowyg({
+        lang: 'fr',
+        btns: [
+            ['viewHTML'],
+            ['undo', 'redo'], // Only supported in Blink browsers
+            ['formatting'],
+            ['strong', 'em', 'del'],
+            ['superscript', 'subscript'],
+            ['link'],
+            ['insertImage'],
+            ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+            ['unorderedList', 'orderedList'],
+            ['horizontalRule'],
+            ['removeformat'],
+            ['fullscreen']
+        ],
+        plugins: {
 
+        }
+    });
 });
