@@ -8,7 +8,7 @@ use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 /**
- * @Route("/hardcord-tv")
+ * @Route("/hardcore-tv")
  */
 class HardcoreTvController extends AbstractController
 {
