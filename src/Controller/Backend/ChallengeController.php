@@ -49,6 +49,19 @@ class ChallengeController extends AbstractController
     }
 
     /**
+     * @Route("/delete-participation/{id}", name="challenge_admin_delete_participation", methods={"GET","POST"})
+     * @param Request $request
+     * @param Participation $participation
+     * @return Response
+     */
+    public function deleteParticipation(Request $request, Participation $participation, \Swift_Mailer $mailer): Response
+    {
+        $this->getDoctrine()->getManager()->remove($participation);
+
+        return new JsonResponse(['success' => true, 'replace' => ""]);
+    }
+
+    /**
      * @Route("/toggle-participation/{id}", name="challenge_admin_toggle_participation", methods={"GET","POST"})
      * @param Request $request
      * @param Participation $participation

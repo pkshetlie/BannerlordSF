@@ -35,6 +35,13 @@
                                        href="{{ url('challenge_admin_toggle_participation',{id:participation.id}) }}">
                                         {{ participation.enabled ? "<i class='fas fa-check text-success'></i>" :  "<i class='fas fa-times text-danger'></i>" }}
                                     </a>
+                                    <a class="ajax-link"
+                                       data-remove="closestTr"
+                                       data-toggle="tooltip"
+                                       title="Refuser/supprimer"
+                                       href="{{ url('challenge_admin_delete_participation',{id:participation.id}) }}">
+                                        <i class='fas fa-trash text-danger'></i>
+                                    </a>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -49,6 +56,13 @@
                                        title="Changer d'état"
                                        href="{{ url('challenge_admin_toggle_participation',{id:participation.id}) }}">
                                         {{ participation.enabled ? "<i class='fas fa-check text-success'></i>" :  "<i class='fas fa-times text-danger'></i>" }}
+                                    </a>
+                                    <a class="ajax-link"
+                                       data-remove="closestTr"
+                                       data-toggle="tooltip"
+                                       title="Refuser/supprimer"
+                                       href="{{ url('challenge_admin_delete_participation',{id:participation.id}) }}">
+                                        <i class='fas fa-trash text-danger'></i>
                                     </a>
                                 </td>
                             </tr>

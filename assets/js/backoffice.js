@@ -43,6 +43,9 @@ $(function () {
                     if (t.data('replace') === "self") {
                         t.html(data.replace);
                     }
+                    if (t.data('remove') === "closestTr") {
+                        t.closest("tr").remove();
+                    }
                 } else {
                     Swal({
                         type: 'error',
