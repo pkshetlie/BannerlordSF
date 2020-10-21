@@ -2,12 +2,8 @@
 
 namespace App\Controller\Backend;
 
-use App\Entity\Rule;
-use App\Form\RuleType;
-use App\Repository\RuleRepository;
+use App\Entity\User;
 use App\Repository\UserRepository;
-use Pkshetlie\PaginationBundle\Models\Pagination;
-use Pkshetlie\PaginationBundle\PaginationBundle;
 use Pkshetlie\PaginationBundle\Service\Calcul;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -74,19 +70,15 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_admin_delete", methods={"DELETE"})
-     * @param Request $request
-     * @param Rule $rule
+     * @Route("/{id}", name="user_admin_delete", methods={"GET"})
+     * @param User $rule
      * @return Response
      */
-    public function delete(Request $request, Rule $rule): Response
+    public function delete(User $rule): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $rule->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($rule);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('rule_index');
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($rule);
+        $entityManager->flush();
+        return $this->redirectToRoute('user_admin_index');
     }
 }

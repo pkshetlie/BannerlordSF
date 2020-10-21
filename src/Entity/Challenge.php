@@ -12,6 +12,24 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Challenge
 {
+    const TYPE_SOLO = 100;
+    const TYPE_SOLO_MULTI = 150;
+    const TYPE_MULTI = 200;
+    const TYPE_RP = 300;
+
+    const TypesChoices = [
+        "Solo" => Challenge::TYPE_SOLO,
+        "Solo & multi" => Challenge::TYPE_SOLO_MULTI,
+        "Multi" => Challenge::TYPE_MULTI,
+        "RolePlay" => Challenge::TYPE_RP,
+    ];
+    const Types = [
+        Challenge::TYPE_SOLO => "Solo",
+        Challenge::TYPE_SOLO_MULTI => "Solo & multi",
+        Challenge::TYPE_MULTI => "Multi",
+        Challenge::TYPE_RP => "RolePlay",
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -53,11 +71,6 @@ class Challenge
      * @ORM\Column(type="datetime")
      */
     private $registrationClosing;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Rule::class, mappedBy="challenges")
-     */
-    private $rules;
 
     /**
      * @ORM\OneToMany(targetEntity=Participation::class, mappedBy="challenge")
@@ -102,6 +115,11 @@ class Challenge
     public function getType(): ?int
     {
         return $this->type;
+    }
+
+    public function getTypeStr(): string
+    {
+        return self::Types[$this->type];
     }
 
     public function setType(int $type): self
@@ -155,34 +173,6 @@ class Challenge
     public function setRegistrationClosing(\DateTimeInterface $registrationClosing): self
     {
         $this->registrationClosing = $registrationClosing;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Rule[]
-     */
-    public function getRules(): Collection
-    {
-        return $this->rules;
-    }
-
-    public function addRule(Rule $rule): self
-    {
-        if (!$this->rules->contains($rule)) {
-            $this->rules[] = $rule;
-            $rule->addChallenge($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRule(Rule $rule): self
-    {
-        if ($this->rules->contains($rule)) {
-            $this->rules->removeElement($rule);
-            $rule->removeChallenge($this);
-        }
 
         return $this;
     }

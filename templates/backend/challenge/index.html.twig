@@ -16,7 +16,7 @@
 
 
 
-    <a href="{{ path('challenge_new') }}">{{ "Create new"|trans }}</a>
+    <a class="btn btn-success float-right" href="{{ path('challenge_admin_new') }}">{{ "Create new"|trans }}</a>
     <table class="table table-condensed">
         <thead>
             <tr>
@@ -33,13 +33,13 @@
         {% for challenge in paginator.entities %}
             <tr>
                 <td>{{ challenge.title }}</td>
-                <td>{{ challenge.dateStart ? challenge.dateStart|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ challenge.dateEnd ? challenge.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ challenge.type }}</td>
+                <td>{{ challenge.registrationOpening ? challenge.registrationOpening|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ challenge.registrationClosing ? challenge.registrationClosing|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ challenge.typeStr }}</td>
                 <td>{{ challenge.participations|length }} / {{ challenge.maxChallenger }}</td>
                 <td>
-                    <a href="{{ path('challenge_show', {'id': challenge.id}) }}">show</a>
-                    <a href="{{ path('challenge_edit', {'id': challenge.id}) }}">edit</a>
+                    <a class="btn btn-sm btn-info" href="{{ path('challenge_admin_edit', {'id': challenge.id}) }}"><i class="fas fa-edit"></i></a>
+                    <a class="btn btn-sm btn-danger confirm-action" href="{{ path('challenge_admin_delete', {'id': challenge.id}) }}"><i class="fas fa-trash"></i></a>
                 </td>
             </tr>
         {% else %}

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('home') }}
+{% endblock %}
+{% block body %}
+    <div class="container">
+        <main class="wrapper">
+
+            <section class="section-parallax parallax-background bg1 home-title">
+                <h1>Nos challenges</h1>
+            </section>
+
+            <div class="row">
+                {% for entity in paginator.entities %}
+                    <div class="col-md-3">
+                        <h3>{{ entity.title }} ({{ entity.typeStr }})</h3>
+                        <img src="{{ asset('/uploads/challenge/banner/'~entity.banner) }}" class="img-fluid" alt="{{ entity.title }}"/>
+                        {% if is_granted('ROLE_USER') %}
+                            m'inscrire
+                        {% else %}
+                            connectez vous pour vous inscrire
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+
+        </main>
+    </div>
+{% endblock %}

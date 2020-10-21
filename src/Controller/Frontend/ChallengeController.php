@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Backend;
+namespace App\Controller\Frontend;
 
 use App\Entity\Challenge;
 use App\Form\ChallengeType;
@@ -14,12 +14,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
- * @Route("/admin/challenge")
+ * @Route("/challenge")
  */
 class ChallengeController extends AbstractController
 {
     /**
-     * @Route("/", name="challenge_admin_index", methods={"GET"})
+     * @Route("/", name="challenge_index", methods={"GET"})
      * @param Request $request
      * @param ChallengeRepository $challengeRepository
      * @param Calcul $paginationService
@@ -30,7 +30,7 @@ class ChallengeController extends AbstractController
         $qb = $challengeRepository->createQueryBuilder('c')
             ->orderBy('c.registrationOpening', 'DESC');
         $paginator = $paginationService->process($qb, $request);
-        return $this->render('backend/challenge/index.html.twig', [
+        return $this->render('frontend/challenge/index.html.twig', [
             'paginator' => $paginator,
         ]);
     }
@@ -82,6 +82,9 @@ class ChallengeController extends AbstractController
                 // instead of its contents
                 $challenge->setBanner($newFilename);
             }
+
+
+
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($challenge);

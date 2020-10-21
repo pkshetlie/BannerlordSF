@@ -18,3 +18,9 @@ import 'admin-lte/dist/js/demo'
 export {
     $
 }
+
+/** petit hack pour bootstrap file form widget */
+$(document).on("change",'[type=file]', function () {
+    let value = $(this).val().replace('C:\\fakepath\\', '').trim();
+    $(this).closest('div').find(".custom-file-label").text("" !== value ? value : $(this).attr('placeholder'));
+});

@@ -18,7 +18,7 @@ Username: Identifiant
 Password: 'Mot de passe'
 'Remember me': 'Se souvenir'
 'back to list': retour
-Save: __Save
+Save: "Enregistrer"
 
 challenge:
   label:
@@ -34,6 +34,8 @@ challenge:
     registrationOpening: 'Ouverture des inscriptions'
     registrationClosing: 'Fermeture des inscriptions'
     rules: Règles
+  placeholder:
+    title: ''
 user:
   label:
     firstname: Prénom
