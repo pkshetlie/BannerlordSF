@@ -1,9 +1,21 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_backoffice.html.twig' %}
 
-{% block title %}Challenge index{% endblock %}
+{% block title %}{{ "Challenges"|trans }}{% endblock %}
 
-{% block body %}
-    <h1>{{ "Challenges"|trans }}</h1>
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card card-default color-palette-box">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-tag"></i>
+                        {{ "Challenges"|trans }}
+                    </h3>
+                </div>
+                <div class="card-body">
+
+
+
     <a href="{{ path('challenge_new') }}">{{ "Create new"|trans }}</a>
     <table class="table table-condensed">
         <thead>
@@ -18,7 +30,7 @@
         </thead>
 
         <tbody>
-        {% for challenge in challenges %}
+        {% for challenge in paginator.entities %}
             <tr>
                 <td>{{ challenge.title }}</td>
                 <td>{{ challenge.dateStart ? challenge.dateStart|date('Y-m-d H:i:s') : '' }}</td>
@@ -37,5 +49,11 @@
         {% endfor %}
         </tbody>
     </table>
+    {% import "@Pagination/Pagination/macro.twig" as macro_pagination  %}
+    {{ macro_pagination.seeMore(paginator,"Voir plus"|trans) }}
+    </div>
+    </div>
+    </div>
+    </div>
 
 {% endblock %}

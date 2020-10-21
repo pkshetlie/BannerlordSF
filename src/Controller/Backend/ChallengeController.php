@@ -5,6 +5,7 @@ namespace App\Controller\Backend;
 use App\Entity\Challenge;
 use App\Form\ChallengeType;
 use App\Repository\ChallengeRepository;
+use Pkshetlie\PaginationBundle\Service\Calcul;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,23 +17,19 @@ use Symfony\Component\Routing\Annotation\Route;
 class ChallengeController extends AbstractController
 {
     /**
-     * @Route("/test", name="challenge_test", methods={"GET"})
-     * @return Response
-     */
-    public function test(): Response
-    {
-        return $this->render('base_backoffice.html.twig', [
-        ]);
-    }
-    /**
      * @Route("/", name="challenge_index", methods={"GET"})
+     * @param Request $request
      * @param ChallengeRepository $challengeRepository
+     * @param Calcul $paginationService
      * @return Response
      */
-    public function index(ChallengeRepository $challengeRepository): Response
+    public function index(Request $request, ChallengeRepository $challengeRepository, Calcul $paginationService): Response
     {
+        $qb = $challengeRepository->createQueryBuilder('c')
+            ->orderBy('c.registrationOpenning', 'DESC');
+        $paginator = $paginationService->process($qb, $request);
         return $this->render('backend/challenge/index.html.twig', [
-            'challenges' => $challengeRepository->findAll(),
+            'paginator' => $paginator,
         ]);
     }
 

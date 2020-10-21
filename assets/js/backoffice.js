@@ -4,6 +4,7 @@ import '../css/backoffice.scss';
 // import moment from 'moment/moment'
 import $ from 'jquery';
 import 'admin-lte/plugins/jquery-ui/jquery-ui'
+import 'admin-lte/plugins/moment/moment-with-locales.min'
 import 'admin-lte/plugins/bootstrap/js/bootstrap.bundle.min'
 import 'admin-lte/plugins/chart.js/Chart.bundle.min'
 import 'admin-lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min'

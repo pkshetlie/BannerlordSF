@@ -8,29 +8,15 @@
             <a class="home-link navbar-brand" href="/">
                 <i class="fa fa-home"></i>
             </a>
-            
+
             <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
                 {% if is_granted('ROLE_ADMIN') %}
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link" data-toggle="dropdown" role="button">
-                        <i class="ni ni-ui-04 d-lg-none"></i>
-                        <span class="nav-link-inner--text">Administration</span>
-                    </a>
-                    <div class="dropdown-menu fade-down dropdown-menu-xl">
-                        <div class="dropdown-menu-inner">
-                            <a href="{{ url('challenge_index') }}"
-                               class="media d-flex align-items-center">
-                                <div class="icon icon-shape bg-gradient-primary rounded-circle text-white">
-                                    <i class="ni ni-compass-04"></i>
-                                </div>
-                                <div class="media-body ml-3">
-                                    <h6 class="heading text-primary mb-md-1">Les challenges</h6>
-                                    <p class="description d-none d-md-inline-block mb-0">&Ccedil;a commence ici.</p>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </li>
+                    <li class="nav-item">
+                        <a href="{{ url("admin_index") }}" class="nav-link">
+                            <i class="ni ni-collection d-lg-none"></i>
+                            <span class="nav-link-inner--text">Administration</span>
+                        </a>
+                    </li>
                 {% endif %}
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link" data-toggle="dropdown" role="button">
@@ -62,23 +48,25 @@
                 </li>
                 {% if is_granted("ROLE_USER") %}
                     <li class="nav-item dropdown">
-                        <a href="{{ url('app_login') }}" class="nav-link" >
+                        <a href="{{ url('app_login') }}" class="nav-link">
                             <i class="ni ni-collection d-lg-none"></i>
                             <span class="nav-link-inner--text">Mon Compte</span>
                         </a>
 
                     </li>
                 {% else %}
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link" data-toggle="dropdown" role="button">
-                        <i class="ni ni-collection d-lg-none"></i>
-                        <span class="nav-link-inner--text">Mon Compte</span>
-                    </a>
-                    <div class="dropdown-menu">
-                        <a data-target="{{ url('app_register') }}" class="dropdown-item modal-trigger" href="#inscription_modal">Inscription</a>
-                        <a data-target="{{ url('app_login') }}" class="dropdown-item modal-trigger" href="#connexion_modal">Connexion</a>
-                    </div>
-                </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link" data-toggle="dropdown" role="button">
+                            <i class="ni ni-collection d-lg-none"></i>
+                            <span class="nav-link-inner--text">Mon Compte</span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <a data-target="{{ url('app_register') }}" class="dropdown-item modal-trigger"
+                               href="#inscription_modal">Inscription</a>
+                            <a data-target="{{ url('app_login') }}" class="dropdown-item modal-trigger"
+                               href="#connexion_modal">Connexion</a>
+                        </div>
+                    </li>
                 {% endif %}
             </ul>
             <!-- Modals -->

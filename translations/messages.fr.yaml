@@ -43,6 +43,7 @@ user:
     agreeTerms: Termes et conditions
     discordID: ID Discord
     twitchID: ID Twitch
+    createdAt: 'Compte créé le'
   placeholder:
     lastname: ''
     email: avec un @
@@ -50,3 +51,6 @@ user:
     username: ''
     discordID: Pseudo#1234
     twitchID: Juste ton pseudo twitch
+Users: 'Utilisateurs'
+Actions: 'Actions'
+Voir plus: 'Voir plus'
