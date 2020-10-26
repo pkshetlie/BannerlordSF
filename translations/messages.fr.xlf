@@ -47,11 +47,15 @@
       </trans-unit>
       <trans-unit id="v9QCsvb" resname="Sign in">
         <source>Sign in</source>
-        <target>Connexion</target>
+        <target>Déjà membre ?</target>
       </trans-unit>
       <trans-unit id="XiuOllA" resname="Sign up">
         <source>Sign up</source>
-        <target>Inscription</target>
+        <target>Pas de compte ? Inscris-toi !</target>
+      </trans-unit>
+      <trans-unit id="p8I94MJ" resname="Login">
+        <source>Login</source>
+        <target>Se connecter</target>
       </trans-unit>
       <trans-unit id="u3I07BJ" resname="Register">
         <source>Register</source>

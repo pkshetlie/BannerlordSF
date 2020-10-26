@@ -24,6 +24,9 @@
     font-size: 1.2em;
     font-family: 'Montserrat', sans-serif;
     display: flex; }
+    .navbar.navbar-main .nav-link:hover {
+      font-size: 1.25em;
+      font-weight: 600; }
   .navbar.navbar-main .home-link {
     color: #ffffff;
     font-size: 2em;
@@ -83,7 +86,7 @@ footer .other-links a {
  * 09/2020
  */
 .section-parallax {
-  min-height: 300px;
+  min-height: 250px;
   padding: 20px 0; }
 
 .parallax-background {
@@ -108,13 +111,123 @@ footer .other-links a {
 .bg3 {
   background-image: url("../img/img_03.jpg"); }
 
+.login_register_img {
+  background-image: url("../img/login_register.jpg"); }
+
+/**
+ * Style des inputs
+ * Version 1.0
+ * 10/2020
+ */
+.form-group {
+  position: relative;
+  margin-bottom: 45px; }
+  .form-group input {
+    display: block;
+    font-size: 14pt;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0; }
+  .form-group input::placeholder {
+    color: #c3c3c3; }
+  .form-group input:focus {
+    outline: none;
+    border: none;
+    box-shadow: none; }
+  .form-group label {
+    position: absolute;
+    top: 10px;
+    color: #999;
+    font-size: 14pt;
+    font-weight: normal;
+    pointer-events: none;
+    transition: all 0.2s ease; }
+  .form-group input:focus ~ label,
+  .form-group input.active ~ label {
+    top: -12px;
+    font-size: 10pt;
+    color: #5264AE; }
+  .form-group .bar {
+    display: block;
+    position: relative; }
+  .form-group .bar:before,
+  .form-group .bar:after {
+    content: "";
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: #5264AE;
+    transition: all 0.2s ease; }
+  .form-group .bar:before {
+    left: 50%; }
+  .form-group .bar:after {
+    right: 50%; }
+  .form-group input:focus ~ .bar:before,
+  .form-group input:focus ~ .bar:after {
+    width: 50%; }
+
 /**
  * Styles des deux forms (login et inscription)
  * Version 1.0
  * 09/2020
  */
-.content_register label {
-  margin: 10px 0 0; }
+.login-register {
+  padding: 100px 0px; }
+  .login-register .container {
+    position: relative; }
+  .login-register .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: none; }
+  .login-register .title-sign {
+    font-size: 1.5em; }
+  .login-register .card {
+    flex-direction: row;
+    border-radius: 0;
+    padding-top: 50px; }
+  .login-register #registration_container {
+    border-right: 1px solid #f2f2f2; }
+    .login-register #registration_container .custom-control-terms {
+      padding-left: 2.4rem; }
+  .login-register .custom-control label {
+    cursor: pointer; }
+  .login-register .flag {
+    position: absolute;
+    top: -24px;
+    border-radius: 2px;
+    opacity: 0.7;
+    border: 35px solid;
+    border-top-color: #FBB03B;
+    border-bottom-color: #FBB03B; }
+  .login-register .flag-left {
+    left: -35px;
+    border-right-color: #FBB03B;
+    border-left-color: transparent; }
+  .login-register .flag-right {
+    right: -35px;
+    border-right-color: transparent;
+    border-left-color: #FBB03B; }
+  .login-register .flag-center {
+    width: calc(100% - 13px);
+    height: 55px;
+    background-color: #FBB03B;
+    position: absolute;
+    z-index: 1;
+    top: -31px;
+    left: 5px;
+    border-radius: 2px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    .login-register .flag-center > * {
+      margin: 0rem; }
+  @media screen and (max-width: 767px) {
+    .login-register .card > .row {
+      flex-direction: column-reverse; } }
 
 /**
  * Styles de la page d'accueil
@@ -160,6 +273,94 @@ footer .other-links a {
 .home-don img {
   width: 300px;
   background-color: #ffffff; }
+
+/**
+ * Styles de la page listant les challenges
+ * Version 1.0
+ * 10/2020
+ */
+.challenges-list .card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  margin: 15px 0; }
+
+.challenges-list .card-img {
+  background-color: grey; }
+
+.challenges-list .card-title {
+  text-align: center;
+  font-weight: 600; }
+
+.challenges-list .card-body {
+  min-height: 257px; }
+
+.challenges-list .card-calendar {
+  width: 26px;
+  margin-right: 15px; }
+
+.challenges-list .card-text {
+  display: flex;
+  justify-content: center; }
+  .challenges-list .card-text .dates-challenges {
+    display: flex;
+    flex-direction: column; }
+    .challenges-list .card-text .dates-challenges label {
+      margin: 0;
+      font-weight: 600;
+      font-size: 0.75em;
+      display: flex; }
+
+.challenges-list .card-ringbell {
+  width: 44px;
+  position: absolute;
+  left: 0; }
+
+.challenges-list .card-buttons {
+  margin-top: 20px; }
+  .challenges-list .card-buttons .btn-custom {
+    padding: 10px 13px; }
+  .challenges-list .card-buttons .btn {
+    width: 100%; }
+  .challenges-list .card-buttons .btn-cash {
+    background-color: #00B42A;
+    color: #ffffff;
+    text-align: center;
+    padding: 5px;
+    width: 100%; }
+    .challenges-list .card-buttons .btn-cash label {
+      margin-bottom: 0.2rem; }
+  .challenges-list .card-buttons .progress {
+    background-color: #cfcfcf; }
+  .challenges-list .card-buttons .progress-bar {
+    background-color: #00B42A; }
+  .challenges-list .card-buttons .nb-inscrit {
+    font-weight: 600;
+    margin: 5px 0 0 0; }
+  .challenges-list .card-buttons .btn-cash {
+    background-color: #00B42A;
+    border: 1px solid #00B42A; }
+  .challenges-list .card-buttons .btn-in-coming {
+    color: #ffffff;
+    background-color: #707070;
+    padding: 10px; }
+    .challenges-list .card-buttons .btn-in-coming label {
+      margin: 0; }
+  .challenges-list .card-buttons .btn-bottom-right {
+    background-color: #707070;
+    border: 1px solid #707070; }
+    .challenges-list .card-buttons .btn-bottom-right:hover {
+      background-color: #ffffff;
+      color: #707070; }
+
+.challenges-list .challenge-not-active img {
+  opacity: 0.4; }
+
+.challenges-list .challenge-not-active .card-buttons .btn-bottom-right, .challenges-list .challenge-not-active .card-buttons .btn-cash {
+  background-color: #b94e4e;
+  border: 1px solid #b94e4e; }
+
+.challenges-list .challenge-not-active .card-buttons .btn-bottom-right:hover {
+  background-color: #ffffff;
+  color: #b94e4e; }
 
 /*!
  * Bootstrap v4.5.2 (https://getbootstrap.com/)
@@ -7324,17 +7525,24 @@ body {
   font-weight: 600; }
 
 /* Buttons */
-.btn-green {
-  background-color: #00B42A;
-  border: 1px solid #00B42A;
-  border-radius: 25px;
+.btn-custom {
+  border-radius: 0;
   line-height: 1;
   color: white;
   transition: 0.2s;
-  padding: 5px 15px; }
-  .btn-green:hover {
-    background-color: #ffffff;
-    color: #00B42A; }
+  padding: 10px 20px; }
+  .btn-custom.btn-green {
+    background-color: #00B42A;
+    border: 1px solid #00B42A; }
+    .btn-custom.btn-green:hover {
+      background-color: #ffffff;
+      color: #00B42A; }
+  .btn-custom.btn-grey {
+    background-color: #707070;
+    border: 1px solid #707070; }
+    .btn-custom.btn-grey:hover {
+      background-color: #ffffff;
+      color: #707070; }
 
 /* Social links */
 .nav-link-social .fa {

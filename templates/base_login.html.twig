@@ -1,26 +1,19 @@
-<!--
-=========================================================
-* Argon Design System - v1.2.0
-=========================================================
+{% extends 'base.html.twig' %}
+{% block body %}
+    <main class="wrapper">
 
-* Product Page: https://www.creative-tim.com/product/argon-design-system
-* Copyright 2020 Creative Tim (http://www.creative-tim.com)
-
-Coded by www.creative-tim.com
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
-<!DOCTYPE html>
-<div class="card bg-secondary shadow border-0">
-        {% block login_form %}
-        {% endblock %}
-</div>
-<div class="row footer-modal">
-    <div class="col-6">
-        <a href="#"><small>{{ "Forgot password?"|trans }}</small></a>
-    </div>
-    <div class="col-6 text-right">
-        <a href="#"><small> {{ "Create new account"|trans }}</small></a>
-    </div>
-</div>
+        <section class="section-parallax parallax-background login_register_img login-register">
+            <div class="container">
+                <div class="flag-center"><h2>Rejoins-nous !</h2></div>
+                <i class="flag flag-right"></i>
+                <i class="flag flag-left"></i>
+                <div class="card shadow border-0 col-12 px-lg-5 py-lg-5">
+                    <div class="row">
+                        {% block login_form %}
+                        {% endblock %}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

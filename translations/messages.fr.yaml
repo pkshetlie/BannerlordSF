@@ -2,8 +2,10 @@
 Challenges: Challenges
 'Create new': Nouveau
 'no records found': 'aucun enregistrement trouvé'
-'Sign in': Connexion
-'Sign up': Inscription
+'Sign in': Déjà membre ?
+'Sign up': >
+  Pas de compte ?
+  Inscris-toi !
 Register: 'S''inscrire'
 'Forgot password?': 'Mot de passe oublié ?'
 'Create new account': 'Créer un compte'

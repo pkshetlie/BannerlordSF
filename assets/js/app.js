@@ -48,7 +48,7 @@ $(() => {
         });
     });
 
-    $('.modal-trigger').click(function () {
+    /*$('.modal-trigger').click(function () {
         $('#sign_modal .modal-content').html('<div class="loading-container"><div class="sb-loading sb-loading--blue"></div></div>');
         $('#sign_modal .modal-content').css('min-height', '340px');
         $('#sign_modal').modal();
@@ -57,6 +57,19 @@ $(() => {
         $.get(url, function (data) {
             $('.modal-content').html(data);
             $('#inscription_modal').modal();
+        });
+    });*/
+
+    /* --- GESTION INPUT --- */
+    $('.form-group').each(function() {
+        if($(this).find('input').val() != '') {
+            $(this).find('input').addClass('active');
+        }
+
+        $(this).find('input').blur(function(){
+            if($(this).find('input').val() == '') {
+                $(this).removeClass('active');
+            }
         });
     });
 });

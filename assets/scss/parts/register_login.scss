@@ -4,8 +4,85 @@
  * 09/2020
  */
 
-.content_register {
-    label {
-        margin: 10px 0 0;
+.login-register {
+    padding: 100px 0px;
+
+    .container {
+        position: relative;
+    }
+
+    .card-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: none;
+    }
+
+    .title-sign {
+        font-size: 1.5em;
+    }
+
+    .card {
+        flex-direction: row;
+        border-radius: 0;
+        padding-top: 50px;
+    }
+    
+    #registration_container {
+        border-right: 1px solid $light-grey;
+
+        .custom-control-terms {
+            padding-left: 2.4rem;
+        }
+    }
+
+    .custom-control label {
+        cursor: pointer;
+    }
+
+    .flag {
+        position: absolute;
+        top: -24px;
+        border-radius: 2px;
+        opacity: 0.7;
+        border: 35px solid;
+        border-top-color: $pastel-orange;
+        border-bottom-color: $pastel-orange;
+    }
+
+    .flag-left {
+        left: -35px;
+        border-right-color: $pastel-orange;
+        border-left-color: transparent;
+    }
+
+    .flag-right {
+        right: -35px;
+        border-right-color: transparent;
+        border-left-color: $pastel-orange;
+    }
+
+    .flag-center {
+        width: calc(100% - 13px);
+        height: 55px;
+        background-color: $pastel-orange;
+        position: absolute;
+        z-index: 1;
+        top: -31px;
+        left: 5px;
+        border-radius: 2px;
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        > * {
+            margin: 0rem;
+        }
+    }
+
+    @media screen and (max-width: 767px) {
+        .card > .row {
+            flex-direction: column-reverse;
+        }
     }
 }

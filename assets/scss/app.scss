@@ -8,6 +8,11 @@
  $black: #000000;
  $white: #ffffff;
  $light-grey: #f2f2f2;
+ $grey: #cfcfcf;
+ $dark-grey: #707070;
+ $pastel-red: #b94e4e;;
+
+ $pastel-orange: #FBB03B;
 
 /*
  * IMPORTS
@@ -16,8 +21,10 @@
 @import "parts/header.scss";
 @import "parts/footer.scss";
 @import "parts/parallax.scss";
+@import "parts/input.scss";
 @import "parts/register_login.scss";
 @import "parts/home.scss";
+@import "parts/challenges.scss";
 
 // Bootstrap Functions
 @import "./node_modules/bootstrap/scss/functions";
@@ -35,19 +42,32 @@ body {
 }
 
 /* Buttons */
-.btn-green {
-    background-color: $green;
-    border: 1px solid $green;
-    border-radius: 25px;
+.btn-custom {
+    border-radius: 0;
     line-height: 1;
     color: white;
     transition: 0.2s;
-    padding: 5px 15px;
-    &:hover {
-        background-color: $white;
-        color: $green;
+    padding: 10px 20px;
+    &.btn-green {
+        background-color: $green;
+        border: 1px solid $green;
+        &:hover {
+            background-color: $white;
+            color: $green;
+        }
+    }
+    
+    &.btn-grey {
+        background-color: $dark-grey;
+        border: 1px solid $dark-grey;
+        &:hover {
+            background-color: $white;
+            color: $dark-grey;
+        }
     }
 }
+
+
 
 /* Social links */
 .nav-link-social .fa {

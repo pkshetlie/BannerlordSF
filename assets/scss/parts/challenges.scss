@@ -1,0 +1,117 @@
+/**
+ * Styles de la page listant les challenges
+ * Version 1.0
+ * 10/2020
+ */
+
+ .challenges-list {
+     .card {
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+        margin: 15px 0;
+     }
+    .card-img {
+        background-color: grey; 
+    }
+    
+    .card-title {
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .card-body {
+        min-height: 257px;
+    }
+
+    .card-calendar {
+        width: 26px;
+        margin-right: 15px;
+    }
+
+    .card-text {
+        display: flex;
+        justify-content: center;
+        .dates-challenges {
+            display: flex;
+            flex-direction: column;
+            label {
+                margin: 0;
+                font-weight: 600;
+                font-size: 0.75em;
+                display: flex;
+            }
+        }
+    }
+
+    .card-ringbell {
+        width: 44px;
+        position: absolute;
+        left: 0;
+    }
+
+    .card-buttons {
+        margin-top: 20px;
+        .btn-custom {
+            padding: 10px 13px;
+        }
+        .btn {
+            width: 100%;
+        }
+        .btn-cash {
+            background-color: $green;
+            color: $white;
+            text-align: center;
+            padding: 5px;
+            width: 100%;
+            label {
+                margin-bottom: 0.2rem;
+            }
+        }
+        .progress {
+            background-color: $grey;
+        }
+        .progress-bar {
+            background-color: $green;
+        }
+        .nb-inscrit {
+            font-weight: 600;
+            margin: 5px 0 0 0;
+        }
+        .btn-cash {
+            background-color: $green;
+            border: 1px solid $green;
+        }
+        .btn-in-coming {
+            color: $white;
+            background-color: $dark-grey;
+            padding: 10px;
+            label {
+                margin: 0;
+            }
+        }
+        .btn-bottom-right {
+            background-color: $dark-grey;
+            border: 1px solid $dark-grey;
+            &:hover {
+                background-color: $white;
+                color: $dark-grey;
+            }
+        }
+    }
+
+    .challenge-not-active {
+        img {
+           opacity: 0.4;
+        }
+        .card-buttons {
+            .btn-bottom-right, .btn-cash {
+                background-color: $pastel-red;
+                border: 1px solid $pastel-red;
+            }
+            .btn-bottom-right:hover {
+                background-color: $white;
+                color: $pastel-red;
+            }
+        }
+    }
+    
+ }
