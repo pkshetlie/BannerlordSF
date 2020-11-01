@@ -3,6 +3,7 @@
 namespace App\Controller\Backend;
 
 use App\Entity\User;
+use App\Form\RegistrationAdminType;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use Pkshetlie\PaginationBundle\Service\Calcul;
@@ -59,18 +60,19 @@ class UserController extends AbstractController
      */
     public function edit(Request $request, User $user, UserPasswordEncoderInterface $passwordEncoder): Response
     {
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(RegistrationAdminType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $user->setPassword(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
-
+            if($form->get('plainPassword')->getData() != null) {
+                $user->setPassword(
+                    $passwordEncoder->encodePassword(
+                        $user,
+                        $form->get('plainPassword')->getData()
+                    )
+                );
+            }
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();

@@ -4,6 +4,11 @@ security:
             algorithm: auto
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    role_hierarchy:
+        ROLE_ARBITRE: ROLE_USE
+        ROLE_ADMIN: ROLE_ARBITRE
+        ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
+
     providers:
         # used to reload user from session & other features (e.g. switch_user)
         app_user_provider:

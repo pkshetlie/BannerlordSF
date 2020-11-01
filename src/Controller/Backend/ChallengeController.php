@@ -6,6 +6,7 @@ use App\Entity\Challenge;
 use App\Entity\Participation;
 use App\Form\ChallengeType;
 use App\Repository\ChallengeRepository;
+use App\Repository\UserRepository;
 use Pkshetlie\PaginationBundle\Service\Calcul;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -58,7 +59,10 @@ class ChallengeController extends AbstractController
     {
         $this->getDoctrine()->getManager()->remove($participation);
 
-        return new JsonResponse(['success' => true, 'replace' => ""]);
+        return new JsonResponse([
+            'success' => true,
+            'replace' => ""
+        ]);
     }
 
     /**
@@ -98,7 +102,10 @@ class ChallengeController extends AbstractController
         } catch (\Exception $e) {
             $x = $e;
         }
-        return new JsonResponse(['success' => true, 'replace' => $participation->getEnabled() ? "<i class='fas fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>"]);
+        return new JsonResponse([
+            'success' => true,
+            'replace' => $participation->getEnabled() ? "<i class='fas fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>"
+        ]);
     }
 
     /**
@@ -108,7 +115,7 @@ class ChallengeController extends AbstractController
      * @param SluggerInterface $slugger
      * @return Response
      */
-    public function edit(Request $request, Challenge $challenge, SluggerInterface $slugger): Response
+    public function edit(Request $request, Challenge $challenge, SluggerInterface $slugger, UserRepository $userRepository): Response
     {
         $form = $this->createForm(ChallengeType::class, $challenge);
         $form->handleRequest($request);
@@ -147,9 +154,41 @@ class ChallengeController extends AbstractController
             return $this->redirectToRoute('challenge_admin_index');
         }
 
+        $arbitres = $userRepository->createQueryBuilder('u')
+            ->where('u.roles LIKE :employee')
+            ->setParameter('employee', '%ROLE_ARBITRE%')
+            ->orderBy("u.username")
+            ->getQuery()->getResult();
         return $this->render('backend/challenge/create_edit.html.twig', [
             'challenge' => $challenge,
             'form' => $form->createView(),
+            'arbitres' => $arbitres,
+        ]);
+    }
+
+    /**
+     * @Route("/arbitre/change/{id}", name="change_arbitre")
+     * @param Request $request
+     * @param Participation $participation
+     */
+    public function changeArbitre(Request $request, Participation $participation, UserRepository $userRepository)
+    {
+        $arbitre = $userRepository->find($request->get('arbitre'));
+        if ($arbitre != null) {
+            $participation->setArbitre($arbitre);
+            $this->getDoctrine()->getManager()->flush();
+            return new JsonResponse([
+                'success' => true,
+                "message" => ""
+            ]);
+        }else{
+            $participation->setArbitre(null);
+            $this->getDoctrine()->getManager()->flush();
+
+        }
+        return new JsonResponse([
+            'success' => false,
+            "message" => "Arbitre non trouvé."
         ]);
     }
 

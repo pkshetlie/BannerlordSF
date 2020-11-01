@@ -81,10 +81,16 @@ class User implements UserInterface
      */
     private $twitchID;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Participation::class, mappedBy="arbitre")
+     */
+    private $arbitreOf;
+
     public function __construct()
     {
         $this->userScores = new ArrayCollection();
         $this->participations = new ArrayCollection();
+        $this->arbitreOf = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -318,6 +324,37 @@ public function getFullName()
     public function setTwitchID(?string $twitchID): self
     {
         $this->twitchID = $twitchID;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Participation[]
+     */
+    public function getArbitreOf(): Collection
+    {
+        return $this->arbitreOf;
+    }
+
+    public function addArbitreOf(Participation $arbitreOf): self
+    {
+        if (!$this->arbitreOf->contains($arbitreOf)) {
+            $this->arbitreOf[] = $arbitreOf;
+            $arbitreOf->setArbitre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArbitreOf(Participation $arbitreOf): self
+    {
+        if ($this->arbitreOf->contains($arbitreOf)) {
+            $this->arbitreOf->removeElement($arbitreOf);
+            // set the owning side to null (unless already changed)
+            if ($arbitreOf->getArbitre() === $this) {
+                $arbitreOf->setArbitre(null);
+            }
+        }
 
         return $this;
     }

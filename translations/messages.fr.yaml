@@ -44,6 +44,7 @@ user:
     lastname: Nom
     username: Identifiant
     email: Email
+    roles: Roles
     agreeTerms: Termes et conditions
     discordID: ID Discord
     twitchID: ID Twitch
@@ -51,6 +52,7 @@ user:
   placeholder:
     lastname: ''
     email: avec un @
+    roles: Roles dans l'équipe
     firstname: ''
     username: ''
     discordID: Pseudo#1234

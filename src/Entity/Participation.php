@@ -36,6 +36,11 @@ class Participation
      */
     private $enabled;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="arbitreOf")
+     */
+    private $arbitre;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -73,6 +78,18 @@ class Participation
     public function setEnabled(bool $enabled): self
     {
         $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    public function getArbitre(): ?User
+    {
+        return $this->arbitre;
+    }
+
+    public function setArbitre(?User $arbitre): self
+    {
+        $this->arbitre = $arbitre;
 
         return $this;
     }

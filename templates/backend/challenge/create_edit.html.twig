@@ -21,6 +21,7 @@
                         <tr>
                             <th>Prénom nom (pseudo)</th>
                             <th>Date d'inscription</th>
+                            <th>Arbitre</th>
                             <th>Etat</th>
                         </tr>
                         {% for participation in challenge.waitingParticipations %}
@@ -50,6 +51,14 @@
                                 <td>{{ participation.user.fullNameUsername }}</td>
                                 <td>{{ participation.createdAt.format("d/m/Y H:i") }}</td>
                                 <td>
+                                    <select name="arbitre" class="arbitre form-control" data-change-url="{{ url('change_arbitre',{id:participation.id}) }}">
+                                        <option value="">-- non défini --</option>
+                                        {% for arbitre in  arbitres %}
+                                            <option {% if participation.arbitre is not null and arbitre.id == participation.arbitre.id %}selected="selected"{% endif %} value="{{  arbitre.id }}">{{ arbitre.username }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                                <td>
                                     <a class="ajax-link"
                                        data-replace="self"
                                        data-toggle="tooltip"
@@ -72,4 +81,10 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+    {{ encore_entry_script_tags('bo_challenge') }}
+
 {% endblock %}

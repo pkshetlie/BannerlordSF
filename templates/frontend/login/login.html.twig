@@ -4,135 +4,138 @@
 
 {% block login_form %}
 
-<!-- Titles -->
+    <!-- Titles -->
 
 
 
-<!-- ======================================= REGISTER ======================================== -->
+    <!-- ======================================= REGISTER ======================================== -->
 
-<div id="registration_container" class="col-12 col-md-6">
-    <div class="card-header bg-white">
-        <p class="title-sign text-center ">{{ "Sign up"|trans }}</p>
-    </div>
-    <div class="card-body">
-        <form action="{{ url("app_login") }}" method="post" role="form" class="d-flex flex-wrap">
+    <div id="registration_container" class="col-12 col-md-6">
+        <div class="card-header bg-white">
+            <p class="title-sign text-center ">{{ "Sign up"|trans }}</p>
+        </div>
+        <div class="card-body">
+            {{ form_start(registration_form) }}
             {% for flashError in app.flashes('verify_email_error') %}
                 <div class="alert alert-danger" role="alert">{{ flashError }}</div>
             {% endfor %}
-
-            <div class="form-group col-6 mb-4">
-                <input type="text" id="registration_form_lastname" name="registration_form[lastname]" required="required" maxlength="255" placeholder="" class="form-control">
-                <span class="highlight"></span>
-		        <span class="bar"></span>
-                <label for="registration_form_lastname" class="required">Nom</label>
-            </div>
-            
-            <div class="form-group col-6 mb-4">
-                <input type="text" id="registration_form_firstname" name="registration_form[firstname]" required="required" maxlength="255" placeholder="" class="form-control">
-                <span class="highlight"></span>
-		        <span class="bar"></span>
-                <label for="registration_form_firstname" class="required">Prénom</label>
-            </div>
-            
-            <div class="form-group col-12 mb-4">
-                <input type="text" id="registration_form_username" name="registration_form[username]" required="required" maxlength="180" placeholder="" class="form-control">
-                <span class="highlight"></span>
-		        <span class="bar"></span>
-                <label for="registration_form_username" class="required">Identifiant</label>
-            </div>
-            
-            <div class="form-group col-12 mb-4">
-                <input type="text" id="registration_form_email" name="registration_form[email]" required="required" maxlength="180" onfocus="this.placeholder = 'avec un @'" onblur="this.placeholder = ''" class="form-control">
-                <span class="highlight"></span>
-		        <span class="bar"></span>
-                <label for="registration_form_email" class="required">Email</label>
-            </div>
-            
-            <div class="form-group col-12 mb-4">
-                <input type="password" id="registration_form_plainPassword" name="registration_form[plainPassword]" required="required" class="form-control">
-                <span class="highlight"></span>
-		        <span class="bar"></span>
-                <label for="registration_form_plainPassword" class="required">Mot de passe</label>
-            </div>
-
-            <div class="form-group col-12 mb-4">
-                <input type="text" id="registration_form_twitchID" name="registration_form[twitchID]" maxlength="255" onfocus="this.placeholder = 'Juste ton pseudo twitch'" onblur="this.placeholder = ''" class="form-control">
-                <span class="highlight"></span>
-		        <span class="bar"></span>
-                <label for="registration_form_twitchID">ID Twitch</label>
-            </div>
-
-            <div class="form-group col-12 mb-4">
-                <input type="text" id="registration_form_discordID" name="registration_form[discordID]" maxlength="255" onfocus="this.placeholder = 'Pseudo#1234'" onblur="this.placeholder = ''" class="form-control">
-                <span class="highlight"></span>
-		        <span class="bar"></span>
-                <label for="registration_form_discordID">ID Discord</label>
-            </div>
-
-            <div class="custom-control custom-control-alternative custom-checkbox custom-control-terms col-12 mb-5">
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                <input class="custom-control-input" name="registration_form[agreeTerms]" id=" registration_form_agreeTerms" type="checkbox" required="required">
-                <label class="custom-control-label" for=" registration_form_agreeTerms"><span>Termes et conditions</span></label>
-            </div>
-
-            <div class="col-12 text-center">
-                <button type="submit" class="btn btn-custom btn-green">{{ "Register"|trans }}</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- ======================================= LOGIN ======================================== -->
-
-<div id="login_container" class="col-12 col-md-6">
-    <div class="card-header bg-white">
-        <p class="title-sign text-center ">{{ "Sign in"|trans }}</p>
-    </div>
-    <div class="card-body col-9 m-auto">
-        <form action="{{ url("app_login") }}" method="post" role="form">
-            {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
-
-            {% if app.user %}
-                <div class="mb-3">
-                    You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+            <div class="row">
+                <div class="form-group col-md-6 mb-4">
+                    {{ form_widget(registration_form.lastname) }}
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label for="registration_form_lastname" class="required">Nom</label>
                 </div>
-            {% endif %}
 
-            <div class="form-group mb-5">
-                <input type="text" value="{{ last_username }}" name="username" id="inputEmail" class="form-control" required>
-                <span class="highlight"></span>
-		        <span class="bar"></span>
-                <label for="registration_form_lastname" class="required">{{ "Username"|trans }}</label>
-            </div>
+                <div class="form-group col-md-6 mb-4">
+                    {{ form_widget(registration_form.firstname) }}
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label for="registration_form_firstname" class="required">Prénom</label>
+                </div>
 
-            <div class="form-group focused mb-3">
-                <input type="password" name="password" id="inputPassword" class="form-control" required/>
-                <span class="highlight"></span>
-		        <span class="bar"></span>
-                <label for="registration_form_lastname" class="required">{{ "Password"|trans }}</label>
-            </div>
+                <div class="form-group col-12 mb-4">
+                    {{ form_widget(registration_form.username) }}
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label for="registration_form_username" class="required">Identifiant</label>
+                </div>
 
-            <div class="custom-control custom-control-alternative custom-checkbox mb-5">
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                <input class="custom-control-input" name="_remember_me" id=" customCheckLogin" type="checkbox">
-                <label class="custom-control-label" for=" customCheckLogin"><span>{{ "Remember me"|trans }}</span></label>
-            </div>
-            
-            <div class="text-center mb-5">
-                <button type="submit" class="btn btn-custom btn-green">{{ "Login"|trans }}</button>
-            </div>
+                <div class="form-group col-12 mb-4">
+                    {{ form_widget(registration_form.email) }}
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label for="registration_form_email" class="required">Email</label>
+                </div>
 
-            <div class="row justify-content-center">
-                <a href="#"><small>{{ "Forgot password?"|trans }}</small></a>
+                <div class="form-group col-12 mb-4">
+                    {{ form_widget(registration_form.plainPassword) }}
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label for="registration_form_plainPassword" class="required">Mot de passe</label>
+                </div>
+
+                <div class="form-group col-12 mb-4">
+                    {{ form_widget(registration_form.twitchID) }}
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label for="registration_form_twitchID">ID Twitch</label>
+                </div>
+
+                <div class="form-group col-12 mb-4">
+                    {{ form_widget(registration_form.discordID) }}
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label for="registration_form_discordID">ID Discord</label>
+                </div>
+
+                <div class="custom-control custom-control-alternative custom-checkbox custom-control-terms col-12 mb-5">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                    {{ form_widget(registration_form.agreeTerms) }}
+                </div>
+
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-custom btn-green">{{ "Register"|trans }}</button>
+                </div>
+                {{ form_end(registration_form) }}
             </div>
+        </div>
+    </div>
+
+    <!-- ======================================= LOGIN ======================================== -->
+
+    <div id="login_container" class="col-12 col-md-6">
+        <div class="card-header bg-white">
+            <p class="title-sign text-center ">{{ "Sign in"|trans }}</p>
+        </div>
+        <div class="card-body col-9 m-auto">
+            <form action="{{ url("app_login") }}" method="post" role="form">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                {% if app.user %}
+                    <div class="mb-3">
+                        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                {% endif %}
+
+                <div class="form-group mb-5">
+                    <input type="text" value="{{ last_username }}" name="username" id="inputEmail" class="form-control"
+                           required>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label for="registration_form_lastname" class="required">{{ "Username"|trans }}</label>
+                </div>
+
+                <div class="form-group focused mb-3">
+                    <input type="password" name="password" id="inputPassword" class="form-control" required/>
+                    <span class="highlight"></span>
+                    <span class="bar"></span>
+                    <label for="registration_form_lastname" class="required">{{ "Password"|trans }}</label>
+                </div>
+
+                <div class="custom-control custom-control-alternative custom-checkbox mb-5">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <input class="custom-control-input" name="_remember_me" id=" customCheckLogin" type="checkbox">
+                    <label class="custom-control-label"
+                           for=" customCheckLogin"><span>{{ "Remember me"|trans }}</span></label>
+                </div>
+
+                <div class="text-center mb-5">
+                    <button type="submit" class="btn btn-custom btn-green">{{ "Login"|trans }}</button>
+                </div>
+
+                <div class="row justify-content-center">
+                    <a href="#"><small>{{ "Forgot password?"|trans }}</small></a>
+                </div>
                 <!--<div class="col-6 text-right">
                     <a href="#"><small> {{ "Create new account"|trans }}</small></a>
                 </div>-->
-            </div>
+        </div>
     </div>
-</div>
+    </div>
 
 {% endblock %}
 

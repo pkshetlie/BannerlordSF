@@ -2,6 +2,7 @@
 
 namespace App\Controller\Frontend;
 
+use App\Form\RegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,8 +23,12 @@ class LoginController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
-
-        return $this->render('frontend/login/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        $registerForm = $this->createForm(RegistrationFormType::class,null,['action'=>$this->generateUrl('app_register')]);
+        return $this->render('frontend/login/login.html.twig', [
+            'registration_form' => $registerForm->createView(),
+            'last_username' => $lastUsername,
+            'error' => $error
+        ]);
     }
 
     /**

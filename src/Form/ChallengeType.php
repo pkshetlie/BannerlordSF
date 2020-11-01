@@ -3,8 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Challenge;
+use App\Entity\ChallengeDate;
+use phpDocumentor\Reflection\Types\Collection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -60,6 +63,9 @@ class ChallengeType extends AbstractType
             ->add('registrationClosing', DateType::class, [
                 'format' => DateType::HTML5_FORMAT,
                 'widget' => 'single_text',
+                'label' => 'challenge.label.registrationClosing'
+            ])->add('challengeDates', CollectionType::class, [
+                'class'=>ChallengeDate::class,
                 'label' => 'challenge.label.registrationClosing'
             ]);
     }
