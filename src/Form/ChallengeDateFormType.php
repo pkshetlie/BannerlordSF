@@ -15,14 +15,11 @@ class ChallengeDateFormType extends AbstractType
     {
         $builder
             ->add('startDate', DateTimeType::class, [
-//                'format' => DateType::HTML5_FORMAT,
-//                'widget' => 'single_text',
                 'widget' => 'single_text',
                 'input' => "datetime",
                 "empty_data" => '',
             ])
             ->add('endDate', DateTimeType::class, [
-//                'format' => DateType::HTML5_FORMAT,
                 'widget' => 'single_text',
                 'input' => "datetime",
                 "empty_data" => '',

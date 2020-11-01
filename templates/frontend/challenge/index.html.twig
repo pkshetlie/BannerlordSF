@@ -28,8 +28,9 @@
                                         <i class="fa fa-2x fa-calendar ml-2"></i>
                                         </div>
                                         <div class="dates-challenges">
-                                            <label>05 SEPT.2020 : 14h00 - 22h00</label>
-                                            <label>06 SEPT.2020 : 14h00 - 22h00</label>
+                                            {% for dates in entity.challengeDates  %}
+                                            <label>{{ dates.startDate.format('d M. H:i') }} - {{ dates.endDate.format('d M. H:i') }} </label>
+                                            {% endfor %}
                                         </div>
                                     </div>
                                     <div class="card-buttons row">
