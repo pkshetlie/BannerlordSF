@@ -19,8 +19,12 @@ class ArbitrageController extends AbstractController
     {
         /** @var \App\Entity\User $user */
         $user = $this->getUser();
+
+
         return $this->render('backend/arbitrage/index.html.twig', [
-            'participations' => $user->getArbitreOf()
+            'participations' => $user->getArbitreOf(),
+            'twitches' => $user->getTwitchArbitreOf(),
+            'discordes' => $user->getDiscordArbitreOf()
         ]);
     }
 }

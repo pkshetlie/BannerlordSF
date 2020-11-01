@@ -82,11 +82,17 @@ class Challenge
      */
     private $challengeDates;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ChallengePrize::class, mappedBy="challenge",cascade={"persist"})
+     */
+    private $challengePrizes;
+
     public function __construct()
     {
         $this->rules = new ArrayCollection();
         $this->participations = new ArrayCollection();
         $this->challengeDates = new ArrayCollection();
+        $this->challengePrizes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -264,6 +270,37 @@ class Challenge
             // set the owning side to null (unless already changed)
             if ($challengeDate->getChallenge() === $this) {
                 $challengeDate->setChallenge(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ChallengePrize[]
+     */
+    public function getChallengePrizes(): Collection
+    {
+        return $this->challengePrizes;
+    }
+
+    public function addChallengePrize(ChallengePrize $challengePrize): self
+    {
+        if (!$this->challengePrizes->contains($challengePrize)) {
+            $this->challengePrizes[] = $challengePrize;
+            $challengePrize->setChallenge($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChallengePrize(ChallengePrize $challengePrize): self
+    {
+        if ($this->challengePrizes->contains($challengePrize)) {
+            $this->challengePrizes->removeElement($challengePrize);
+            // set the owning side to null (unless already changed)
+            if ($challengePrize->getChallenge() === $this) {
+                $challengePrize->setChallenge(null);
             }
         }
 

@@ -32,6 +32,11 @@ class ChallengePrize
      */
     private $value;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Challenge::class, inversedBy="challengePrizes")
+     */
+    private $challenge;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +74,18 @@ class ChallengePrize
     public function setValue(string $value): self
     {
         $this->value = $value;
+
+        return $this;
+    }
+
+    public function getChallenge(): ?Challenge
+    {
+        return $this->challenge;
+    }
+
+    public function setChallenge(?Challenge $challenge): self
+    {
+        $this->challenge = $challenge;
 
         return $this;
     }

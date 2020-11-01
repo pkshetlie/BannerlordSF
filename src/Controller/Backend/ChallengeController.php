@@ -122,11 +122,15 @@ class ChallengeController extends AbstractController
     public function edit(Request $request, Challenge $challenge, SluggerInterface $slugger, UserRepository $userRepository): Response
     {
         $originalDates = new ArrayCollection();
-
-        // Create an ArrayCollection of the current Tag objects in the database
         foreach ($challenge->getChallengeDates() as $date) {
             $originalDates->add($date);
         }
+        $originalPrizes = new ArrayCollection();
+        foreach ($challenge->getChallengePrizes() as $prize) {
+            $originalPrizes->add($prize);
+        }
+
+
         $form = $this->createForm(ChallengeType::class, $challenge);
         $form->handleRequest($request);
 
@@ -137,19 +141,30 @@ class ChallengeController extends AbstractController
             foreach ($originalDates as $date) {
                 if (false === $challenge->getChallengeDates()->contains($date)) {
                     // remove the Task from the Tag
-                    $date->getChallenge()->removeElement($challenge);
-
+//                    $date->setChallenge(null);
                     // if it was a many-to-one relationship, remove the relationship like this
                     $date->setChallenge(null);
-
                     $entityManager->persist($date);
-
                     // if you wanted to delete the Tag entirely, you can also do that
-//                    $entityManager->remove($date);
+                    $entityManager->remove($date);
+                }
+            }
+            foreach ($originalPrizes as $prize) {
+                if (false === $challenge->getChallengePrizes()->contains($prize)) {
+                    // remove the Task from the Tag
+//                    $prize->setChallenge(null);
+                    // if it was a many-to-one relationship, remove the relationship like this
+                    $prize->setChallenge(null);
+                    $entityManager->persist($prize);
+                    // if you wanted to delete the Tag entirely, you can also do that
+                    $entityManager->remove($prize);
                 }
             }
             foreach ($challenge->getChallengeDates() as $challengeDate) {
                 $challengeDate->setChallenge($challenge);
+            }
+            foreach ($challenge->getChallengePrizes() as $challengePrize) {
+                $challengePrize->setChallenge($challenge);
             }
             // this condition is needed because the 'brochure' field is not required
             // so the PDF file must be processed only when a file is uploaded

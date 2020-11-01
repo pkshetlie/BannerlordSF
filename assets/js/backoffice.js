@@ -1,7 +1,7 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import '../css/backoffice.scss';
 // import moment from 'moment/moment'
-import $ from 'jquery';
+import * as $ from 'jquery';
 import 'admin-lte/plugins/jquery-ui/jquery-ui'
 // import 'admin-lte/plugins/moment/moment-with-locales.min'
 import 'admin-lte/plugins/bootstrap/js/bootstrap.bundle.min'
@@ -24,13 +24,21 @@ export {
 }
 
 $(function () {
+
+    $(".twitcher li a").on('click', function () {
+        let url = $(this).data('url');
+        $("#twitch_player").attr('src', url);
+        return false;
+    })
+
+
     $.trumbowyg.svgPath = "/build/icons_trumbowyg.svg";
     /** petit hack pour bootstrap file form widget */
     $(document).on("change", '[type=file]', function () {
         let value = $(this).val().replace('C:\\fakepath\\', '').trim();
         $(this).closest('div').find(".custom-file-label").text("" !== value ? value : $(this).attr('placeholder'));
     });
-$(".select2").select2();
+    $(".select2").select2();
     $(".ajax-link").on('click', function () {
         var t = $(this);
 
@@ -73,8 +81,10 @@ $(".select2").select2();
             ['removeformat'],
             ['fullscreen']
         ],
-        plugins: {
-
-        }
+        plugins: {}
+    });
+    $(".delete-line").on('click',function (){
+        $(this).closest('tr').remove();
+        return false;
     });
 });

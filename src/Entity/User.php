@@ -359,4 +359,18 @@ public function getFullName()
         return $this;
     }
 
+    public function getTwitchArbitreOf()
+    {
+        return $this->getArbitreOf()->filter(function(Participation $p){
+            return !empty($p->getUser()->getTwitchID());
+        });
+    }
+
+    public function getDiscordArbitreOf()
+    {
+        return $this->getArbitreOf()->filter(function(Participation $p){
+            return !empty($p->getUser()->getDiscordID())  && empty($p->getUser()->getTwitchID());
+        });
+    }
+
 }

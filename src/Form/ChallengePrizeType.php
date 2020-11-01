@@ -13,7 +13,7 @@ class ChallengePrizeType extends AbstractType
     {
         $builder
             ->add('label')
-            ->add('description')
+//            ->add('description')
             ->add('value')
         ;
     }

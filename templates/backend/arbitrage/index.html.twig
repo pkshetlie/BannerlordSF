@@ -15,18 +15,31 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-2">
-                            <h3>Mes challengers Twitch</h3>
+                            {% if twitches|length > 0 %}
+                            <h3>Twitch</h3>
                             <ul class="twitcher">
-                                {% for participation in participations %}
+                                {% for participation in twitches %}
                                     {% set challenger = participation.user %}
                                     {% if challenger.twitchId is not empty %}
-                                        <li>{{ challenger.twitchID }}</li>
+                                        <li>
+                                            <a
+                                                    href="#"
+                                                    data-participation="{{ participation.id }}"
+                                                    data-challenger="{{ challenger.id }}"
+                                                    data-url="https://player.twitch.tv/?channel={{ challenger.twitchID }}&parent={{ app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''}) }}&muted=true"
+                                            >
+                                                {{ challenger.twitchID }}
+                                            </a>
+                                        </li>
                                     {% endif %}
                                 {% endfor %}
                             </ul>
-                            <h3>Mes challengers Discord</h3>
-                            <ul class="twitcher">
-                                {% for participation in participations %}
+                            {% endif %}
+
+                            {% if discordes|length > 0 %}
+                            <h3>Discord</h3>
+                            <ul class="discorder">
+                                {% for participation in discordes %}
                                     {% set challenger = participation.user %}
 
                                     {% if challenger.twitchId is empty %}
@@ -34,15 +47,24 @@
                                     {% endif %}
                                 {% endfor %}
                             </ul>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-4">
+                            <iframe
+                                    id="twitch_player"
+                                    src="https://player.twitch.tv/?channel=pompevie74&parent={{ app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''}) }}&muted=true"
+                                    width="600"
+                                    height="300"
+                                    frameborder="0"
+                                    scrolling="no"
+                                    allowfullscreen="true">
+                            </iframe>
+                        </div>
+                        <div id="runScore" class="col-md-4">
+
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div id="twitch-embed"></div>
-                    </div>
-                    <div class="col-md-2">
-
-                    </div>
-
                 </div>
             </div>
         </div>
@@ -51,15 +73,7 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    <script src="https://embed.twitch.tv/embed/v1.js"></script>
-    <script>
-        $(function () {
-            let firstTwitch = $(".twitcher").find("li:first").text();
-            var embed = new Twitch.Embed('twitch-embed', {
-                channel: firstTwitch
-            });
-        });
-    </script>
+
 {% endblock %}
 {# <a href="{{ path('challenge_new') }}">{{ "Create new"|trans }}</a> #}
 

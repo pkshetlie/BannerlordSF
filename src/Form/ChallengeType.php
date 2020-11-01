@@ -69,6 +69,14 @@ class ChallengeType extends AbstractType
                 'entry_type' => ChallengeDateFormType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
+                'allow_delete'=>true,
+                'label' => ''
+            ])
+            ->add('challengePrizes', CollectionType::class, [
+                'entry_type' => ChallengePrizeType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'allow_delete'=>true,
                 'label' => ''
             ]);
     }

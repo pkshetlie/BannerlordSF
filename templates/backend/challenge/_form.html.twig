@@ -41,6 +41,35 @@
                 </tbody>
             </table>
         </div>
+        <div class="form-group">
+            <label>Prix du challenge</label>
+
+            <button type="button" class="add-prize btn btn-success btn-xs float-right">Ajouter un prix</button>
+            <table class="prizes"
+                   data-prototype="
+        <td>{{ form_widget(form.challengePrizes.vars.prototype.children.label)|e }}</td>
+        <td>{{ form_widget(form.challengePrizes.vars.prototype.children.value)|e }}</td>
+        <td><a class='btn btn-sm btn-danger delete-line' href='#'><i class='fa fa-trash'></i></a></td>
+        "
+                   data-widget-tags="{{ '<tr></tr>'|e }}"
+                   data-widget-counter="{{ form.challengePrizes |length }}"
+            >
+
+                <tbody>
+                <tr>
+                    <td>Libellé</td>
+                    <td>Valeur (€)</td>
+                </tr>
+                {% for formDate in form.challengePrizes %}
+                    <tr>
+                        <td>{{ form_widget(formDate.label) }}</td>
+                        <td>{{ form_widget(formDate.value) }}</td>
+                        <td><a class='btn btn-sm btn-danger delete-line' href='#'><i class='fa fa-trash'></i></a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
