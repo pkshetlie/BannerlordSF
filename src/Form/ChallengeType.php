@@ -69,7 +69,7 @@ class ChallengeType extends AbstractType
                 'entry_type' => ChallengeDateFormType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
-                'label' => 'challenge.label.challengeDates'
+                'label' => ''
             ]);
     }
 
