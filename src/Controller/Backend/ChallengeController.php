@@ -115,11 +115,11 @@ class ChallengeController extends AbstractController
      * @param Request $request
      * @param Challenge $challenge
      * @param SluggerInterface $slugger
+     * @param UserRepository $userRepository
      * @return Response
      */
     public function edit(Request $request, Challenge $challenge, SluggerInterface $slugger, UserRepository $userRepository): Response
     {
-
         $originalDates = new ArrayCollection();
 
         // Create an ArrayCollection of the current Tag objects in the database
@@ -178,6 +178,13 @@ class ChallengeController extends AbstractController
 
             return $this->redirectToRoute('challenge_admin_index');
         }
+$availablePlayer = $userRepository->createQueryBuilder('u')
+    ->leftJoin('u.','participations')->where(':challenge NOT IN( p.challenge )')
+    ->orderBy('u.username')
+    ->getQuery()
+    ->getResult()
+;
+
 
         $arbitres = $userRepository->createQueryBuilder('u')
             ->where('u.roles LIKE :employee')
@@ -188,6 +195,7 @@ class ChallengeController extends AbstractController
             'challenge' => $challenge,
             'form' => $form->createView(),
             'arbitres' => $arbitres,
+            'availablePlayer' => $availablePlayer,
         ]);
     }
 
@@ -230,5 +238,14 @@ class ChallengeController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('challenge_admin_index');
+    }
+
+    /**
+     * @Route("/add-participation/{id}", name="add_participation")
+     */
+    public function addParticipation(Request $request, Challenge $challenge)
+    {
+
+        return $this->redirectToRoute("challenge_admin_edit",["challenge"=>$challenge->getId()]);
     }
 }

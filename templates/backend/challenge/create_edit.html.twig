@@ -15,6 +15,13 @@
                 <div class="card-body">
                     {{ include('backend/challenge/_form.html.twig', {'button_label': 'Update'}) }}
                     <h2 id="participations">Participations</h2>
+                    <form action="{{ url("add_participation") }}">
+                        <select name="participations" multiple="multiple" class="select2">
+                            {% for player in availablePlayer %}
+                                <option value="{{ player.id }}">{{ player.username ~ " - " ~ player.fullname }}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
                     <table class="table">
                         <tr>
                             <th>Prénom nom (pseudo)</th>
@@ -49,10 +56,12 @@
                                 <td>{{ participation.user.fullNameUsername }}</td>
                                 <td>{{ participation.createdAt.format("d/m/Y H:i") }}</td>
                                 <td>
-                                    <select name="arbitre" class="arbitre form-control" data-change-url="{{ url('change_arbitre',{id:participation.id}) }}">
+                                    <select name="arbitre" class="arbitre form-control"
+                                            data-change-url="{{ url('change_arbitre',{id:participation.id}) }}">
                                         <option value="">-- non défini --</option>
                                         {% for arbitre in  arbitres %}
-                                            <option {% if participation.arbitre is not null and arbitre.id == participation.arbitre.id %}selected="selected"{% endif %} value="{{  arbitre.id }}">{{ arbitre.username }}</option>
+                                            <option {% if participation.arbitre is not null and arbitre.id == participation.arbitre.id %}selected="selected"{% endif %}
+                                                    value="{{ arbitre.id }}">{{ arbitre.username }}</option>
                                         {% endfor %}
                                     </select>
                                 </td>
@@ -82,7 +91,7 @@
 {% endblock %}
 
 {% block javascripts %}
-{{ parent() }}
+    {{ parent() }}
     {{ encore_entry_script_tags('bo_challenge') }}
 
 {% endblock %}
