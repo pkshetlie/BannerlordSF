@@ -43,11 +43,12 @@ class ChallengeController extends AbstractController
      * @Route("/new", name="challenge_admin_new", methods={"GET","POST"})
      * @param Request $request
      * @param SluggerInterface $slugger
+     * @param UserRepository $userRepository
      * @return Response
      */
-    public function new(Request $request, SluggerInterface $slugger): Response
+    public function new(Request $request, SluggerInterface $slugger,UserRepository $userRepository): Response
     {
-        return $this->edit($request, new Challenge(), $slugger);
+        return $this->edit($request, new Challenge(), $slugger,$userRepository);
     }
 
     /**
