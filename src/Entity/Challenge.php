@@ -53,7 +53,7 @@ class Challenge
     private $type;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $banner;
 
@@ -109,7 +109,14 @@ class Challenge
     {
        return $this->getRegistrationOpening() <= new \DateTime() && new \DateTime() <= $this->getRegistrationClosing();
     }
-
+    public function isPast(): bool
+    {
+        return new \DateTime() > $this->getRegistrationClosing();
+    }
+    public function isFuture(): bool
+    {
+        return new \DateTime() < $this->getRegistrationOpening();
+    }
     public function setDescription(string $description): self
     {
         $this->description = $description;

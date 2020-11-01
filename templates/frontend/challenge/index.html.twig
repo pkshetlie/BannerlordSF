@@ -14,125 +14,193 @@
             <div class="container">
                 <div class="row">
                     {% for entity in paginator.entities %}
-                        <div class="col-md-3">
-                            <h3>{{ entity.title }} ({{ entity.typeStr }})</h3>
-                            <img src="{{ asset('/uploads/challenge/banner/'~entity.banner) }}" class="img-fluid"
-                                    alt="{{ entity.title }}"/>
-                            {% if entity.isOpen %}
-                                {% if is_granted('ROLE_USER') %}
-                                    <a href="{{ url("challenge_participer",{id:entity.id}) }}">M'inscrire</a>
-                                {% else %}
-                                    connectez vous pour vous inscrire
-                                {% endif %}
-                            {% endif %}
+                        <div class="col-12 col-md-6 col-xl-4">
+                            <div class="card challenge-in-coming">
+                                <div class="card-img">
+                                    <img class="card-img-top"
+                                         src="{{ entity.banner is not empty ? asset('/uploads/challenge/banner/'~entity.banner) : asset('build/img_02.jpg') }}"
+                                         alt="img challenge">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ entity.title }}</h5>
+                                    <div class="card-text">
+                                        <i class="fa fa-calendar"></i>
+                                        <div class="dates-challenges">
+                                            <label>05 SEPT.2020 : 14h00 - 22h00</label>
+                                            <label>06 SEPT.2020 : 14h00 - 22h00</label>
+                                        </div>
+                                    </div>
+                                    <div class="card-buttons row">
+                                        <div class="col-7"><a href="#" class="btn btn-custom btn-grey">Vidéos du
+                                                tournoi</a></div>
+                                        <div class="col-5"><p class="btn-cash"><label>Cash prize</label><br>100 euros
+                                            </p></div>
+
+                                        {% if entity.isOpen %}
+                                            <div class="col-7">
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" style="width: 25%"
+                                                         aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                                <label class="text-center w-100 nb-inscrit">{{ entity.participations|length }}
+                                                    /{{ entity.maxChallenger }} inscrits</label>
+                                            </div>
+                                            <div class="col-5">
+                                                <a href="{{ url("challenge_participer",{id:entity.id}) }}" class="btn btn-custom btn-bottom-right">S'inscrire</a>
+                                            </div>
+                                        {% elseif entity.isPast %}
+                                            <div class="col-7">
+                                                <label class="text-center w-100 nb-inscrit">{{ entity.participations|length }}
+                                                    participants</label>
+                                            </div>
+                                            <div class="col-5"><a href="#" class="btn btn-custom btn-bottom-right">Résultats</a>
+                                            </div>
+                                        {% elseif entity.isFuture %}
+                                            <div class="col-10"><p class="btn-in-coming">Inscriptions à partir du
+                                                    <label>{{ entity.startRestration.format('d/M') }}</label></div>
+                                            <div class="col-2"><a href="#"><img class="card-ringbell"
+                                                                                src="{{ asset('build/ringbell.png') }}"
+                                                                                alt="img cloche"></a></div>
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     {% endfor %}
-                    {# ================ Structure de test ! ================ #}
 
-                    {#  Carte prochainement #}
-                    <div class="col-12 col-md-6 col-xl-4">
-                        <div class="card challenge-in-coming">
-                            <div class="card-img">
-                                <img class="card-img-top" src="{{ asset('build/img_02.jpg') }}" alt="img challenge">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Bannerlord HC Challenge #6</h5>
-                                <div class="card-text">
-                                    <img class="card-calendar" src="{{ asset('build/calendar.svg') }}" alt="img challenge">
-                                    <div class="dates-challenges">
-                                        <label>05 SEPT.2020 : 14h00 - 22h00</label>
-                                        <label>06 SEPT.2020 : 14h00 - 22h00</label>
-                                    </div>
-                                </div>
-                                <div class="card-buttons row">
-                                    <div class="col-7"><a href="#" class="btn btn-custom btn-grey">Vidéos du tournoi</a></div>
-                                    <div class="col-5"><p class="btn-cash"><label>Cash prize</label><br>100 euros</p></div>
-                                    <div class="col-10"><p class="btn-in-coming">Inscriptions à partir du <label>05/08</label></div>
-                                    <div class="col-2"><a href="#"><img class="card-ringbell" src="{{ asset('build/ringbell.png') }}" alt="img cloche"></a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {#  Carte En cours #}
-                    <div class="col-12 col-md-6 col-xl-4">
-                        <div class="card">
-                            <div class="card-img">
-                                <img class="card-img-top" src="{{ asset('build/img_02.jpg') }}" alt="img challenge">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Bannerlord HC Challenge #5</h5>
-                                <div class="card-text">
-                                    <img class="card-calendar" src="{{ asset('build/calendar.svg') }}" alt="img challenge">
-                                    <div class="dates-challenges">
-                                        <label>05 SEPT.2020 : 14h00 - 22h00</label>
-                                        <label>06 SEPT.2020 : 14h00 - 22h00</label>
-                                    </div>
-                                </div>
-                                <div class="card-buttons row">
-                                    <div class="col-7"><a href="#" class="btn btn-custom btn-grey">Vidéos du tournoi</a></div>
-                                    <div class="col-5"><p class="btn-cash"><label>Cash prize</label><br>100 euros</p></div>
-                                    <div class="col-7">
-                                        <div class="progress"><div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div></div>
-                                        <label class="text-center w-100 nb-inscrit">10/32 inscrits</label>
-                                    </div>
-                                     <div class="col-5"><a href="#" class="btn btn-custom btn-bottom-right">S'inscrire</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {#  Carte Passée #}
-                    <div class="col-12 col-md-6 col-xl-4">
-                        <div class="card challenge-not-active">
-                            <div class="card-img">
-                                <img class="card-img-top" src="{{ asset('build/img_02.jpg') }}" alt="img challenge">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Bannerlord HC Challenge #4</h5>
-                                <div class="card-text">
-                                    <img class="card-calendar" src="{{ asset('build/calendar.svg') }}" alt="img challenge">
-                                    <div class="dates-challenges">
-                                        <label>05 SEPT.2020 : 14h00 - 22h00</label>
-                                        <label>06 SEPT.2020 : 14h00 - 22h00</label>
-                                    </div>
-                                </div>
-                                <div class="card-buttons row">
-                                    <div class="col-7"><a href="#" class="btn btn-custom btn-grey">Vidéos du tournoi</a></div>
-                                    <div class="col-5"><p class="btn-cash"><label>Cash prize</label><br>100 euros</p></div>
-                                    <div class="col-7">
-                                        <label class="text-center w-100 nb-inscrit">22 participants</label>
-                                    </div>
-                                     <div class="col-5"><a href="#" class="btn btn-custom btn-bottom-right">Résultats</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {#  Carte Passée 2 #}
-                    <div class="col-12 col-md-6 col-xl-4">
-                        <div class="card challenge-not-active">
-                            <div class="card-img">
-                                <img class="card-img-top" src="{{ asset('build/img_02.jpg') }}" alt="img challenge">
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Bannerlord HC Challenge #3</h5>
-                                <div class="card-text">
-                                    <img class="card-calendar" src="{{ asset('build/calendar.svg') }}" alt="img challenge">
-                                    <div class="dates-challenges">
-                                        <label>05 SEPT.2020 : 14h00 - 22h00</label>
-                                        <label>06 SEPT.2020 : 14h00 - 22h00</label>
-                                    </div>
-                                </div>
-                                <div class="card-buttons row">
-                                    <div class="col-7"><a href="#" class="btn btn-custom btn-grey">Vidéos du tournoi</a></div>
-                                    <div class="col-5"><p class="btn-cash"><label>Cash prize</label><br>100 euros</p></div>
-                                    <div class="col-7">
-                                        <label class="text-center w-100 nb-inscrit">17 participants</label>
-                                    </div>
-                                     <div class="col-5"><a href="#" class="btn btn-custom btn-bottom-right">Résultats</a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {# ==================================================== #}
+
+
+
+
+
+{#                    #}{# ================ Structure de test ! ================ #}
+
+{#                    #}{# Carte prochainement #}
+{#                    <div class="col-12 col-md-6 col-xl-4">#}
+{#                        <div class="card challenge-in-coming">#}
+{#                            <div class="card-img">#}
+{#                                <img class="card-img-top" src="{{ asset('build/img_02.jpg') }}" alt="img challenge">#}
+{#                            </div>#}
+{#                            <div class="card-body">#}
+{#                                <h5 class="card-title">Bannerlord HC Challenge #6</h5>#}
+{#                                <div class="card-text">#}
+{#                                    <img class="card-calendar" src="{{ asset('build/calendar.svg') }}"#}
+{#                                         alt="img challenge">#}
+{#                                    <div class="dates-challenges">#}
+{#                                        <label>05 SEPT.2020 : 14h00 - 22h00</label>#}
+{#                                        <label>06 SEPT.2020 : 14h00 - 22h00</label>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="card-buttons row">#}
+{#                                    <div class="col-7"><a href="#" class="btn btn-custom btn-grey">Vidéos du tournoi</a>#}
+{#                                    </div>#}
+{#                                    <div class="col-5"><p class="btn-cash"><label>Cash prize</label><br>100 euros</p>#}
+{#                                    </div>#}
+{#                                    <div class="col-10"><p class="btn-in-coming">Inscriptions à partir du#}
+{#                                            <label>05/08</label></div>#}
+{#                                    <div class="col-2"><a href="#"><img class="card-ringbell"#}
+{#                                                                        src="{{ asset('build/ringbell.png') }}"#}
+{#                                                                        alt="img cloche"></a></div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    #}{# Carte En cours #}
+{#                    <div class="col-12 col-md-6 col-xl-4">#}
+{#                        <div class="card">#}
+{#                            <div class="card-img">#}
+{#                                <img class="card-img-top" src="{{ asset('build/img_02.jpg') }}" alt="img challenge">#}
+{#                            </div>#}
+{#                            <div class="card-body">#}
+{#                                <h5 class="card-title">Bannerlord HC Challenge #5</h5>#}
+{#                                <div class="card-text">#}
+{#                                    <img class="card-calendar" src="{{ asset('build/calendar.svg') }}"#}
+{#                                         alt="img challenge">#}
+{#                                    <div class="dates-challenges">#}
+{#                                        <label>05 SEPT.2020 : 14h00 - 22h00</label>#}
+{#                                        <label>06 SEPT.2020 : 14h00 - 22h00</label>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="card-buttons row">#}
+{#                                    <div class="col-7"><a href="#" class="btn btn-custom btn-grey">Vidéos du tournoi</a>#}
+{#                                    </div>#}
+{#                                    <div class="col-5"><p class="btn-cash"><label>Cash prize</label><br>100 euros</p>#}
+{#                                    </div>#}
+{#                                    <div class="col-7">#}
+{#                                        <div class="progress">#}
+{#                                            <div class="progress-bar" role="progressbar" style="width: 25%"#}
+{#                                                 aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>#}
+{#                                        </div>#}
+{#                                        <label class="text-center w-100 nb-inscrit">10/32 inscrits</label>#}
+{#                                    </div>#}
+{#                                    <div class="col-5"><a href="#"#}
+{#                                                          class="btn btn-custom btn-bottom-right">S'inscrire</a></div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    #}{# Carte Passée #}
+{#                    <div class="col-12 col-md-6 col-xl-4">#}
+{#                        <div class="card challenge-not-active">#}
+{#                            <div class="card-img">#}
+{#                                <img class="card-img-top" src="{{ asset('build/img_02.jpg') }}" alt="img challenge">#}
+{#                            </div>#}
+{#                            <div class="card-body">#}
+{#                                <h5 class="card-title">Bannerlord HC Challenge #4</h5>#}
+{#                                <div class="card-text">#}
+{#                                    <img class="card-calendar" src="{{ asset('build/calendar.svg') }}"#}
+{#                                         alt="img challenge">#}
+{#                                    <div class="dates-challenges">#}
+{#                                        <label>05 SEPT.2020 : 14h00 - 22h00</label>#}
+{#                                        <label>06 SEPT.2020 : 14h00 - 22h00</label>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="card-buttons row">#}
+{#                                    <div class="col-7"><a href="#" class="btn btn-custom btn-grey">Vidéos du tournoi</a>#}
+{#                                    </div>#}
+{#                                    <div class="col-5"><p class="btn-cash"><label>Cash prize</label><br>100 euros</p>#}
+{#                                    </div>#}
+{#                                    <div class="col-7">#}
+{#                                        <label class="text-center w-100 nb-inscrit">22 participants</label>#}
+{#                                    </div>#}
+{#                                    <div class="col-5"><a href="#" class="btn btn-custom btn-bottom-right">Résultats</a>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    #}{# Carte Passée 2 #}
+{#                    <div class="col-12 col-md-6 col-xl-4">#}
+{#                        <div class="card challenge-not-active">#}
+{#                            <div class="card-img">#}
+{#                                <img class="card-img-top" src="{{ asset('build/img_02.jpg') }}" alt="img challenge">#}
+{#                            </div>#}
+{#                            <div class="card-body">#}
+{#                                <h5 class="card-title">Bannerlord HC Challenge #3</h5>#}
+{#                                <div class="card-text">#}
+{#                                    <img class="card-calendar" src="{{ asset('build/calendar.svg') }}"#}
+{#                                         alt="img challenge">#}
+{#                                    <div class="dates-challenges">#}
+{#                                        <label>05 SEPT.2020 : 14h00 - 22h00</label>#}
+{#                                        <label>06 SEPT.2020 : 14h00 - 22h00</label>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                                <div class="card-buttons row">#}
+{#                                    <div class="col-7"><a href="#" class="btn btn-custom btn-grey">Vidéos du tournoi</a>#}
+{#                                    </div>#}
+{#                                    <div class="col-5"><p class="btn-cash"><label>Cash prize</label><br>100 euros</p>#}
+{#                                    </div>#}
+{#                                    <div class="col-7">#}
+{#                                        <label class="text-center w-100 nb-inscrit">17 participants</label>#}
+{#                                    </div>#}
+{#                                    <div class="col-5"><a href="#" class="btn btn-custom btn-bottom-right">Résultats</a>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    #}{# ==================================================== #}
 
                 </div>
             </div>
