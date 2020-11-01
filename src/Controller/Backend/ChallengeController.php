@@ -180,14 +180,13 @@ class ChallengeController extends AbstractController
             return $this->redirectToRoute('challenge_admin_index');
         }
         $allPlayers = $userRepository->createQueryBuilder('u')
-            ->leftJoin('u.participations', 'participations')
             ->orderBy('u.username')
             ->getQuery()
             ->getResult();
 
         $availablePlayer = [];
-        $result = true;
         foreach ($allPlayers as $user) {
+            $result = true;
             foreach ($user->getParticipations() as $participation) {
                 if ($participation->getChallenge() === $challenge) {
                     $result = false;
