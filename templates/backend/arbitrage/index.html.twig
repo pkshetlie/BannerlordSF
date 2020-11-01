@@ -13,20 +13,53 @@
                     </h3>
                 </div>
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <h3>Mes challengers Twitch</h3>
+                            <ul class="twitcher">
+                                {% for participation in participations %}
+                                    {% set challenger = participation.user %}
+                                    {% if challenger.twitchId is not empty %}
+                                        <li>{{ challenger.twitchID }}</li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                            <h3>Mes challengers Discord</h3>
+                            <ul class="twitcher">
+                                {% for participation in participations %}
+                                    {% set challenger = participation.user %}
 
-                   <h3>Mes challengers</h3>
-                    <ul>
-                        {% for participation in participations %}
-                        {% set challenger = participation.user %}
-                       <li>{{ challenger.twitchID }}</li>
+                                    {% if challenger.twitchId is empty %}
+                                        <li>{{ challenger.discordId }}</li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="twitch-embed"></div>
+                    </div>
+                    <div class="col-md-2">
 
-                        {% endfor %}
-                   </ul>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
 
 {% endblock %}
-{#    <a href="{{ path('challenge_new') }}">{{ "Create new"|trans }}</a>#}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://embed.twitch.tv/embed/v1.js"></script>
+    <script>
+        $(function () {
+            let firstTwitch = $(".twitcher").find("li:first").text();
+            var embed = new Twitch.Embed('twitch-embed', {
+                channel: firstTwitch
+            });
+        });
+    </script>
+{% endblock %}
+{# <a href="{{ path('challenge_new') }}">{{ "Create new"|trans }}</a> #}
 
