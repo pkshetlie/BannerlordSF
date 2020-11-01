@@ -14,15 +14,16 @@
                 </div>
                 <div class="card-body">
                     {{ include('backend/challenge/_form.html.twig', {'button_label': 'Update'}) }}
-                    <h2 id="participations">Participations</h2>
-                    <form action="{{ url("add_participation") }}">
-                        <select name="participations" multiple="multiple" class="select2">
+                    <h2 class="mt-3" id="participations">Participations</h2>
+                    <form action="{{ url("add_participation",{id: challenge.id}) }}">
+                        <select name="participations[]" multiple="multiple" class="select2">
                             {% for player in availablePlayer %}
                                 <option value="{{ player.id }}">{{ player.username ~ " - " ~ player.fullname }}</option>
                             {% endfor %}
                         </select>
+                        <button type="submit" class="btn btn-info">Ajouter</button>
                     </form>
-                    <table class="table">
+                    <table class="table mt-4">
                         <tr>
                             <th>Prénom nom (pseudo)</th>
                             <th>Date d'inscription</th>

@@ -17,6 +17,7 @@ import 'trumbowyg/plugins/allowtagsfrompaste/trumbowyg.allowtagsfrompaste'
 import 'admin-lte/dist/js/pages/dashboard'
 import 'admin-lte/dist/js/adminlte.min'
 import 'admin-lte/dist/js/demo'
+import 'select2/dist/js/select2.full.min'
 
 export {
     $
@@ -29,7 +30,7 @@ $(function () {
         let value = $(this).val().replace('C:\\fakepath\\', '').trim();
         $(this).closest('div').find(".custom-file-label").text("" !== value ? value : $(this).attr('placeholder'));
     });
-
+$(".select2").select2();
     $(".ajax-link").on('click', function () {
         var t = $(this);
 

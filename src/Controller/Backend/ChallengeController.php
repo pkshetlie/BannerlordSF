@@ -4,6 +4,7 @@ namespace App\Controller\Backend;
 
 use App\Entity\Challenge;
 use App\Entity\Participation;
+use App\Entity\User;
 use App\Form\ChallengeType;
 use App\Repository\ChallengeRepository;
 use App\Repository\UserRepository;
@@ -46,9 +47,9 @@ class ChallengeController extends AbstractController
      * @param UserRepository $userRepository
      * @return Response
      */
-    public function new(Request $request, SluggerInterface $slugger,UserRepository $userRepository): Response
+    public function new(Request $request, SluggerInterface $slugger, UserRepository $userRepository): Response
     {
-        return $this->edit($request, new Challenge(), $slugger,$userRepository);
+        return $this->edit($request, new Challenge(), $slugger, $userRepository);
     }
 
     /**
@@ -147,7 +148,7 @@ class ChallengeController extends AbstractController
 //                    $entityManager->remove($date);
                 }
             }
-            foreach($challenge->getChallengeDates() AS $challengeDate){
+            foreach ($challenge->getChallengeDates() as $challengeDate) {
                 $challengeDate->setChallenge($challenge);
             }
             // this condition is needed because the 'brochure' field is not required
@@ -178,13 +179,24 @@ class ChallengeController extends AbstractController
 
             return $this->redirectToRoute('challenge_admin_index');
         }
-$availablePlayer = $userRepository->createQueryBuilder('u')
-    ->leftJoin('u.','participations')->where(':challenge NOT IN( p.challenge )')
-    ->orderBy('u.username')
-    ->getQuery()
-    ->getResult()
-;
+        $allPlayers = $userRepository->createQueryBuilder('u')
+            ->leftJoin('u.participations', 'participations')
+            ->orderBy('u.username')
+            ->getQuery()
+            ->getResult();
 
+        $availablePlayer = [];
+        $result = true;
+        foreach ($allPlayers as $user) {
+            foreach ($user->getParticipations() as $participation) {
+                if ($participation->getChallenge() === $challenge) {
+                    $result = false;
+                }
+            }
+            if ($result) {
+                $availablePlayer[] = $user;
+            }
+        }
 
         $arbitres = $userRepository->createQueryBuilder('u')
             ->where('u.roles LIKE :employee')
@@ -214,7 +226,7 @@ $availablePlayer = $userRepository->createQueryBuilder('u')
                 'success' => true,
                 "message" => ""
             ]);
-        }else{
+        } else {
             $participation->setArbitre(null);
             $this->getDoctrine()->getManager()->flush();
 
@@ -242,10 +254,24 @@ $availablePlayer = $userRepository->createQueryBuilder('u')
 
     /**
      * @Route("/add-participation/{id}", name="add_participation")
+     * @param Request $request
+     * @param Challenge $challenge
+     * @param UserRepository $userRepository
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function addParticipation(Request $request, Challenge $challenge)
+    public function addParticipation(Request $request, Challenge $challenge, UserRepository $userRepository)
     {
-
-        return $this->redirectToRoute("challenge_admin_edit",["challenge"=>$challenge->getId()]);
+        foreach ($request->get('participations') as $userId) {
+            $user = $userRepository->find($userId);
+            $participation = new Participation();
+            $participation
+                ->setChallenge($challenge)
+                ->setEnabled(true)
+                ->setUser($user);
+            $entityManger = $this->getDoctrine()->getManager();
+            $entityManger->persist($participation);
+            $entityManger->flush();
+        }
+        return $this->redirectToRoute("challenge_admin_edit", ["id" => $challenge->getId()]);
     }
 }
