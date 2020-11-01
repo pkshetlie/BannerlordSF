@@ -78,7 +78,7 @@ class Challenge
     private $participations;
 
     /**
-     * @ORM\OneToMany(targetEntity=ChallengeDate::class, mappedBy="challenge")
+     * @ORM\OneToMany(targetEntity=ChallengeDate::class, mappedBy="challenge",cascade={"persist"})
      */
     private $challengeDates;
 

@@ -12,11 +12,41 @@
         {{ form_row(form.registrationOpening) }}
         {{ form_row(form.registrationClosing) }}
         {{ form_row(form.maxChallenger) }}
+        <div class="form-group">
+            {{ form_label(form.challengeDates) }}
+
+            <button type="button" class="add-date btn btn-success btn-xs float-right">Ajouter une date</button>
+            <table class="dates"
+                   data-prototype="
+        <td>{{ form_widget(form.challengeDates.vars.prototype.children.startDate)|e }}</td>
+        <td>{{ form_widget(form.challengeDates.vars.prototype.children.endDate)|e }}</td>
+        <td><a class='btn btn-sm btn-danger delete-line' href='#'><i class='fa fa-trash'></i></a></td>
+        "
+                   data-widget-tags="{{ '<tr></tr>'|e }}"
+                   data-widget-counter="{{ form.challengeDates |length }}"
+            >
+
+                <tbody>
+                <tr>
+                    <td>Début de tranche</td>
+                    <td>Fin de tranche</td>
+                </tr>
+                {% for formDate in form.challengeDates %}
+                    <tr>
+                        <td>{{ form_widget(formDate.startDate) }}</td>
+                        <td>{{ form_widget(formDate.endDate) }}</td>
+                        <td><a class='btn btn-sm btn-danger delete-line' href='#'><i class='fa fa-trash'></i></a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
-    {{ form_widget(form) }}
-    <button class="btn btn-info">{{ 'Save'|trans }}</button>
-<a class="btn btn-default confirm-action" title="Vous allez perdre toutes les informations non enregistrées" href="{{ path('challenge_admin_index') }}">{{ "back to list"|trans }}</a>
+{{ form_widget(form) }}
+<button class="btn btn-info">{{ 'Save'|trans }}</button>
+<a class="btn btn-default confirm-action" title="Vous allez perdre toutes les informations non enregistrées"
+   href="{{ path('challenge_admin_index') }}">{{ "back to list"|trans }}</a>
 
 {{ form_end(form) }}

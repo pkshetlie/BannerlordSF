@@ -64,9 +64,12 @@ class ChallengeType extends AbstractType
                 'format' => DateType::HTML5_FORMAT,
                 'widget' => 'single_text',
                 'label' => 'challenge.label.registrationClosing'
-            ])->add('challengeDates', CollectionType::class, [
-                'class'=>ChallengeDate::class,
-                'label' => 'challenge.label.registrationClosing'
+            ])
+            ->add('challengeDates', CollectionType::class, [
+                'entry_type' => ChallengeDateFormType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'label' => 'challenge.label.challengeDates'
             ]);
     }
 

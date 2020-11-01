@@ -7,6 +7,7 @@ use App\Entity\Participation;
 use App\Form\ChallengeType;
 use App\Repository\ChallengeRepository;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Pkshetlie\PaginationBundle\Service\Calcul;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -117,13 +118,37 @@ class ChallengeController extends AbstractController
      */
     public function edit(Request $request, Challenge $challenge, SluggerInterface $slugger, UserRepository $userRepository): Response
     {
+
+        $originalDates = new ArrayCollection();
+
+        // Create an ArrayCollection of the current Tag objects in the database
+        foreach ($challenge->getChallengeDates() as $date) {
+            $originalDates->add($date);
+        }
         $form = $this->createForm(ChallengeType::class, $challenge);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
 
             $banner = $form->get('banner')->getData();
+            foreach ($originalDates as $date) {
+                if (false === $challenge->getChallengeDates()->contains($date)) {
+                    // remove the Task from the Tag
+                    $date->getChallenge()->removeElement($challenge);
 
+                    // if it was a many-to-one relationship, remove the relationship like this
+                    $date->setChallenge(null);
+
+                    $entityManager->persist($date);
+
+                    // if you wanted to delete the Tag entirely, you can also do that
+//                    $entityManager->remove($date);
+                }
+            }
+            foreach($challenge->getChallengeDates() AS $challengeDate){
+                $challengeDate->setChallenge($challenge);
+            }
             // this condition is needed because the 'brochure' field is not required
             // so the PDF file must be processed only when a file is uploaded
             if ($banner) {
@@ -147,7 +172,6 @@ class ChallengeController extends AbstractController
                 $challenge->setBanner($newFilename);
             }
 
-            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($challenge);
             $entityManager->flush();
 
