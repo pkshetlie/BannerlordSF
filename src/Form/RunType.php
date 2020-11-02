@@ -18,7 +18,8 @@ class RunType extends AbstractType
           ->add('runSettings',CollectionType::class,[
               'entry_type'=>RunSettingType::class,
               'entry_options' => ['label' => false],
-              'label' => false
+              'label' => false,
+              'attr'=>['onClick'=>"this.select();"]
           ])
             ->add('Suivant',SubmitType::class,['attr'=>['id'=>"nextChallenger"]])
         ;
