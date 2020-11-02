@@ -35,32 +35,40 @@ function loadRun(challenger) {
                 $("#runScore").html(data.message);
             }
         }
-    })
+    });
 }
 
 $(function () {
-let cancelableXhr =null;
+    let cancelableXhr = null;
     $(".twitcher li a").on('click', function () {
         let url = $(this).data('url');
         loadRun($(this).data('challenger'))
         $("#twitch_player").attr('src', url);
         return false;
     })
+    $(document).on('keyup change', '[id^=run_runSettings_value]', function () {
+        let ligne = $(this).closest('tr');
+        let ratio = parseFloat(ligne.find('.ratio').text());
+        let value = parseFloat($(this).val());
+        let total = ratio * value;
+        console.log(ratio, value);
+        ligne.find('.total-line').html(total);
 
-    $(document).on('keyup change','[id^=run_runSettings_]', function () {
+    });
+    $(document).on('keyup change', '[id^=run_runSettings_]', function () {
         $("form#runForm").submit();
     });
-    $(document).on('submit',"form#runForm", function(){
-        if(cancelableXhr !== null){
+    $(document).on('submit', "form#runForm", function () {
+        if (cancelableXhr !== null) {
             cancelableXhr.abort();
         }
         cancelableXhr = $.ajax({
-            url:$(this).attr('action'),
-            type:'post',
+            url: $(this).attr('action'),
+            type: 'post',
             data: $(this).serialize()
         });
 
-       return false;
+        return false;
     });
     $.trumbowyg.svgPath = "/build/icons_trumbowyg.svg";
     /** petit hack pour bootstrap file form widget */

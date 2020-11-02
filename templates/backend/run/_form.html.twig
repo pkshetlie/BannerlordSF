@@ -11,10 +11,14 @@
     <tr>
         <td style="font-size: 12px">{{ setting.vars.data.challengeSetting.label }}</td>
         <td>{{ form_widget(setting) }}</td>
-        <td>{{ setting.vars.data.challengeSetting.ratio }}</td>
+        <td class="ratio">{{ setting.vars.data.challengeSetting.ratio }}</td>
         <td class="total-line">0</td>
     </tr>
 
 {% endfor %}
+    <tr>
+        <td style="font-size: 12px" colspan="3">Total</td>
+        <td class="total-line">0</td>
+    </tr>
 </table>
 {{ form_end(form) }}
