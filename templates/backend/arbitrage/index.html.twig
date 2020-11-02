@@ -33,6 +33,21 @@
                                         </li>
                                     {% endif %}
                                 {% endfor %}
+                                {% for participation in othertwitches %}
+                                    {% set challenger = participation.user %}
+                                    {% if challenger.twitchId is not empty %}
+                                        <li>
+                                            <a
+                                                    href="#"
+                                                    data-participation="{{ participation.id }}"
+                                                    data-challenger="{{ challenger.id }}"
+                                                    data-url="https://player.twitch.tv/?channel={{ challenger.twitchID }}&parent={{ app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''}) }}&muted=true"
+                                            >
+                                                {{ challenger.twitchID }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
                             </ul>
                             {% endif %}
 

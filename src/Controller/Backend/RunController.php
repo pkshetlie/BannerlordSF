@@ -64,6 +64,7 @@ class RunController extends AbstractController
                 $runSetting = new RunSettings();
                 $runSetting->setChallengeSetting($setting);
                 $runSetting->setRun($run);
+                $runSetting->setValue($setting->getDefaultValue());
                 $run->addRunSetting($runSetting);
                 $entityManager->persist($runSetting);
             }
