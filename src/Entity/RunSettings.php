@@ -1,0 +1,76 @@
+<?php
+
+namespace App\Entity;
+
+use App\Repository\RunSettingsRepository;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass=RunSettingsRepository::class)
+ */
+class RunSettings
+{
+    /**
+     * @ORM\Id
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Run::class, inversedBy="runSettings")
+     */
+    private $run;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
+     */
+    private $value;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=ChallengeSetting::class, inversedBy="runSettings")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $challengeSetting;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getRun(): ?Run
+    {
+        return $this->run;
+    }
+
+    public function setRun(?Run $run): self
+    {
+        $this->run = $run;
+
+        return $this;
+    }
+
+    public function getValue(): ?string
+    {
+        return $this->value;
+    }
+
+    public function setValue(?string $value): self
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    public function getChallengeSetting(): ?ChallengeSetting
+    {
+        return $this->challengeSetting;
+    }
+
+    public function setChallengeSetting(?ChallengeSetting $challengeSetting): self
+    {
+        $this->challengeSetting = $challengeSetting;
+
+        return $this;
+    }
+}

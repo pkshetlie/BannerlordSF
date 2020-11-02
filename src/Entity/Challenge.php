@@ -87,12 +87,24 @@ class Challenge
      */
     private $challengePrizes;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ChallengeSetting::class, mappedBy="challenge")
+     */
+    private $challengeSettings;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Run::class, mappedBy="challenge")
+     */
+    private $runs;
+
     public function __construct()
     {
         $this->rules = new ArrayCollection();
         $this->participations = new ArrayCollection();
         $this->challengeDates = new ArrayCollection();
         $this->challengePrizes = new ArrayCollection();
+        $this->challengeSettings = new ArrayCollection();
+        $this->runs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -301,6 +313,68 @@ class Challenge
             // set the owning side to null (unless already changed)
             if ($challengePrize->getChallenge() === $this) {
                 $challengePrize->setChallenge(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ChallengeSetting[]
+     */
+    public function getChallengeSettings(): Collection
+    {
+        return $this->challengeSettings;
+    }
+
+    public function addChallengeSetting(ChallengeSetting $challengeSetting): self
+    {
+        if (!$this->challengeSettings->contains($challengeSetting)) {
+            $this->challengeSettings[] = $challengeSetting;
+            $challengeSetting->setChallenge($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChallengeSetting(ChallengeSetting $challengeSetting): self
+    {
+        if ($this->challengeSettings->contains($challengeSetting)) {
+            $this->challengeSettings->removeElement($challengeSetting);
+            // set the owning side to null (unless already changed)
+            if ($challengeSetting->getChallenge() === $this) {
+                $challengeSetting->setChallenge(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Run[]
+     */
+    public function getRuns(): Collection
+    {
+        return $this->runs;
+    }
+
+    public function addRun(Run $run): self
+    {
+        if (!$this->runs->contains($run)) {
+            $this->runs[] = $run;
+            $run->setChallenge($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRun(Run $run): self
+    {
+        if ($this->runs->contains($run)) {
+            $this->runs->removeElement($run);
+            // set the owning side to null (unless already changed)
+            if ($run->getChallenge() === $this) {
+                $run->setChallenge(null);
             }
         }
 

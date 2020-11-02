@@ -5,10 +5,15 @@ namespace App\Controller\Backend;
 use App\Entity\Challenge;
 use App\Entity\ChallengeSetting;
 use App\Entity\Participation;
+use App\Entity\Run;
+use App\Entity\RunSettings;
 use App\Entity\User;
 use App\Form\ChallengeType;
+use App\Form\RunType;
 use App\Repository\ChallengeRepository;
+use App\Repository\RunRepository;
 use App\Repository\UserRepository;
+use App\Service\ChallengeService;
 use Doctrine\Common\Collections\ArrayCollection;
 use Pkshetlie\PaginationBundle\Service\Calcul;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,37 +25,67 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
- * @Route("/admin/challenge")
+ * @Route("/admin/run")
  */
-class ChallengeController extends AbstractController
+class RunController extends AbstractController
 {
-    /**
-     * @Route("/", name="challenge_admin_index", methods={"GET"})
-     * @param Request $request
-     * @param ChallengeRepository $challengeRepository
-     * @param Calcul $paginationService
-     * @return Response
-     */
-    public function index(Request $request, ChallengeRepository $challengeRepository, Calcul $paginationService): Response
-    {
-        $qb = $challengeRepository->createQueryBuilder('c')
-            ->orderBy('c.registrationOpening', 'DESC');
-        $paginator = $paginationService->process($qb, $request);
-        return $this->render('backend/challenge/index.html.twig', [
-            'paginator' => $paginator,
-        ]);
-    }
 
     /**
-     * @Route("/new", name="challenge_admin_new", methods={"GET","POST"})
+     * @Route("/user/{id}", name="run_admin_current_new", methods={"GET","POST"})
      * @param Request $request
-     * @param SluggerInterface $slugger
-     * @param UserRepository $userRepository
+     * @param User $user
+     * @param ChallengeService $challengeService
      * @return Response
      */
-    public function new(Request $request, SluggerInterface $slugger, UserRepository $userRepository): Response
+    public function current(Request $request, User $user, ChallengeService $challengeService, RunRepository $runRepository): Response
     {
-        return $this->edit($request, new Challenge(), $slugger, $userRepository);
+        $challenge = $challengeService->getRunningChallenge();
+        if ($challenge == null) {
+            return new JsonResponse([
+                'success' => false,
+                "message" => "Aucun challenge en cours"
+            ]);
+        }
+        $entityManager = $this->getDoctrine()->getManager();
+        $run = $runRepository->createQueryBuilder('r')
+            ->where('r.user = :user')
+            ->andWhere('r.challenge  = :challenge')
+            ->andWhere('r.endDate IS NULL')
+            ->setParameter('challenge', $challenge)
+            ->setParameter('user', $user)->getQuery()->getOneOrNullResult();
+
+        if ($run == null) {
+            $run = new Run();
+            $run->setChallenge($challenge);
+            $run->setUser($user);
+            $entityManager->persist($run);
+            $run->setStartDate(new \DateTime());
+            foreach ($challenge->getChallengeSettings() as $setting) {
+                $runSetting = new RunSettings();
+                $runSetting->setChallengeSetting($setting);
+                $runSetting->setRun($run);
+                $run->addRunSetting($runSetting);
+                $entityManager->persist($runSetting);
+            }
+            $entityManager->flush();
+        }
+
+        $form = $this->createForm(RunType::class, $run, [
+            'attr' => ['id' => 'runForm'],
+            'action' => $this->generateUrl('run_admin_current_new', ['id' => $user->getId()])
+        ]);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->flush();
+        }
+        return new JsonResponse([
+            'success' => true,
+            'html' => $this->renderView('backend/run/_form.html.twig', [
+                'form' => $form->createView(),
+                'challenger' => $user,
+            ])
+        ]);
+
     }
 
     /**

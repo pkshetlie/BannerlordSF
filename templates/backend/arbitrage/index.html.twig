@@ -50,7 +50,7 @@
                             {% endif %}
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-5">
                             <iframe
                                     id="twitch_player"
                                     src="https://player.twitch.tv/?channel=pompevie74&parent={{ app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''}) }}&muted=true"
@@ -61,7 +61,7 @@
                                     allowfullscreen="true">
                             </iframe>
                         </div>
-                        <div id="runScore" class="col-md-4">
+                        <div id="runScore" class="col-md-5">
 
                         </div>
                     </div>

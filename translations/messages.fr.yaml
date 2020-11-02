@@ -60,3 +60,11 @@ user:
 Users: 'Utilisateurs'
 Actions: 'Actions'
 Voir plus: 'Voir plus'
+Setting: 'messages'
+setting:
+  label:
+    actions: 'Actions'
+    ratio: 'Multiplicateur'
+    label: 'Label'
+    defaultValue: 'Valeur par défaut'
+    isUsedForScore: 'Utilisé pour le score'

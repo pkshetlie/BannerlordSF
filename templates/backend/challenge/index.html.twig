@@ -39,6 +39,9 @@
                                     <a class="btn btn-sm btn-info"
                                        href="{{ path('challenge_admin_edit', {'id': challenge.id}) }}"><i
                                                 class="fas fa-edit"></i></a>
+                                    <a class="btn btn-sm btn-default"
+                                       href="{{ path('challenge_admin_settings_index', {'id': challenge.id}) }}"><i
+                                                class="fas fa-cogs"></i></a>
                                     <a class="btn btn-sm btn-danger confirm-action"
                                        href="{{ path('challenge_admin_delete', {'id': challenge.id}) }}"><i
                                                 class="fas fa-trash"></i></a>

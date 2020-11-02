@@ -1,0 +1,20 @@
+{{ form_start(form) }}
+<h3>{{ challenger.twitchID }}</h3>
+<table class="table table-sm">
+    <tr>
+        <th>Libellé</th>
+        <th>Valeur</th>
+        <th>Multiplicateur</th>
+        <th>Total</th>
+    </tr>
+{% for setting in form.runSettings %}
+    <tr>
+        <td style="font-size: 12px">{{ setting.vars.data.challengeSetting.label }}</td>
+        <td>{{ form_widget(setting) }}</td>
+        <td>{{ setting.vars.data.challengeSetting.ratio }}</td>
+        <td class="total-line">0</td>
+    </tr>
+
+{% endfor %}
+</table>
+{{ form_end(form) }}

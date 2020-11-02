@@ -23,15 +23,45 @@ export {
     $
 }
 
-$(function () {
+function loadRun(challenger) {
+    $.ajax({
+        url: '/admin/run/user/' + challenger,
+        async: true,
+        dataType: 'json',
+        success: function (data) {
+            if (data.success) {
+                $("#runScore").html(data.html);
+            } else {
+                $("#runScore").html(data.message);
+            }
+        }
+    })
+}
 
+$(function () {
+let cancelableXhr =null;
     $(".twitcher li a").on('click', function () {
         let url = $(this).data('url');
+        loadRun($(this).data('challenger'))
         $("#twitch_player").attr('src', url);
         return false;
     })
 
+    $(document).on('keyup change','[id^=run_runSettings_]', function () {
+        $("form#runForm").submit();
+    });
+    $(document).on('submit',"form#runForm", function(){
+        if(cancelableXhr !== null){
+            cancelableXhr.abort();
+        }
+        cancelableXhr = $.ajax({
+            url:$(this).attr('action'),
+            type:'post',
+            data: $(this).serialize()
+        });
 
+       return false;
+    });
     $.trumbowyg.svgPath = "/build/icons_trumbowyg.svg";
     /** petit hack pour bootstrap file form widget */
     $(document).on("change", '[type=file]', function () {
@@ -83,7 +113,7 @@ $(function () {
         ],
         plugins: {}
     });
-    $(".delete-line").on('click',function (){
+    $(".delete-line").on('click', function () {
         $(this).closest('tr').remove();
         return false;
     });

@@ -70,14 +70,14 @@ class ChallengeType extends AbstractType
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete'=>true,
-                'label' => ''
+                'label' => false
             ])
             ->add('challengePrizes', CollectionType::class, [
                 'entry_type' => ChallengePrizeType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
                 'allow_delete'=>true,
-                'label' => ''
+                'label' => false
             ]);
     }
 

@@ -86,11 +86,17 @@ class User implements UserInterface
      */
     private $arbitreOf;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Run::class, mappedBy="user")
+     */
+    private $runs;
+
     public function __construct()
     {
         $this->userScores = new ArrayCollection();
         $this->participations = new ArrayCollection();
         $this->arbitreOf = new ArrayCollection();
+        $this->runs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -371,6 +377,37 @@ public function getFullName()
         return $this->getArbitreOf()->filter(function(Participation $p){
             return !empty($p->getUser()->getDiscordID())  && empty($p->getUser()->getTwitchID());
         });
+    }
+
+    /**
+     * @return Collection|Run[]
+     */
+    public function getRuns(): Collection
+    {
+        return $this->runs;
+    }
+
+    public function addRun(Run $run): self
+    {
+        if (!$this->runs->contains($run)) {
+            $this->runs[] = $run;
+            $run->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRun(Run $run): self
+    {
+        if ($this->runs->contains($run)) {
+            $this->runs->removeElement($run);
+            // set the owning side to null (unless already changed)
+            if ($run->getUser() === $this) {
+                $run->setUser(null);
+            }
+        }
+
+        return $this;
     }
 
 }
