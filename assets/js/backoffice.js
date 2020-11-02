@@ -38,6 +38,29 @@ function loadRun(challenger) {
     });
 }
 
+function totalRun() {
+    let sum = 0;
+    $(".total-line").each(function () {
+        let value = $(this).text();
+        // add only if the value is number
+        if (!isNaN(value) && value.length !== 0) {
+            sum += parseFloat(value);
+        }
+    });
+    $(".total-run").html(sum);
+}
+
+function updateLigne(ligne) {
+    let ratio = parseFloat(ligne.find('.ratio').text().replace(',', '.'));
+    let value = parseFloat(ligne.find("input").val().replace(',', '.'));
+    let total = ratio * value;
+    console.log(ratio, value);
+    if (value > 0) {
+        ligne.find('.total-line').html(total);
+    }
+    totalRun();
+}
+
 $(function () {
     let cancelableXhr = null;
     $(".twitcher li a").on('click', function () {
@@ -46,14 +69,9 @@ $(function () {
         $("#twitch_player").attr('src', url);
         return false;
     })
-    $(document).on('keyup change', '[id^=run_runSettings]', function () {
+    $(document).on('keyup', '[id^=run_runSettings]', function () {
         let ligne = $(this).closest('tr');
-        let ratio = parseFloat(ligne.find('.ratio').text());
-        let value = parseFloat($(this).val());
-        let total = ratio * value;
-        console.log(ratio, value);
-        ligne.find('.total-line').html(total);
-
+        updateLigne(ligne);
     });
     $(document).on('keyup change', '[id^=run_runSettings_]', function () {
         $("form#runForm").submit();
