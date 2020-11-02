@@ -16,7 +16,10 @@ class RunSettingType extends AbstractType
         $builder
             ->add('value', TextType::class, [
                 'label' => false,
-                'attr' => ['class' => 'form-control-sm']
+                'attr' => [
+                    'class' => 'form-control-sm',
+                    'onClick' => "this.select();"
+                ]
             ]);
     }
 
