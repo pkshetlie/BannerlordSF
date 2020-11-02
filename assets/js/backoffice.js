@@ -46,7 +46,7 @@ $(function () {
         $("#twitch_player").attr('src', url);
         return false;
     })
-    $(document).on('keyup change', '[id^=run_runSettings_value]', function () {
+    $(document).on('keyup change', '[id^=run_runSettings]', function () {
         let ligne = $(this).closest('tr');
         let ratio = parseFloat(ligne.find('.ratio').text());
         let value = parseFloat($(this).val());
