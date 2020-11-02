@@ -31,6 +31,9 @@ function loadRun(challenger) {
         success: function (data) {
             if (data.success) {
                 $("#runScore").html(data.html);
+                $('[id^=run_runSettings]').each(function () {
+                    updateLigne($(this).closest('tr'));
+                });
             } else {
                 $("#runScore").html(data.message);
             }
@@ -54,7 +57,6 @@ function updateLigne(ligne) {
     let ratio = parseFloat(ligne.find('.ratio').text().replace(',', '.'));
     let value = parseFloat(ligne.find("input").val().replace(',', '.'));
     let total = ratio * value;
-    console.log(ratio, value);
     if (value > 0) {
         ligne.find('.total-line').html(total);
     }
@@ -69,6 +71,8 @@ $(function () {
         $("#twitch_player").attr('src', url);
         return false;
     })
+
+
     $(document).on('keyup', '[id^=run_runSettings]', function () {
         let ligne = $(this).closest('tr');
         updateLigne(ligne);
