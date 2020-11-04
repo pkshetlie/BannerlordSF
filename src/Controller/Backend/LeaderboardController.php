@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/admin/leaderboard")
+ * @Route("/leaderboard")
  */
 class LeaderboardController extends AbstractController
 {

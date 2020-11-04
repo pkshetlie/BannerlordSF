@@ -1,8 +1,4 @@
-{% extends 'base_backoffice.html.twig' %}
 
-{% block title %}{{ "Users"|trans }}{% endblock %}
-
-{% block content %}
     <div class="row">
         <div class="col-12">
             <div class="card card-default color-palette-box">
@@ -37,14 +33,10 @@
             </div>
         </div>
     </div>
-
-{% endblock %}
-{% block javascripts %}
-    {{ parent() }}
   <script>
-      // setTimeout(function(){location.reload();}, 5000)
+      setTimeout(function(){location.reload();}, 5000)
 
   </script>
-{% endblock %}
+
 {# <a href="{{ path('challenge_new') }}">{{ "Create new"|trans }}</a> #}
 
