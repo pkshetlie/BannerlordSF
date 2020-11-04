@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Challenge;
 use App\Entity\Run;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
@@ -31,9 +32,29 @@ class RunRepository extends ServiceEntityRepository
             ->where('r.challenge = :challenge')
             ->setParameter('challenge', $challenge)
             ->orderBy('r.ComputedScore', 'Desc')
-
         ;
 
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * @param User $user
+     * @param Challenge $challenge
+     * @return Run[]|ArrayCollection
+     */
+    public function findByUserAndChallenge(User $user, Challenge $challenge)
+    {
+        $qb = $this->createQueryBuilder('r')
+            ->where('r.challenge = :challenge')
+            ->andWhere('r.user = :user')
+            ->setParameter('challenge', $challenge)
+            ->setParameter('user', $user)
+            ->orderBy('r.startDate', 'ASC')
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+
+
 }

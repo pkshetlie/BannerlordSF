@@ -29,7 +29,6 @@ use Symfony\Component\String\Slugger\SluggerInterface;
  */
 class RunController extends AbstractController
 {
-
     /**
      * @Route("/user/{id}", name="run_admin_current_new", methods={"GET","POST"})
      * @param Request $request
@@ -106,6 +105,24 @@ class RunController extends AbstractController
 
     }
 
+    /**
+     * @Route("/infos/{id}", name="admin_runs_info")
+     * @param Request $request
+     * @param User $user
+     * @param ChallengeService $challengeService
+     * @param RunRepository $runRepository
+     * @return Response
+     */
+    public function infoRuns(Request $request, User $user, ChallengeService $challengeService, RunRepository $runRepository)
+    {
+        $challenge = $challengeService->getRunningChallenge();
+        $runs = $runRepository->findByUserAndChallenge($user, $challenge);
+        return $this->render('backend/run/info.html.twig',[
+           'user'=>$user,
+           'challenge'=>$challenge,
+           'runs'=>$runs
+        ]);
+    }
     /**
      * @Route("/delete-participation/{id}", name="challenge_admin_delete_participation", methods={"GET","POST"})
      * @param Request $request

@@ -1,0 +1,54 @@
+{% extends 'base_backoffice.html.twig' %}
+
+{% block title %}{{ "Infos run"|trans }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card card-default color-palette-box">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-tag"></i>
+                        {{ "Infos run"|trans }} - {{ user.username }} - {{ challenge.title }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {% for run in runs %}
+                            <div class="col-3">
+                                <table class="table table-sm">
+                                    <tr>
+                                        <th colspan="2" class="text-center">Run n°{{ loop.index }}</th>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2" class="text-center">{{ run.startDate.format('d/m/Y H:i') }}
+                                            - {{ run.endDate is empty?'En cours' :run.endDate.format('d/m/Y H:i') }} </th>
+                                    </tr>
+                                    {% set total = 0 %}
+
+                                    {% for setting in run.runSettings %}
+                                        {% set points = setting.value*setting.challengeSetting.ratio %}
+                                        {% set total = total+points %}
+                                        <tr>
+                                            <td><small>{{ setting.challengeSetting.label }}</small></td>
+                                            <td>{{ points }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        <td>Total</td>
+                                        <td>{{ total }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total avec malus</td>
+                                        <td>{{ total* run.malus }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
