@@ -7,15 +7,22 @@
         {{ form_row(form.ratio) }}
         {{ form_row(form.inputType) }}
         {{ form_row(form.defaultValue) }}
-        {{ form_row(form.isUsedForScore) }}
         {{ form_row(form.position) }}
     </div>
     <div class="col-md-6">
+        {{ form_row(form.isUsedForScore) }}
         {{ form_row(form.displayBestForStats) }}
         {{ form_row(form.displayForStats) }}
         {{ form_row(form.isStepToVictory) }}
-        {{ form_row(form.stepToVictoryMin) }}
-        {{ form_row(form.stepToVictoryMax) }}
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.stepToVictoryMin) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.stepToVictoryMax) }}
+            </div>
+        </div>
+
     </div>
 </div>
 
