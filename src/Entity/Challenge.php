@@ -89,6 +89,7 @@ class Challenge
 
     /**
      * @ORM\OneToMany(targetEntity=ChallengeSetting::class, mappedBy="challenge")
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $challengeSettings;
 
