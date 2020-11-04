@@ -67,6 +67,26 @@ class ChallengeSetting
      */
     private $position;
 
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
+     */
+    private $stepToVictoryMin;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
+     */
+    private $stepToVictoryMax;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $displayForStats = false;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $displayBestForStats = false;
+
     public function __construct()
     {
         $this->runSettings = new ArrayCollection();
@@ -200,6 +220,54 @@ class ChallengeSetting
     public function setPosition(?int $position): self
     {
         $this->position = $position;
+
+        return $this;
+    }
+
+    public function getStepToVictoryMin(): ?string
+    {
+        return $this->stepToVictoryMin;
+    }
+
+    public function setStepToVictoryMin(?string $stepToVictoryMin): self
+    {
+        $this->stepToVictoryMin = $stepToVictoryMin;
+
+        return $this;
+    }
+
+    public function getStepToVictoryMax(): ?string
+    {
+        return $this->stepToVictoryMax;
+    }
+
+    public function setStepToVictoryMax(?string $stepToVictoryMax): self
+    {
+        $this->stepToVictoryMax = $stepToVictoryMax;
+
+        return $this;
+    }
+
+    public function getDisplayForStats(): ?bool
+    {
+        return $this->displayForStats;
+    }
+
+    public function setDisplayForStats(bool $displayForStats): self
+    {
+        $this->displayForStats = $displayForStats;
+
+        return $this;
+    }
+
+    public function getDisplayBestForStats(): ?bool
+    {
+        return $this->displayBestForStats;
+    }
+
+    public function setDisplayBestForStats(bool $displayBestForStats): self
+    {
+        $this->displayBestForStats = $displayBestForStats;
 
         return $this;
     }
