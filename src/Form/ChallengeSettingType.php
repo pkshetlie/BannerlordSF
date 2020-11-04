@@ -26,7 +26,7 @@ class ChallengeSettingType extends AbstractType
 //            ])
             ->add('defaultValue', null, [
                 "label" => "Valeur par défaut",
-                "attr" => ["placeholder" => "séparer avec ; les differentes valeur de select"]
+                "attr" => ["placeholder" => ""]
             ])
             ->add('isUsedForScore', null, ['label' => "Est utilisé pour le score"])//            ->add('challenge')
             ->add('isStepToVictory', null, ['label' => "Est une etape vers la victoire"])//            ->add('challenge')
