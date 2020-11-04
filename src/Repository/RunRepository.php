@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Challenge;
 use App\Entity\Run;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -20,16 +21,18 @@ class RunRepository extends ServiceEntityRepository
         parent::__construct($registry, Run::class);
     }
 
+    /**
+     * @param Challenge $challenge
+     * @return Run[]|ArrayCollection
+     */
     public function findByScore(Challenge $challenge)
     {
         $qb = $this->createQueryBuilder('r')
-            ->addSelect('SUM(s.value*sc.ratio)*r.malus AS score')
-            ->leftJoin('r.runSettings', 's')
-            ->leftJoin('r.challenge', 'c')
-            ->leftJoin('s.challengeSetting','sc')
             ->where('r.challenge = :challenge')
-            ->setParameter('challenge', $challenge);
+            ->setParameter('challenge', $challenge)
+            ->orderBy('r.ComputedScore', 'Desc')
 
+        ;
 
         return $qb->getQuery()->getResult();
     }

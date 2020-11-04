@@ -27,7 +27,7 @@ function totalRun() {
             sum += parseFloat(value);
         }
     });
-    let malus = parseFloat($("#malus-run").text().replace(',', '.'));
+    let malus = parseFloat($("#malus-run").data('malus').toString().replace(',', '.'));
     let total_malus = sum * malus;
     $('.total-run-with-malus').html(total_malus);
     $(".total-run").html(sum);

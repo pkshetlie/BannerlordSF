@@ -15,17 +15,19 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-2">
-                            <table>
+                            <table class="table">
                                 <tr>
+                                    <th>Place</th>
                                     <th>Joueur</th>
                                     <th>Meilleur Score</th>
                                     <th>Nombre de run</th>
                                 </tr>
-                                {% for score in scores %}
+                                {% for run in runs %}
                                     <tr>
-                                        <td>Joueur</td>
-                                        <td>Meilleur Score</td>
-                                        <td>Nombre de run</td>
+                                        <td>{{ loop.index }}</td>
+                                        <td>{{ run.user.username }}</td>
+                                        <td>{{ run.computedScore|round(0) }}</td>
+                                        <td>{{ run.user.countRun(challenge) }}</td>
                                     </tr>
                                 {% endfor %}
                             </table>
@@ -39,7 +41,10 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    {{ encore_entry_script_tags('bo_run') }}
+  <script>
+      // setTimeout(function(){location.reload();}, 5000)
+
+  </script>
 {% endblock %}
 {# <a href="{{ path('challenge_new') }}">{{ "Create new"|trans }}</a> #}
 
