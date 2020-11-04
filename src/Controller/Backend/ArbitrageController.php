@@ -22,8 +22,16 @@ class ArbitrageController extends AbstractController
     public function index(ParticipationRepository $participationRepository, ChallengeService $challengeService): Response
     {
         $participations = $participationRepository->findByChallenge($challengeService->getRunningChallenge());
+        $twitch = [];
+        foreach ($participations as $participation) {
+            if ($participation->getUser()->getTwitchID() != null) {
+                $twitch[] = $participation->getUser()->getTwitchID();
+            }
+        }
+
         return $this->render('backend/arbitrage/index.html.twig', [
             'participations' => $participations,
+            'allTwitch' => $twitch
 
         ]);
     }

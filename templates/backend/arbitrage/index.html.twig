@@ -17,6 +17,19 @@
                         <div class="col-md-2">
                             <h3>Participants ({{ participations|length }})</h3>
                             <ul class="twitcher m-0 p-0" style="list-style-type: none; ">
+                                <li class="m-0 mb-1" style="">
+                                    <a
+                                            class="btn text-left btn-xs btn-flat btn-block bg-red"
+                                            href="#"
+                                            data-participation=""
+                                            data-challenger=""
+
+                                                data-url="https://player.twitch.tv/?channel=pompevie74&parent={{ app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''}) }}&muted=true"
+                                    >
+                                       Chaine officielle
+                                    </a>
+
+                                </li>
                                 {% for participation in participations %}
                                     {% set challenger = participation.user %}
 
@@ -57,6 +70,7 @@
                                     scrolling="no"
                                     allowfullscreen="true">
                             </iframe>
+                            <a href="https://multitwitch.tv/{{ allTwitch|join('/') }}">MultiTwitch</a>
                         </div>
                         <div id="runScore" class="col-md-5">
 

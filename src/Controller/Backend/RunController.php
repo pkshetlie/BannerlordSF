@@ -34,7 +34,10 @@ class RunController extends AbstractController
      * @param Request $request
      * @param User $user
      * @param ChallengeService $challengeService
+     * @param RunRepository $runRepository
+     * @param bool $reset
      * @return Response
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function current(Request $request, User $user, ChallengeService $challengeService, RunRepository $runRepository, $reset = false): Response
     {
@@ -89,10 +92,11 @@ class RunController extends AbstractController
             if ($request->get('button',null) == "run_FinDeRun" && $reset == false) {
                 $run->setEndDate(new \DateTime());
                 $entityManager->flush();
-
                 $reset =true;
             }
         }
+
+
         return new JsonResponse([
             'success' => true,
             'refesh' => $reset,
