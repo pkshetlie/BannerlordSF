@@ -64,13 +64,13 @@
                             <iframe
                                     id="twitch_player"
                                     src="https://player.twitch.tv/?channel=pompevie74&parent={{ app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''}) }}&muted=true"
-                                    width="600"
-                                    height="300"
+                                    width="650"
+                                    height="370"
                                     frameborder="0"
                                     scrolling="no"
                                     allowfullscreen="true">
                             </iframe>
-                            <a href="https://multitwitch.tv/{{ allTwitch|join('/') }}" target="_blank">MultiTwitch</a>
+                            <a href="https://multitwitch.tv/{{ allTwitch|join('/') }}" class="bg-purple btn btn-block" target="_blank">MultiTwitch</a>
                         </div>
                         <div id="runScore" class="col-md-5">
 
