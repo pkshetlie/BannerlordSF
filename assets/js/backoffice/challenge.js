@@ -11,22 +11,15 @@ $(function () {
     });
     var $collectionHolder;
 
-// setup an "add a tag" link
 
+    $collectionHolder = $('.dates');
 
-        // Get the ul that holds the collection of tags
-        $collectionHolder = $('.dates');
+    $collectionHolder.data('index', $collectionHolder.find('input').length);
 
-        // add the "add a tag" anchor and li to the tags ul
-
-        // count the current form inputs we have (e.g. 2), use that as the new
-        // index when inserting a new item (e.g. 2)
-        $collectionHolder.data('index', $collectionHolder.find('input').length);
-
-        $(".add-date").on('click', function(e) {
-            // add a new tag form (see next code block)
-            addDateForm($collectionHolder);
-        });
+    $(".add-date").on('click', function (e) {
+        // add a new tag form (see next code block)
+        addDateForm($collectionHolder);
+    });
 
     $collectionHolder = $('.prizes');
     // add the "add a tag" anchor and li to the tags ul

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Challenge;
 use App\Entity\ChallengeDate;
+use Doctrine\DBAL\Types\TextType;
 use phpDocumentor\Reflection\Types\Collection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -71,6 +72,9 @@ class ChallengeType extends AbstractType
                 'allow_add' => true,
                 'allow_delete'=>true,
                 'label' => false
+            ])
+            ->add('malusPerRun', TextType::class, [
+                'label' => "Malus par run (en %age)"
             ])
             ->add('challengePrizes', CollectionType::class, [
                 'entry_type' => ChallengePrizeType::class,

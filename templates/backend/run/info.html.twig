@@ -27,20 +27,20 @@
                                     {% set total = 0 %}
 
                                     {% for setting in run.runSettings %}
-                                        {% set points = setting.value*setting.challengeSetting.ratio %}
-                                        {% set total = total+points %}
+                                        {% set points = setting.value * setting.challengeSetting.ratio %}
+                                        {% set total = total + points %}
                                         <tr>
                                             <td><small>{{ setting.challengeSetting.label }}</small></td>
-                                            <td>{{ points }}</td>
+                                            <td class="text-right">{{ points }}</td>
                                         </tr>
                                     {% endfor %}
                                     <tr>
                                         <td><b>Total</b></td>
-                                        <td>{{ total }}</td>
+                                        <td class="text-right">{{ total }}</td>
                                     </tr>
                                     <tr>
                                         <td><b>Total avec malus</b></td>
-                                        <td>{{ total* run.malus }}</td>
+                                        <td class="text-right">{{ total* run.malus }}</td>
                                     </tr>
                                 </table>
                             </div>
