@@ -203,6 +203,11 @@ class ChallengeController extends AbstractController
             ->setParameter('employee', '%ROLE_ARBITRE%')
             ->orderBy("u.username")
             ->getQuery()->getResult();
+        $arbitres = $userRepository->createQueryBuilder('u')
+            ->where('u.roles LIKE :employee')
+            ->setParameter('employee', '%ROLE_ARBITRE%')
+            ->orderBy("u.username")
+            ->getQuery()->getResult();
         return $this->render('backend/challenge/create_edit.html.twig', [
             'challenge' => $challenge,
             'form' => $form->createView(),

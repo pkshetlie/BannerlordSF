@@ -77,8 +77,5 @@ $(function () {
         ],
         plugins: {}
     });
-    $(".delete-line").on('click', function () {
-        $(this).closest('tr').remove();
-        return false;
-    });
+
 });

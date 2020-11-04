@@ -1,4 +1,11 @@
+import * as $ from "jquery";
+
 $(function () {
+    $(".delete-line").on('click', function () {
+        $(this).closest('tr').remove();
+        return false;
+    });
+
     $('.arbitre').on('change', function () {
         let url = $(this).data('change-url');
         $.ajax({
