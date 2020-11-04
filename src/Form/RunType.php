@@ -7,6 +7,7 @@ use App\Entity\RunSettings;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,7 +21,9 @@ class RunType extends AbstractType
               'entry_options' => ['label' => false],
               'label' => false,
           ])
-            ->add('Suivant',SubmitType::class,['attr'=>['id'=>"nextChallenger"]])
+            ->add('comment',TextareaType::class,['attr'=>['placeholder'=>"commentaire"]])
+            ->add('FinDeRun',SubmitType::class,['attr'=>['id'=>"endOfRun",'class'=>'btn btn-xs bg-black float-right']])
+            ->add('Enregistrer',SubmitType::class,['attr'=>['id'=>"nextChallenger",'class'=>'btn btn-xs bg-success float-left']])
         ;
     }
 

@@ -2,8 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\Challenge;
 use App\Entity\Participation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -19,6 +21,20 @@ class ParticipationRepository extends ServiceEntityRepository
         parent::__construct($registry, Participation::class);
     }
 
+    /**
+     * @param Challenge $challenge
+     * @return Participation[]|ArrayCollection|null
+     */
+    public function findByChallenge(Challenge $challenge)
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.user', 'user')
+            ->where('p.challenge = :challenge')
+            ->setParameter('challenge', $challenge)
+            ->addOrderBy('user.twitchID', 'asc')
+            ->addOrderBy('user.discordID', 'asc')
+            ->getQuery()->getResult();
+    }
     // /**
     //  * @return Participation[] Returns an array of Participation objects
     //  */

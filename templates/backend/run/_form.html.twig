@@ -1,5 +1,5 @@
 {{ form_start(form) }}
-<h3>{{ challenger.twitchID }}</h3>
+<h3>{{ challenger.twitchID is not empty ?  challenger.twitchID :  challenger.discordID }} <small>{{ run.lastVisitedAt == null ? run.startDate.format('d/m/Y H:i'): run.lastVisitedAt.format('d/m/Y H:i') }}</small></h3>
 <table class="table table-sm">
     <tr>
         <th>Libellé</th>

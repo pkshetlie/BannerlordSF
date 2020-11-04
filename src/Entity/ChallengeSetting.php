@@ -57,6 +57,16 @@ class ChallengeSetting
      */
     private $runSettings;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isStepToVictory = false;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $position;
+
     public function __construct()
     {
         $this->runSettings = new ArrayCollection();
@@ -166,6 +176,30 @@ class ChallengeSetting
                 $runSetting->setChallengeSetting(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsStepToVictory(): ?bool
+    {
+        return $this->isStepToVictory;
+    }
+
+    public function setIsStepToVictory(bool $isStepToVictory): self
+    {
+        $this->isStepToVictory = $isStepToVictory;
+
+        return $this;
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(?int $position): self
+    {
+        $this->position = $position;
 
         return $this;
     }

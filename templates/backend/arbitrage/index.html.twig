@@ -15,54 +15,36 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-2">
-                            {% if twitches|length > 0 %}
-                            <h3>Twitch</h3>
-                            <ul class="twitcher">
-                                {% for participation in twitches %}
-                                    {% set challenger = participation.user %}
-                                    {% if challenger.twitchId is not empty %}
-                                        <li>
-                                            <a
-                                                    href="#"
-                                                    data-participation="{{ participation.id }}"
-                                                    data-challenger="{{ challenger.id }}"
-                                                    data-url="https://player.twitch.tv/?channel={{ challenger.twitchID }}&parent={{ app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''}) }}&muted=true"
-                                            >
-                                                {{ challenger.twitchID }}
-                                            </a>
-                                        </li>
-                                    {% endif %}
-                                {% endfor %}
-                                {% for participation in othertwitches %}
-                                    {% set challenger = participation.user %}
-                                    {% if challenger.twitchId is not empty %}
-                                        <li>
-                                            <a
-                                                    href="#"
-                                                    data-participation="{{ participation.id }}"
-                                                    data-challenger="{{ challenger.id }}"
-                                                    data-url="https://player.twitch.tv/?channel={{ challenger.twitchID }}&parent={{ app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''}) }}&muted=true"
-                                            >
-                                                {{ challenger.twitchID }}
-                                            </a>
-                                        </li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ul>
-                            {% endif %}
-
-                            {% if discordes|length > 0 %}
-                            <h3>Discord</h3>
-                            <ul class="discorder">
-                                {% for participation in discordes %}
+                            <h3>Participants ({{ participations|length }})</h3>
+                            <ul class="twitcher m-0 p-0" style="list-style-type: none; ">
+                                {% for participation in participations %}
                                     {% set challenger = participation.user %}
 
-                                    {% if challenger.twitchId is empty %}
-                                        <li>{{ challenger.discordId }}</li>
-                                    {% endif %}
+                                    <li class="m-0 mb-1" style="">
+                                        <a
+                                                class="btn text-left btn-xs btn-flat btn-block {% if participation.arbitre.id == app.user.id %}bg-purple{% else %}bg-gray{% endif %}"
+                                                href="#"
+                                                data-participation="{{ participation.id }}"
+                                                data-challenger="{{ challenger.id }}"
+                                                {% if challenger.twitchID is not empty %}
+                                                    data-url="https://player.twitch.tv/?channel={{ challenger.twitchID }}&parent={{ app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''}) }}&muted=true"
+                                                {% else %}
+                                                    data-url=""
+                                                {% endif %}
+                                        >
+                                            {{ challenger.twitchID is empty ? challenger.discordID : challenger.twitchID }}
+                                            {% if challenger.twitchId is not empty %}
+                                                <i class="fab fa-twitch text-white float-right mt-1"></i>
+                                            {% else %}
+                                                <i class="fab fa-discord text-white float-right mt-1"></i>
+                                            {% endif %}
+                                        </a>
+
+                                    </li>
                                 {% endfor %}
                             </ul>
-                            {% endif %}
+
+
                         </div>
 
                         <div class="col-md-5">
@@ -88,7 +70,7 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-
+    {{ encore_entry_script_tags('bo_run') }}
 {% endblock %}
 {# <a href="{{ path('challenge_new') }}">{{ "Create new"|trans }}</a> #}
 

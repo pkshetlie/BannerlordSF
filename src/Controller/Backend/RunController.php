@@ -53,7 +53,7 @@ class RunController extends AbstractController
             ->andWhere('r.endDate IS NULL')
             ->setParameter('challenge', $challenge)
             ->setParameter('user', $user)->getQuery()->getOneOrNullResult();
-
+/** @var Run $run */
         if ($run == null) {
             $run = new Run();
             $run->setChallenge($challenge);
@@ -77,6 +77,7 @@ class RunController extends AbstractController
         ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $run->setLastVisitedAt(new \DateTime());
             $entityManager->flush();
         }
         return new JsonResponse([
@@ -84,6 +85,7 @@ class RunController extends AbstractController
             'html' => $this->renderView('backend/run/_form.html.twig', [
                 'form' => $form->createView(),
                 'challenger' => $user,
+                'run' => $run,
             ])
         ]);
 

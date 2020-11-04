@@ -44,6 +44,16 @@ class Run
      */
     private $runSettings;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastVisitedAt;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $comment;
+
     public function __construct()
     {
         $this->runSettings = new ArrayCollection();
@@ -129,6 +139,30 @@ class Run
                 $runSetting->setRun(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLastVisitedAt(): ?\DateTimeInterface
+    {
+        return $this->lastVisitedAt;
+    }
+
+    public function setLastVisitedAt(?\DateTimeInterface $lastVisitedAt): self
+    {
+        $this->lastVisitedAt = $lastVisitedAt;
+
+        return $this;
+    }
+
+    public function getComment(): ?string
+    {
+        return $this->comment;
+    }
+
+    public function setComment(?string $comment): self
+    {
+        $this->comment = $comment;
 
         return $this;
     }

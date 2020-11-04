@@ -15,6 +15,7 @@ class ChallengeSettingType extends AbstractType
         $builder
             ->add('label')
             ->add('ratio')
+            ->add('position')
             ->add('inputType',ChoiceType::class,[
                 'choices'=>[
                     "Champ texte"=>ChallengeSetting::TEXT,
@@ -28,6 +29,7 @@ class ChallengeSettingType extends AbstractType
                 "attr" => ["placeholder" => "séparer avec ; les differentes valeur de select"]
             ])
             ->add('isUsedForScore', null, ['label' => "Est utilisé pour le score"])//            ->add('challenge')
+            ->add('isStepToVictory', null, ['label' => "Est une etape vers la victoire"])//            ->add('challenge')
         ;
     }
 

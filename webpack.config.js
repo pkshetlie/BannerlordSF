@@ -26,6 +26,7 @@ Encore
     .addEntry('app', './assets/js/app.js')
     .addEntry('backoffice', './assets/js/backoffice.js')
     .addEntry('bo_challenge', './assets/js/backoffice/challenge.js')
+    .addEntry('bo_run', './assets/js/backoffice/run.js')
     .addEntry('home', './assets/js/home.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
