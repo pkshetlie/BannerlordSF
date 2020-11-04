@@ -9,37 +9,25 @@ $(function () {
                 }
         })
     });
-    var $collectionHolder;
-
-
+    let $collectionHolder;
     $collectionHolder = $('.dates');
-
     $collectionHolder.data('index', $collectionHolder.find('input').length);
-
     $(".add-date").on('click', function (e) {
-        // add a new tag form (see next code block)
         addDateForm($collectionHolder);
     });
 
-    $collectionHolder = $('.prizes');
-    // add the "add a tag" anchor and li to the tags ul
-    // count the current form inputs we have (e.g. 2), use that as the new
-    // index when inserting a new item (e.g. 2)
-    $collectionHolder.data('index', $collectionHolder.find('input').length);
+    let $collectionHolder2;
+    $collectionHolder2 = $('.prizes');
+    $collectionHolder2.data('index', $collectionHolder2.find('input').length);
     $(".add-prize").on('click', function(e) {
-        // add a new tag form (see next code block)
-        addDateForm($collectionHolder);
+        addDateForm($collectionHolder2);
     });
 });
 
-
-
-var addDateForm = function ($collectionHolder) {
-    // Get the data-prototype explained earlier
-    var prototype = $collectionHolder.data('prototype');
-    // get the new index
-    var index = $collectionHolder.data('index');
-    var newForm = prototype;
+let addDateForm = function ($collectionHolder) {
+    let prototype = $collectionHolder.data('prototype');
+    let index = $collectionHolder.data('index');
+    let newForm = prototype;
     newForm = newForm.replace(/__name__/g, index);
     $collectionHolder.data('index', index + 1);
     $collectionHolder.find('tbody').append("<tr>"+newForm+"</tr>");
