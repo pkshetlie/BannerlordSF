@@ -54,6 +54,16 @@ class Run
      */
     private $comment;
 
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2)
+     */
+    private $malus = 0;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
+     */
+    private $ComputedScore;
+
     public function __construct()
     {
         $this->runSettings = new ArrayCollection();
@@ -163,6 +173,30 @@ class Run
     public function setComment(?string $comment): self
     {
         $this->comment = $comment;
+
+        return $this;
+    }
+
+    public function getMalus(): ?string
+    {
+        return $this->malus;
+    }
+
+    public function setMalus(string $malus): self
+    {
+        $this->malus = $malus;
+
+        return $this;
+    }
+
+    public function getComputedScore(): ?string
+    {
+        return $this->ComputedScore;
+    }
+
+    public function setComputedScore(?string $ComputedScore): self
+    {
+        $this->ComputedScore = $ComputedScore;
 
         return $this;
     }

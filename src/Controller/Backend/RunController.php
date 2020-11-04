@@ -37,7 +37,7 @@ class RunController extends AbstractController
      * @param ChallengeService $challengeService
      * @return Response
      */
-    public function current(Request $request, User $user, ChallengeService $challengeService, RunRepository $runRepository): Response
+    public function current(Request $request, User $user, ChallengeService $challengeService, RunRepository $runRepository, $reset = false): Response
     {
         $challenge = $challengeService->getRunningChallenge();
         if ($challenge == null) {
@@ -53,35 +53,50 @@ class RunController extends AbstractController
             ->andWhere('r.endDate IS NULL')
             ->setParameter('challenge', $challenge)
             ->setParameter('user', $user)->getQuery()->getOneOrNullResult();
-/** @var Run $run */
+        /** @var Run $run */
         if ($run == null) {
             $run = new Run();
             $run->setChallenge($challenge);
             $run->setUser($user);
             $entityManager->persist($run);
             $run->setStartDate(new \DateTime());
+            $countRun = $user->countRun($challenge);
             foreach ($challenge->getChallengeSettings() as $setting) {
                 $runSetting = new RunSettings();
                 $runSetting->setChallengeSetting($setting);
                 $runSetting->setRun($run);
                 $runSetting->setValue($setting->getDefaultValue());
                 $run->addRunSetting($runSetting);
+                $run->setMalus(1 - ($challenge->getMalusPerRun() * ($countRun) / 100));
                 $entityManager->persist($runSetting);
             }
             $entityManager->flush();
         }
 
         $form = $this->createForm(RunType::class, $run, [
-            'attr' => ['id' => 'runForm'],
+            'attr' => ['id' => 'runForm','data-challenger'=>$user->getId()],
             'action' => $this->generateUrl('run_admin_current_new', ['id' => $user->getId()])
         ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $run->setLastVisitedAt(new \DateTime());
+            $score = 0;
+            foreach($run->getRunSettings() AS $setting){
+                $score += $setting->getValue() * $setting->getChallengeSetting()->getRatio();
+            }
+
+            $run->setComputedScore($score * $run->getMalus());
             $entityManager->flush();
+            if ($request->get('button',null) == "run_FinDeRun" && $reset == false) {
+                $run->setEndDate(new \DateTime());
+                $entityManager->flush();
+
+                $reset =true;
+            }
         }
         return new JsonResponse([
             'success' => true,
+            'refesh' => $reset,
             'html' => $this->renderView('backend/run/_form.html.twig', [
                 'form' => $form->createView(),
                 'challenger' => $user,

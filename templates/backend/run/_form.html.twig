@@ -1,5 +1,7 @@
 {{ form_start(form) }}
-<h3>{{ challenger.twitchID is not empty ?  challenger.twitchID :  challenger.discordID }} <small>{{ run.lastVisitedAt == null ? run.startDate.format('d/m/Y H:i'): run.lastVisitedAt.format('d/m/Y H:i') }}</small></h3>
+<h3>{{ challenger.twitchID is not empty ?  challenger.twitchID :  challenger.discordID }}
+    <small>{{ run.lastVisitedAt == null ? run.startDate.format('d/m/Y H:i'): run.lastVisitedAt.format('d/m/Y H:i') }}</small></h3>
+<p>Malus de run : <span id="malus-run" data-malus="{{ run.malus }}">{{ ((run.malus-1)*100) }}</span>%, Run n° {{ challenger.countRun(run.challenge) }}</p>
 <table class="table table-sm">
     <tr>
         <th>Libellé</th>
@@ -17,8 +19,12 @@
 
 {% endfor %}
     <tr>
-        <td style="font-size: 12px" colspan="3">Total</td>
+        <td style="font-size: 12px" class="text-bold text-right" colspan="3">Total</td>
         <td class="total-run">0</td>
+    </tr>
+    <tr>
+        <td style="font-size: 12px" class="text-bold text-right" colspan="3">Total malus compris</td>
+        <td class="total-run-with-malus">0</td>
     </tr>
 </table>
 {{ form_end(form) }}

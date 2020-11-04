@@ -1,0 +1,45 @@
+{% extends 'base_backoffice.html.twig' %}
+
+{% block title %}{{ "Users"|trans }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card card-default color-palette-box">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-tag"></i>
+                        {{ "LeaderBoard"|trans }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <table>
+                                <tr>
+                                    <th>Joueur</th>
+                                    <th>Meilleur Score</th>
+                                    <th>Nombre de run</th>
+                                </tr>
+                                {% for score in scores %}
+                                    <tr>
+                                        <td>Joueur</td>
+                                        <td>Meilleur Score</td>
+                                        <td>Nombre de run</td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('bo_run') }}
+{% endblock %}
+{# <a href="{{ path('challenge_new') }}">{{ "Create new"|trans }}</a> #}
+

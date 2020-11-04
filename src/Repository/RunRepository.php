@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Challenge;
 use App\Entity\Run;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,32 +20,17 @@ class RunRepository extends ServiceEntityRepository
         parent::__construct($registry, Run::class);
     }
 
-    // /**
-    //  * @return Run[] Returns an array of Run objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findByScore(Challenge $challenge)
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('r')
+            ->addSelect('SUM(s.value*sc.ratio)*r.malus AS score')
+            ->leftJoin('r.runSettings', 's')
+            ->leftJoin('r.challenge', 'c')
+            ->leftJoin('s.challengeSetting','sc')
+            ->where('r.challenge = :challenge')
+            ->setParameter('challenge', $challenge);
 
-    /*
-    public function findOneBySomeField($value): ?Run
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+
+        return $qb->getQuery()->getResult();
     }
-    */
 }

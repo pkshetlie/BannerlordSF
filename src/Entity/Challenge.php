@@ -97,6 +97,11 @@ class Challenge
      */
     private $runs;
 
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2)
+     */
+    private $malusPerRun = 0;
+
     public function __construct()
     {
         $this->rules = new ArrayCollection();
@@ -131,16 +136,19 @@ class Challenge
 
     public function isOpen(): bool
     {
-       return $this->getRegistrationOpening() <= new \DateTime() && new \DateTime() <= $this->getRegistrationClosing();
+        return $this->getRegistrationOpening() <= new \DateTime() && new \DateTime() <= $this->getRegistrationClosing();
     }
+
     public function isPast(): bool
     {
         return new \DateTime() > $this->getRegistrationClosing();
     }
+
     public function isFuture(): bool
     {
         return new \DateTime() < $this->getRegistrationOpening();
     }
+
     public function setDescription(string $description): self
     {
         $this->description = $description;
@@ -196,7 +204,7 @@ class Challenge
 
     public function setRegistrationOpening(\DateTime $registrationOpening): self
     {
-        $this->registrationOpening = $registrationOpening->setTime(0,0,0);
+        $this->registrationOpening = $registrationOpening->setTime(0, 0, 0);
 
         return $this;
     }
@@ -208,7 +216,7 @@ class Challenge
 
     public function setRegistrationClosing(\DateTime $registrationClosing): self
     {
-        $this->registrationClosing = $registrationClosing->setTime(23,59,59);
+        $this->registrationClosing = $registrationClosing->setTime(23, 59, 59);
         return $this;
     }
 
@@ -219,19 +227,25 @@ class Challenge
     {
         return $this->participations;
     }
+
     /**
      * @return Collection|Participation[]
      */
     public function getWaitingParticipations(): Collection
     {
-        return $this->participations->filter(function($p){return !$p->getEnabled();});
+        return $this->participations->filter(function ($p) {
+            return !$p->getEnabled();
+        });
     }
+
     /**
      * @return Collection|Participation[]
      */
     public function getValidatedParticipations(): Collection
     {
-        return $this->participations->filter(function($p){return $p->getEnabled();});
+        return $this->participations->filter(function ($p) {
+            return $p->getEnabled();
+        });
     }
 
     public function addParticipation(Participation $participation): self
@@ -377,6 +391,18 @@ class Challenge
                 $run->setChallenge(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMalusPerRun(): ?string
+    {
+        return $this->malusPerRun;
+    }
+
+    public function setMalusPerRun(string $malusPerRun): self
+    {
+        $this->malusPerRun = $malusPerRun;
 
         return $this;
     }

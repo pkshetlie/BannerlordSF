@@ -27,6 +27,9 @@ function totalRun() {
             sum += parseFloat(value);
         }
     });
+    let malus = parseFloat($("#malus-run").text().replace(',', '.'));
+    let total_malus = sum * malus;
+    $('.total-run-with-malus').html(total_malus);
     $(".total-run").html(sum);
 }
 
@@ -49,27 +52,56 @@ $(function () {
         return false;
     })
 
-
     $(document).on('keyup', '[id^=run_runSettings]', function () {
         let ligne = $(this).closest('tr');
         updateLigne(ligne);
     });
+
     $(document).on('keyup change', '[id^=run_runSettings_]', function () {
         $("form#runForm").submit();
     });
+
     $(document).on('keyup change', '#run_comment', function () {
         $("form#runForm").submit();
+    });
+
+    $(document).on('click', "form#runForm button", function () {
+        if (cancelableXhr !== null) {
+            cancelableXhr.abort();
+        }
+        let t = $(this)
+        let form = $(this).closest('form');
+        cancelableXhr = $.ajax({
+            url: form.attr('action'),
+            type: 'post',
+            data: form.serialize()+"&button="+$(this).attr('id'),
+            success: function(data){
+                if(data.refesh){
+                    loadRun(form.data('challenger'));
+                }
+            }
+        });
+        return false;
     });
     $(document).on('submit', "form#runForm", function () {
         if (cancelableXhr !== null) {
             cancelableXhr.abort();
         }
+        let t = $(this)
         cancelableXhr = $.ajax({
             url: $(this).attr('action'),
             type: 'post',
-            data: $(this).serialize()
+            data: $(this).serialize(),
+            success: function(data){
+                if(data.refesh){
+                    loadRun(t.data('challenger'));
+                }
+            }
         });
-
         return false;
     });
+
+    function update(){
+
+    }
 });

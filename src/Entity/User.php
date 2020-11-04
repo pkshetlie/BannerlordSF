@@ -283,8 +283,8 @@ class User implements UserInterface
      */
     public function getParticipation(Challenge $challenge)
     {
-        foreach($this->getParticipations() AS $participation){
-            if($participation->getChallenge() === $challenge){
+        foreach ($this->getParticipations() as $participation) {
+            if ($participation->getChallenge() === $challenge) {
                 return $participation;
             }
         }
@@ -316,12 +316,14 @@ class User implements UserInterface
 
     public function getFullNameUsername()
     {
-        return $this->getFirstname()." ".$this->getLastname()." (".$this->getUsername().")";
-}
-public function getFullName()
+        return $this->getFirstname() . " " . $this->getLastname() . " (" . $this->getUsername() . ")";
+    }
+
+    public function getFullName()
     {
-        return $this->getFirstname()." ".$this->getLastname();
-}
+        return $this->getFirstname() . " " . $this->getLastname();
+    }
+
     public function getTwitchID(): ?string
     {
         return $this->twitchID;
@@ -367,15 +369,15 @@ public function getFullName()
 
     public function getTwitchArbitreOf()
     {
-        return $this->getArbitreOf()->filter(function(Participation $p){
+        return $this->getArbitreOf()->filter(function (Participation $p) {
             return !empty($p->getUser()->getTwitchID());
         });
     }
 
     public function getDiscordArbitreOf()
     {
-        return $this->getArbitreOf()->filter(function(Participation $p){
-            return !empty($p->getUser()->getDiscordID())  && empty($p->getUser()->getTwitchID());
+        return $this->getArbitreOf()->filter(function (Participation $p) {
+            return !empty($p->getUser()->getDiscordID()) && empty($p->getUser()->getTwitchID());
         });
     }
 
@@ -408,6 +410,13 @@ public function getFullName()
         }
 
         return $this;
+    }
+
+    public function countRun(Challenge $challenge)
+    {
+        return $this->getRuns()->filter(function (Run $run) use ($challenge) {
+            return $run->getChallenge() === $challenge;
+        })->Count();
     }
 
 }
