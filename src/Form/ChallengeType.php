@@ -3,13 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Challenge;
-use App\Entity\ChallengeDate;
-use Doctrine\DBAL\Types\TextType;
-use phpDocumentor\Reflection\Types\Collection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -73,7 +69,7 @@ class ChallengeType extends AbstractType
                 'allow_delete'=>true,
                 'label' => false
             ])
-            ->add('malusPerRun', TextType::class, [
+            ->add('malusPerRun', null, [
                 'label' => "Malus par run (en %age)"
             ])
             ->add('challengePrizes', CollectionType::class, [
