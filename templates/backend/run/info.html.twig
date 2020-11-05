@@ -18,7 +18,7 @@
                             <div class="col-3">
                                 <table class="table table-sm">
                                     <tr>
-                                        <th colspan="2" class="text-center">Run n°{{ loop.index }}
+                                        <th colspan="3" class="text-center">Run n°{{ loop.index }}
                                             {% if run.comment is not empty %} <i
                                                     data-toggle="tooltip"
                                                     title="{{ run.comment }}"
@@ -27,8 +27,13 @@
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="2" class="text-center">{{ run.startDate.format('d/m/Y H:i') }}
+                                        <th colspan="3" class="text-center">{{ run.startDate.format('d/m/Y H:i') }}
                                             - {{ run.endDate is empty?'En cours' :run.endDate.format('d/m/Y H:i') }} </th>
+                                    </tr>
+                                    <tr>
+                                        <th>Libellé</th>
+                                        <th>Valeur</th>
+                                        <th>Pts</th>
                                     </tr>
                                     {% set total = 0 %}
 
