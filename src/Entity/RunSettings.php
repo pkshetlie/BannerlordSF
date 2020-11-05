@@ -73,4 +73,13 @@ class RunSettings
 
         return $this;
     }
+
+    public function isCompleted()
+    {
+        $sett = $this->getChallengeSetting();
+        $min = $sett->getStepToVictoryMin() == null ? -99999999999 :  $sett->getStepToVictoryMin();
+        $max = $sett->getStepToVictoryMax() == null ? -99999999999 :  $sett->getStepToVictoryMax();
+
+        return $this->getValue() >= $min && $this->getValue() <= $max;
+    }
 }

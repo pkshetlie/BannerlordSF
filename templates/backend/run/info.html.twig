@@ -19,7 +19,7 @@
                                 <table class="table table-sm">
                                     <tr>
                                         <th colspan="2" class="text-center">Run n°{{ loop.index }}
-{% if run.comment is not empty %} <i
+                                            {% if run.comment is not empty %} <i
                                                     data-toggle="tooltip"
                                                     title="{{ run.comment }}"
                                                     class="fas text-info fa-info-circle"></i>
@@ -35,7 +35,13 @@
                                     {% for setting in run.runSettings %}
                                         {% set points = setting.value * setting.challengeSetting.ratio %}
                                         {% set total = total + points %}
-                                        <tr>
+                                        <tr {% if setting.challengeSetting.isStepToVictory %}
+                                                {% if setting.isCompleted %}
+                                            class="bg-green disabled"
+                                                {% else %}
+                                            class="bg-orange disabled"
+                                                {% endif %}>
+                                            {% endif %}>
                                             <td><small>{{ setting.challengeSetting.label }}</small></td>
                                             <td class="text-right">{{ points }}</td>
                                         </tr>
