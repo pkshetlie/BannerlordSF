@@ -18,7 +18,12 @@
                             <div class="col-3">
                                 <table class="table table-sm">
                                     <tr>
-                                        <th colspan="2" class="text-center">Run n°{{ loop.index }}</th>
+                                        <th colspan="2" class="text-center">Run n°{{ loop.index }}
+                                            <i
+                                                    data-toggle="tooltip"
+                                                    title="{{ run.comment }}"
+                                                    class="fas fa-info-circle"></i>
+                                        </th>
                                     </tr>
                                     <tr>
                                         <th colspan="2" class="text-center">{{ run.startDate.format('d/m/Y H:i') }}

@@ -101,7 +101,6 @@ class RunController extends AbstractController
             }
         }
 
-
         return new JsonResponse([
             'success' => true,
             'refresh' => $reset,

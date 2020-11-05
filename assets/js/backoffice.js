@@ -77,5 +77,5 @@ $(function () {
         ],
         plugins: {}
     });
-
+    $("[data-toggle='tooltip']").tooltip();
 });
