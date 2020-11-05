@@ -23,8 +23,7 @@ function totalRun() {
     $(".total-line").each(function () {
         let value = $(this).text();
         let tr = $(this).closest('tr');
-        console.log(tr.data("isusedforscore"))
-        if(tr.data("isusedforscore") === 1) {
+        if (tr.data("isusedforscore") === 1) {
             if (!isNaN(value) && value.length !== 0) {
                 sum += parseFloat(value);
             }
@@ -43,7 +42,27 @@ function updateLigne(ligne) {
     if (value > 0) {
         ligne.find('.total-line').html(total);
     }
-    if(ligne.data("isusedforscore") === 1 ) {
+    if (ligne.data("issteptovictory") === 1) {
+        let min = parseFloat(ligne.data("steptovictorymin"));
+        let max = parseFloat(ligne.data("steptovictorymax"));
+        if (isNaN(min)) {
+            min = -999999999;
+        }
+        if (isNaN(max)) {
+            max = 999999999;
+        }
+        console.log(min,max);
+        if (value <= max && value >= min) {
+            ligne.removeClass('bg-orange');
+            ligne.addClass('bg-green');
+        } else {
+            ligne.removeClass('bg-green');
+            ligne.addClass('bg-orange');
+        }
+    }
+
+
+    if (ligne.data("isusedforscore") === 1) {
         totalRun();
     }
 }
@@ -79,9 +98,9 @@ $(function () {
         cancelableXhr = $.ajax({
             url: form.attr('action'),
             type: 'post',
-            data: form.serialize()+"&button="+$(this).attr('id'),
-            success: function(data){
-                if(data.refesh){
+            data: form.serialize() + "&button=" + $(this).attr('id'),
+            success: function (data) {
+                if (data.refesh) {
                     loadRun(form.data('challenger'));
                 }
             }
@@ -97,8 +116,8 @@ $(function () {
             url: $(this).attr('action'),
             type: 'post',
             data: $(this).serialize(),
-            success: function(data){
-                if(data.refresh){
+            success: function (data) {
+                if (data.refresh) {
                     loadRun(t.data('challenger'));
                 }
             }
