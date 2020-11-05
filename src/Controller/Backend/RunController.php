@@ -76,30 +76,35 @@ class RunController extends AbstractController
         }
 
         $form = $this->createForm(RunType::class, $run, [
-            'attr' => ['id' => 'runForm','data-challenger'=>$user->getId()],
+            'attr' => [
+                'id' => 'runForm',
+                'data-challenger' => $user->getId()
+            ],
             'action' => $this->generateUrl('run_admin_current_new', ['id' => $user->getId()])
         ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $run->setLastVisitedAt(new \DateTime());
             $score = 0;
-            foreach($run->getRunSettings() AS $setting){
-                $score += $setting->getValue() * $setting->getChallengeSetting()->getRatio();
+            foreach ($run->getRunSettings() as $setting) {
+                if ($setting->getChallengeSetting()->getIsUsedForScore()) {
+                    $score += $setting->getValue() * $setting->getChallengeSetting()->getRatio();
+                }
             }
 
             $run->setComputedScore($score * $run->getMalus());
             $entityManager->flush();
-            if ($request->get('button',null) == "run_FinDeRun" && $reset == false) {
+            if ($request->get('button', null) == "run_FinDeRun" && $reset == false) {
                 $run->setEndDate(new \DateTime());
                 $entityManager->flush();
-                $reset =true;
+                $reset = true;
             }
         }
 
 
         return new JsonResponse([
             'success' => true,
-            'refesh' => $reset,
+            'refresh' => $reset,
             'html' => $this->renderView('backend/run/_form.html.twig', [
                 'form' => $form->createView(),
                 'challenger' => $user,
@@ -121,12 +126,13 @@ class RunController extends AbstractController
     {
         $challenge = $challengeService->getRunningChallenge();
         $runs = $runRepository->findByUserAndChallenge($user, $challenge);
-        return $this->render('backend/run/info.html.twig',[
-           'user'=>$user,
-           'challenge'=>$challenge,
-           'runs'=>$runs
+        return $this->render('backend/run/info.html.twig', [
+            'user' => $user,
+            'challenge' => $challenge,
+            'runs' => $runs
         ]);
     }
+
     /**
      * @Route("/delete-participation/{id}", name="challenge_admin_delete_participation", methods={"GET","POST"})
      * @param Request $request

@@ -22,9 +22,12 @@ function totalRun() {
     let sum = 0;
     $(".total-line").each(function () {
         let value = $(this).text();
-        // add only if the value is number
-        if (!isNaN(value) && value.length !== 0) {
-            sum += parseFloat(value);
+        let tr = $(this).closest('tr');
+        console.log(tr.data("isusedforscore"))
+        if(tr.data("isusedforscore") === 1) {
+            if (!isNaN(value) && value.length !== 0) {
+                sum += parseFloat(value);
+            }
         }
     });
     let malus = parseFloat($("#malus-run").data('malus').toString().replace(',', '.'));
@@ -40,7 +43,9 @@ function updateLigne(ligne) {
     if (value > 0) {
         ligne.find('.total-line').html(total);
     }
-    totalRun();
+    if(ligne.data("isusedforscore") === 1 ) {
+        totalRun();
+    }
 }
 
 $(function () {
@@ -93,7 +98,7 @@ $(function () {
             type: 'post',
             data: $(this).serialize(),
             success: function(data){
-                if(data.refesh){
+                if(data.refresh){
                     loadRun(t.data('challenger'));
                 }
             }
@@ -101,7 +106,5 @@ $(function () {
         return false;
     });
 
-    function update(){
 
-    }
 });
