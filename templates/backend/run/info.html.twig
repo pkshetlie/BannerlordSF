@@ -19,10 +19,11 @@
                                 <table class="table table-sm">
                                     <tr>
                                         <th colspan="2" class="text-center">Run n°{{ loop.index }}
-                                            <i
+{% if run.comment is not empty %} <i
                                                     data-toggle="tooltip"
-                                                    title="{{ run.comment is empty ? 'No comment':run.comment }}"
-                                                    class="fas fa-info-circle"></i>
+                                                    title="{{ run.comment }}"
+                                                    class="fas text-info fa-info-circle"></i>
+                                            {% endif %}
                                         </th>
                                     </tr>
                                     <tr>
