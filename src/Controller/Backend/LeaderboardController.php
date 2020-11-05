@@ -27,7 +27,7 @@ class LeaderboardController extends AbstractController
         $runs = $runRepository->findByScore($challenge);
         $placed = new ArrayCollection();
         foreach($runs AS $i=>$run){
-            if($placed->contains($run->getUser())){
+            if($placed->contains($run->getUser()) || $placed->count()>=10){
                 unset($runs[$i]);
                 continue;
             }
