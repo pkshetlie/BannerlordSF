@@ -21,7 +21,7 @@
                                         <th colspan="2" class="text-center">Run n°{{ loop.index }}
                                             <i
                                                     data-toggle="tooltip"
-                                                    title="{{ run.comment }}"
+                                                    title="{{ run.comment is empty ? 'No comment':run.comment }}"
                                                     class="fas fa-info-circle"></i>
                                         </th>
                                     </tr>
