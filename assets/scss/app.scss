@@ -25,7 +25,7 @@
 @import "parts/register_login.scss";
 @import "parts/home.scss";
 @import "parts/challenges.scss";
-
+@import "parts/challenge.scss";
 // Bootstrap Functions
 @import "./node_modules/bootstrap/scss/functions";
 @import "./node_modules/bootstrap/scss/bootstrap.scss";
@@ -48,21 +48,45 @@ body {
     color: white;
     transition: 0.2s;
     padding: 10px 20px;
-    &.btn-green {
+    &.btn:hover {
+        color: $white;
+    }
+    &.btn-green:not(.disabled) {
         background-color: $green;
         border: 1px solid $green;
-        &:hover {
+        cursor: default;
+        &.active {
+            cursor: pointer;
+        }
+        &.active:hover {
             background-color: $white;
             color: $green;
         }
     }
     
-    &.btn-grey {
+    &.btn-grey:not(.disabled) {
         background-color: $dark-grey;
         border: 1px solid $dark-grey;
-        &:hover {
+        cursor: default;
+        &.active {
+            cursor: pointer;
+        }
+        &.active:hover {
             background-color: $white;
             color: $dark-grey;
+        }
+    }
+
+    &.btn-red:not(.disabled) {
+        background-color: $pastel-red;
+        border: 1px solid $pastel-red;
+        cursor: default;
+        &.active {
+            cursor: pointer;
+        }
+        &.active:hover {
+            color: $pastel-red;
+            background-color: $white;
         }
     }
 }

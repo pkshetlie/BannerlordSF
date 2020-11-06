@@ -362,6 +362,51 @@ footer .other-links a {
   background-color: #ffffff;
   color: #b94e4e; }
 
+/**
+ * Styles de la page listant les challenges
+ * Version 1.0
+ * 11/2020
+ */
+.challenge-global img {
+  max-width: 300px; }
+
+.challenge-global i {
+  font-size: 3em; }
+
+.challenge-global .btn {
+  width: 100%; }
+
+.challenge-global h2, .challenge-global label, .challenge-global a {
+  text-transform: uppercase;
+  margin-bottom: 0; }
+
+.challenge-global .icon-global {
+  margin-right: 20px; }
+
+.challenge-global .container .row > div {
+  margin: 10px 0; }
+
+.challenge-global .encart-global > div {
+  margin: 5px 0; }
+
+.challenge-global .time-globals > div {
+  margin: 10px 0; }
+
+@media screen and (max-width: 767px) {
+  .challenge-global .title-challenge-details {
+    text-align: center; } }
+
+.challenge-details .tab-content {
+  min-height: 200px;
+  margin: 30px 0 0; }
+
+.challenge-details .nav-tabs .nav-link {
+  border: none; }
+
+.challenge-details .nav-tabs .nav-link.active, .challenge-details .nav-tabs .nav-item.show .nav-link {
+  border-bottom: 3px solid #707070;
+  font-weight: 600; }
+
 /*!
  * Bootstrap v4.5.2 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors
@@ -7531,18 +7576,35 @@ body {
   color: white;
   transition: 0.2s;
   padding: 10px 20px; }
-  .btn-custom.btn-green {
+  .btn-custom.btn:hover {
+    color: #ffffff; }
+  .btn-custom.btn-green:not(.disabled) {
     background-color: #00B42A;
-    border: 1px solid #00B42A; }
-    .btn-custom.btn-green:hover {
+    border: 1px solid #00B42A;
+    cursor: default; }
+    .btn-custom.btn-green:not(.disabled).active {
+      cursor: pointer; }
+    .btn-custom.btn-green:not(.disabled).active:hover {
       background-color: #ffffff;
       color: #00B42A; }
-  .btn-custom.btn-grey {
+  .btn-custom.btn-grey:not(.disabled) {
     background-color: #707070;
-    border: 1px solid #707070; }
-    .btn-custom.btn-grey:hover {
+    border: 1px solid #707070;
+    cursor: default; }
+    .btn-custom.btn-grey:not(.disabled).active {
+      cursor: pointer; }
+    .btn-custom.btn-grey:not(.disabled).active:hover {
       background-color: #ffffff;
       color: #707070; }
+  .btn-custom.btn-red:not(.disabled) {
+    background-color: #b94e4e;
+    border: 1px solid #b94e4e;
+    cursor: default; }
+    .btn-custom.btn-red:not(.disabled).active {
+      cursor: pointer; }
+    .btn-custom.btn-red:not(.disabled).active:hover {
+      color: #b94e4e;
+      background-color: #ffffff; }
 
 /* Social links */
 .nav-link-social .fa {
