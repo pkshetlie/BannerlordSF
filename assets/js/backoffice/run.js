@@ -1,5 +1,34 @@
 import * as $ from "jquery";
 
+function inputCreation() {
+    $('input').each(function () {
+        let t = $(this);
+        let type = t.closest('td').data('input-type')
+        let value = t.closest('td').data('default-value')
+        switch (type) {
+            case 200:
+                let input = "<select name='"+t.attr('name')+"' class='form-control form-control-sm'><option value=''>-- séléctionner -- </option>";
+                let values= value.split(';');
+                for(let i = 0;values.length>i; i++){
+                    input +="<option "+(values[i] === t.val()?"selected='selected'":"")+" value='"+values[i]+"'>"+values[i]+"</option>";
+                }
+                input +="</select>";
+                t.replaceWith(input);
+                break;
+            case 300:
+                let checkbox = "<input type='checkbox' "+(values[i] === t.val()?"checked='checked'":"")+" name='"+t.attr('name')+"' class='form-control form-control-sm' value='value'/>";
+                t.replaceWith(checkbox);
+                break;
+            default:
+            case 100:
+                break;
+
+        }
+
+    })
+}
+
+
 function loadRun(challenger) {
     $.ajax({
         url: '/admin/run/user/' + challenger,
@@ -10,6 +39,7 @@ function loadRun(challenger) {
                 $("#runScore").html(data.html);
                 $('[id^=run_runSettings]').each(function () {
                     updateLigne($(this).closest('tr'));
+                    inputCreation();
                 });
             } else {
                 $("#runScore").html(data.message);
@@ -51,7 +81,7 @@ function updateLigne(ligne) {
         if (isNaN(max)) {
             max = 999999999;
         }
-        console.log(min,max);
+        console.log(min, max);
         if (value <= max && value >= min) {
             ligne.removeClass('bg-orange');
             ligne.addClass('bg-green');

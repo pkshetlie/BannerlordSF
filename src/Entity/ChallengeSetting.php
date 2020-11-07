@@ -43,7 +43,7 @@ class ChallengeSetting
     private $inputType = self::TEXT;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=0)
+     * @ORM\Column(type="string",length=255, nullable=true)
      */
     private $defaultValue ;
 

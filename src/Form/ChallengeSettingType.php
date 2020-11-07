@@ -17,14 +17,14 @@ class ChallengeSettingType extends AbstractType
             ->add('statLabel', null, ['label'=>"Libellé stat"])
             ->add('ratio')
             ->add('position')
-//            ->add('inputType',ChoiceType::class,[
-//                'choices'=>[
-//                    "Champ texte"=>ChallengeSetting::TEXT,
-//                    "Liste déroulante"=>ChallengeSetting::SELECT,
-//                    "Case à cocher"=>ChallengeSetting::CHECKBOX,
-//                ],
-//                "label"=>"Type de champ à remplir"
-//            ])
+            ->add('inputType',ChoiceType::class,[
+                'choices'=>[
+                    "Champ texte"=>ChallengeSetting::TEXT,
+                    "Liste déroulante"=>ChallengeSetting::SELECT,
+                    "Case à cocher"=>ChallengeSetting::CHECKBOX,
+                ],
+                "label"=>"Type de champ à remplir"
+            ])
             ->add('defaultValue', null, [
                 "label" => "Valeur par défaut",
                 "attr" => ["placeholder" => ""]
