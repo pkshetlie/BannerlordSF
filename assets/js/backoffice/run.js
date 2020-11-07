@@ -8,7 +8,7 @@ function inputCreation() {
         if(type !== undefined) {
             switch (type) {
                 case 200:
-                    let input = "<select name='" + t.attr('name') + "' class='form-control form-control-sm'><option value=''>-- séléctionner -- </option>";
+                    let input = "<select name='" + t.attr('name') + "' class='form-control form-control-sm' id='" + t.attr('id') + "'><option value=''>-- séléctionner -- </option>";
                     let values = value.split(';');
                     for (let i = 0; values.length > i; i++) {
                         input += "<option " + (values[i] === t.val() ? "selected='selected'" : "") + " value='" + values[i] + "'>" + values[i] + "</option>";
@@ -17,7 +17,7 @@ function inputCreation() {
                     t.replaceWith(input);
                     break;
                 case 300:
-                    let checkbox = "<input type='checkbox' " + (value === t.val() ? "checked='checked'" : "") + " name='" + t.attr('name') + "' class='form-control form-control-sm' value='value'/>";
+                    let checkbox = "<input type='checkbox' " + (value === t.val() ? "checked='checked'" : "") + " id='" + t.attr('id') + "' name='" + t.attr('name') + "' value='"+value+"'/>";
                     t.replaceWith(checkbox);
                     break;
                 default:
