@@ -8,7 +8,7 @@ function inputCreation() {
         if (type !== undefined) {
             switch (type) {
                 case 200:
-                    let input = "<select name='" + t.attr('name') + "' class='form-control form-control-sm' id='" + t.attr('id') + "'><option value=''>-- séléctionner -- </option>";
+                    let input = "<select name='" + t.attr('name') + "' class='form-control form-control-sm' id='" + t.attr('id') + "'><option value=''>-- sélectionner -- </option>";
                     let values = value.split(';');
                     for (let i = 0; values.length > i; i++) {
                         input += "<option " + (values[i] === t.val() ? "selected='selected'" : "") + " value='" + values[i] + "'>" + values[i] + "</option>";

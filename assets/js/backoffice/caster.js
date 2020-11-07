@@ -1,4 +1,6 @@
 import * as $ from "jquery";
+import "admin-lte/plugins/datatables/jquery.dataTables.min"
+import "admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min"
 
 $(function () {
     let columnsCount = $("tr:first th").length;
@@ -40,5 +42,11 @@ $(function () {
             minTd[j].addClass('bg-orange disabled');
         }
     }
-
+    $('.dataTable').DataTable( {
+        "pageLength": 500,
+        "searching": false,
+        "ordering": true,
+        "paging": false,
+        "order": [[1, "desc" ]]
+    } );
 });
