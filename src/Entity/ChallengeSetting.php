@@ -87,6 +87,11 @@ class ChallengeSetting
      */
     private $displayBestForStats = false;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $statLabel;
+
     public function __construct()
     {
         $this->runSettings = new ArrayCollection();
@@ -268,6 +273,18 @@ class ChallengeSetting
     public function setDisplayBestForStats(bool $displayBestForStats): self
     {
         $this->displayBestForStats = $displayBestForStats;
+
+        return $this;
+    }
+
+    public function getStatLabel(): ?string
+    {
+        return $this->statLabel;
+    }
+
+    public function setStatLabel(?string $statLabel): self
+    {
+        $this->statLabel = $statLabel;
 
         return $this;
     }

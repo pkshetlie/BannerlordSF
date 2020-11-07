@@ -14,6 +14,7 @@ class ChallengeSettingType extends AbstractType
     {
         $builder
             ->add('label')
+            ->add('statLabel', null, ['label'=>"Libellé stat"])
             ->add('ratio')
             ->add('position')
 //            ->add('inputType',ChoiceType::class,[
