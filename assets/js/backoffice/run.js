@@ -41,8 +41,8 @@ function loadRun(challenger) {
             if (data.success) {
                 $("#runScore").html(data.html);
                 $('[id^=run_runSettings]').each(function () {
-                    updateLigne($(this).closest('tr'));
                     inputCreation();
+                    updateLigne($(this).closest('tr'));
                 });
             } else {
                 $("#runScore").html(data.message);
