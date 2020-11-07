@@ -17,7 +17,8 @@ function inputCreation() {
                     t.replaceWith(input);
                     break;
                 case 300:
-                    console.log(value);
+                    console.log(value,t.val());
+
                     let checkbox = "<input type='checkbox' " + (value === t.val() ? "checked='checked'" : "") + " id='" + t.attr('id') + "' name='" + t.attr('name') + "' value='"+value+"'/>";
                     t.replaceWith(checkbox);
                     break;
@@ -83,7 +84,6 @@ function updateLigne(ligne) {
         if (isNaN(max)) {
             max = 999999999;
         }
-        console.log(min, max);
         if (value <= max && value >= min) {
             ligne.removeClass('bg-orange');
             ligne.addClass('bg-green');
