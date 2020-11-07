@@ -6,34 +6,13 @@
     <tr>
         <th>Libellé</th>
         <th>Valeur</th>
-        <th>Multiplicateur</th>
-        <th>Total</th>
     </tr>
 {% for setting in form.runSettings %}
-
-    <tr
-            data-issteptovictory="{{ setting.vars.data.challengeSetting.isStepToVictory }}"
-            data-steptovictorymin="{{ setting.vars.data.challengeSetting.stepToVictoryMin }}"
-            data-steptovictorymax="{{ setting.vars.data.challengeSetting.stepToVictoryMax }}"
-            data-isusedforscore="{{ setting.vars.data.challengeSetting.isUsedForScore }}"
-    >
+    <tr>
         <td style="font-size: 12px">{{ setting.vars.data.challengeSetting.label }}</td>
         <td>{{ form_widget(setting) }}</td>
-        {% set ratio = setting.vars.data.challengeSetting.ratio %}
-        <td class="ratio" data-ratio="{{ ratio }}">{{ ratio >=1 ? "x"~(ratio|number_format(1,'.',' ')) : '/'~((1/ratio)|number_format(1,'.',' ')) }}</td>
-
-        <td class="total-line">0</td>
     </tr>
-
 {% endfor %}
-    <tr>
-        <td style="font-size: 12px" class="text-bold text-right" colspan="3"><b>Total</b></td>
-        <td class="total-run">0</td>
-    </tr>
-    <tr>
-        <td style="font-size: 12px" class="text-right" colspan="3"><b>Total malus compris</b></td>
-        <td class="total-run-with-malus">0</td>
-    </tr>
 </table>
 {{ form_end(form) }}
 

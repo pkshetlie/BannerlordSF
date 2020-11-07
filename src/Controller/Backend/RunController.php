@@ -14,6 +14,7 @@ use App\Repository\ChallengeRepository;
 use App\Repository\RunRepository;
 use App\Repository\UserRepository;
 use App\Service\ChallengeService;
+use App\Service\RunService;
 use Doctrine\Common\Collections\ArrayCollection;
 use Pkshetlie\PaginationBundle\Service\Calcul;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,11 +36,12 @@ class RunController extends AbstractController
      * @param User $user
      * @param ChallengeService $challengeService
      * @param RunRepository $runRepository
+     * @param RunService $runService
      * @param bool $reset
      * @return Response
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function current(Request $request, User $user, ChallengeService $challengeService, RunRepository $runRepository, $reset = false): Response
+    public function current(Request $request, User $user, ChallengeService $challengeService, RunRepository $runRepository, RunService $runService, $reset = false): Response
     {
         $challenge = $challengeService->getRunningChallenge();
         if ($challenge == null) {
@@ -85,15 +87,7 @@ class RunController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $run->setLastVisitedAt(new \DateTime());
-            $score = 0;
-            foreach ($run->getRunSettings() as $setting) {
-                if ($setting->getChallengeSetting()->getIsUsedForScore()) {
-                    $score += $setting->getValue() * $setting->getChallengeSetting()->getRatio();
-                }
-            }
-
-            $run->setScore($score);
-            $run->setComputedScore($score * $run->getMalus());
+            $runService->ComputeScore($run);
             $entityManager->flush();
             if ($request->get('button', null) == "run_FinDeRun" && $reset == false) {
                 $run->setEndDate(new \DateTime());
@@ -196,16 +190,25 @@ class RunController extends AbstractController
      * @Route("/edit/oneshot/{id}", name="admin_run_edit")
      * @param Request $request
      * @param Run $run
+     * @param RunService $runService
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
-    public function editRun(Request $request, Run $run)
+    public function editRun(Request $request, Run $run, RunService $runService)
     {
         $form = $this->createForm(RunType::class, $run);
+        $form->remove('FinDeRun');
+        $form->handleRequest($request);
 
-
+        if ($form->isSubmitted() && $form->isValid()) {
+            $runService->ComputeScore($run);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Run modifiée');
+            return $this->redirectToRoute('admin_runs_info', ['id' => $run->getUser()->getId()]);
+        }
         return $this->render('backend/run/edit.html.twig', [
             'form' => $form->createView(),
             'run' => $run,
-            'challenger'=>$run->getUser()
+            'challenger' => $run->getUser()
         ]);
     }
 

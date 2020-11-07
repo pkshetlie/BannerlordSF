@@ -16,15 +16,27 @@ class RunType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-          ->add('runSettings',CollectionType::class,[
-              'entry_type'=>RunSettingType::class,
-              'entry_options' => ['label' => false],
-              'label' => false,
-          ])
-            ->add('comment',TextareaType::class,['attr'=>['placeholder'=>"commentaire"]])
-            ->add('FinDeRun',SubmitType::class,['attr'=>['id'=>"endOfRun",'class'=>'btn btn-xs bg-black float-right']])
-            ->add('Enregistrer',SubmitType::class,['attr'=>['id'=>"nextChallenger",'class'=>'btn btn-xs bg-success float-left']])
-        ;
+            ->add('runSettings', CollectionType::class, [
+                'entry_type' => RunSettingType::class,
+                'entry_options' => ['label' => false],
+                'label' => false,
+            ])
+            ->add('comment', TextareaType::class, [
+                'required' => false,
+                'attr' => ['placeholder' => "commentaire"]
+            ])
+            ->add('FinDeRun', SubmitType::class, [
+                'attr' => [
+                    'id' => "endOfRun",
+                    'class' => 'btn btn-xs bg-black float-right'
+                ]
+            ])
+            ->add('Enregistrer', SubmitType::class, [
+                'attr' => [
+                    'id' => "nextChallenger",
+                    'class' => 'btn btn-xs bg-success float-left'
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
