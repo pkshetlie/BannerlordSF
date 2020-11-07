@@ -5,26 +5,27 @@ function inputCreation() {
         let t = $(this);
         let type = t.closest('td').data('input-type')
         let value = t.closest('td').data('default-value')
-        switch (type) {
-            case 200:
-                let input = "<select name='"+t.attr('name')+"' class='form-control form-control-sm'><option value=''>-- séléctionner -- </option>";
-                let values= value.split(';');
-                for(let i = 0;values.length>i; i++){
-                    input +="<option "+(values[i] === t.val()?"selected='selected'":"")+" value='"+values[i]+"'>"+values[i]+"</option>";
-                }
-                input +="</select>";
-                t.replaceWith(input);
-                break;
-            case 300:
-                let checkbox = "<input type='checkbox' "+(values[i] === t.val()?"checked='checked'":"")+" name='"+t.attr('name')+"' class='form-control form-control-sm' value='value'/>";
-                t.replaceWith(checkbox);
-                break;
-            default:
-            case 100:
-                break;
+        if(type !== undefined) {
+            switch (type) {
+                case 200:
+                    let input = "<select name='" + t.attr('name') + "' class='form-control form-control-sm'><option value=''>-- séléctionner -- </option>";
+                    let values = value.split(';');
+                    for (let i = 0; values.length > i; i++) {
+                        input += "<option " + (values[i] === t.val() ? "selected='selected'" : "") + " value='" + values[i] + "'>" + values[i] + "</option>";
+                    }
+                    input += "</select>";
+                    t.replaceWith(input);
+                    break;
+                case 300:
+                    let checkbox = "<input type='checkbox' " + (value === t.val() ? "checked='checked'" : "") + " name='" + t.attr('name') + "' class='form-control form-control-sm' value='value'/>";
+                    t.replaceWith(checkbox);
+                    break;
+                default:
+                case 100:
+                    break;
 
+            }
         }
-
     })
 }
 
