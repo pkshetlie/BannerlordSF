@@ -28,7 +28,7 @@ class ChallengeSetting
     private $label;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
+     * @ORM\Column(type="decimal", precision=10, scale=5, nullable=true)
      */
     private $ratio = 1;
 

@@ -193,6 +193,21 @@ class RunController extends AbstractController
     }
 
     /**
+     * @Route("/edit/oneshot/{id}", name="admin_run_edit")
+     * @param Request $request
+     * @param Run $run
+     */
+    public function editRun(Request $request, Run $run)
+    {
+        $form = $this->createForm(RunType::class, $run);
+
+
+        return $this->render('backend/run/edit.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+    /**
      * @Route("/{id}/edit", name="challenge_admin_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Challenge $challenge
