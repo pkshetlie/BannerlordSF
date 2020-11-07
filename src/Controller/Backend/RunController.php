@@ -203,7 +203,9 @@ class RunController extends AbstractController
 
 
         return $this->render('backend/run/edit.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'run' => $run,
+            'challenger'=>$run->getUser()
         ]);
     }
 

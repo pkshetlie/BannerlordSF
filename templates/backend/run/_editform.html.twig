@@ -1,8 +1,8 @@
 {{ form_start(form) }}
-<h3>{{ challenger.twitchID is not empty ?  challenger.twitchID :  challenger.discordID }}
+<h3>{{ challenger.username }}
     <small>{{ run.lastVisitedAt == null ? run.startDate.format('d/m/Y H:i'): run.lastVisitedAt.format('d/m/Y H:i') }}</small></h3>
 <a href="{{ url('admin_runs_info',{'id': challenger.id}) }}" class="float-right" target="_blank"><i class="fas fa-2x fa-info-circle"></i></a>
-<p>Malus de run : <span id="malus-run" data-malus="{{ run.malus }}">{{ ((run.malus-1)*100) }}</span>%, Run n° {{ challenger.countRun(run.challenge) }}</p>
+<p>Malus de run : <span id="malus-run" data-malus="{{ run.malus }}">{{ ((run.malus-1)*100) }}</span>%</p>
 <table class="table table-sm">
     <tr>
         <th>Libellé</th>
