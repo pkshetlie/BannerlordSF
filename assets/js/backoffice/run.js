@@ -65,16 +65,17 @@ function totalRun() {
     let malus = parseFloat($("#malus-run").data('malus').toString().replace(',', '.'));
     let total_malus = sum * malus;
     let tempScore = $("#run_tempScore").val();
-    if (tempScore !== null) {
+    console.log(tempScore)
+    if (tempScore !== null && tempScore !== "" && tempScore !== undefined) {
         $('.total-run-with-malus').html(tempScore * malus);
         $("#run_FinDeRun").attr('disabled', "disabled");
         $("#run_FinDeRun").attr('title', "Rentrez le detail pour pouvoir terminer la run");
     } else {
         $('.total-run-with-malus').html(total_malus);
-        $("#run_FinDeRun").removeAttr('disabled', "disabled");
+        $("#run_FinDeRun").removeAttr('disabled');
         $("#run_FinDeRun").removeAttr('title');
-
     }
+
     $(".total-run").html(sum);
 }
 
