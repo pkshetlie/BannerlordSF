@@ -3,7 +3,7 @@
     <small>{{ run.lastVisitedAt == null ? run.startDate.format('d/m/Y H:i'): run.lastVisitedAt.format('d/m/Y H:i') }}</small></h3>
 <a href="{{ url('admin_runs_info',{'id': challenger.id}) }}" class="float-right" target="_blank"><i class="fas fa-2x fa-info-circle"></i></a>
 <p>Malus de run : <span id="malus-run" data-malus="{{ run.malus }}">{{ ((run.malus-1)*100) }}</span>%, Run n° {{ challenger.countRun(run.challenge) }}</p>
-<table class="table table-sm">
+<table class="table table-sm  text-bold">
     <tr>
         <th>Libellé</th>
         <th>Valeur</th>
@@ -18,7 +18,7 @@
             data-steptovictorymax="{{ setting.vars.data.challengeSetting.stepToVictoryMax }}"
             data-isusedforscore="{{ setting.vars.data.challengeSetting.isUsedForScore }}"
     >
-        <td style="font-size: 12px">{{ setting.vars.data.challengeSetting.label }}</td>
+        <td style="font-size: 14px">{{ setting.vars.data.challengeSetting.label }}</td>
         <td data-default-value="{{ setting.vars.data.challengeSetting.defaultValue }}" data-input-type="{{ setting.vars.data.challengeSetting.inputType }}">{{ form_widget(setting) }}</td>
         {% set ratio = setting.vars.data.challengeSetting.ratio  %}
         <td class="ratio" data-ratio="{{ ratio }}">{{ ratio >=1 ? "x"~(ratio|number_format(1,'.',' ')) : '/'~((1/ratio)|number_format(1,'.',' ')) }}</td>
@@ -26,14 +26,19 @@
     </tr>
 
 {% endfor %}
+    <tr class="bg-black">
+        <td style="font-size: 14px" class="text-right"><b>Score temporaire</b></td>
+        <td class="total-run-with-malus">{{ form_widget(form.tempScore) }}</td>
+    </tr>
     <tr>
-        <td style="font-size: 12px" class="text-bold text-right" colspan="3"><b>Total</b></td>
+        <td style="font-size: 14px" class="text-bold text-right" colspan="3"><b>Total</b></td>
         <td class="total-run">0</td>
     </tr>
     <tr>
         <td style="font-size: 12px" class="text-right" colspan="3"><b>Total malus compris</b></td>
         <td class="total-run-with-malus">0</td>
     </tr>
+
 </table>
 {{ form_end(form) }}
 

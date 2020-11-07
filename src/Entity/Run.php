@@ -69,6 +69,11 @@ class Run
      */
     private $score;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $tempScore;
+
     public function __construct()
     {
         $this->runSettings = new ArrayCollection();
@@ -214,6 +219,18 @@ class Run
     public function setScore(?string $score): self
     {
         $this->score = $score;
+
+        return $this;
+    }
+
+    public function getTempScore(): ?int
+    {
+        return $this->tempScore;
+    }
+
+    public function setTempScore(?int $tempScore): self
+    {
+        $this->tempScore = $tempScore;
 
         return $this;
     }

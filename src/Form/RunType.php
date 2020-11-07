@@ -16,6 +16,9 @@ class RunType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('tempScore', null, [
+                'label' => "Score temporaire",
+            ])
             ->add('runSettings', CollectionType::class, [
                 'entry_type' => RunSettingType::class,
                 'entry_options' => ['label' => false],
