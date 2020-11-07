@@ -424,7 +424,7 @@ class User implements UserInterface
         /** @var Run $run */
         $run = $this->getRuns()->last();
 
-        return  !$run ? 0 : $run->getComputedScore();
+        return !$run ? 0 : $run->getComputedScore();
     }
 
     public function getBestScore(Challenge $challenge)
@@ -445,15 +445,42 @@ class User implements UserInterface
         return $score;
     }
 
-    public function runCumulSettingValue(ChallengeSetting $setting){
+    public function runCumulSettingValue(ChallengeSetting $setting, Challenge $challenge)
+    {
 
-        return 0;
+        $cumul = 0;
+        /** @var Run[] $runs */
+        $runs = $this->getRuns()->filter(function (Run $run) use ($challenge) {
+            return $run->getChallenge() === $challenge;
+        });
+
+        foreach ($runs as $run) {
+            foreach ($run->getRunSettings() as $runSetting) {
+                if ($runSetting->getChallengeSetting() === $setting) {
+                    $cumul += $runSetting->getValue();
+                }
+            }
+        }
+
+        return $cumul;
     }
 
-    public function runBestSettingValue(ChallengeSetting $setting)
+    public function runBestSettingValue(ChallengeSetting $setting, Challenge $challenge)
     {
-        return 0;
+        $best = 0;
+        /** @var Run[] $runs */
+        $runs = $this->getRuns()->filter(function (Run $run) use ($challenge) {
+            return $run->getChallenge() === $challenge;
+        });
 
+        foreach ($runs as $run) {
+            foreach ($run->getRunSettings() as $runSetting) {
+                if ($runSetting->getChallengeSetting() === $setting && $runSetting->getValue() > $best) {
+                    $best = $runSetting->getValue();
+                }
+            }
+        }
+        return $best;
     }
 
 }
