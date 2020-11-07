@@ -1,6 +1,5 @@
 {{ form_start(form) }}
-<h3>{{ challenger.username }}
-    <small>{{ run.lastVisitedAt == null ? run.startDate.format('d/m/Y H:i'): run.lastVisitedAt.format('d/m/Y H:i') }}</small></h3>
+<h3>{{ challenger.twitchID is not empty ?  challenger.twitchID :  challenger.discordID }}<small>{{ run.lastVisitedAt == null ? run.startDate.format('d/m/Y H:i'): run.lastVisitedAt.format('d/m/Y H:i') }}</small></h3>
 <a href="{{ url('admin_runs_info',{'id': challenger.id}) }}" class="float-right" target="_blank"><i class="fas fa-2x fa-info-circle"></i></a>
 <p>Malus de run : <span id="malus-run" data-malus="{{ run.malus }}">{{ ((run.malus-1)*100) }}</span>%</p>
 <table class="table table-sm">
@@ -20,8 +19,9 @@
     >
         <td style="font-size: 12px">{{ setting.vars.data.challengeSetting.label }}</td>
         <td>{{ form_widget(setting) }}</td>
-        {% set ratio = setting.vars.data.challengeSetting.ratio  %}
-        <td class="ratio">{{ ratio >=1 ? "x"~(ratio|number_format(1,'.',' ')) : '/'~((1/ratio)|number_format(1,'.',' ')) }}</td>
+        {% set ratio = setting.vars.data.challengeSetting.ratio %}
+        <td class="ratio" data-ratio="{{ ratio }}">{{ ratio >=1 ? "x"~(ratio|number_format(1,'.',' ')) : '/'~((1/ratio)|number_format(1,'.',' ')) }}</td>
+
         <td class="total-line">0</td>
     </tr>
 

@@ -36,7 +36,7 @@ function totalRun() {
 }
 
 function updateLigne(ligne) {
-    let ratio = parseFloat(ligne.find('.ratio').text().replace(',', '.'));
+    let ratio = parseFloat(ligne.find('.ratio').data('ratio').replace(',', '.'));
     let value = parseFloat(ligne.find("input").val().replace(',', '.'));
     let total = ratio * value;
     if (value > 0) {
