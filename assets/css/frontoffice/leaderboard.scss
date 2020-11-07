@@ -35,16 +35,17 @@ html {
 
       td {
         width: 190px;
-        text-align: center;
+        text-align: left;
         font-size: 25px;
         height: 44px;
         line-height: 25px;
         &:first-child {
           width:50px;
+          text-align:center;
         }
         &:last-child {
+          width:150px;
           text-align: right;
-
         }
       }
 
