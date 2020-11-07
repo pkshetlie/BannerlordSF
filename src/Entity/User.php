@@ -446,6 +446,7 @@ class User implements UserInterface
     }
 
     public function runCumulSettingValue(ChallengeSetting $setting){
+
         return 0;
     }
 

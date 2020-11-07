@@ -35,7 +35,7 @@
 
                                     <li class="m-0 mb-1" style="">
                                         <a
-                                                class="btn text-left btn-xs btn-flat btn-block {% if participation.arbitre.id == app.user.id %}bg-purple{% else %}bg-gray{% endif %}"
+                                                class="btn text-left btn-xs btn-flat btn-block {% if participation.arbitre is null %}bg-black{% elseif participation.arbitre.id == app.user.id %}bg-purple{% else %}bg-gray{% endif %}"
                                                 href="#"
                                                 data-participation="{{ participation.id }}"
                                                 data-challenger="{{ challenger.id }}"
