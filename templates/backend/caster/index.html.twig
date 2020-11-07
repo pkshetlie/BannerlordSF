@@ -35,7 +35,9 @@
                                     {% set challenger = participation.user %}
                                     {% if participation.arbitre is not null %}
                                         <tr>
-                                            <td>{{ challenger.username }}</td>
+                                            <td>
+                                                <a href="{{ url('admin_runs_info',{'id': challenger.id}) }}" class="" target="_blank">{{ challenger.username }}</a>
+                                            </td>
                                             <td class="text-right">{{ challenger.bestScore(challenge)|number_format(0,',',' ') }}</td>
                                             <td class="text-right">{{ challenger.currentScore(challenge)|number_format(0,',',' ') }}</td>
                                             <td class="text-right">{{ challenger.countRun(challenge)|number_format(0,',',' ') }}</td>
