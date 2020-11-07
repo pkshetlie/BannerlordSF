@@ -115,7 +115,7 @@ $(function () {
 
     $(document).on('keyup change', '[id^=run_runSettings_]', function () {
         $("form#runForm").submit();
-        updateLigne(ligne);
+        updateLigne($(this).closest('tr.updatable'));
     });
 
     $(document).on('keyup change', '#run_comment', function () {
