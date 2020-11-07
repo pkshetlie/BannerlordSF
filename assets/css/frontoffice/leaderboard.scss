@@ -25,16 +25,16 @@ html {
       th {
         font-size: 30px;
 
-        &:first-child {
-          font-size: 40px;
-        }
+        //&:first-child {
+        //  font-size: 40px;
+        //}
         .score {
           text-align:right;
         }
       }
 
       td {
-        width: 140px;
+        width: 150px;
         text-align: center;
         font-size: 25px;
         line-height: 44px;
