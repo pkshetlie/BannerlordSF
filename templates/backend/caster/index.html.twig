@@ -40,15 +40,15 @@
                                             <td>
                                                 <a href="{{ url('admin_runs_info',{'id': challenger.id}) }}" class="" target="_blank">{{ challenger.username }}</a>
                                             </td>
-                                            <td class="text-right">{{ challenger.bestScore(challenge)|number_format(0,',',' ') }}</td>
-                                            <td class="text-right">{{ challenger.currentScore(challenge)|number_format(0,',',' ') }}</td>
-                                            <td class="text-right">{{ challenger.countRun(challenge)|number_format(0,',',' ') }}</td>
+                                            <td class="text-right">{{ challenger.bestScore(challenge)|number_format(0,',','') }}</td>
+                                            <td class="text-right">{{ challenger.currentScore(challenge)|number_format(0,',','') }}</td>
+                                            <td class="text-right">{{ challenger.countRun(challenge)|number_format(0,',','') }}</td>
                                             {% for setting in challenge.challengeSettings %}
                                                 {% if setting.displayBestForStats %}
-                                                    <td class="text-right">{{ challenger.runBestSettingValue(setting, challenge)|number_format(0,',',' ') }}</td>
+                                                    <td class="text-right">{{ challenger.runBestSettingValue(setting, challenge)|number_format(0,',','') }}</td>
                                                 {% endif %}
                                                 {% if setting.displayForStats %}
-                                                    <td class="text-right">{{ challenger.runCumulSettingValue(setting, challenge)|number_format(0,',',' ') }}</td>
+                                                    <td class="text-right">{{ challenger.runCumulSettingValue(setting, challenge)|number_format(0,',','') }}</td>
                                                 {% endif %}
                                             {% endfor %}
                                         </tr>
