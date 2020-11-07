@@ -12,7 +12,7 @@
     </tr>
 {% for setting in form.runSettings %}
 
-    <tr
+    <tr class="updatable"
             data-issteptovictory="{{ setting.vars.data.challengeSetting.isStepToVictory }}"
             data-steptovictorymin="{{ setting.vars.data.challengeSetting.stepToVictoryMin }}"
             data-steptovictorymax="{{ setting.vars.data.challengeSetting.stepToVictoryMax }}"

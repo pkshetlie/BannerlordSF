@@ -38,9 +38,9 @@ function loadRun(challenger) {
         success: function (data) {
             if (data.success) {
                 $("#runScore").html(data.html);
+                inputCreation();
                 $('[id^=run_runSettings]').each(function () {
-                    inputCreation();
-                    updateLigne($(this).closest('tr'));
+                    updateLigne($(this).closest('tr.updatable'));
                 });
             } else {
                 $("#runScore").html(data.message);
@@ -68,7 +68,7 @@ function totalRun() {
 
 function updateLigne(ligne) {
     let ratio = parseFloat(ligne.find('.ratio').data('ratio').replace(',', '.'));
-    let value = ligne.find("input") !== undefined ? parseFloat(ligne.find("input").val().toString().replace(',', '.')) : parseFloat(ligne.find("select").val().toString().replace(',', '.'));
+    let value = ligne.find("input") !== undefined ? parseFloat(ligne.find("input").val().replace(',', '.')) : parseFloat(ligne.find("select").val().replace(',', '.'));
     let total = ratio * value;
     if (value > 0) {
         ligne.find('.total-line').html(total);
