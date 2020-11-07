@@ -17,11 +17,11 @@ $(function () {
             }
             let td = $(this).find('td:eq('+i+')');
             let value = parseInt(td.text().replace(' ',''));
-            if(value > max ){
+            if(value > max && value !== 0 ){
                 maxTd = [td];
                 max = value;
             }
-            if(value === max){
+            if(value === max && value !== 0 ){
                 maxTd.push(td);
             }
             if(value < min && value !== 0 ){
