@@ -67,8 +67,10 @@ $(() => {
         }
 
         $(this).find('input').blur(function(){
-            if($(this).find('input').val() == '') {
+            if($(this).val() == '') {
                 $(this).removeClass('active');
+            } else {
+                $(this).addClass('active');
             }
         });
     });
