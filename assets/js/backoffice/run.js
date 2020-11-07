@@ -26,7 +26,9 @@ function inputCreation() {
 
             }
         }
-    })
+    });
+    $("[type=checkbox]").val()
+
 }
 
 
@@ -68,7 +70,8 @@ function totalRun() {
 
 function updateLigne(ligne) {
     let ratio = parseFloat(ligne.find('.ratio').data('ratio').replace(',', '.'));
-    let value = ligne.find("input") !== undefined ? parseFloat(ligne.find("input").val().replace(',', '.')) : parseFloat(ligne.find("select").val().replace(',', '.'));
+
+    let value = ligne.find("input") !== undefined ? (ligne.find("input").is('[type=checkbox]')? (ligne.find("input").is(':checked') ? ligne.find("input").val() : 0) : parseFloat(ligne.find("input").val())) : parseFloat(ligne.find("select").val().replace(',', '.'));
     let total = ratio * value;
     if (value > 0) {
         ligne.find('.total-line').html(total);
@@ -90,8 +93,6 @@ function updateLigne(ligne) {
             ligne.addClass('bg-orange');
         }
     }
-
-
     if (ligne.data("isusedforscore") === 1) {
         totalRun();
     }
@@ -114,6 +115,7 @@ $(function () {
 
     $(document).on('keyup change', '[id^=run_runSettings_]', function () {
         $("form#runForm").submit();
+        updateLigne(ligne);
     });
 
     $(document).on('keyup change', '#run_comment', function () {
