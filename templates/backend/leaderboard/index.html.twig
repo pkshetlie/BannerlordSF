@@ -22,7 +22,7 @@
     {% for run in runs %}
         <tr>
             <td>{{ loop.index }}</td>
-            <td>{{ run.user.username }}</td>
+            <td><b>{{ run.user.username }}</b></td>
             <td>{{ run.computedScore|round(0)|number_format(0,',',' ') }}</td>
         </tr>
     {% endfor %}
