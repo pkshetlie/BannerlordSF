@@ -5,7 +5,7 @@ function inputCreation() {
         let t = $(this);
         let type = t.closest('td').data('input-type')
         let value = t.closest('td').data('default-value')
-        if(type !== undefined) {
+        if (type !== undefined) {
             switch (type) {
                 case 200:
                     let input = "<select name='" + t.attr('name') + "' class='form-control form-control-sm' id='" + t.attr('id') + "'><option value=''>-- séléctionner -- </option>";
@@ -17,9 +17,7 @@ function inputCreation() {
                     t.replaceWith(input);
                     break;
                 case 300:
-                    console.log(value,t.val());
-
-                    let checkbox = "<input type='checkbox' " + (value === t.val() ? "checked='checked'" : "") + " id='" + t.attr('id') + "' name='" + t.attr('name') + "' value='"+value+"'/>";
+                    let checkbox = "<input type='checkbox' " + (parseFloat(value) === parseFloat(t.val()) ? "checked='checked'" : "") + " id='" + t.attr('id') + "' name='" + t.attr('name') + "' value='" + value + "'/>";
                     t.replaceWith(checkbox);
                     break;
                 default:
@@ -70,7 +68,7 @@ function totalRun() {
 
 function updateLigne(ligne) {
     let ratio = parseFloat(ligne.find('.ratio').data('ratio').replace(',', '.'));
-    let value = parseFloat(ligne.find("input").val().replace(',', '.'));
+    let value = ligne.find("input") !== undefined ? parseFloat(ligne.find("input").val().toString().replace(',', '.')) : parseFloat(ligne.find("select").val().toString().replace(',', '.'));
     let total = ratio * value;
     if (value > 0) {
         ligne.find('.total-line').html(total);
@@ -107,6 +105,7 @@ $(function () {
         $("#twitch_player").attr('src', url);
         return false;
     })
+    inputCreation();
 
     $(document).on('keyup', '[id^=run_runSettings]', function () {
         let ligne = $(this).closest('tr');
