@@ -92,6 +92,7 @@ class RunController extends AbstractController
                 }
             }
 
+            $run->setScore($score);
             $run->setComputedScore($score * $run->getMalus());
             $entityManager->flush();
             if ($request->get('button', null) == "run_FinDeRun" && $reset == false) {

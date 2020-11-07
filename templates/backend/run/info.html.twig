@@ -39,7 +39,6 @@
 
                                     {% for setting in run.runSettings %}
                                         {% set points = setting.value * setting.challengeSetting.ratio %}
-                                        {% set total = total + points %}
                                         <tr {% if setting.challengeSetting.isStepToVictory %}
                                                 {% if setting.isCompleted %}
                                             class="bg-green disabled"
@@ -54,11 +53,11 @@
                                     {% endfor %}
                                     <tr>
                                         <td colspan="2"><b>Total</b></td>
-                                        <td class="text-right">{{ total }}</td>
+                                        <td class="text-right">{{ run.score }}</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2"><b>Total avec malus</b></td>
-                                        <td class="text-right">{{ total* run.malus }}</td>
+                                        <td colspan="2"><b>Total avec malus ({{ (1-run.malus)*100 }}%)</b></td>
+                                        <td class="text-right">{{ run.computedScore }}</td>
                                     </tr>
                                 </table>
                             </div>

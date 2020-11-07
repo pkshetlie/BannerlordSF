@@ -1,0 +1,69 @@
+{% extends 'base_backoffice.html.twig' %}
+
+{% block title %}{{ "Vue caster"|trans }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card card-default color-palette-box">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-tag"></i>
+                        {{ "Casters"|trans }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3>Participants ({{ participations|length }})</h3>
+                            <table class="table table-sm">
+                                <tr>
+                                    <th>Joueur</th>
+                                    <th class="text-right">Best run</th>
+                                    <th class="text-right">Run en cours</th>
+                                    <th class="text-right">Nb. run</th>
+                                    {% for setting in challenge.challengeSettings %}
+                                        {% if setting.displayBestForStats %}
+                                            <th class="text-right">{{ setting.label }} (best)</th>
+                                        {% endif %}
+                                        {% if setting.displayForStats %}
+                                            <th class="text-right">{{ setting.label }} (cumul)</th>
+                                        {% endif %}
+                                    {% endfor %}
+                                </tr>
+                                {% for participation in participations %}
+                                    {% set challenger = participation.user %}
+                                    <tr>
+                                        <td>{{ challenger.username }}</td>
+                                        <td class="text-right">{{ challenger.bestScore(challenge)|number_format(0,',',' ') }}</td>
+                                        <td class="text-right">{{ challenger.currentScore(challenge)|number_format(0,',',' ') }}</td>
+                                        <td class="text-right">{{ challenger.countRun(challenge)|number_format(0,',',' ') }}</td>
+                                        {% for setting in challenge.challengeSettings %}
+                                            {% if setting.displayBestForStats %}
+                                                <td class="text-right">{{ challenger.runBestSettingValue(setting)|number_format(0,',',' ') }}</td>
+                                            {% endif %}
+                                            {% if setting.displayForStats %}
+                                                <td class="text-right">{{ challenger.runCumulSettingValue(setting)|number_format(0,',',' ') }}</td>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </tr>
+
+                                {% endfor %}
+                            </table>
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('bo_run') }}
+{% endblock %}
+{# <a href="{{ path('challenge_new') }}">{{ "Create new"|trans }}</a> #}
+

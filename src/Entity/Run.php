@@ -64,6 +64,11 @@ class Run
      */
     private $ComputedScore;
 
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
+     */
+    private $score;
+
     public function __construct()
     {
         $this->runSettings = new ArrayCollection();
@@ -197,6 +202,18 @@ class Run
     public function setComputedScore(?string $ComputedScore): self
     {
         $this->ComputedScore = $ComputedScore;
+
+        return $this;
+    }
+
+    public function getScore(): ?string
+    {
+        return $this->score;
+    }
+
+    public function setScore(?string $score): self
+    {
+        $this->score = $score;
 
         return $this;
     }

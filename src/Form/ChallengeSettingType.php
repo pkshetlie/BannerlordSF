@@ -32,8 +32,8 @@ class ChallengeSettingType extends AbstractType
             ->add('isStepToVictory', null, ['label' => "Est une etape vers la victoire"])//            ->add('challenge')
             ->add('stepToVictoryMin', null, ['label' => "Valeur min pour valider"])//            ->add('challenge')
             ->add('stepToVictoryMax', null, ['label' => "Valeur max pour valider"])//            ->add('challenge')
-            ->add('displayBestForStats', null, ['label' => "Stat : cumul des runs"])//            ->add('challenge')
-            ->add('displayForStats', null, ['label' => "Stat : meilleur score seulement"])//            ->add('challenge')
+            ->add('displayBestForStats', null, ['label' => "Stat : meilleur score seulement"])//            ->add('challenge')
+            ->add('displayForStats', null, ['label' => "Stat : cumul des runs"])//            ->add('challenge')
         ;
     }
 
