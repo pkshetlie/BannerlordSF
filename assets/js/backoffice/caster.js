@@ -21,6 +21,7 @@ $(function () {
                 maxTd = [td];
                 max = value;
             }
+
             if(value === max && value !== 0 ){
                 maxTd.push(td);
             }

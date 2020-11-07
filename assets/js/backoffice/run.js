@@ -64,16 +64,24 @@ function totalRun() {
     });
     let malus = parseFloat($("#malus-run").data('malus').toString().replace(',', '.'));
     let total_malus = sum * malus;
-    $('.total-run-with-malus').html(total_malus);
+    let tempScore = $("#run_tempScore").val();
+    if (tempScore !== null) {
+        $('.total-run-with-malus').html(tempScore * malus);
+        $("#run_finDeRun").attr('disabled', "disabled");
+    } else {
+        $('.total-run-with-malus').html(total_malus);
+        $("#run_finDeRun").removeAttr('disabled', "disabled");
+
+    }
     $(".total-run").html(sum);
 }
 
 function updateLigne(ligne) {
     let ratio = parseFloat(ligne.find('.ratio').data('ratio').replace(',', '.'));
 
-    let value = ligne.find("input") !== undefined ? (ligne.find("input").is('[type=checkbox]')? (ligne.find("input").is(':checked') ? ligne.find("input").val() : 0) : parseFloat(ligne.find("input").val())) : parseFloat(ligne.find("select").val().replace(',', '.'));
+    let value = ligne.find("input") !== undefined ? (ligne.find("input").is('[type=checkbox]') ? (ligne.find("input").is(':checked') ? ligne.find("input").val() : 0) : parseFloat(ligne.find("input").val())) : parseFloat(ligne.find("select").val().replace(',', '.'));
     let total = ratio * value;
-    if (value > 0) {
+    if (value >= 0) {
         ligne.find('.total-line').html(total);
     }
     if (ligne.data("issteptovictory") === 1) {
@@ -133,7 +141,7 @@ $(function () {
             type: 'post',
             data: form.serialize() + "&button=" + $(this).attr('id'),
             success: function (data) {
-                if (data.refesh) {
+                if (data.refresh) {
                     loadRun(form.data('challenger'));
                 }
             }
