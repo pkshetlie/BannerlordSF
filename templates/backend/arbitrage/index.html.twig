@@ -40,7 +40,7 @@
                                                 data-participation="{{ participation.id }}"
                                                 data-challenger="{{ challenger.id }}"
                                                 {% if challenger.twitchID is not empty %}
-                                                    data-url="https://player.twitch.tv/?channel={{ challenger.twitchID }}&parent={{ app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''}) }}&muted=true"
+                                                    data-url="https://player.twitch.tv/?channel={{ challenger.twitchID }}&parent={{ app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''}) }}&muted=true&autoplay=false"
                                                 {% else %}
                                                     data-url=""
                                                 {% endif %}
@@ -63,7 +63,7 @@
                         <div class="col-md-5">
                             <iframe
                                     id="twitch_player"
-                                    src="https://player.twitch.tv/?channel=pompevie74&parent={{ app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''}) }}&muted=true"
+                                    src="https://player.twitch.tv/?channel=pompevie74&parent={{ app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''}) }}&muted=true&autoplay=false"
                                     width="650"
                                     height="370"
                                     frameborder="0"

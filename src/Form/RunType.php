@@ -29,6 +29,7 @@ class RunType extends AbstractType
                 'entry_type' => RunSettingType::class,
                 'entry_options' => ['label' => false],
                 'label' => false,
+                'required' => false,
             ])
             ->add('comment', TextareaType::class, [
                 'required' => false,
