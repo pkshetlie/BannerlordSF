@@ -17,6 +17,7 @@ function inputCreation() {
                     t.replaceWith(input);
                     break;
                 case 300:
+                    console.log(value);
                     let checkbox = "<input type='checkbox' " + (value === t.val() ? "checked='checked'" : "") + " id='" + t.attr('id') + "' name='" + t.attr('name') + "' value='"+value+"'/>";
                     t.replaceWith(checkbox);
                     break;
