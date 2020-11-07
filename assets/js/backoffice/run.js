@@ -67,10 +67,12 @@ function totalRun() {
     let tempScore = $("#run_tempScore").val();
     if (tempScore !== null) {
         $('.total-run-with-malus').html(tempScore * malus);
-        $("#run_finDeRun").attr('disabled', "disabled");
+        $("#run_FinDeRun").attr('disabled', "disabled");
+        $("#run_FinDeRun").attr('title', "Rentrez le detail pour pouvoir terminer la run");
     } else {
         $('.total-run-with-malus').html(total_malus);
-        $("#run_finDeRun").removeAttr('disabled', "disabled");
+        $("#run_FinDeRun").removeAttr('disabled', "disabled");
+        $("#run_FinDeRun").removeAttr('title');
 
     }
     $(".total-run").html(sum);
@@ -128,6 +130,11 @@ $(function () {
 
     $(document).on('keyup change', '#run_comment', function () {
         $("form#runForm").submit();
+    });
+
+    $(document).on('keyup change', '#run_tempScore', function () {
+        $("form#runForm").submit();
+        totalRun();
     });
 
     $(document).on('click', "form#runForm button", function () {
