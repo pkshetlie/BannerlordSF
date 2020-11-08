@@ -46,14 +46,14 @@
                                         {% set points = setting.value * setting.challengeSetting.ratio %}
                                         <tr {% if setting.challengeSetting.isStepToVictory %}
                                             {% if setting.isCompleted %}
-                                                class="bg-green disabled"
+                                                class="bg-green "
                                             {% else %}
-                                                class="bg-orange disabled"
+                                                class="bg-orange"
                                             {% endif %}
                                                 {% endif %}>
-                                            <td><small>{{ setting.challengeSetting.label }}</small></td>
-                                            <td class="text-right">{{ setting.value }}</td>
-                                            <td class="text-right">{{ points }}</td>
+                                            <td><small><b>{{ setting.challengeSetting.label }}</b></small></td>
+                                            <td class="text-right"><b>{{ setting.value }}</b></td>
+                                            <td class="text-right"><b>{{ points }}</b></td>
                                         </tr>
                                     {% endfor %}
                                     <tr>
