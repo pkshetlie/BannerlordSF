@@ -215,6 +215,14 @@
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ url('video_maker_admin_new') }}" class="nav-link {% if app.request.get('_route') starts with "video_maker_admin_new" %}active{% endif %}">
+                            <i class="nav-icon fas fa-file-video"></i>
+                            <p>
+                                Vue Video Maker
+                            </p>
+                        </a>
+                    </li>
 
                     <li class="nav-item">
                         <a href="{{ url('admin_leaderboard_index') }}" target='_blank' class="nav-link {% if app.request.get('_route') starts with "admin_leaderboard_index" %}active{% endif %}">
