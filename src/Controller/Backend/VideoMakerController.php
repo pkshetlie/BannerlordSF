@@ -75,7 +75,7 @@ class VideoMakerController extends AbstractController
             ]);
         } else {
             return $this->render('backend/video_maker/selection_challenge.html.twig', [
-                'challenges' => $challengeRepository->findBy([], ["id"]),
+                'challenges' => $challengeRepository->findBy([], ["id"=>"asc"]),
 
             ]);
         }
@@ -103,7 +103,6 @@ class VideoMakerController extends AbstractController
         $participants = $participationRepository->findByChallenge($challenge);
         $clips = [];
         $twitchApi = new TwitchApi($options);
-
         $datesstart = $challenge->getChallengeDates()->first()->getStartDate();
         $datesend = $challenge->getChallengeDates()->last()->getEndDate();
 
