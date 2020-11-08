@@ -4,7 +4,7 @@
     <h2>Tous les challenges</h2>
 
     {% for challenge in challenges %}
-        <a href="{{ url("caster_specifique_index",{id:challenge.id}) }}">{{ challenge.title }}</a><br/>
+        <a href="{{ url("video_maker_specifique_admin_new",{id:challenge.id}) }}">{{ challenge.title }}</a><br/>
     {% endfor %}
 {% endblock %}
 
