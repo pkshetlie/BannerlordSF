@@ -9,7 +9,7 @@
             <div class="card-header">
                 <h3 class="card-title">
                     <i class="fas fa-tag"></i>
-                    {{ "Clips"|trans }}
+                    {{ "Clips"|trans }} ({{ clips|length }})
                 </h3>
             </div>
             <div class="card-body">
@@ -25,6 +25,7 @@
                 <div class="row">
                     {% endif %}
                     <div class="col-md-3">
+                        Créé par <b>{{ clip["curator"]["display_name"] }}</b><br/>
                         <iframe src='{{ (clip['embed_url']|raw)~"&parent="~(app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''})) }}'
                                 width="350px" height="200px"></iframe>
                     </div>

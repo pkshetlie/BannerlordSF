@@ -69,6 +69,7 @@ class VideoMakerController extends AbstractController
                     unset($clips[$i]);
                 }
             }
+//            VarDumper::dump($clips);
 
             return $this->render('backend/video_maker/index.html.twig', [
                 'clips' => $clips
@@ -122,7 +123,7 @@ class VideoMakerController extends AbstractController
                 unset($clips[$i]);
             }
         }
-
+//VarDumper::dump($clips);
         return $this->render('backend/video_maker/index.html.twig', [
             'clips' => $clips
         ]);
