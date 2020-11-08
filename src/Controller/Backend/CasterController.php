@@ -25,9 +25,9 @@ class CasterController extends AbstractController
      */
     public function index(ParticipationRepository $participationRepository, ChallengeService $challengeService, ChallengeRepository $challengeRepository): Response
     {
-
         $challenge = $challengeService->getRunningChallenge();
-        if($challenge == null) {
+
+        if($challenge != null) {
             /** @var Participation[] $participations */
             $participations = $participationRepository->findByChallenge($challenge);
 
