@@ -24,7 +24,7 @@ use TwitchApi\TwitchApi;
  */
 class VideoMakerController extends AbstractController
 {
-    const Game ="Mount & Blade II: Bannerlord" ;
+    const Game = "Mount & Blade II: Bannerlord";
 
     /**
      * @Route("/", name="video_maker_admin_new", methods={"GET","POST"})
@@ -69,8 +69,8 @@ class VideoMakerController extends AbstractController
                             self::Game, 200, 'week')['clips']
 
                         );
-                    }catch(\Exception $e){
-                        $this->addFlash('danger', "Impossible de joindre le twitch de ".$participant->getUser()->getTwitchID());
+                    } catch (\Exception $e) {
+                        $this->addFlash('danger', "Impossible de joindre le twitch de " . $participant->getUser()->getTwitchID());
                     }
                 }
             }
@@ -127,14 +127,17 @@ class VideoMakerController extends AbstractController
         foreach ($participants as $participant) {
             if ($participant->getUser()->getTwitchID() != null) {
                 try {
-                    $clips = array_merge($clips, $twitchApi->getTopClips(
-                        $participant->getUser()->getTwitchID(),
-                        null,
-                        self::Game, 200, 'week')['clips']
+                    $cursor = 0;
+                    while ($cursor < 5) {
+                        $clips = array_merge($clips, $twitchApi->getTopClips(
+                            $participant->getUser()->getTwitchID(),
+                            $cursor, null, 10, 'month')['clips']
 
-                    );
-                }catch(\Exception $e){
-                    $this->addFlash('danger', "Impossible de joindre le twitch de ".$participant->getUser()->getTwitchID());
+                        );
+                        $cursor++;
+                    }
+                } catch (\Exception $e) {
+                    $this->addFlash('danger', "Impossible de joindre le twitch de " . $participant->getUser()->getTwitchID());
                 }
             }
         }
