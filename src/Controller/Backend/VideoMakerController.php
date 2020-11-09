@@ -55,16 +55,16 @@ class VideoMakerController extends AbstractController
             $clips = array_merge($clips, $twitchApi->getTopClips(
                 "pompevie74",
                 null,
-                "Mount & Blade II: Bannerlord")['clips'],
-                999
+                "Mount & Blade II: Bannerlord",1000)['clips']
+
             );
             foreach ($participants as $participant) {
                 if ($participant->getUser()->getTwitchID() != null) {
                     $clips = array_merge($clips, $twitchApi->getTopClips(
                         $participant->getUser()->getTwitchID(),
                         null,
-                        "Mount & Blade II: Bannerlord")['clips'],
-                        999
+                        "Mount & Blade II: Bannerlord",1000)['clips']
+
                     );
                 }
             }
@@ -115,16 +115,16 @@ class VideoMakerController extends AbstractController
         $clips = array_merge($clips, $twitchApi->getTopClips(
             "pompevie74",
             null,
-            "Mount & Blade II: Bannerlord")['clips'],
-            999
+            "Mount & Blade II: Bannerlord",1000)['clips']
+
         );
         foreach ($participants as $participant) {
             if ($participant->getUser()->getTwitchID() != null) {
                 $clips = array_merge($clips, $twitchApi->getTopClips(
                     $participant->getUser()->getTwitchID(),
                     null,
-                    "Mount & Blade II: Bannerlord")['clips'],
-                    999
+                    "Mount & Blade II: Bannerlord",1000)['clips']
+
                 );
             }
         }
