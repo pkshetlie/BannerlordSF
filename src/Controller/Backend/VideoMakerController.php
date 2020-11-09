@@ -65,7 +65,7 @@ class VideoMakerController extends AbstractController
 
             foreach ($clips as $i => $clip) {
                 $date = new \DateTime($clip['created_at']);
-                if ($date <= $datesstart || $date >= $datesend) {
+                if ($date <= $datesstart) {
                     unset($clips[$i]);
                 }
             }
