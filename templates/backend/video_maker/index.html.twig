@@ -25,7 +25,7 @@
                 <div class="row">
                     {% endif %}
                     <div class="col-md-3">
-                        Créé par <b>{{ clip["curator"]["display_name"] }}</b><br/>
+                        Créé le {{ clip['created_at']}} par <b>{{ clip["curator"]["display_name"] }}</b><br/>
                         <iframe src='{{ (clip['embed_url']|raw)~"&parent="~(app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''})) }}'
                                 width="350px" height="200px"></iframe>
                     </div>
