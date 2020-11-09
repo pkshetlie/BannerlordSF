@@ -52,7 +52,12 @@ class VideoMakerController extends AbstractController
 
             $datesstart = $challenge->getChallengeDates()->first()->getStartDate();
             $datesend = $challenge->getChallengeDates()->last()->getEndDate();
-
+            $clips = array_merge($clips, $twitchApi->getTopClips(
+                "pompevie74",
+                null,
+                "Mount & Blade II: Bannerlord")['clips'],
+                1000
+            );
             foreach ($participants as $participant) {
                 if ($participant->getUser()->getTwitchID() != null) {
                     $clips = array_merge($clips, $twitchApi->getTopClips(
@@ -107,7 +112,12 @@ class VideoMakerController extends AbstractController
         $twitchApi = new TwitchApi($options);
         $datesstart = $challenge->getChallengeDates()->first()->getStartDate();
         $datesend = $challenge->getChallengeDates()->last()->getEndDate();
-
+        $clips = array_merge($clips, $twitchApi->getTopClips(
+            "pompevie74",
+            null,
+            "Mount & Blade II: Bannerlord")['clips'],
+            1000
+        );
         foreach ($participants as $participant) {
             if ($participant->getUser()->getTwitchID() != null) {
                 $clips = array_merge($clips, $twitchApi->getTopClips(
