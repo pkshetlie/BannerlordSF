@@ -58,7 +58,8 @@ class VideoMakerController extends AbstractController
                     $clips = array_merge($clips, $twitchApi->getTopClips(
                         $participant->getUser()->getTwitchID(),
                         null,
-                        "Mount & Blade II: Bannerlord")['clips']
+                        "Mount & Blade II: Bannerlord")['clips'],
+                        1000
                     );
                 }
             }
@@ -112,7 +113,8 @@ class VideoMakerController extends AbstractController
                 $clips = array_merge($clips, $twitchApi->getTopClips(
                     $participant->getUser()->getTwitchID(),
                     null,
-                    "Mount & Blade II: Bannerlord")['clips']
+                    "Mount & Blade II: Bannerlord")['clips'],
+                1000
                 );
             }
         }
