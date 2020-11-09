@@ -131,7 +131,7 @@ class VideoMakerController extends AbstractController
                     while ($cursor < 5) {
                         $clips = array_merge($clips, $twitchApi->getTopClips(
                             $participant->getUser()->getTwitchID(),
-                            $cursor, null, 10, 'month')['clips']
+                            $cursor, null, 10, 'week')['clips']
 
                         );
                         $cursor++;
