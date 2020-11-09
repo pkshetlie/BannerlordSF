@@ -149,7 +149,7 @@ $(function () {
         cancelableXhr = $.ajax({
             url: form.attr('action'),
             type: 'post',
-            data: form.serialize() + "&button=" + $(this).attr('id'),
+            data: form.serialize() + "&button=" + $(this).attr('id')+"&challenge="+form.data('challenge'),
             success: function (data) {
                 if (data.refresh) {
                     loadRun(form.data('challenger'), form.data('challenge'));
@@ -166,7 +166,7 @@ $(function () {
         cancelableXhr = $.ajax({
             url: $(this).attr('action'),
             type: 'post',
-            data: $(this).serialize(),
+            data: $(this).serialize()+"&challenge="+form.data('challenge'),
             success: function (data) {
                 if (data.refresh) {
                     loadRun(t.data('challenger'), t.data('challenge'));
