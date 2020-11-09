@@ -24,6 +24,8 @@ use TwitchApi\TwitchApi;
  */
 class VideoMakerController extends AbstractController
 {
+    const Game ="Mount & Blade II: Bannerlord" ;
+
     /**
      * @Route("/", name="video_maker_admin_new", methods={"GET","POST"})
      * @param Request $request
@@ -63,7 +65,7 @@ class VideoMakerController extends AbstractController
                     $clips = array_merge($clips, $twitchApi->getTopClips(
                         $participant->getUser()->getTwitchID(),
                         null,
-                        "Mount & Blade II: Bannerlord",100)['clips']
+                        self::Game,100, 'month')['clips']
 
                     );
                 }
@@ -71,7 +73,7 @@ class VideoMakerController extends AbstractController
 
             foreach ($clips as $i => $clip) {
                 $date = new \DateTime($clip['created_at']);
-                if ($date <= $datesstart) {
+                if ($date <= $datesstart || $clip['game'] != self::Game) {
                     unset($clips[$i]);
                 }
             }
@@ -123,15 +125,14 @@ class VideoMakerController extends AbstractController
                 $clips = array_merge($clips, $twitchApi->getTopClips(
                     $participant->getUser()->getTwitchID(),
                     null,
-                    "Mount & Blade II: Bannerlord",100)['clips']
+                    self::Game,100,'month')['clips']
 
                 );
             }
         }
-
         foreach ($clips as $i => $clip) {
             $date = new \DateTime($clip['created_at']);
-            if ($date <= $datesstart) {
+            if ($date <= $datesstart || $clip['game'] != self::Game) {
                 unset($clips[$i]);
             }
         }
