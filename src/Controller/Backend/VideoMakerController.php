@@ -65,7 +65,7 @@ class VideoMakerController extends AbstractController
                     $clips = array_merge($clips, $twitchApi->getTopClips(
                         $participant->getUser()->getTwitchID(),
                         null,
-                        self::Game,1000, 'month')['clips']
+                        self::Game,200, 'month')['clips']
 
                     );
                 }
@@ -125,7 +125,7 @@ class VideoMakerController extends AbstractController
                 $clips = array_merge($clips, $twitchApi->getTopClips(
                     $participant->getUser()->getTwitchID(),
                     null,
-                    self::Game,500,'week')['clips']
+                    self::Game,200,'week')['clips']
 
                 );
             }
