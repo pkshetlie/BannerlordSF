@@ -52,18 +52,18 @@ class VideoMakerController extends AbstractController
 
             $datesstart = $challenge->getChallengeDates()->first()->getStartDate();
             $datesend = $challenge->getChallengeDates()->last()->getEndDate();
-            $clips = array_merge($clips, $twitchApi->getTopClips(
-                "pompevie74",
-                null,
-                "Mount & Blade II: Bannerlord",1000)['clips']
-
-            );
+//            $clips = array_merge($clips, $twitchApi->getTopClips(
+//                "pompevie74",
+//                null,
+//                "Mount & Blade II: Bannerlord",100,'month')['clips']
+//
+//            );
             foreach ($participants as $participant) {
                 if ($participant->getUser()->getTwitchID() != null) {
                     $clips = array_merge($clips, $twitchApi->getTopClips(
                         $participant->getUser()->getTwitchID(),
                         null,
-                        "Mount & Blade II: Bannerlord",1000)['clips']
+                        "Mount & Blade II: Bannerlord",100,'month')['clips']
 
                     );
                 }
@@ -112,18 +112,18 @@ class VideoMakerController extends AbstractController
         $twitchApi = new TwitchApi($options);
         $datesstart = $challenge->getChallengeDates()->first()->getStartDate();
         $datesend = $challenge->getChallengeDates()->last()->getEndDate();
-        $clips = array_merge($clips, $twitchApi->getTopClips(
-            "pompevie74",
-            null,
-            "Mount & Blade II: Bannerlord",1000)['clips']
-
-        );
+//        $clips = array_merge($clips, $twitchApi->getTopClips(
+//            "pompevie74",
+//            null,
+//            "Mount & Blade II: Bannerlord",100,'month')['clips']
+//
+//        );
         foreach ($participants as $participant) {
             if ($participant->getUser()->getTwitchID() != null) {
                 $clips = array_merge($clips, $twitchApi->getTopClips(
                     $participant->getUser()->getTwitchID(),
                     null,
-                    "Mount & Blade II: Bannerlord",1000)['clips']
+                    "Mount & Blade II: Bannerlord",100,'month')['clips']
 
                 );
             }
