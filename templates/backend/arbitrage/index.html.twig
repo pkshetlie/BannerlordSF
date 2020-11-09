@@ -23,6 +23,7 @@
                                             href="#"
                                             data-participation=""
                                             data-challenger=""
+                                            data-challenge="{{ challenge.id }}"
 
                                                 data-url="https://player.twitch.tv/?channel=pompevie74&parent={{ app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''}) }}&muted=true"
                                     >
@@ -39,6 +40,7 @@
                                                 href="#"
                                                 data-participation="{{ participation.id }}"
                                                 data-challenger="{{ challenger.id }}"
+                                                data-challenge="{{ challenge.id }}"
                                                 {% if challenger.twitchID is not empty %}
                                                     data-url="https://player.twitch.tv/?channel={{ challenger.twitchID }}&parent={{ app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''}) }}&muted=true&autoplay=false"
                                                 {% else %}

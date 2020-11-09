@@ -32,10 +32,13 @@ function inputCreation() {
 }
 
 
-function loadRun(challenger) {
+function loadRun(challenger, challenge) {
     $.ajax({
         url: '/admin/run/user/' + challenger,
         async: true,
+        data: {
+            challenge: challenge
+        },
         dataType: 'json',
         success: function (data) {
             if (data.success) {
@@ -65,7 +68,6 @@ function totalRun() {
     let malus = parseFloat($("#malus-run").data('malus').toString().replace(',', '.'));
     let total_malus = sum * malus;
     let tempScore = $("#run_tempScore").val();
-    console.log(tempScore)
     if (tempScore !== null && tempScore !== "" && tempScore !== undefined) {
         $('.total-run-with-malus').html(tempScore * malus);
         $("#run_FinDeRun").attr('disabled', "disabled");
@@ -113,7 +115,7 @@ $(function () {
     let cancelableXhr = null;
     $(".twitcher li a").on('click', function () {
         let url = $(this).data('url');
-        loadRun($(this).data('challenger'))
+        loadRun($(this).data('challenger'), $(this).data('challenge'))
         $("#twitch_player").attr('src', url);
         return false;
     })
@@ -150,7 +152,7 @@ $(function () {
             data: form.serialize() + "&button=" + $(this).attr('id'),
             success: function (data) {
                 if (data.refresh) {
-                    loadRun(form.data('challenger'));
+                    loadRun(form.data('challenger'), form.data('challenge'));
                 }
             }
         });
@@ -167,7 +169,7 @@ $(function () {
             data: $(this).serialize(),
             success: function (data) {
                 if (data.refresh) {
-                    loadRun(t.data('challenger'));
+                    loadRun(t.data('challenger'), t.data('challenge'));
                 }
             }
         });

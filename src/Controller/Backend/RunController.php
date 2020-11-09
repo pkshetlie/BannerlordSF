@@ -34,16 +34,16 @@ class RunController extends AbstractController
      * @Route("/user/{id}", name="run_admin_current_new", methods={"GET","POST"})
      * @param Request $request
      * @param User $user
-     * @param ChallengeService $challengeService
+     * @param ChallengeRepository $challengeRepository
      * @param RunRepository $runRepository
      * @param RunService $runService
      * @param bool $reset
      * @return Response
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function current(Request $request, User $user, ChallengeService $challengeService, RunRepository $runRepository, RunService $runService, $reset = false): Response
+    public function current(Request $request, User $user, ChallengeRepository $challengeRepository, RunRepository $runRepository, RunService $runService, $reset = false): Response
     {
-        $challenge = $challengeService->getRunningChallenge();
+        $challenge = $challengeRepository->find($request->get('challenge'));
         if ($challenge == null) {
             return new JsonResponse([
                 'success' => false,
@@ -56,7 +56,9 @@ class RunController extends AbstractController
             ->andWhere('r.challenge  = :challenge')
             ->andWhere('r.endDate IS NULL')
             ->setParameter('challenge', $challenge)
-            ->setParameter('user', $user)->getQuery()->getOneOrNullResult();
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getOneOrNullResult();
         /** @var Run $run */
         if ($run == null) {
             $run = new Run();
@@ -80,7 +82,8 @@ class RunController extends AbstractController
         $form = $this->createForm(RunType::class, $run, [
             'attr' => [
                 'id' => 'runForm',
-                'data-challenger' => $user->getId()
+                'data-challenger' => $user->getId(),
+                'data-challenge' => $challenge->getId(),
             ],
             'action' => $this->generateUrl('run_admin_current_new', ['id' => $user->getId()])
         ]);
