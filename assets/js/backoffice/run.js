@@ -166,7 +166,7 @@ $(function () {
         cancelableXhr = $.ajax({
             url: $(this).attr('action'),
             type: 'post',
-            data: $(this).serialize()+"&challenge="+form.data('challenge'),
+            data: $(this).serialize()+"&challenge="+t.data('challenge'),
             success: function (data) {
                 if (data.refresh) {
                     loadRun(t.data('challenger'), t.data('challenge'));
