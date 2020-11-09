@@ -56,7 +56,7 @@ class VideoMakerController extends AbstractController
                 "pompevie74",
                 null,
                 "Mount & Blade II: Bannerlord")['clips'],
-                1000
+                999
             );
             foreach ($participants as $participant) {
                 if ($participant->getUser()->getTwitchID() != null) {
@@ -64,7 +64,7 @@ class VideoMakerController extends AbstractController
                         $participant->getUser()->getTwitchID(),
                         null,
                         "Mount & Blade II: Bannerlord")['clips'],
-                        1000
+                        999
                     );
                 }
             }
@@ -75,14 +75,14 @@ class VideoMakerController extends AbstractController
                     unset($clips[$i]);
                 }
             }
-            VarDumper::dump($clips);
+//            VarDumper::dump($clips);
 
             return $this->render('backend/video_maker/index.html.twig', [
                 'clips' => $clips
             ]);
         } else {
             return $this->render('backend/video_maker/selection_challenge.html.twig', [
-                'challenges' => $challengeRepository->findBy([], ["id"=>"asc"]),
+                'challenges' => $challengeRepository->findBy([], ["id" => "asc"]),
 
             ]);
         }
@@ -116,7 +116,7 @@ class VideoMakerController extends AbstractController
             "pompevie74",
             null,
             "Mount & Blade II: Bannerlord")['clips'],
-            1000
+            999
         );
         foreach ($participants as $participant) {
             if ($participant->getUser()->getTwitchID() != null) {
@@ -124,18 +124,17 @@ class VideoMakerController extends AbstractController
                     $participant->getUser()->getTwitchID(),
                     null,
                     "Mount & Blade II: Bannerlord")['clips'],
-                1000
+                    999
                 );
             }
         }
 
         foreach ($clips as $i => $clip) {
             $date = new \DateTime($clip['created_at']);
-            if ($date <= $datesstart ) {
+            if ($date <= $datesstart) {
                 unset($clips[$i]);
             }
         }
-VarDumper::dump($clips);
         return $this->render('backend/video_maker/index.html.twig', [
             'clips' => $clips
         ]);
