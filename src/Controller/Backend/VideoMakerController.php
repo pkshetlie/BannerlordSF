@@ -62,12 +62,16 @@ class VideoMakerController extends AbstractController
 //            );
             foreach ($participants as $participant) {
                 if ($participant->getUser()->getTwitchID() != null) {
-                    $clips = array_merge($clips, $twitchApi->getTopClips(
-                        $participant->getUser()->getTwitchID(),
-                        null,
-                        self::Game,200, 'month')['clips']
+                    try {
+                        $clips = array_merge($clips, $twitchApi->getTopClips(
+                            $participant->getUser()->getTwitchID(),
+                            null,
+                            self::Game, 200, 'week')['clips']
 
-                    );
+                        );
+                    }catch(\Exception $e){
+                        $this->addFlash('danger', "Impossible de joindre le twitch de ".$participant->getUser()->getTwitchID());
+                    }
                 }
             }
 
@@ -122,12 +126,16 @@ class VideoMakerController extends AbstractController
 //        );
         foreach ($participants as $participant) {
             if ($participant->getUser()->getTwitchID() != null) {
-                $clips = array_merge($clips, $twitchApi->getTopClips(
-                    $participant->getUser()->getTwitchID(),
-                    null,
-                    self::Game,200,'week')['clips']
+                try {
+                    $clips = array_merge($clips, $twitchApi->getTopClips(
+                        $participant->getUser()->getTwitchID(),
+                        null,
+                        self::Game, 200, 'week')['clips']
 
-                );
+                    );
+                }catch(\Exception $e){
+                    $this->addFlash('danger', "Impossible de joindre le twitch de ".$participant->getUser()->getTwitchID());
+                }
             }
         }
         foreach ($clips as $i => $clip) {
