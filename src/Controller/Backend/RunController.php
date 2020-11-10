@@ -116,8 +116,8 @@ class RunController extends AbstractController
 
     /**
      * @Route("/infos/{id}/challenge/{id_challenge}", name="admin_runs_info")
-     * @ParamConverter("Challenge", options={"mapping": {"id_challenge": "id"}})
-     * @ParamConverter("User", options={"mapping": {"id": "id"}})
+     * @ParamConverter("challenge", options={"mapping": {"id_challenge": "id"}})
+     * @ParamConverter("user", options={"mapping": {"id": "id"}})
      * @param Request $request
      * @param User $user
      * @param Challenge $challenge
