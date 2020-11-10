@@ -43,7 +43,8 @@
                                     {% set total = 0 %}
 
                                     {% for setting in run.runSettings %}
-                                        {% set points = setting.value * setting.challengeSetting.ratio %}
+
+                                        {% set points = setting.value matches '/^\\d+$/' ? setting.value * setting.challengeSetting.ratio :0  %}
                                         <tr {% if setting.challengeSetting.isStepToVictory %}
                                             {% if setting.isCompleted %}
                                                 class="bg-green "
