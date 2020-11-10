@@ -3,7 +3,6 @@
 namespace App\Controller\Backend;
 
 use App\Entity\Challenge;
-use App\Entity\ChallengeSetting;
 use App\Entity\Participation;
 use App\Entity\Run;
 use App\Entity\RunSettings;
@@ -16,13 +15,13 @@ use App\Repository\UserRepository;
 use App\Service\ChallengeService;
 use App\Service\RunService;
 use Doctrine\Common\Collections\ArrayCollection;
-use Pkshetlie\PaginationBundle\Service\Calcul;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
@@ -31,7 +30,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class RunController extends AbstractController
 {
     /**
-     * @Route("/user/{id}/challenge/{id_challenge}", name="run_admin_current_new", methods={"GET","POST"})
+     * @Route("/user/{id}", name="run_admin_current_new", methods={"GET","POST"})
      * @param Request $request
      * @param User $user
      * @param ChallengeRepository $challengeRepository
@@ -109,22 +108,28 @@ class RunController extends AbstractController
                 'form' => $form->createView(),
                 'challenger' => $user,
                 'run' => $run,
+                'challenge' => $run->getChallenge(),
             ])
         ]);
 
     }
 
     /**
-     * @Route("/infos/{id}", name="admin_runs_info")
+     * @Route("/infos/{id}/challenge/{id_challenge}", name="admin_runs_info")
+     * @ParamConverter("Challenge", options={"mapping": {"id_challenge": "id"}})
+     * @ParamConverter("User", options={"mapping": {"id": "id"}})
      * @param Request $request
      * @param User $user
+     * @param Challenge $challenge
      * @param ChallengeService $challengeService
      * @param RunRepository $runRepository
      * @return Response
      */
-    public function infoRuns(Request $request, User $user, ChallengeService $challengeService, RunRepository $runRepository)
+    public function infoRuns(Request $request, User $user, Challenge $challenge, ChallengeService $challengeService, RunRepository $runRepository)
     {
-        $challenge = $challengeService->getRunningChallenge();
+        if ($challenge == null) {
+            $challenge = $challengeService->getRunningChallenge();
+        }
         $runs = $runRepository->findByUserAndChallenge($user, $challenge);
         return $this->render('backend/run/info.html.twig', [
             'user' => $user,
@@ -209,12 +214,13 @@ class RunController extends AbstractController
             $runService->ComputeScore($run);
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Run modifiée');
-            return $this->redirectToRoute('admin_runs_info', ['id' => $run->getUser()->getId()]);
+            return $this->redirectToRoute('admin_runs_info', ['id' => $run->getUser()->getId(),'id_challenge'=>$run->getChallenge()->getId()]);
         }
         return $this->render('backend/run/edit.html.twig', [
             'form' => $form->createView(),
             'run' => $run,
-            'challenger' => $run->getUser()
+            'challenger' => $run->getUser(),
+            'challenge' => $run->getChallenge()
         ]);
     }
 
