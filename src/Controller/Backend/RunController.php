@@ -31,7 +31,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class RunController extends AbstractController
 {
     /**
-     * @Route("/user/{id}", name="run_admin_current_new", methods={"GET","POST"})
+     * @Route("/user/{id}/challenge/{id_challenge}", name="run_admin_current_new", methods={"GET","POST"})
      * @param Request $request
      * @param User $user
      * @param ChallengeRepository $challengeRepository
@@ -41,14 +41,17 @@ class RunController extends AbstractController
      * @return Response
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function current(Request $request, User $user, ChallengeRepository $challengeRepository, RunRepository $runRepository, RunService $runService, $reset = false): Response
+    public function current(Request $request, User $user, Challenge $challenge, ChallengeRepository $challengeRepository, RunRepository $runRepository, RunService $runService, $reset = false): Response
     {
-        $challenge = $challengeRepository->find($request->get('challenge'));
+
         if ($challenge == null) {
-            return new JsonResponse([
-                'success' => false,
-                "message" => "Aucun challenge en cours"
-            ]);
+            $challenge = $challengeRepository->find($request->get('challenge'));
+            if ($challenge == null) {
+                return new JsonResponse([
+                    'success' => false,
+                    "message" => "Aucun challenge en cours"
+                ]);
+            }
         }
         $entityManager = $this->getDoctrine()->getManager();
         $run = $runRepository->createQueryBuilder('r')
