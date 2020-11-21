@@ -61,8 +61,9 @@ class ChallengeController extends AbstractController
      */
     public function deleteParticipation(Request $request, Participation $participation, \Swift_Mailer $mailer): Response
     {
-        $this->getDoctrine()->getManager()->remove($participation);
-
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($participation);
+        $em->flush();
         return new JsonResponse([
             'success' => true,
             'replace' => ""

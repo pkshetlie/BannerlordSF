@@ -103,6 +103,11 @@ class Challenge
      */
     private $malusPerRun = 0;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Season::class, inversedBy="Challenges")
+     */
+    private $season;
+
     public function __construct()
     {
         $this->rules = new ArrayCollection();
@@ -404,6 +409,18 @@ class Challenge
     public function setMalusPerRun(string $malusPerRun): self
     {
         $this->malusPerRun = $malusPerRun;
+
+        return $this;
+    }
+
+    public function getSeason(): ?Season
+    {
+        return $this->season;
+    }
+
+    public function setSeason(?Season $season): self
+    {
+        $this->season = $season;
 
         return $this;
     }
