@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Challenge;
+use App\Entity\Season;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -29,6 +30,8 @@ class ChallengeType extends AbstractType
             ])
             ->add('season', EntityType::class, [
                 'label' => 'challenge.label.season',
+                'class' => Season::class,
+                'choice_label'=>'label'
             ])
             ->add('banner',
                 FileType::class, [

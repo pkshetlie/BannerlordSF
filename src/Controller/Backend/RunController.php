@@ -139,7 +139,7 @@ class RunController extends AbstractController
     }
 
     /**
-     * @Route("/delete-participation/{id}", name="challenge_admin_delete_participation", methods={"GET","POST"})
+     * @Route("/delete-participation/{id}", name="run_admin_delete_participation", methods={"GET","POST"})
      * @param Request $request
      * @param Participation $participation
      * @return Response
