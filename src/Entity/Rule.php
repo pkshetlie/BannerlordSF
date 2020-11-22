@@ -33,14 +33,7 @@ class Rule
 
     /**
      * @ORM\ManyToMany(targetEntity=Challenge::class, inversedBy="rules")
-     * @ORM\JoinTable(name="rule_challenge",
-     *   joinColumns={
-     *     @ORM\JoinColumn(name="challenge_id", referencedColumnName="id")
-     *   },
-     *   inverseJoinColumns={
-     *     @ORM\JoinColumn(name="rule_id", referencedColumnName="id")
-     *   }
-     * )
+     *
      */
     private $challenges;
 

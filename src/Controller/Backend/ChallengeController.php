@@ -195,7 +195,6 @@ class ChallengeController extends AbstractController
             foreach ($challenge->getRules() AS $rule){
                 $rule->addChallenge($challenge);
                 $entityManager->persist($rule);
-                VarDumper::dump($rule);
             }
 
             $entityManager->persist($challenge);
