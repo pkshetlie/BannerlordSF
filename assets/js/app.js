@@ -74,4 +74,11 @@ $(() => {
             }
         });
     });
+
+    /* --- GESTION CLICK MENU FOND SOMBRE --- */
+    $('.navbar-toggler').click(function() {
+        $('.responsive-dark-background').toggle();
+        $(this).find('#nav-icon-menu').toggleClass('open');
+        $('body').toggleClass('hidden');
+    });
 });

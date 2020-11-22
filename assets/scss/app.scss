@@ -3,6 +3,7 @@
  */
 
  $brown: #707070;
+ $light-brown:#929292;
  $orange-icon: #EF8003;
  $green: #00B42A;
  $black: #000000;
@@ -34,6 +35,9 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
+    &.hidden {
+        overflow: hidden;
+    }
 }
 
 /* =============== GLOBAL =============== */
