@@ -22,9 +22,6 @@
     .icon-global {
         margin-right: 20px;
     }
-    .container .row > div {
-        margin: 10px 0;
-    }
     .encart-global > div {
         margin: 5px 0;
     }
@@ -47,6 +44,7 @@
     }
     .nav-tabs .nav-link {
         border: none;
+        color: $black;
     }
     .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
         border-bottom: 3px solid $dark-grey;

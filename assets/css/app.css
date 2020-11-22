@@ -9,6 +9,7 @@
  * Version 1.0
  * 09/2020
  */
+/* Normal menu */
 @import url(../css/font-awesome.css);
 .navbar.navbar-main {
   padding: 0;
@@ -29,14 +30,76 @@
       font-weight: 600; }
   .navbar.navbar-main .home-link {
     color: #ffffff;
-    font-size: 2em;
-    margin: 0 20px; }
+    font-size: 2em; }
   .navbar.navbar-main .btn-connect {
     background-color: #00B42A;
     color: #ffffff;
     padding: 10px 15px; }
   .navbar.navbar-main #navbar_global {
     justify-content: center; }
+  .navbar.navbar-main .menu-title-responsive {
+    color: #ffffff;
+    margin: 0;
+    display: none; }
+
+.responsive-dark-background {
+  display: none;
+  background-color: black;
+  opacity: 0.4;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 1; }
+
+/* Responsive menu */
+@media (max-width: 992px) {
+  .navbar.navbar-main {
+    height: 58px;
+    z-index: 2;
+    width: 100%;
+    position: sticky;
+    top: 0px; }
+    .navbar.navbar-main .container-nav {
+      justify-content: center; }
+    .navbar.navbar-main .menu-title-responsive {
+      display: block; }
+    .navbar.navbar-main .navbar-toggler {
+      position: absolute;
+      left: 5px; }
+      .navbar.navbar-main .navbar-toggler i {
+        color: #ffffff;
+        font-size: 28px; }
+      .navbar.navbar-main .navbar-toggler:focus {
+        outline: none; }
+    .navbar.navbar-main .navbar-collapse {
+      position: fixed;
+      top: 58px;
+      left: 0;
+      padding-left: 15px;
+      padding-right: 15px;
+      padding-bottom: 15px;
+      width: 300px;
+      height: 100%;
+      z-index: 2;
+      background-color: #929292;
+      border-right: 2px solid #000000;
+      border-top: 1px solid #000000; }
+    .navbar.navbar-main .navbar-collapse.collapsing {
+      left: -300px;
+      transition: height 0s ease; }
+    .navbar.navbar-main .navbar-collapse.show {
+      left: 0;
+      transition: left 300ms ease-in-out; }
+    .navbar.navbar-main .navbar-toggler.collapsed ~ .navbar-collapse {
+      transition: left 500ms ease-in-out; } }
+
+@media (max-width: 767px) {
+  .navbar.navbar-main .menu-title-responsive {
+    font-size: 1.5em; } }
+
+@media (max-width: 575px) {
+  .navbar.navbar-main .menu-title-responsive {
+    font-size: 1.2em; } }
 
 @media all and (min-width: 992px) {
   .navbar .nav-item .dropdown-menu {
@@ -59,6 +122,71 @@
     visibility: visible;
     top: 100%;
     transform: rotateX(0deg); } }
+
+/* ------------------ OTHERS ------------------ */
+/* Animated Icon menu */
+#nav-icon-menu {
+  width: 28px;
+  height: 24px;
+  position: relative;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: .5s ease-in-out;
+  -moz-transition: .5s ease-in-out;
+  -o-transition: .5s ease-in-out;
+  transition: .5s ease-in-out;
+  cursor: pointer; }
+
+#nav-icon-menu span {
+  display: block;
+  position: absolute;
+  height: 4px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 9px;
+  opacity: 1;
+  left: 0;
+  -webkit-transform: rotate(0deg);
+  -moz-transform: rotate(0deg);
+  -o-transform: rotate(0deg);
+  transform: rotate(0deg);
+  -webkit-transition: .25s ease-in-out;
+  -moz-transition: .25s ease-in-out;
+  -o-transition: .25s ease-in-out;
+  transition: .25s ease-in-out; }
+
+#nav-icon-menu span:nth-child(1) {
+  top: 0px; }
+
+#nav-icon-menu span:nth-child(2), #nav-icon-menu span:nth-child(3) {
+  top: 10px; }
+
+#nav-icon-menu span:nth-child(4) {
+  top: 20px; }
+
+#nav-icon-menu.open span:nth-child(1) {
+  top: 18px;
+  width: 0%;
+  left: 50%; }
+
+#nav-icon-menu.open span:nth-child(2) {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg); }
+
+#nav-icon-menu.open span:nth-child(3) {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg); }
+
+#nav-icon-menu.open span:nth-child(4) {
+  top: 18px;
+  width: 0%;
+  left: 50%; }
 
 /**
  * Styles du footer
@@ -97,7 +225,8 @@ footer .other-links a {
   transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
   -webkit-transform: translate3d(0, 0, 0);
-  padding: 20px 0; }
+  padding: 20px 0;
+  background: center; }
 
 .static {
   background: #ffffff; }
@@ -253,7 +382,8 @@ footer .other-links a {
 
 .home-presentation iframe {
   width: 100%;
-  min-height: 274px; }
+  min-height: 274px;
+  margin-bottom: 20px; }
 
 .home-join-us .container .text {
   color: #ffffff; }
@@ -341,7 +471,8 @@ footer .other-links a {
   .challenges-list .card-buttons .btn-in-coming {
     color: #ffffff;
     background-color: #707070;
-    padding: 10px; }
+    padding: 10px;
+    margin: 0; }
     .challenges-list .card-buttons .btn-in-coming label {
       margin: 0; }
   .challenges-list .card-buttons .btn-bottom-right {
@@ -350,6 +481,15 @@ footer .other-links a {
     .challenges-list .card-buttons .btn-bottom-right:hover {
       background-color: #ffffff;
       color: #707070; }
+  .challenges-list .card-buttons .alert-bell {
+    display: flex;
+    align-items: center; }
+    .challenges-list .card-buttons .alert-bell a {
+      transition: 0.2s; }
+      .challenges-list .card-buttons .alert-bell a:hover {
+        transform: rotate(-20deg); }
+    .challenges-list .card-buttons .alert-bell i {
+      color: #FBB03B; }
 
 .challenges-list .challenge-not-active img {
   opacity: 0.4; }
@@ -361,6 +501,59 @@ footer .other-links a {
 .challenges-list .challenge-not-active .card-buttons .btn-bottom-right:hover {
   background-color: #ffffff;
   color: #b94e4e; }
+
+.challenges-list #alert-futur-modal .modal-header {
+  background-color: #FBB03B;
+  color: #ffffff;
+  width: calc(100% - -13px);
+  height: 55px;
+  position: absolute;
+  z-index: 1;
+  top: -50px;
+  left: -7px;
+  border-radius: 2px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: none; }
+  .challenges-list #alert-futur-modal .modal-header button:focus {
+    outline: none; }
+  .challenges-list #alert-futur-modal .modal-header .close {
+    color: #ffffff;
+    margin: 0;
+    position: absolute;
+    right: 0;
+    font-size: 2.5rem; }
+
+.challenges-list #alert-futur-modal .flag {
+  position: absolute;
+  top: -41px;
+  border-radius: 2px;
+  opacity: 0.7;
+  border: 28px solid;
+  border-top-color: #FBB03B;
+  border-bottom-color: #FBB03B;
+  z-index: -1; }
+
+.challenges-list #alert-futur-modal .flag-right {
+  right: -44px;
+  border-right-color: transparent;
+  border-left-color: #FBB03B; }
+
+.challenges-list #alert-futur-modal .flag-left {
+  left: -44px;
+  border-right-color: #FBB03B;
+  border-left-color: transparent; }
+
+.challenges-list #alert-futur-modal .mail-input-alert {
+  width: 300px;
+  margin: auto; }
+  .challenges-list #alert-futur-modal .mail-input-alert input {
+    width: 300px; }
+
+.challenges-list #alert-futur-modal .send-mail-alert, .challenges-list #alert-futur-modal .msg-mail-alert {
+  text-align: center; }
 
 /**
  * Styles de la page listant les challenges
@@ -383,9 +576,6 @@ footer .other-links a {
 .challenge-global .icon-global {
   margin-right: 20px; }
 
-.challenge-global .container .row > div {
-  margin: 10px 0; }
-
 .challenge-global .encart-global > div {
   margin: 5px 0; }
 
@@ -401,7 +591,8 @@ footer .other-links a {
   margin: 30px 0 0; }
 
 .challenge-details .nav-tabs .nav-link {
-  border: none; }
+  border: none;
+  color: #000000; }
 
 .challenge-details .nav-tabs .nav-link.active, .challenge-details .nav-tabs .nav-item.show .nav-link {
   border-bottom: 3px solid #707070;
@@ -7564,6 +7755,8 @@ a.text-dark:hover, a.text-dark:focus {
 
 body {
   font-family: 'Montserrat', sans-serif; }
+  body.hidden {
+    overflow: hidden; }
 
 /* =============== GLOBAL =============== */
 .bold {
