@@ -471,7 +471,8 @@ footer .other-links a {
   .challenges-list .card-buttons .btn-in-coming {
     color: #ffffff;
     background-color: #707070;
-    padding: 10px; }
+    padding: 10px;
+    margin: 0; }
     .challenges-list .card-buttons .btn-in-coming label {
       margin: 0; }
   .challenges-list .card-buttons .btn-bottom-right {
@@ -480,6 +481,15 @@ footer .other-links a {
     .challenges-list .card-buttons .btn-bottom-right:hover {
       background-color: #ffffff;
       color: #707070; }
+  .challenges-list .card-buttons .alert-bell {
+    display: flex;
+    align-items: center; }
+    .challenges-list .card-buttons .alert-bell a {
+      transition: 0.2s; }
+      .challenges-list .card-buttons .alert-bell a:hover {
+        transform: rotate(-20deg); }
+    .challenges-list .card-buttons .alert-bell i {
+      color: #FBB03B; }
 
 .challenges-list .challenge-not-active img {
   opacity: 0.4; }
@@ -491,6 +501,59 @@ footer .other-links a {
 .challenges-list .challenge-not-active .card-buttons .btn-bottom-right:hover {
   background-color: #ffffff;
   color: #b94e4e; }
+
+.challenges-list #alert-futur-modal .modal-header {
+  background-color: #FBB03B;
+  color: #ffffff;
+  width: calc(100% - -13px);
+  height: 55px;
+  position: absolute;
+  z-index: 1;
+  top: -50px;
+  left: -7px;
+  border-radius: 2px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: none; }
+  .challenges-list #alert-futur-modal .modal-header button:focus {
+    outline: none; }
+  .challenges-list #alert-futur-modal .modal-header .close {
+    color: #ffffff;
+    margin: 0;
+    position: absolute;
+    right: 0;
+    font-size: 2.5rem; }
+
+.challenges-list #alert-futur-modal .flag {
+  position: absolute;
+  top: -41px;
+  border-radius: 2px;
+  opacity: 0.7;
+  border: 28px solid;
+  border-top-color: #FBB03B;
+  border-bottom-color: #FBB03B;
+  z-index: -1; }
+
+.challenges-list #alert-futur-modal .flag-right {
+  right: -44px;
+  border-right-color: transparent;
+  border-left-color: #FBB03B; }
+
+.challenges-list #alert-futur-modal .flag-left {
+  left: -44px;
+  border-right-color: #FBB03B;
+  border-left-color: transparent; }
+
+.challenges-list #alert-futur-modal .mail-input-alert {
+  width: 300px;
+  margin: auto; }
+  .challenges-list #alert-futur-modal .mail-input-alert input {
+    width: 300px; }
+
+.challenges-list #alert-futur-modal .send-mail-alert, .challenges-list #alert-futur-modal .msg-mail-alert {
+  text-align: center; }
 
 /**
  * Styles de la page listant les challenges

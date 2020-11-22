@@ -59,11 +59,47 @@
                                             <div class="col-5"><a href="#" class="btn btn-custom btn-bottom-right">Résultats</a>
                                             </div>
                                         {% elseif entity.isFuture %}
-                                            <div class="col-10"><p class="btn-in-coming">Inscriptions à partir du
-                                                    <label>{{ entity.registrationOpening.format('d/m') }}</label></div>
-                                            <div class="col-2"><a href="#"><i class="fa fa-2x fa-bell"></i></a></div>
+                                             <div class="col-10"><p class="btn-in-coming">Inscriptions à partir du
+                                                <label>{{ entity.registrationOpening.format('d/m') }}</label>
+                                            </div>
+                                            <div class="col-2 alert-bell">
+                                                <a data-target="#alert-futur-modal" data-toggle="modal" href="#">
+                                                    <i class="fa fa-2x fa-bell"></i>
+                                                </a>
+                                            </div>
                                         {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {# Modal alert bell #}
+                        <div class="modal fade" id="alert-futur-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-center">Restez en alerte !</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <i class="flag flag-right"></i>
+                                    <i class="flag flag-left"></i>
+                                    <div class="modal-body">
+                                        <form action="" method="get" class="">
+                                            <div class="msg-mail-alert">
+                                                <p class="mb-3">Afin de recevoir une alerte lorsque l'incription sera ouverte, merci de bien renseigner votre email :</p>
+                                            </div>
 
+                                            <div class="mail-input-alert form-group focused mb-4">
+                                                <input type="email" id="email" required>
+                                                <span class="highlight"></span>
+                                                <span class="bar"></span>
+                                                <label for="email" class="required">Email</label>
+                                            </div>
+
+
+                                            <div class="send-mail-alert"><button type="submit" class="btn btn-custom btn-green active">Envoyer</button></div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
