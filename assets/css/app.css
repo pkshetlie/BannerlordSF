@@ -576,9 +576,6 @@ footer .other-links a {
 .challenge-global .icon-global {
   margin-right: 20px; }
 
-.challenge-global .container .row > div {
-  margin: 10px 0; }
-
 .challenge-global .encart-global > div {
   margin: 5px 0; }
 
@@ -594,7 +591,8 @@ footer .other-links a {
   margin: 30px 0 0; }
 
 .challenge-details .nav-tabs .nav-link {
-  border: none; }
+  border: none;
+  color: #000000; }
 
 .challenge-details .nav-tabs .nav-link.active, .challenge-details .nav-tabs .nav-item.show .nav-link {
   border-bottom: 3px solid #707070;
