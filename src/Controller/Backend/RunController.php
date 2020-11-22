@@ -33,6 +33,7 @@ class RunController extends AbstractController
      * @Route("/user/{id}", name="run_admin_current_new", methods={"GET","POST"})
      * @param Request $request
      * @param User $user
+     * @param Challenge|null $challenge
      * @param ChallengeRepository $challengeRepository
      * @param RunRepository $runRepository
      * @param RunService $runService
@@ -40,7 +41,7 @@ class RunController extends AbstractController
      * @return Response
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function current(Request $request, User $user, Challenge $challenge, ChallengeRepository $challengeRepository, RunRepository $runRepository, RunService $runService, $reset = false): Response
+    public function current(Request $request, User $user, Challenge $challenge = null, ChallengeRepository $challengeRepository, RunRepository $runRepository, RunService $runService, $reset = false): Response
     {
 
         if ($challenge == null) {
