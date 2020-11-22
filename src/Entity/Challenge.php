@@ -110,7 +110,7 @@ class Challenge
 
     /**
      * @ORM\ManyToMany(targetEntity=Rule::class, mappedBy="challenges",cascade={"persist","remove"})
-     * @ORM\OrderBy({"type"="DESC"})
+     * @ORM\OrderBy({"type"="ASC"})
      */
     private $rules;
 

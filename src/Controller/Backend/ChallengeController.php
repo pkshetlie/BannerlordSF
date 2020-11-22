@@ -165,7 +165,6 @@ class ChallengeController extends AbstractController
                 }
             }
 
-
             foreach ($originalPrizes as $prize) {
                 if (false === $challenge->getChallengePrizes()->contains($prize)) {
                     $prize->setChallenge(null);
