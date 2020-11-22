@@ -154,49 +154,49 @@ class RunController extends AbstractController
             'replace' => ""
         ]);
     }
-
-    /**
-     * @Route("/toggle-participation/{id}", name="challenge_admin_toggle_participation", methods={"GET","POST"})
-     * @param Request $request
-     * @param Participation $participation
-     * @return Response
-     */
-    public function toggleParticipation(Request $request, Participation $participation, \Swift_Mailer $mailer): Response
-    {
-        $participation->setEnabled(!$participation->getEnabled());
-        $this->getDoctrine()->getManager()->flush();
-        $message = (new \Swift_Message('Validation de votre inscription au challenge ' . $participation->getChallenge()->getTitle()))
-            ->setFrom($this->getParameter('webmaster_email'))
-            ->setTo($participation->getUser()->getEmail())
-            ->setBody(
-                $this->renderView(
-                // templates/emails/registration.html.twig
-                    "mails/challenge/validated.html.twig",
-                    ['challenge' => $participation->getChallenge()]
-                ),
-                'text/html'
-            )
-
-            // you can remove the following code if you don't define a text version for your emails
-            ->addPart(
-                $this->renderView(
-                // templates/emails/registration.txt.twig
-                    "mails/challenge/validated.html.twig",
-                    ['challenge' => $participation->getChallenge()]
-                ),
-                'text/plain'
-            );
-        try {
-
-            $mailer->send($message);
-        } catch (\Exception $e) {
-            $x = $e;
-        }
-        return new JsonResponse([
-            'success' => true,
-            'replace' => $participation->getEnabled() ? "<i class='fas fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>"
-        ]);
-    }
+//
+//    /**
+//     * @Route("/toggle-participation/{id}", name="challenge_admin_toggle_participation", methods={"GET","POST"})
+//     * @param Request $request
+//     * @param Participation $participation
+//     * @return Response
+//     */
+//    public function toggleParticipation(Request $request, Participation $participation, \Swift_Mailer $mailer): Response
+//    {
+//        $participation->setEnabled(!$participation->getEnabled());
+//        $this->getDoctrine()->getManager()->flush();
+//        $message = (new \Swift_Message('Validation de votre inscription au challenge ' . $participation->getChallenge()->getTitle()))
+//            ->setFrom($this->getParameter('webmaster_email'))
+//            ->setTo($participation->getUser()->getEmail())
+//            ->setBody(
+//                $this->renderView(
+//                // templates/emails/registration.html.twig
+//                    "mails/challenge/validated.html.twig",
+//                    ['challenge' => $participation->getChallenge()]
+//                ),
+//                'text/html'
+//            )
+//
+//            // you can remove the following code if you don't define a text version for your emails
+//            ->addPart(
+//                $this->renderView(
+//                // templates/emails/registration.txt.twig
+//                    "mails/challenge/validated.html.twig",
+//                    ['challenge' => $participation->getChallenge()]
+//                ),
+//                'text/plain'
+//            );
+//        try {
+//
+//            $mailer->send($message);
+//        } catch (\Exception $e) {
+//            $x = $e;
+//        }
+//        return new JsonResponse([
+//            'success' => true,
+//            'replace' => $participation->getEnabled() ? "<i class='fas fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>"
+//        ]);
+//    }
 
     /**
      * @Route("/edit/oneshot/{id}", name="admin_run_edit")
@@ -226,7 +226,7 @@ class RunController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="challenge_admin_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="run_admin_edit", methods={"GET","POST"})
      * @param Request $request
      * @param Challenge $challenge
      * @param SluggerInterface $slugger
@@ -324,67 +324,67 @@ class RunController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/arbitre/change/{id}", name="change_arbitre")
-     * @param Request $request
-     * @param Participation $participation
-     */
-    public function changeArbitre(Request $request, Participation $participation, UserRepository $userRepository)
-    {
-        $arbitre = $userRepository->find($request->get('arbitre'));
-        if ($arbitre != null) {
-            $participation->setArbitre($arbitre);
-            $this->getDoctrine()->getManager()->flush();
-            return new JsonResponse([
-                'success' => true,
-                "message" => ""
-            ]);
-        } else {
-            $participation->setArbitre(null);
-            $this->getDoctrine()->getManager()->flush();
+//    /**
+//     * @Route("/arbitre/change/{id}", name="change_arbitre")
+//     * @param Request $request
+//     * @param Participation $participation
+//     */
+//    public function changeArbitre(Request $request, Participation $participation, UserRepository $userRepository)
+//    {
+//        $arbitre = $userRepository->find($request->get('arbitre'));
+//        if ($arbitre != null) {
+//            $participation->setArbitre($arbitre);
+//            $this->getDoctrine()->getManager()->flush();
+//            return new JsonResponse([
+//                'success' => true,
+//                "message" => ""
+//            ]);
+//        } else {
+//            $participation->setArbitre(null);
+//            $this->getDoctrine()->getManager()->flush();
+//
+//        }
+//        return new JsonResponse([
+//            'success' => false,
+//            "message" => "Arbitre non trouvé."
+//        ]);
+//    }
 
-        }
-        return new JsonResponse([
-            'success' => false,
-            "message" => "Arbitre non trouvé."
-        ]);
-    }
+//    /**
+//     * @Route("/{id}", name="run_admin_delete", methods={"GET"})
+//     * @param Request $request
+//     * @param Challenge $challenge
+//     * @return Response
+//     */
+//    public function delete(Request $request, Challenge $challenge): Response
+//    {
+//        $entityManager = $this->getDoctrine()->getManager();
+//        $entityManager->remove($challenge);
+//        $entityManager->flush();
+//
+//        return $this->redirectToRoute('challenge_admin_index');
+//    }
 
-    /**
-     * @Route("/{id}", name="challenge_admin_delete", methods={"GET"})
-     * @param Request $request
-     * @param Challenge $challenge
-     * @return Response
-     */
-    public function delete(Request $request, Challenge $challenge): Response
-    {
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($challenge);
-        $entityManager->flush();
-
-        return $this->redirectToRoute('challenge_admin_index');
-    }
-
-    /**
-     * @Route("/add-participation/{id}", name="add_participation")
-     * @param Request $request
-     * @param Challenge $challenge
-     * @param UserRepository $userRepository
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     */
-    public function addParticipation(Request $request, Challenge $challenge, UserRepository $userRepository)
-    {
-        foreach ($request->get('participations') as $userId) {
-            $user = $userRepository->find($userId);
-            $participation = new Participation();
-            $participation
-                ->setChallenge($challenge)
-                ->setEnabled(true)
-                ->setUser($user);
-            $entityManger = $this->getDoctrine()->getManager();
-            $entityManger->persist($participation);
-            $entityManger->flush();
-        }
-        return $this->redirectToRoute("challenge_admin_edit", ["id" => $challenge->getId()]);
-    }
+//    /**
+//     * @Route("/add-participation/{id}", name="add_participation")
+//     * @param Request $request
+//     * @param Challenge $challenge
+//     * @param UserRepository $userRepository
+//     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+//     */
+//    public function addParticipation(Request $request, Challenge $challenge, UserRepository $userRepository)
+//    {
+//        foreach ($request->get('participations') as $userId) {
+//            $user = $userRepository->find($userId);
+//            $participation = new Participation();
+//            $participation
+//                ->setChallenge($challenge)
+//                ->setEnabled(true)
+//                ->setUser($user);
+//            $entityManger = $this->getDoctrine()->getManager();
+//            $entityManger->persist($participation);
+//            $entityManger->flush();
+//        }
+//        return $this->redirectToRoute("challenge_admin_edit", ["id" => $challenge->getId()]);
+//    }
 }

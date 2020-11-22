@@ -133,13 +133,15 @@ class ChallengeController extends AbstractController
         foreach ($challenge->getChallengeDates() as $date) {
             $originalDates->add($date);
         }
+        $originalRules = new ArrayCollection();
+        foreach ($challenge->getRules() as $rule) {
+            $originalRules->add($rule);
+        }
         $originalPrizes = new ArrayCollection();
         foreach ($challenge->getChallengePrizes() as $prize) {
             $originalPrizes->add($prize);
         }
-
-
-        $form = $this->createForm(ChallengeType::class, $challenge);
+        $form = $this->createForm(ChallengeType::class, $challenge,['attr'=>['novalidate'=>'novalidate']]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -153,6 +155,15 @@ class ChallengeController extends AbstractController
                     $entityManager->remove($date);
                 }
             }
+            foreach($originalRules as $rule) {
+                if (false === $challenge->getRules()->contains($rule)) {
+                    $date->setChallenge(null);
+                    $entityManager->persist($date);
+                    $entityManager->remove($date);
+                }
+            }
+
+
             foreach ($originalPrizes as $prize) {
                 if (false === $challenge->getChallengePrizes()->contains($prize)) {
                     $prize->setChallenge(null);
@@ -180,6 +191,11 @@ class ChallengeController extends AbstractController
                 } catch (FileException $e) {
                 }
                 $challenge->setBanner($newFilename);
+            }
+            foreach ($challenge->getRules() AS $rule){
+                $rule->addChallenge($challenge);
+                $entityManager->persist($rule);
+                VarDumper::dump($rule);
             }
 
             $entityManager->persist($challenge);

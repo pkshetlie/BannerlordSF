@@ -106,8 +106,10 @@ class ChallengeType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults([
+              $resolver->setDefaults([
             'data_class' => Challenge::class,
+            'csrf_protection' => false,
+
         ]);
     }
 }

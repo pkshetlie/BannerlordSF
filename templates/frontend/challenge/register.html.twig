@@ -34,9 +34,9 @@
         </div>
         #}
 
-        
+
         {# ================ Structure de test ! ================ #}
-        
+
         {# infos globales/inscription #}
         <section class="section-parallax static challenge-global">
             <div class="container">
@@ -69,10 +69,12 @@
                             </div>
                             <div class="col-md-12 d-flex flex-wrap">
                                 <div class="col-12 col-sm-6 justify-content-center text-center">
-                                    <div><label class="font-weight-bold">17</label>&nbsp;<label>Challengers</label></div>
+                                    <div><label class="font-weight-bold">17</label>&nbsp;<label>Challengers</label>
+                                    </div>
                                 </div>
                                 <div class="col-12 col-sm-6 justify-content-center text-center">
-                                     <div><label class="font-weight-bold">Vainqueur :</label>&nbsp;<label>Resuprobe</label></div>
+                                    <div><label class="font-weight-bold">Vainqueur
+                                            :</label>&nbsp;<label>Resuprobe</label></div>
                                 </div>
                             </div>
                             <div class="col-md-12 d-flex flex-wrap encart-global">
@@ -84,12 +86,14 @@
                                         {% set participation = app.user.participation(challenge) %}
                                         {% if participation is not null %}
                                             {% if participation.enabled %}
-                                                <a href="#" class="btn btn-custom btn-green">Votre inscription est validée</a>
+                                                <a href="#" class="btn btn-custom btn-green">Votre inscription est
+                                                    validée</a>
                                             {% else %}
-                                                <a href="#" class="btn btn-custom btn-grey">Votre inscription est en attente de validation</a>
+                                                <a href="#" class="btn btn-custom btn-grey">Votre inscription est en
+                                                    attente de validation</a>
                                             {% endif %}
                                         {% else %}
-                                            {#{{ form(form) }}#}
+                                            {# {{ form(form) }} #}
                                             <a href="#" class="btn btn-custom btn-green active">Inscription</a>
                                         {% endif %}
                                     {% else %}
@@ -97,13 +101,14 @@
                                     {% endif %}
                                 </div>
                                 {# Pour un bouton d'infos (non actif) ne pas lui mettre la classe "active"} #}
-                                {# 
-                                    <a href="#" class="btn btn-custom btn-grey active">Bouton actif gris</a>
-                                    <a href="#" class="btn btn-custom btn-red">Bouton non actif rouge</a>
-                                    <a href="#" class="btn btn-custom btn-green active">Bouton actif vert</a>
+                                {#
+                                <a href="#" class="btn btn-custom btn-grey active">Bouton actif gris</a>
+                                <a href="#" class="btn btn-custom btn-red">Bouton non actif rouge</a>
+                                <a href="#" class="btn btn-custom btn-green active">Bouton actif vert</a>
                                 #}
                                 <div class="col-12 col-lg-4 text-right">
-                                    <a href="#" class="btn btn-custom btn-red"><label>100</label>&nbsp;<label>euros</label></a>
+                                    <a href="#"
+                                       class="btn btn-custom btn-red"><label>100</label>&nbsp;<label>euros</label></a>
                                 </div>
                             </div>
                         </div>
@@ -120,52 +125,45 @@
                         {# --- Onglets --- #}
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="presentation-tab" data-toggle="tab" href="#presentation" role="tab" aria-controls="presentation" aria-selected="true">Présentation</a>
+                                <a class="nav-link active" id="presentation-tab" data-toggle="tab" href="#presentation"
+                                   role="tab" aria-controls="presentation" aria-selected="true">Présentation</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" id="reglement-tab" data-toggle="tab" href="#reglement" role="tab"
+                                   aria-controls="reglement" aria-selected="false">Règlement</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="infos-tab" data-toggle="tab" href="#infos" role="tab" aria-controls="infos" aria-selected="false">Infos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="reglement-tab" data-toggle="tab" href="#reglement" role="tab" aria-controls="reglement" aria-selected="false">Règlement</a>
+                                <a class="nav-link" id="infos-tab" data-toggle="tab" href="#participants" role="tab"
+                                   aria-controls="infos" aria-selected="false">Participants</a>
                             </li>
                         </ul>
                         {# --- Contenu onglets --- #}
                         <div class="tab-content" id="tab-content-challenge">
                             {# Onglet présentation #}
-                            <div class="tab-pane fade show active" id="presentation" role="tabpanel" aria-labelledby="presentation-tab"> 
-                                <p data-children-count="0">Bienvenue au Bannerlord HardCore Challenge Edition #5 Format RolePlay !</p>
-                                <p data-children-count="0">
-                                    <span style="font-size: 1rem;">Découvrez la présentation du challenge classique en vidéo :&nbsp;
-                                        <a href="https://www.youtube.com/watch?v=GI2eBGhshAg&amp;t=1s">https://www.youtube.com/watch?v=GI2eBGhshAg&amp;t=1s</a>
-                                    </span><br>
-                                </p>   
-                                
-                                <p data-children-count="0">
-                                    <span style="font-size: 1rem;">Le challenge sera diffusé et commenté en intégralité sur la chaine officielle :&nbsp;
-                                    <a href="https://www.twitch.tv/pompevie74">https://www.twitch.tv/pompevie74</a></span><br></p><p data-children-count="0">
-                                    <span style="font-size: 1rem;">Suivez le classement en direct :&nbsp;</span>
-                                </p>
-                                <p data-children-count="0"><span style="font-size: 1rem;"></span></p>
-                                <p>
-                                    <a href="https://docs.google.com/spreadsheets/d/1z7rpo7H70KebQTts6d1Gy-ATViH_aghkHu9FNt-JHw8/edit?usp=sharing" data-children-count="0" style="background-color: rgb(255, 255, 255);">https://docs.google.com/spreadsheets/d/1z7rpo7H70KebQTts6d1Gy-ATViH_aghkHu9FNt-JHw8/edit?usp=sharing</a></p><p data-children-count="0"><span style="font-size: 1rem;">Retrouvez toutes les vidéos des challenges sur notre chaîne Youtube :&nbsp;<a href="https://www.youtube.com/channel/UCHs2KIxIQFJw3gN-2wvNU4Q/featured">https://www.youtube.com/channel/UCHs2KIxIQFJw3gN-2wvNU4Q/featured</a></span><br></p><p data-children-count="0"><span style="font-size: 1rem;">Suivez-nous sur les réseaux sociaux :</span><br></p><p><a href="https://twitter.com/BannerlordHC" data-children-count="0" style="background-color: rgb(255, 255, 255);">https://twitter.com/BannerlordHC</a></p><p data-children-count="0"><a href="https://www.instagram.com/bannerlord_hardcore_challenge/">https://www.instagram.com/bannerlord_hardcore_challenge/</a></p>
+                            <div class="tab-pane fade show active" id="presentation" role="tabpanel"
+                                 aria-labelledby="presentation-tab">
+                               {{ challenge.description|raw }}
                             </div>
                             {# Onglet Infos #}
-                            <div class="tab-pane fade" id="infos" role="tabpanel" aria-labelledby="infos-tab">
-                                <p data-children-count="0">
-                                    <span style="font-size: 1rem;">Horaires détaillés des samedi 5 et dimanche 6 décembre :</span><br>
-                                </p>
-                                <p data-children-count="0">Check-in Discord : 13h00</p>
-                                <p data-children-count="0">Début du mode multi-joueurs : 14h00</p>
-                                <p data-children-count="0">Check-in et Début du mode solo : 15h00</p>
-                                <p data-children-count="0">Fin des sessions solo &amp; check-out : 21h00</p>
-                                <p data-children-count="0">Début du mode multi-joueurs : 21h30</p>
-                                <p data-children-count="0">Fin de la journée de challenge : 22h00</p>
+                            <div class="tab-pane fade" id="participants" role="tabpanel" aria-labelledby="infos-tab">
+
                             </div>
                             {# Onglet Règlement #}
                             <div class="tab-pane fade" id="reglement" role="tabpanel" aria-labelledby="reglement-tab">
-                                <p data-children-count="0">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas condimentum lectus dui, sit amet lobortis sapien tempus vitae. Cras molestie ac turpis a rhoncus. Fusce pretium mi ac eros accumsan condimentum. Nunc iaculis quam a sapien luctus faucibus.
-                                </p>
+                                {% set type = null %}
+                                <ul>
+                                    {% for rule in challenge.rules %}
+                                    {% if type != rule.type %}
+                                </ul>
+                                <h2>{{ rule.typeStr }}</h2>
+                                <ul>
+                                    {% set type = rule.type %}
+
+                                    {% endif %}
+                                    <li>{{ rule.label }}</li>
+                                    {% endfor %}
+                                </ul>
                             </div>
                         </div>
                     </div>
