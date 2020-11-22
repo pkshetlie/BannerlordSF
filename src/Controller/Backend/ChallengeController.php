@@ -5,6 +5,7 @@ namespace App\Controller\Backend;
 use App\Entity\Challenge;
 use App\Entity\ChallengeSetting;
 use App\Entity\Participation;
+use App\Entity\Rule;
 use App\Entity\User;
 use App\Form\ChallengeType;
 use App\Repository\ChallengeRepository;
@@ -155,11 +156,12 @@ class ChallengeController extends AbstractController
                     $entityManager->remove($date);
                 }
             }
+            /** @var Rule $rule */
             foreach($originalRules as $rule) {
                 if (false === $challenge->getRules()->contains($rule)) {
-                    $date->setChallenge(null);
-                    $entityManager->persist($date);
-                    $entityManager->remove($date);
+                  $challenge->removeRule($rule);
+                    $rule->removeChallenge($challenge);
+
                 }
             }
 
