@@ -3,7 +3,6 @@
 namespace App\Controller\Backend;
 
 use App\Entity\Challenge;
-use App\Entity\ChallengeSetting;
 use App\Entity\Participation;
 use App\Entity\Run;
 use App\Entity\RunSettings;
@@ -14,14 +13,15 @@ use App\Repository\ChallengeRepository;
 use App\Repository\RunRepository;
 use App\Repository\UserRepository;
 use App\Service\ChallengeService;
+use App\Service\RunService;
 use Doctrine\Common\Collections\ArrayCollection;
-use Pkshetlie\PaginationBundle\Service\Calcul;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
@@ -33,20 +33,25 @@ class RunController extends AbstractController
      * @Route("/user/{id}", name="run_admin_current_new", methods={"GET","POST"})
      * @param Request $request
      * @param User $user
-     * @param ChallengeService $challengeService
+     * @param Challenge|null $challenge
+     * @param ChallengeRepository $challengeRepository
      * @param RunRepository $runRepository
+     * @param RunService $runService
      * @param bool $reset
      * @return Response
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function current(Request $request, User $user, ChallengeService $challengeService, RunRepository $runRepository, $reset = false): Response
+    public function current(Request $request, User $user, Challenge $challenge = null, ChallengeRepository $challengeRepository, RunRepository $runRepository, RunService $runService, $reset = false): Response
     {
-        $challenge = $challengeService->getRunningChallenge();
+
         if ($challenge == null) {
-            return new JsonResponse([
-                'success' => false,
-                "message" => "Aucun challenge en cours"
-            ]);
+            $challenge = $challengeRepository->find($request->get('challenge'));
+            if ($challenge == null) {
+                return new JsonResponse([
+                    'success' => false,
+                    "message" => "Aucun challenge en cours"
+                ]);
+            }
         }
         $entityManager = $this->getDoctrine()->getManager();
         $run = $runRepository->createQueryBuilder('r')
@@ -54,7 +59,9 @@ class RunController extends AbstractController
             ->andWhere('r.challenge  = :challenge')
             ->andWhere('r.endDate IS NULL')
             ->setParameter('challenge', $challenge)
-            ->setParameter('user', $user)->getQuery()->getOneOrNullResult();
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getOneOrNullResult();
         /** @var Run $run */
         if ($run == null) {
             $run = new Run();
@@ -78,21 +85,15 @@ class RunController extends AbstractController
         $form = $this->createForm(RunType::class, $run, [
             'attr' => [
                 'id' => 'runForm',
-                'data-challenger' => $user->getId()
+                'data-challenger' => $user->getId(),
+                'data-challenge' => $challenge->getId(),
             ],
             'action' => $this->generateUrl('run_admin_current_new', ['id' => $user->getId()])
         ]);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $run->setLastVisitedAt(new \DateTime());
-            $score = 0;
-            foreach ($run->getRunSettings() as $setting) {
-                if ($setting->getChallengeSetting()->getIsUsedForScore()) {
-                    $score += $setting->getValue() * $setting->getChallengeSetting()->getRatio();
-                }
-            }
-
-            $run->setComputedScore($score * $run->getMalus());
+            $runService->ComputeScore($run);
             $entityManager->flush();
             if ($request->get('button', null) == "run_FinDeRun" && $reset == false) {
                 $run->setEndDate(new \DateTime());
@@ -108,22 +109,28 @@ class RunController extends AbstractController
                 'form' => $form->createView(),
                 'challenger' => $user,
                 'run' => $run,
+                'challenge' => $run->getChallenge(),
             ])
         ]);
 
     }
 
     /**
-     * @Route("/infos/{id}", name="admin_runs_info")
+     * @Route("/infos/{id}/challenge/{id_challenge}", name="admin_runs_info")
+     * @ParamConverter("challenge", options={"mapping": {"id_challenge": "id"}})
+     * @ParamConverter("user", options={"mapping": {"id": "id"}})
      * @param Request $request
      * @param User $user
+     * @param Challenge $challenge
      * @param ChallengeService $challengeService
      * @param RunRepository $runRepository
      * @return Response
      */
-    public function infoRuns(Request $request, User $user, ChallengeService $challengeService, RunRepository $runRepository)
+    public function infoRuns(Request $request, User $user, Challenge $challenge, ChallengeService $challengeService, RunRepository $runRepository)
     {
-        $challenge = $challengeService->getRunningChallenge();
+        if ($challenge == null) {
+            $challenge = $challengeService->getRunningChallenge();
+        }
         $runs = $runRepository->findByUserAndChallenge($user, $challenge);
         return $this->render('backend/run/info.html.twig', [
             'user' => $user,
@@ -133,7 +140,7 @@ class RunController extends AbstractController
     }
 
     /**
-     * @Route("/delete-participation/{id}", name="challenge_admin_delete_participation", methods={"GET","POST"})
+     * @Route("/delete-participation/{id}", name="run_admin_delete_participation", methods={"GET","POST"})
      * @param Request $request
      * @param Participation $participation
      * @return Response
@@ -188,6 +195,33 @@ class RunController extends AbstractController
         return new JsonResponse([
             'success' => true,
             'replace' => $participation->getEnabled() ? "<i class='fas fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>"
+        ]);
+    }
+
+    /**
+     * @Route("/edit/oneshot/{id}", name="admin_run_edit")
+     * @param Request $request
+     * @param Run $run
+     * @param RunService $runService
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
+    public function editRun(Request $request, Run $run, RunService $runService)
+    {
+        $form = $this->createForm(RunType::class, $run);
+        $form->remove('FinDeRun');
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $runService->ComputeScore($run);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Run modifiée');
+            return $this->redirectToRoute('admin_runs_info', ['id' => $run->getUser()->getId(),'id_challenge'=>$run->getChallenge()->getId()]);
+        }
+        return $this->render('backend/run/edit.html.twig', [
+            'form' => $form->createView(),
+            'run' => $run,
+            'challenger' => $run->getUser(),
+            'challenge' => $run->getChallenge()
         ]);
     }
 

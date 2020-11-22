@@ -28,7 +28,7 @@ class ChallengeSetting
     private $label;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
+     * @ORM\Column(type="decimal", precision=10, scale=5, nullable=true)
      */
     private $ratio = 1;
 
@@ -43,7 +43,7 @@ class ChallengeSetting
     private $inputType = self::TEXT;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=0)
+     * @ORM\Column(type="string",length=255, nullable=true)
      */
     private $defaultValue ;
 
@@ -86,6 +86,11 @@ class ChallengeSetting
      * @ORM\Column(type="boolean")
      */
     private $displayBestForStats = false;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $statLabel;
 
     public function __construct()
     {
@@ -268,6 +273,18 @@ class ChallengeSetting
     public function setDisplayBestForStats(bool $displayBestForStats): self
     {
         $this->displayBestForStats = $displayBestForStats;
+
+        return $this;
+    }
+
+    public function getStatLabel(): ?string
+    {
+        return $this->statLabel;
+    }
+
+    public function setStatLabel(?string $statLabel): self
+    {
+        $this->statLabel = $statLabel;
 
         return $this;
     }

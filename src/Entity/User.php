@@ -419,4 +419,68 @@ class User implements UserInterface
         })->Count();
     }
 
+    public function getCurrentScore(Challenge $challenge)
+    {
+        /** @var Run $run */
+        $run = $this->getRuns()->last();
+
+        return !$run ? 0 : $run->getComputedScore();
+    }
+
+    public function getBestScore(Challenge $challenge)
+    {
+        $runs = $this->getRuns()->filter(function (Run $run) use ($challenge) {
+            return $run->getChallenge() === $challenge;
+        });
+        $score = 0;
+        $bestRun = null;
+        /** @var Run $run */
+        foreach ($runs as $run) {
+            $comp = $run->getComputedScore();
+            if ($score <= $comp) {
+                $bestRun = $run;
+                $score = $comp;
+            }
+        }
+        return $score;
+    }
+
+    public function runCumulSettingValue(ChallengeSetting $setting, Challenge $challenge)
+    {
+
+        $cumul = 0;
+        /** @var Run[] $runs */
+        $runs = $this->getRuns()->filter(function (Run $run) use ($challenge) {
+            return $run->getChallenge() === $challenge;
+        });
+
+        foreach ($runs as $run) {
+            foreach ($run->getRunSettings() as $runSetting) {
+                if ($runSetting->getChallengeSetting() === $setting) {
+                    $cumul += $runSetting->getValue();
+                }
+            }
+        }
+
+        return $cumul;
+    }
+
+    public function runBestSettingValue(ChallengeSetting $setting, Challenge $challenge)
+    {
+        $best = 0;
+        /** @var Run[] $runs */
+        $runs = $this->getRuns()->filter(function (Run $run) use ($challenge) {
+            return $run->getChallenge() === $challenge;
+        });
+
+        foreach ($runs as $run) {
+            foreach ($run->getRunSettings() as $runSetting) {
+                if ($runSetting->getChallengeSetting() === $setting && $runSetting->getValue() > $best) {
+                    $best = $runSetting->getValue();
+                }
+            }
+        }
+        return $best;
+    }
+
 }

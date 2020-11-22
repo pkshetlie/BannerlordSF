@@ -23,7 +23,7 @@ class RunSettings
     private $run;
 
     /**
-     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $value;
 

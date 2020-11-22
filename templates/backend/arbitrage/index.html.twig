@@ -1,6 +1,6 @@
 {% extends 'base_backoffice.html.twig' %}
 
-{% block title %}{{ "Users"|trans }}{% endblock %}
+{% block title %}{{ "Arbitrage"|trans }}{% endblock %}
 
 {% block content %}
     <div class="row">
@@ -23,6 +23,7 @@
                                             href="#"
                                             data-participation=""
                                             data-challenger=""
+                                            data-challenge="{{ challenge.id }}"
 
                                                 data-url="https://player.twitch.tv/?channel=pompevie74&parent={{ app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''}) }}&muted=true"
                                     >
@@ -35,12 +36,13 @@
 
                                     <li class="m-0 mb-1" style="">
                                         <a
-                                                class="btn text-left btn-xs btn-flat btn-block {% if participation.arbitre.id == app.user.id %}bg-purple{% else %}bg-gray{% endif %}"
+                                                class="btn text-left btn-xs btn-flat btn-block {% if participation.arbitre is null %}bg-black{% elseif participation.arbitre.id == app.user.id %}bg-purple{% else %}bg-gray{% endif %}"
                                                 href="#"
                                                 data-participation="{{ participation.id }}"
                                                 data-challenger="{{ challenger.id }}"
+                                                data-challenge="{{ challenge.id }}"
                                                 {% if challenger.twitchID is not empty %}
-                                                    data-url="https://player.twitch.tv/?channel={{ challenger.twitchID }}&parent={{ app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''}) }}&muted=true"
+                                                    data-url="https://player.twitch.tv/?channel={{ challenger.twitchID }}&parent={{ app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''}) }}&muted=true&autoplay=false"
                                                 {% else %}
                                                     data-url=""
                                                 {% endif %}
@@ -63,7 +65,7 @@
                         <div class="col-md-5">
                             <iframe
                                     id="twitch_player"
-                                    src="https://player.twitch.tv/?channel=pompevie74&parent={{ app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''}) }}&muted=true"
+                                    src="https://player.twitch.tv/?channel=pompevie74&parent={{ app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''}) }}&muted=true&autoplay=false"
                                     width="650"
                                     height="370"
                                     frameborder="0"

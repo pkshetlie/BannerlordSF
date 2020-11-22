@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * @Route("/admin/challenge")
@@ -59,10 +60,16 @@ class ChallengeController extends AbstractController
      * @param Participation $participation
      * @return Response
      */
-    public function deleteParticipation(Request $request, Participation $participation, \Swift_Mailer $mailer): Response
+    public function deleteParticipation(Request $request, Participation $participation): Response
     {
-        $this->getDoctrine()->getManager()->remove($participation);
-
+        try {
+            $participation->setChallenge(null);
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($participation);
+            $em->flush();
+        }catch(\Exception $e){
+            VarDumper::dump($e);
+        }
         return new JsonResponse([
             'success' => true,
             'replace' => ""

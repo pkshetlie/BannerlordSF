@@ -103,6 +103,17 @@ class Challenge
      */
     private $malusPerRun = 0;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Season::class, inversedBy="Challenges")
+     */
+    private $season;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Rule::class, mappedBy="challenges")
+     * @ORM\OrderBy({"type"="DESC"})
+     */
+    private $rules;
+
     public function __construct()
     {
         $this->rules = new ArrayCollection();
@@ -404,6 +415,46 @@ class Challenge
     public function setMalusPerRun(string $malusPerRun): self
     {
         $this->malusPerRun = $malusPerRun;
+
+        return $this;
+    }
+
+    public function getSeason(): ?Season
+    {
+        return $this->season;
+    }
+
+    public function setSeason(?Season $season): self
+    {
+        $this->season = $season;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Rule[]
+     */
+    public function getRules(): Collection
+    {
+        return $this->rules;
+    }
+
+    public function addRule(Rule $rule): self
+    {
+        if (!$this->rules->contains($rule)) {
+            $this->rules[] = $rule;
+            $rule->addChallenge($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRule(Rule $rule): self
+    {
+        if ($this->rules->contains($rule)) {
+            $this->rules->removeElement($rule);
+            $rule->removeChallenge($this);
+        }
 
         return $this;
     }

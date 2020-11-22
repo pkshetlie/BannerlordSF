@@ -1,15 +1,51 @@
 import * as $ from "jquery";
 
-function loadRun(challenger) {
+function inputCreation() {
+    $('input').each(function () {
+        let t = $(this);
+        let type = t.closest('td').data('input-type')
+        let value = t.closest('td').data('default-value')
+        if (type !== undefined) {
+            switch (type) {
+                case 200:
+                    let input = "<select name='" + t.attr('name') + "' class='form-control form-control-sm' id='" + t.attr('id') + "'><option value=''>-- sélectionner -- </option>";
+                    let values = value.split(';');
+                    for (let i = 0; values.length > i; i++) {
+                        input += "<option " + (values[i] === t.val() ? "selected='selected'" : "") + " value='" + values[i] + "'>" + values[i] + "</option>";
+                    }
+                    input += "</select>";
+                    t.replaceWith(input);
+                    break;
+                case 300:
+                    let checkbox = "<input type='checkbox' " + (parseFloat(value) === parseFloat(t.val()) ? "checked='checked'" : "") + " id='" + t.attr('id') + "' name='" + t.attr('name') + "' value='" + value + "'/>";
+                    t.replaceWith(checkbox);
+                    break;
+                default:
+                case 100:
+                    break;
+
+            }
+        }
+    });
+    $("[type=checkbox]").val()
+
+}
+
+
+function loadRun(challenger, challenge) {
     $.ajax({
         url: '/admin/run/user/' + challenger,
         async: true,
+        data: {
+            challenge: challenge
+        },
         dataType: 'json',
         success: function (data) {
             if (data.success) {
                 $("#runScore").html(data.html);
+                inputCreation();
                 $('[id^=run_runSettings]').each(function () {
-                    updateLigne($(this).closest('tr'));
+                    updateLigne($(this).closest('tr.updatable'));
                 });
             } else {
                 $("#runScore").html(data.message);
@@ -31,15 +67,26 @@ function totalRun() {
     });
     let malus = parseFloat($("#malus-run").data('malus').toString().replace(',', '.'));
     let total_malus = sum * malus;
-    $('.total-run-with-malus').html(total_malus);
+    let tempScore = $("#run_tempScore").val();
+    if (tempScore !== null && tempScore !== "" && tempScore !== undefined) {
+        $('.total-run-with-malus').html(tempScore * malus);
+        $("#run_FinDeRun").attr('disabled', "disabled");
+        $("#run_FinDeRun").attr('title', "Rentrez le detail pour pouvoir terminer la run");
+    } else {
+        $('.total-run-with-malus').html(total_malus);
+        $("#run_FinDeRun").removeAttr('disabled');
+        $("#run_FinDeRun").removeAttr('title');
+    }
+
     $(".total-run").html(sum);
 }
 
 function updateLigne(ligne) {
-    let ratio = parseFloat(ligne.find('.ratio').text().replace(',', '.'));
-    let value = parseFloat(ligne.find("input").val().replace(',', '.'));
+    let ratio = parseFloat(ligne.find('.ratio').data('ratio').replace(',', '.'));
+
+    let value = ligne.find("input") !== undefined ? (ligne.find("input").is('[type=checkbox]') ? (ligne.find("input").is(':checked') ? ligne.find("input").val() : 0) : parseFloat(ligne.find("input").val())) : parseFloat(ligne.find("select").val().replace(',', '.'));
     let total = ratio * value;
-    if (value > 0) {
+    if (value >= 0) {
         ligne.find('.total-line').html(total);
     }
     if (ligne.data("issteptovictory") === 1) {
@@ -51,7 +98,6 @@ function updateLigne(ligne) {
         if (isNaN(max)) {
             max = 999999999;
         }
-        console.log(min,max);
         if (value <= max && value >= min) {
             ligne.removeClass('bg-orange');
             ligne.addClass('bg-green');
@@ -60,8 +106,6 @@ function updateLigne(ligne) {
             ligne.addClass('bg-orange');
         }
     }
-
-
     if (ligne.data("isusedforscore") === 1) {
         totalRun();
     }
@@ -71,10 +115,11 @@ $(function () {
     let cancelableXhr = null;
     $(".twitcher li a").on('click', function () {
         let url = $(this).data('url');
-        loadRun($(this).data('challenger'))
+        loadRun($(this).data('challenger'), $(this).data('challenge'))
         $("#twitch_player").attr('src', url);
         return false;
     })
+    inputCreation();
 
     $(document).on('keyup', '[id^=run_runSettings]', function () {
         let ligne = $(this).closest('tr');
@@ -83,10 +128,16 @@ $(function () {
 
     $(document).on('keyup change', '[id^=run_runSettings_]', function () {
         $("form#runForm").submit();
+        updateLigne($(this).closest('tr.updatable'));
     });
 
     $(document).on('keyup change', '#run_comment', function () {
         $("form#runForm").submit();
+    });
+
+    $(document).on('keyup change', '#run_tempScore', function () {
+        $("form#runForm").submit();
+        totalRun();
     });
 
     $(document).on('click', "form#runForm button", function () {
@@ -98,10 +149,10 @@ $(function () {
         cancelableXhr = $.ajax({
             url: form.attr('action'),
             type: 'post',
-            data: form.serialize() + "&button=" + $(this).attr('id'),
+            data: form.serialize() + "&button=" + $(this).attr('id')+"&challenge="+form.data('challenge'),
             success: function (data) {
-                if (data.refesh) {
-                    loadRun(form.data('challenger'));
+                if (data.refresh) {
+                    loadRun(form.data('challenger'), form.data('challenge'));
                 }
             }
         });
@@ -115,10 +166,10 @@ $(function () {
         cancelableXhr = $.ajax({
             url: $(this).attr('action'),
             type: 'post',
-            data: $(this).serialize(),
+            data: $(this).serialize()+"&challenge="+t.data('challenge'),
             success: function (data) {
                 if (data.refresh) {
-                    loadRun(t.data('challenger'));
+                    loadRun(t.data('challenger'), t.data('challenge'));
                 }
             }
         });

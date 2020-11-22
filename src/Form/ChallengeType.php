@@ -3,6 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Challenge;
+use App\Entity\Rule;
+use App\Entity\Season;
+use App\Repository\RuleRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -17,14 +21,21 @@ class ChallengeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', null, ['label' => 'challenge.label.title',
+            ->add('title', null, [
+                'label' => 'challenge.label.title',
                 'attr' => [
                     'placeholder' => 'challenge.placeholder.title'
-                ]])
+                ]
+            ])
             ->add('description', null, ['label' => 'challenge.label.description'])
             ->add('type', ChoiceType::class, [
                 "choices" => Challenge::TypesChoices,
                 'label' => 'challenge.label.type'
+            ])
+            ->add('season', EntityType::class, [
+                'label' => 'challenge.label.season',
+                'class' => Season::class,
+                'choice_label' => 'label'
             ])
             ->add('banner',
                 FileType::class, [
@@ -62,11 +73,23 @@ class ChallengeType extends AbstractType
                 'widget' => 'single_text',
                 'label' => 'challenge.label.registrationClosing'
             ])
+            ->add('rules', EntityType::class, [
+                'class' => Rule::class,
+                'multiple' => true,
+                'choice_label' => function (Rule $rule) {
+                    return "(" . $rule->getTypeStr() . ") " . $rule->getLabel();
+                },
+                "expanded" => true,
+                "query_builder"=>function(RuleRepository $repository){
+                    return $repository->createQueryBuilder('r')->orderBy('r.type', 'ASC');
+                }
+
+            ])
             ->add('challengeDates', CollectionType::class, [
                 'entry_type' => ChallengeDateFormType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
-                'allow_delete'=>true,
+                'allow_delete' => true,
                 'label' => false
             ])
             ->add('malusPerRun', null, [
@@ -76,7 +99,7 @@ class ChallengeType extends AbstractType
                 'entry_type' => ChallengePrizeType::class,
                 'entry_options' => ['label' => false],
                 'allow_add' => true,
-                'allow_delete'=>true,
+                'allow_delete' => true,
                 'label' => false
             ]);
     }

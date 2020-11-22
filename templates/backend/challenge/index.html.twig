@@ -18,6 +18,7 @@
                     <table class="table table-condensed">
                         <thead>
                         <tr>
+                            <th>{{ "challenge.label.season"|trans }}</th>
                             <th>{{ "challenge.label.title"|trans }}</th>
                             <th>{{ "challenge.label.dateStart"|trans }}</th>
                             <th>{{ "challenge.label.dateEnd"|trans }}</th>
@@ -30,6 +31,7 @@
                         <tbody>
                         {% for challenge in paginator.entities %}
                             <tr>
+                                <td>{{ challenge.season.label }}</td>
                                 <td>{{ challenge.title }}</td>
                                 <td>{{ challenge.registrationOpening ? challenge.registrationOpening|date('Y-m-d H:i:s') : '' }}</td>
                                 <td>{{ challenge.registrationClosing ? challenge.registrationClosing|date('Y-m-d H:i:s') : '' }}</td>
