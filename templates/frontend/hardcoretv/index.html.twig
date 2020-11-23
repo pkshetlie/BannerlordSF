@@ -14,15 +14,16 @@
                             scrolling="no"
                             allowfullscreen="true"
                             width="100%"
-                            min-height="274px"
+                            height="274px"
                             src="https://player.twitch.tv/?muted=true&channel=pompevie74&parent=bannerlord.hardcore-challenge.com&autoplay=false"></iframe>
                 </div>
             </div>
 
             <div class="row">
+                <h2>Les challengers</h2>
                 {% for entity in entities %}
                     <div class="col-md-3">
-                        <h2>{{ entity.TwitchId }}</h2>
+
                         <iframe
                                 frameborder="0"
                                 scrolling="no"
