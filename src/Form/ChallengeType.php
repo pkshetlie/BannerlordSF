@@ -40,14 +40,11 @@ class ChallengeType extends AbstractType
             ->add('banner',
                 FileType::class, [
                     'label' => 'challenge.label.banner',
-
                     // unmapped means that this field is not associated to any entity property
                     'mapped' => false,
-
                     // make it optional so you don't have to re-upload the PDF file
                     // every time you edit the Product details
                     'required' => false,
-
                     // unmapped fields can't define their validation using annotations
                     // in the associated entity, so you can use the PHP constraint classes
                     'constraints' => [
@@ -80,7 +77,7 @@ class ChallengeType extends AbstractType
                     return "(" . $rule->getTypeStr() . ") " . $rule->getLabel();
                 },
                 "expanded" => true,
-                "query_builder"=>function(RuleRepository $repository){
+                "query_builder" => function (RuleRepository $repository) {
                     return $repository->createQueryBuilder('r')->orderBy('r.type', 'ASC');
                 }
 
@@ -106,10 +103,9 @@ class ChallengeType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-              $resolver->setDefaults([
+        $resolver->setDefaults([
             'data_class' => Challenge::class,
             'csrf_protection' => false,
-
         ]);
     }
 }

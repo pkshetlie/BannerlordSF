@@ -55,33 +55,35 @@
                                 <div class="d-flex col-12 col-sm-6 justify-content-center">
                                     <div class="icon-global"><i class="fa fa-2x fa-calendar"></i></div>
                                     <div class="heures-challenges">
-                                        <label>05 Dec. - 05 Dec.</label><br>
-                                        <label>06 Dec. - 06 Dec.</label>
+                                        {% for dates in challenge.challengeDates %}
+                                            <label>{{ dates.startDate.format('d M. H:i') }}
+                                                - {% if dates.startDate.format('d M') != dates.endDate.format('d M') and dates.endDate.format('H:i') != "00:00" %}{{ dates.endDate.format('d M. H:i') }}{% else %}{{ dates.endDate.format('H:i') }}{% endif %} </label>
+                                        {% endfor %}
+
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-end col-12 col-sm-6 justify-content-center">
-                                    <div class="icon-global"><i class="fa fa-2x fa-calendar"></i></div>
-                                    <div class="heures-challenges">
-                                        <label>13:30 - 22:00 </label><br>
-                                        <label>13:30 - 22:00 </label>
-                                    </div>
+
                                 </div>
                             </div>
                             <div class="col-md-12 d-flex flex-wrap">
                                 <div class="col-12 col-sm-6 justify-content-center text-center">
-                                    <div><label class="font-weight-bold">17</label>&nbsp;<label>Challengers</label>
+                                    <div>
+                                        <label class="font-weight-bold">17</label>&nbsp;<label>Challengers</label>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6 justify-content-center text-center">
-                                    <div><label class="font-weight-bold">Vainqueur
-                                            :</label>&nbsp;<label>Resuprobe</label></div>
+                                    <a href="#" class="btn btn-custom btn-grey">{{ challenge.typeStr }}</a>
+
+                                    <div>
+                                        {# <label class="font-weight-bold">Vainqueur #}
+                                        {# :</label>&nbsp;<label>Resuprobe</label> #}
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-12 d-flex flex-wrap encart-global">
-                                <div class="col-12 col-lg-4">
-                                    <a href="#" class="btn btn-custom btn-grey">Solos & Multi</a>
-                                </div>
-                                <div class="col-12 col-lg-4 text-center">
+
+                                <div class="col-12 col-lg-8 text-center">
                                     {% if is_granted('ROLE_USER') %}
                                         {% set participation = app.user.participation(challenge) %}
                                         {% if participation is not null %}
@@ -108,7 +110,7 @@
                                 #}
                                 <div class="col-12 col-lg-4 text-right">
                                     <a href="#"
-                                       class="btn btn-custom btn-red"><label>100</label>&nbsp;<label>euros</label></a>
+                                       class="btn btn-custom btn-red"><label>{{ challenge.cashPrize }}</label>&nbsp;<label>euros</label></a>
                                 </div>
                             </div>
                         </div>
@@ -143,11 +145,18 @@
                             {# Onglet présentation #}
                             <div class="tab-pane fade show active" id="presentation" role="tabpanel"
                                  aria-labelledby="presentation-tab">
-                               {{ challenge.description|raw }}
+                                {{ challenge.description|raw }}
                             </div>
                             {# Onglet Infos #}
-                            <div class="tab-pane fade" id="participants" role="tabpanel" aria-labelledby="infos-tab">
-
+                            <div class="tab-pane fade row" id="participants" role="tabpanel"
+                                 aria-labelledby="infos-tab">
+                                <div class="row">
+                                    {% for participant in challenge.participations %}
+                                        <div class="col-md-3 col-12 mb-2" >
+                                            <a href="#" onclick="alert('Bientôt disponible.');" class="d-block p-4" style="border: 1px solid #d3d3d3 ">{{ participant.user.username }}</a>
+                                        </div>
+                                    {% endfor %}
+                                </div>
                             </div>
                             {# Onglet Règlement #}
                             <div class="tab-pane fade" id="reglement" role="tabpanel" aria-labelledby="reglement-tab">

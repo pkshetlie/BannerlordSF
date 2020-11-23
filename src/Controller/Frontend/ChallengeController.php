@@ -53,7 +53,9 @@ class ChallengeController extends AbstractController
             ->add('confirmation', CheckboxType::class, ['required' => true, 'label' => "Je souhaite m'inscrire à cette édition"])
             ->add('inscription', SubmitType::class)
             ->getForm();
-
+        $participants = $challenge->getParticipations()->filter(function(Participation $p){
+            return $p->getUser()->getUsername();
+        });
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($this->isGranted('ROLE_USER')) {
@@ -79,6 +81,7 @@ class ChallengeController extends AbstractController
         }
         return $this->render('frontend/challenge/register.html.twig', [
             'challenge' => $challenge,
+            'participations' => $participants,
             'form' => $form->createView()
         ]);
     }

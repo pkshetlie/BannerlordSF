@@ -74,6 +74,7 @@ class Challenge
 
     /**
      * @ORM\OneToMany(targetEntity=Participation::class, mappedBy="challenge")
+     *
      */
     private $participations;
 
@@ -322,6 +323,13 @@ class Challenge
         return $this->challengePrizes;
     }
 
+    public function getCashPrize(){
+       $sum = 0;
+        foreach($this->getChallengePrizes() AS $prize){
+            $sum += $prize->getValue();
+        }
+        return $sum;
+    }
     public function addChallengePrize(ChallengePrize $challengePrize): self
     {
         if (!$this->challengePrizes->contains($challengePrize)) {

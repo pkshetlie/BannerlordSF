@@ -29,15 +29,19 @@
                                         </div>
                                         <div class="dates-challenges">
                                             {% for dates in entity.challengeDates  %}
-                                            <label>{{ dates.startDate.format('d M. H:i') }} - {{ dates.endDate.format('d M. H:i') }} </label>
+                                            <label>{{ dates.startDate.format('d M. H:i') }} - {% if dates.startDate.format('d M') != dates.endDate.format('d M') and dates.endDate.format('H:i') != "00:00" %}{{ dates.endDate.format('d M. H:i') }}{% else %}{{ dates.endDate.format('H:i') }}{% endif%} </label>
                                             {% endfor %}
                                         </div>
                                     </div>
                                     <div class="card-buttons row">
-                                        <div class="col-7"><a href="#" class="btn btn-custom btn-grey">Vidéos du
-                                                tournoi</a></div>
-                                        <div class="col-5"><p class="btn-cash"><label>Cash prize</label><br>100 euros
-                                            </p></div>
+                                        <div class="col-12">
+{#                                            <a href="#" class="btn btn-custom btn-grey">Vidéos du#}
+{#                                                tournoi</a>#}
+{#                                        </div>#}
+{#                                        <div class="col-5">#}
+                                            <p class="btn-cash"><label>Cash prize</label> {{ entity.cashPrize }} &euro;
+                                            </p>
+                                        </div>
 
                                         {% if entity.isOpen %}
                                             <div class="col-7">
@@ -45,8 +49,7 @@
                                                     <div class="progress-bar" role="progressbar" style="width: 25%"
                                                          aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
-                                                <label class="text-center w-100 nb-inscrit">{{ entity.participations|length }}
-                                                    /{{ entity.maxChallenger }} inscrits</label>
+                                                <label class="text-center w-100 nb-inscrit">{{ entity.participations|length }}/{{ entity.maxChallenger }} inscrits</label>
                                             </div>
                                             <div class="col-5">
                                                 <a href="{{ url("challenge_participer",{id:entity.id}) }}" class="btn btn-custom btn-bottom-right">S'inscrire</a>
