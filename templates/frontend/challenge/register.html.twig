@@ -10,31 +10,6 @@
             <h1>{{ challenge.title }}</h1>
         </section>
 
-        {#
-        <div class="col-md-8">
-            {{ challenge.description|raw }}
-        </div>
-        <div class="col-md-4">
-            <img src="{{ asset('/uploads/challenge/banner/'~challenge.banner) }}" class="img-fluid"
-                    alt="{{ challenge.title }}"/>
-            {% if is_granted('ROLE_USER') %}
-                {% set participation = app.user.participation(challenge) %}
-                {% if participation is not null %}
-                    {% if participation.enabled %}
-                        <p>Votre inscription est validée</p>
-                    {% else %}
-                        <p>Votre inscription est en attente de validation</p>
-                    {% endif %}
-                {% else %}
-                    {{ form(form) }}
-                {% endif %}
-            {% else %}
-                Vous devez être connecté pour vous inscrire.
-            {% endif %}
-        </div>
-        #}
-
-
         {# ================ Structure de test ! ================ #}
 
         {# infos globales/inscription #}
