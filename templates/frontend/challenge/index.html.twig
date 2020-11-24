@@ -23,13 +23,13 @@
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">{{ entity.title }}</h5>
-                                    <div class="card-text d-flex justify-content-around">
-                                        <div class="text-center">
-                                        <i class="fa fa-2x fa-calendar ml-2"></i>
+                                    <div class="card-text d-flex justify-content-center">
+                                        <div class="text-right">
+                                            <i class="fa fa-2x fa-calendar ml-2"></i>
                                         </div>
-                                        <div class="dates-challenges">
+                                        <div class="dates-challenges pl-2">
                                             {% for dates in entity.challengeDates  %}
-                                            <label>{{ dates.startDate.format('d M. H:i') }} - {% if dates.startDate.format('d M') != dates.endDate.format('d M') and dates.endDate.format('H:i') != "00:00" %}{{ dates.endDate.format('d M. H:i') }}{% else %}{{ dates.endDate.format('H:i') }}{% endif%} </label>
+                                                <label>{{ dates.startDate.format('d M. H:i') }} - {% if dates.startDate.format('d M') != dates.endDate.format('d M') and dates.endDate.format('H:i') != "00:00" %}{{ dates.endDate.format('d M. H:i') }}{% else %}{{ dates.endDate.format('H:i') }}{% endif%} </label>
                                             {% endfor %}
                                         </div>
                                     </div>
