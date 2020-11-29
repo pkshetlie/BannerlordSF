@@ -75,10 +75,10 @@ class Rule
     {
         switch($this->type){
             case self::FORBIDDEN:
-                return "Interdiction";
+                return "Interdictions";
             default:
             case self::REQUIRED:
-                return "Obligation";
+                return "Obligations";
         }
 
     }

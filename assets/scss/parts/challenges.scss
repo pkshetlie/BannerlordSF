@@ -16,6 +16,7 @@
     .card-title {
         text-align: center;
         font-weight: 600;
+        color: $black;
     }
 
     .card-body {
@@ -35,11 +36,19 @@
             flex-direction: column;
             label {
                 margin: 0;
+                color: $black;
                 font-weight: 600;
-                font-size: 0.75em;
+                font-size: 1em;
                 display: flex;
             }
         }
+        .dates-icon {
+            color: $black;
+        }
+    }
+
+    .link-to-chal:hover {
+        text-decoration: none;
     }
 
     .card-ringbell {
@@ -72,9 +81,12 @@
         .progress-bar {
             background-color: $green;
         }
-        .nb-inscrit {
+        .nb-inscrit, .nom-gagnant {
             font-weight: 600;
             margin: 5px 0 0 0;
+        }
+        .nom-gagnant svg {
+            width: 30px;
         }
         .btn-cash {
             background-color: $green;
@@ -82,7 +94,7 @@
         }
         .btn-in-coming {
             color: $white;
-            background-color: $dark-grey;
+            background-color: $brown;
             padding: 10px;
             margin: 0;
             label {
@@ -90,11 +102,11 @@
             }
         }
         .btn-bottom-right {
-            background-color: $dark-grey;
-            border: 1px solid $dark-grey;
+            background-color: $brown;
+            border: 1px solid $brown;
             &:hover {
                 background-color: $white;
-                color: $dark-grey;
+                color: $brown;
             }
         }
         .alert-bell {
@@ -108,6 +120,9 @@
             }
             i {
                 color: $pastel-orange;
+            }
+            @media screen and (min-width: 1200px) {
+                margin-left: -7px;
             }
         }
     }

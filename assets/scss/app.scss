@@ -10,9 +10,9 @@
  $white: #ffffff;
  $light-grey: #f2f2f2;
  $grey: #cfcfcf;
- $dark-grey: #707070;
- $pastel-red: #b94e4e;;
-
+ $dark-grey: #606060;
+ $pastel-red: #b94e4e;
+ $pastel-red: #ff6161;
  $pastel-orange: #FBB03B;
 
 /*
@@ -27,6 +27,8 @@
 @import "parts/home.scss";
 @import "parts/challenges.scss";
 @import "parts/challenge.scss";
+@import "parts/hardcore_tv.scss";
+@import "parts/alert-message.scss";
 // Bootstrap Functions
 @import "./node_modules/bootstrap/scss/functions";
 @import "./node_modules/bootstrap/scss/bootstrap.scss";
@@ -69,15 +71,15 @@ body {
     }
     
     &.btn-grey:not(.disabled) {
-        background-color: $dark-grey;
-        border: 1px solid $dark-grey;
+        background-color: $brown;
+        border: 1px solid $brown;
         cursor: default;
         &.active {
             cursor: pointer;
         }
         &.active:hover {
             background-color: $white;
-            color: $dark-grey;
+            color: $brown;
         }
     }
 
@@ -93,6 +95,48 @@ body {
             background-color: $white;
         }
     }
+}
+
+#btn-scroll-top {
+    width: 50px;
+    height: 50px;
+    background-color: $grey;
+    position: fixed;
+    right: 30px;
+    bottom: 50px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: 0.2s;
+    opacity: 0.8;
+    z-index: 10;
+    display: none;
+    &:hover {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        i {
+            top: 40%;
+        }
+    }
+    i {
+        position: absolute;
+        font-size: 3em;
+        top: 47%;
+        transform: translate(-50%, -50%);
+        left: 50%;
+        color: $white;
+        transition: 0.2s;
+    }
+}
+
+
+/* Cards effect */
+.card {
+    transition: 0.2s;
+}
+.card:not(.card-no-effect):hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 30px #e2dee5;
+    -webkit-transform: translateY(-3px);
+    transform: translateY(-3px);
 }
 
 

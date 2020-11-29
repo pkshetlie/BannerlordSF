@@ -8,7 +8,11 @@
 
  .navbar.navbar-main {
     padding: 0;
-    background-color: $brown;
+    background-color: $white;
+    position: sticky;
+    top: 0px;
+    z-index: 10;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     .container-nav {
         display: flex;
         flex-wrap: wrap;
@@ -17,7 +21,7 @@
         width: 100%;
     }
     .nav-link {
-        color: #ffffff;
+        color: $brown;
         font-size: 1.2em;
         font-family: 'Montserrat', sans-serif;
         display: flex;
@@ -27,19 +31,19 @@
         }
     }
     .home-link {
-        color: #ffffff;
+        color: $brown;
         font-size: 2em;
     }
     .btn-connect {
         background-color: $green;
-        color: #ffffff;
+        color: $brown;
         padding: 10px 15px;
     }
     #navbar_global {
         justify-content: center;
     }
     .menu-title-responsive {
-        color: $white;
+        color: $brown;
         margin: 0;
         display: none;
     }
@@ -55,10 +59,9 @@
 }
 
 /* Responsive menu */
-@media (max-width: 992px) {
+@media (max-width: 991px) {
     .navbar.navbar-main {
         height: 58px;
-        z-index: 2;
         width: 100%;
         position: sticky;
         top: 0px;
@@ -90,7 +93,7 @@
             width: 300px;
             height: 100%;
             z-index: 2;
-            background-color: $light-brown;
+            background-color: $white;
             border-right: 2px solid $black;
             border-top: 1px solid $black;
         }
@@ -125,7 +128,7 @@
 
 @media all and (min-width: 992px) {
     .navbar .nav-item .dropdown-menu{  display:block; opacity: 0;  visibility: hidden; transition:.3s; margin-top:0;  }
-	.navbar .nav-item:hover .nav-link{ color: #fff;  }
+	.navbar .nav-item:hover .nav-link{ color: $brown;  }
 	.navbar .dropdown-menu.fade-down{ top:80%; transform: rotateX(-75deg); transform-origin: 0% 0%; }
 	.navbar .dropdown-menu.fade-up{ top:180%;  }
 	.navbar .nav-item:hover .dropdown-menu{ transition: .3s; opacity:1; visibility:visible; top:100%; transform: rotateX(0deg); }
@@ -155,7 +158,7 @@
     position: absolute;
     height: 4px;
     width: 100%;
-    background: $white;
+    background: $brown;
     border-radius: 9px;
     opacity: 1;
     left: 0;

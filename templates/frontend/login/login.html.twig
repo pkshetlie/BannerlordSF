@@ -18,6 +18,30 @@
             {{ form_start(registration_form) }}
             {% for flashError in app.flashes('verify_email_error') %}
                 <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                <div class="modal fade error-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="flag-center"><h2>Erreur</h2></div>
+                            <i class="flag flag-right"></i>
+                            <i class="flag flag-left"></i>
+                            <div class="modal-body">
+                                <div class="f-modal-alert">
+                                    <div class="f-modal-icon f-modal-error animate">
+                                        <span class="f-modal-x-mark">
+                                            <span class="f-modal-line f-modal-left animateXLeft"></span>
+                                            <span class="f-modal-line f-modal-right animateXRight"></span>
+                                        </span>
+                                        <div class="f-modal-placeholder"></div>
+                                        <div class="f-modal-fix"></div>
+                                    </div>
+                                </div>
+                                <div class="msg-mail-alert">
+                                    <p class="text-center">{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             {% endfor %}
             <div class="row">
                 <div class="form-group col-md-6 mb-4">
@@ -93,6 +117,30 @@
             <form action="{{ url("app_login") }}" method="post" role="form">
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    <div class="modal fade error-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="flag-center"><h2>Erreur</h2></div>
+                                <i class="flag flag-right"></i>
+                                <i class="flag flag-left"></i>
+                                <div class="modal-body">
+                                    <div class="f-modal-alert">
+                                        <div class="f-modal-icon f-modal-error animate">
+                                            <span class="f-modal-x-mark">
+                                                <span class="f-modal-line f-modal-left animateXLeft"></span>
+                                                <span class="f-modal-line f-modal-right animateXRight"></span>
+                                            </span>
+                                            <div class="f-modal-placeholder"></div>
+                                            <div class="f-modal-fix"></div>
+                                        </div>
+                                    </div>
+                                    <div class="msg-mail-alert">
+                                        <p class="text-center">{{ error.messageKey|trans(error.messageData, 'security') }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 {% endif %}
 
                 {% if app.user %}

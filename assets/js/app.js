@@ -21,7 +21,7 @@ $(() => {
 
     /* check if the element is in viewport */
     $.fn.isInViewport = function() {
-    	let self = $(this); console.info(self);
+    	let self = $(this);
 
         let elementTop = self.offset().top;
         let elementBottom = elementTop + self.outerHeight();
@@ -81,4 +81,24 @@ $(() => {
         $(this).find('#nav-icon-menu').toggleClass('open');
         $('body').toggleClass('hidden');
     });
+
+    /* --- GESTION CLICK BOUTON SCROLL TOP --- */
+    $('#btn-scroll-top').click(function() {
+        $('html, body').animate({scrollTop:0},500);
+    });
+
+    $(window).on("scroll", function() {
+        var scrollHeight = $(document).height();
+        var scrollPosition = $(window).height() + $(window).scrollTop();
+        if ((scrollHeight - scrollPosition) / scrollHeight <= 0.5) {
+            $('#btn-scroll-top').css('display', 'block');
+        } else {
+            $('#btn-scroll-top').css('display', 'none');
+        }
+    });
+
+    /* --- GESTION MODAL ERREURS --- */
+    if($('.error-modal').length) {
+        $('.error-modal').modal('show');
+    }
 });

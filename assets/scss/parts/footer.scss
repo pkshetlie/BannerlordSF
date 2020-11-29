@@ -4,7 +4,9 @@
  * 09/2020
  */
 
-footer {    
+footer {  
+    background-color:  $dark-grey;
+    padding: 30px 0;  
     .navbar-nav {
         flex-direction: row;
         .nav-link {
@@ -17,10 +19,14 @@ footer {
     }
 
     .other-links a {
-        color: $black;
+        color: $white;
         font-size: 0.9em;
         margin: 0 5px 10px;
         font-weight: 600;
+    }
+
+    .copyright {
+        color: $white;
     }
     
 }

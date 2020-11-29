@@ -4,37 +4,49 @@
     {{ encore_entry_link_tags('home') }}
 {% endblock %}
 {% block body %}
-    <div class="container">
-        <main class="wrapper">
-            <div class="row">
-                <div class="col-6 offset-3">
-                    <h1>La chaine officielle</h1>
-                    <iframe
-                            frameborder="0"
-                            scrolling="no"
-                            allowfullscreen="true"
-                            width="100%"
-                            height="274px"
-                            src="https://player.twitch.tv/?muted=true&channel=pompevie74&parent=bannerlord.hardcore-challenge.com&autoplay=false"></iframe>
-                </div>
-            </div>
+    <main class="wrapper">
+        <section class="section-banner bg1 home-title">
+            <h1>Retrouvez tous les streamers en live</h1>
+        </section>
 
-            <div class="row">
-                <div class="col-12">
-                    <h2>Les challengers</h2>
-                </div>
-                {% for entity in entities %}
-                    <div class="col-md-3">
-
+        <section class="section-parallax static tv-main-list">
+            <div class="container">
+                
+                <div class="row">
+                    <div class="col-12">
+                        <p class="text-center font-weight-bold">Suivez l'intégralité des challenges sur la chaîne Twitch officielle de Pompevie :</p>
+                        <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
                         <iframe
                                 frameborder="0"
                                 scrolling="no"
                                 allowfullscreen="true"
                                 width="100%"
-                                src="https://player.twitch.tv/?muted=true&channel={{ entity.TwitchId }}&parent=bannerlord.hardcore-challenge.com&autoplay=false"></iframe>
+                                height="274px"
+                                src="https://player.twitch.tv/?muted=true&channel=pompevie74&parent=bannerlord.hardcore-challenge.com&autoplay=false"></iframe>
+                        </div>
                     </div>
-                {% endfor %}
+                </div>
             </div>
-        </main>
-    </div>
+        </section>
+        <section class="section-parallax static tv-list">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="text-center font-weight-bold">Retrouvez la chaîne de tous les challengers ayant participé à la saison 1 de la Ligue Bannerlord HardCore Challenge :</p>
+                    </div>
+                    {% for entity in entities %}
+                        <div class="col-12 col-md-4 col-lg-3">
+
+                            <iframe
+                                    frameborder="0"
+                                    scrolling="no"
+                                    allowfullscreen="true"
+                                    width="100%"
+                                    src="https://player.twitch.tv/?muted=true&channel={{ entity.TwitchId }}&parent=bannerlord.hardcore-challenge.com&autoplay=false"></iframe>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
 {% endblock %}
