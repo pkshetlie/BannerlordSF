@@ -470,7 +470,7 @@ footer {
       margin: 0;
       color: #000000;
       font-weight: 600;
-      font-size: 1em;
+      font-size: 12px;
       display: flex; }
   .challenges-list .card-text .dates-icon {
     color: #000000; }
