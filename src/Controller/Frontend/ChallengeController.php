@@ -50,16 +50,21 @@ class ChallengeController extends AbstractController
     public function registerToChallenge(Request $request, Challenge $challenge, ParticipationRepository $participationRepository)
     {
         $form = $this->createFormBuilder()
-            ->add('confirmation', CheckboxType::class, ['required' => true, 'label' => "Je souhaite m'inscrire à cette édition"])
-            ->add('inscription', SubmitType::class)
+            ->add('inscription', SubmitType::class, [
+                'attr' => ['class' => "btn btn-custom btn-green active"]
+
+            ])
             ->getForm();
-        $participants = $challenge->getParticipations()->filter(function(Participation $p){
+        $participants = $challenge->getParticipations()->filter(function (Participation $p) {
             return $p->getUser()->getUsername();
         });
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($this->isGranted('ROLE_USER')) {
-                if($participationRepository->findBy(['user'=>$this->getUser(),'challenge'=>$challenge]) == null) {
+                if ($participationRepository->findBy([
+                        'user' => $this->getUser(),
+                        'challenge' => $challenge
+                    ]) == null) {
                     /** @var User $user */
                     $user = $this->getUser();
                     $participation = new Participation();
@@ -71,11 +76,11 @@ class ChallengeController extends AbstractController
                     $em->persist($participation);
                     $em->flush();
                     $this->addFlash('success', "Votre demande est soumise à validation d'un membre du staff, vous recevrez un mail dès que celle ci sera validée.");
-                }else{
+                } else {
                     $this->addFlash('danger', "Vous êtres déjà inscrit à ce tournois.");
 
                 }
-                } else {
+            } else {
                 $this->addFlash('danger', "Vous devez êtres connecté pour pouvoir vous inscrire.");
             }
         }
