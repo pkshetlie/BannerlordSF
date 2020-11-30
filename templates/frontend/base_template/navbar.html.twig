@@ -35,22 +35,22 @@
                         <span class="nav-link-inner--text">Hardcore TV</span>
                     </a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link" data-toggle="dropdown" role="button">
-                        <i class="ni ni-collection d-lg-none"></i>
-                        <span class="nav-link-inner--text">Ligue BHC</span>
-                    </a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a href="#" class="nav-link" data-toggle="dropdown" role="button">
-                        <i class="ni ni-collection d-lg-none"></i>
-                        <span class="nav-link-inner--text">Partenaires</span>
-                    </a>
-                    <div class="dropdown-menu">
-                        <a href="../examples/landing.html" class="dropdown-item">Theme Dark</a>
-                        <a href="../examples/profile.html" class="dropdown-item">Theme Light</a>
-                    </div>
-                </li>
+{#                <li class="nav-item dropdown">#}
+{#                    <a href="#" class="nav-link" data-toggle="dropdown" role="button">#}
+{#                        <i class="ni ni-collection d-lg-none"></i>#}
+{#                        <span class="nav-link-inner--text">Ligue BHC</span>#}
+{#                    </a>#}
+{#                </li>#}
+{#                <li class="nav-item dropdown">#}
+{#                    <a href="#" class="nav-link" data-toggle="dropdown" role="button">#}
+{#                        <i class="ni ni-collection d-lg-none"></i>#}
+{#                        <span class="nav-link-inner--text">Partenaires</span>#}
+{#                    </a>#}
+{#                    <div class="dropdown-menu">#}
+{#                        <a href="../examples/landing.html" class="dropdown-item">Theme Dark</a>#}
+{#                        <a href="../examples/profile.html" class="dropdown-item">Theme Light</a>#}
+{#                    </div>#}
+{#                </li>#}
                 {% if is_granted("ROLE_USER") %}
                     <li class="nav-item">
                         <a href="{{ url('app_login') }}" class="nav-link">
@@ -60,9 +60,9 @@
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a href="{{ url('app_login') }}" class="nav-link">
+                        <a href="{{ url('app_logout') }}" class="nav-link">
                             <i class="ni ni-collection d-lg-none"></i>
-                            <span class="nav-link-inner--text">Mon Compte</span>
+                            <span class="nav-link-inner--text">Déconnexion</span>
                         </a>
                     </li>
                 {% endif %}

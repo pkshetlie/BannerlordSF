@@ -14,7 +14,7 @@
                 
                 <div class="row">
                     <div class="col-12">
-                        <p class="text-center font-weight-bold">Suivez l'intégralité des challenges sur la chaîne Twitch officielle de Pompevie :</p>
+                        {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'hardcoreTv-1',default:"A personnaliser"})) }}
                         <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
                         <iframe
                                 frameborder="0"
@@ -32,7 +32,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <p class="text-center font-weight-bold">Retrouvez la chaîne de tous les challengers ayant participé à la saison 1 de la Ligue Bannerlord HardCore Challenge :</p>
+                        {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'hardcoreTv-2',default:"A personnaliser"})) }}
+
                     </div>
                     {% for entity in entities %}
                         <div class="col-12 col-md-4 col-lg-3">
