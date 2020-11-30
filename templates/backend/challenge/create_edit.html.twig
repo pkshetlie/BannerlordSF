@@ -129,6 +129,7 @@
                                     <a class="btn btn-default confirm-action" title="Vous allez perdre toutes les informations non enregistrées"
                                        href="{{ path('challenge_admin_index') }}">{{ "back to list"|trans }}</a>
                                 </div>
+                                {{ form_end(form) }}
 
                                 <div class="tab-pane fade" id="participations" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
                                     <form action="{{ url("add_participation",{id: challenge.id}) }}">
@@ -206,7 +207,6 @@
 
                             </div>
                         </div>
-                        {{ form_end(form) }}
 
                         <!-- /.card -->
                     </div>
