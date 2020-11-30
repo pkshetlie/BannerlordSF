@@ -5399,6 +5399,11 @@ jquery-mousewheel@^3.1, jquery-mousewheel@^3.1.13:
   resolved "https://registry.yarnpkg.com/jquery-mousewheel/-/jquery-mousewheel-3.1.13.tgz#06f0335f16e353a695e7206bf50503cb523a6ee5"
   integrity sha1-BvAzXxbjU6aV5yBr9QUDy1I6buU=
 
+jquery-resizable@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/jquery-resizable/-/jquery-resizable-1.0.6.tgz#e2f5bfc471a08bbf8fbeeeea156a8e7c9754e67c"
+  integrity sha1-4vW/xHGgi7+Pvu7qFWqOfJdU5nw=
+
 jquery-ui-dist@^1.12.1:
   version "1.12.1"
   resolved "https://registry.yarnpkg.com/jquery-ui-dist/-/jquery-ui-dist-1.12.1.tgz#5c0815d3cc6f90ff5faaf5b268a6e23b4ca904fa"
@@ -8763,10 +8768,10 @@ trim-newlines@^1.0.0:
   dependencies:
     glob "^7.1.2"
 
-trumbowyg@^2.21.0:
-  version "2.21.0"
-  resolved "https://registry.yarnpkg.com/trumbowyg/-/trumbowyg-2.21.0.tgz#ca133bb960d3302d362ca73358e268d3830c74cc"
-  integrity sha512-TUatXrv2PgaYjgIZdh4G0UgZsFd9cmkw4ZGrQBWrXNDtf2cn+1TEgLGd/jVj0MWGxEYfbrZXmURf9UQlEMLGFg==
+trumbowyg@^2.22.0:
+  version "2.22.0"
+  resolved "https://registry.yarnpkg.com/trumbowyg/-/trumbowyg-2.22.0.tgz#179ae097029e321a8d977658ffeff17fc5f374fb"
+  integrity sha512-ABZ5mpg5Y/MX0nDeLyg5N0nHwpIcxehAdhuC/MpF6FD2Un2ThB1L3TySXwGOx/Q6LtaErmEgQK2lp+Jq4KW40A==
 
 tslib@^1.9.0:
   version "1.14.1"

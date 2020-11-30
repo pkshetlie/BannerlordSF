@@ -30,6 +30,7 @@ Encore
     .addEntry('bo_caster', './assets/js/backoffice/caster.js')
     .addEntry('leaderboard', './assets/js/frontoffice/leaderboard.js')
     .addEntry('home', './assets/js/home.js')
+    .addEntry('form_cms_block', './assets/js/form/cms_block.js')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 
