@@ -13,6 +13,7 @@
 {% for setting in form.runSettings %}
 
     <tr class="updatable"
+            data-isaffectedbymalus="{{ setting.vars.data.challengeSetting.isAffectedByMalus }}"
             data-issteptovictory="{{ setting.vars.data.challengeSetting.isStepToVictory }}"
             data-steptovictorymin="{{ setting.vars.data.challengeSetting.stepToVictoryMin }}"
             data-steptovictorymax="{{ setting.vars.data.challengeSetting.stepToVictoryMax }}"
@@ -33,7 +34,11 @@
         <td class=""></td>
     </tr>
     <tr>
-        <td style="font-size: 14px" class="text-bold text-right" colspan="3"><b>Total</b></td>
+        <td style="font-size: 14px" class="text-bold text-right" colspan="3"><b>Total </b></td>
+        <td class="total-run">0</td>
+    </tr>
+    <tr>
+        <td style="font-size: 14px" class="text-bold text-right" colspan="3"><b>Total score</b></td>
         <td class="total-run">0</td>
     </tr>
     <tr>

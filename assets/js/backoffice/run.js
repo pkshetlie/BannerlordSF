@@ -55,30 +55,36 @@ function loadRun(challenger, challenge) {
 }
 
 function totalRun() {
+    let sumMalusable = 0;
     let sum = 0;
     $(".total-line").each(function () {
         let value = $(this).text();
         let tr = $(this).closest('tr');
         if (tr.data("isusedforscore") === 1) {
             if (!isNaN(value) && value.length !== 0) {
-                sum += parseFloat(value);
+                if(tr.data("isaffectedbymalus") === 1) {
+                    sumMalusable += parseFloat(value);
+                }else{
+                    sum += parseFloat(value);
+
+                }
             }
         }
     });
     let malus = parseFloat($("#malus-run").data('malus').toString().replace(',', '.'));
-    let total_malus = sum * malus;
+    let total_malus = sumMalusable * malus;
     let tempScore = $("#run_tempScore").val();
     if (tempScore !== null && tempScore !== "" && tempScore !== undefined) {
-        $('.total-run-with-malus').html(tempScore * malus);
+        $('.total-run-with-malus').html(tempScore * malus + sum);
         $("#run_FinDeRun").attr('disabled', "disabled");
-        $("#run_FinDeRun").attr('title', "Rentrez le detail pour pouvoir terminer la run");
+        $("#run_FinDeRun").attr('title', "Rentrez le détail pour pouvoir terminer la run");
     } else {
-        $('.total-run-with-malus').html(total_malus);
+        $('.total-run-with-malus').html(total_malus + sum);
         $("#run_FinDeRun").removeAttr('disabled');
         $("#run_FinDeRun").removeAttr('title');
     }
 
-    $(".total-run").html(sum);
+    $(".total-run").html(sum + sumMalusable);
 }
 
 function updateLigne(ligne) {

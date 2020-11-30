@@ -427,6 +427,19 @@ class User implements UserInterface
         return !$run ? 0 : $run->getComputedScore();
     }
 
+    public function getNonMalusableScore(Challenge $challenge)
+    {
+        /** @var Run $run */
+        $run = $this->getRuns()->last();
+        $score = 0;
+        foreach($run->getRunSettings() AS $setting){
+            if(!$setting->getChallengeSetting()->getIsAffectedByMalus()) {
+                $score += $setting->getValue();
+            }
+        }
+        return $score;
+    }
+
     public function getBestScore(Challenge $challenge)
     {
         $runs = $this->getRuns()->filter(function (Run $run) use ($challenge) {

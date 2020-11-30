@@ -30,6 +30,7 @@ class ChallengeSettingType extends AbstractType
                 "label" => "Valeur par défaut",
                 "attr" => ["placeholder" => ""]
             ])
+            ->add('isAffectedByMalus', null, ['label' => "Est affecté par le malus"])//            ->add('challenge')
             ->add('isReportedOnTheNextRun', null, ['label' => "Reporté sur chaque run"])//            ->add('challenge')
             ->add('isUsedForScore', null, ['label' => "Est utilisé pour le score"])//            ->add('challenge')
             ->add('isStepToVictory', null, ['label' => "Est une étape vers la victoire"])//            ->add('challenge')
