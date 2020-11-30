@@ -41,18 +41,17 @@ class RunController extends AbstractController
      * @return Response
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function current(Request $request, User $user, Challenge $challenge = null, ChallengeRepository $challengeRepository, RunRepository $runRepository, RunService $runService, $reset = false): Response
+    public function current(Request $request, User $user, ChallengeRepository $challengeRepository, RunRepository $runRepository, RunService $runService, $reset = false): Response
     {
 
+        $challenge = $challengeRepository->find($request->get('challenge'));
         if ($challenge == null) {
-            $challenge = $challengeRepository->find($request->get('challenge'));
-            if ($challenge == null) {
-                return new JsonResponse([
-                    'success' => false,
-                    "message" => "Aucun challenge en cours"
-                ]);
-            }
+            return new JsonResponse([
+                'success' => false,
+                "message" => "Aucun challenge en cours"
+            ]);
         }
+
         $entityManager = $this->getDoctrine()->getManager();
         $run = $runRepository->createQueryBuilder('r')
             ->where('r.user = :user')
@@ -62,6 +61,7 @@ class RunController extends AbstractController
             ->setParameter('user', $user)
             ->getQuery()
             ->getOneOrNullResult();
+
         /** @var Run $run */
         if ($run == null) {
             $run = new Run();
@@ -70,11 +70,32 @@ class RunController extends AbstractController
             $entityManager->persist($run);
             $run->setStartDate(new \DateTime());
             $countRun = $user->countRun($challenge);
+            /** @var Run $lastrun */
+            $lastrun = $runRepository->createQueryBuilder('r')
+                ->where('r.user = :user')
+                ->andWhere('r.challenge  = :challenge')
+                ->setParameter('challenge', $challenge)
+                ->setParameter('user', $user)
+                ->orderBy("r.endDate", "DESC")
+                ->getQuery()
+                ->setMaxResults(1)
+                ->setFirstResult(0)
+                ->getOneOrNullResult();
+
             foreach ($challenge->getChallengeSettings() as $setting) {
                 $runSetting = new RunSettings();
                 $runSetting->setChallengeSetting($setting);
                 $runSetting->setRun($run);
-                $runSetting->setValue($setting->getDefaultValue());
+                if ($lastrun != null && $setting->getIsReportedOnTheNextRun()) {
+                    foreach ($lastrun->getRunSettings() as $lastSetting) {
+                        if($lastSetting->getChallengeSetting()->getId() == $setting->getId()) {
+                            $runSetting->setValue($lastSetting->getValue());
+                            break;
+                        }
+                    }
+                } else {
+                    $runSetting->setValue($setting->getDefaultValue());
+                }
                 $run->addRunSetting($runSetting);
                 $run->setMalus(1 - ($challenge->getMalusPerRun() * ($countRun) / 100));
                 $entityManager->persist($runSetting);
@@ -215,7 +236,10 @@ class RunController extends AbstractController
             $runService->ComputeScore($run);
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Run modifiée');
-            return $this->redirectToRoute('admin_runs_info', ['id' => $run->getUser()->getId(),'id_challenge'=>$run->getChallenge()->getId()]);
+            return $this->redirectToRoute('admin_runs_info', [
+                'id' => $run->getUser()->getId(),
+                'id_challenge' => $run->getChallenge()->getId()
+            ]);
         }
         return $this->render('backend/run/edit.html.twig', [
             'form' => $form->createView(),

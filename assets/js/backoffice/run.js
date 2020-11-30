@@ -85,10 +85,11 @@ function updateLigne(ligne) {
     let ratio = parseFloat(ligne.find('.ratio').data('ratio').replace(',', '.'));
 
     let value = ligne.find("input") !== undefined ? (ligne.find("input").is('[type=checkbox]') ? (ligne.find("input").is(':checked') ? ligne.find("input").val() : 0) : parseFloat(ligne.find("input").val())) : parseFloat(ligne.find("select").val().replace(',', '.'));
+    // console.log(value,ratio);
+
     let total = ratio * value;
-    if (value >= 0) {
-        ligne.find('.total-line').html(total);
-    }
+    ligne.find('.total-line').html(total);
+
     if (ligne.data("issteptovictory") === 1) {
         let min = parseFloat(ligne.data("steptovictorymin"));
         let max = parseFloat(ligne.data("steptovictorymax"));

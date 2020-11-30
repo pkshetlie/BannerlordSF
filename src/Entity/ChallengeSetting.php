@@ -92,6 +92,11 @@ class ChallengeSetting
      */
     private $statLabel;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isReportedOnTheNextRun;
+
     public function __construct()
     {
         $this->runSettings = new ArrayCollection();
@@ -288,4 +293,17 @@ class ChallengeSetting
 
         return $this;
     }
+
+    public function getIsReportedOnTheNextRun(): ?bool
+    {
+        return $this->isReportedOnTheNextRun;
+    }
+
+    public function setIsReportedOnTheNextRun(?bool $isReportedOnTheNextRun): self
+    {
+        $this->isReportedOnTheNextRun = $isReportedOnTheNextRun;
+
+        return $this;
+    }
+
 }

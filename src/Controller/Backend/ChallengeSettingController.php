@@ -11,6 +11,7 @@ use App\Form\ChallengeType;
 use App\Repository\ChallengeRepository;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityManagerInterface;
 use Pkshetlie\PaginationBundle\Service\Calcul;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -64,16 +65,48 @@ class ChallengeSettingController extends AbstractController
         $form = $this->createForm(ChallengeSettingType::class, $setting);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
-            $entityManager  =  $this->getDoctrine()->getManager();
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($setting);
             $entityManager->flush();
-            $this->addFlash('success','Parametrage barème enregistré');
+            $this->addFlash('success', 'Parametrage barème enregistré');
+            return $this->redirectToRoute('challenge_admin_settings_index', ["id" => $setting->getChallenge()->getId()]);
         }
 
         return $this->render('backend/setting/create_edit.html.twig', [
             'form' => $form->createView(),
             'challenge' => $setting->getChallenge(),
+        ]);
+    }
+    /**
+     * @Route("/delete/{id}", name="challenge_admin_setting_delete")
+     * @param Request $request
+     * @param ChallengeSetting $setting
+     * @return Response
+     */
+    public function deleteSettings(Request $request, ChallengeSetting $setting, EntityManagerInterface $entityManager)
+    {
+
+        $entityManager->remove($setting);
+        $entityManager->flush();
+        return $this->redirectToRoute("challenge_admin_settings_index", [
+            'id' => $setting->getChallenge()->getId()
+        ]);
+    }
+    /**
+     * @Route("/duplicate/{id}", name="challenge_admin_setting_duplicate")
+     * @param Request $request
+     * @param ChallengeSetting $setting
+     * @return Response
+     */
+    public function duplicateSettings(Request $request, ChallengeSetting $setting, EntityManagerInterface $entityManager)
+    {
+        $newSetting = clone $setting;
+        $entityManager->clear(ChallengeSetting::class);
+        $entityManager->persist($newSetting);
+        $entityManager->flush();
+        return $this->redirectToRoute("challenge_admin_setting_edit", [
+            'id' => $newSetting->getId()
         ]);
     }
 }
