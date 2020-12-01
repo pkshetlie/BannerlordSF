@@ -96,7 +96,11 @@ $(() => {
             $('#btn-scroll-top').css('display', 'none');
         }
     });
-
+    var hashtag = window.location.hash;
+    $("[href='" + hashtag + "']").click();
+    $(".nav a").on('click', function(){
+        window.location.hash = $(this).attr('href');
+    });
     /* --- GESTION MODAL ERREURS --- */
     if($('.error-modal').length) {
         $('.error-modal').modal('show');
