@@ -75,7 +75,7 @@
                                                     Nom du vainqueur</label>
                                             </div>
                                             <div class="col-5">
-                                                <a href="#" class="btn btn-custom btn-bottom-right">Résultats</a>
+                                                <a href="{{ url("challenge_participer",{id:entity.id}) }}" class="btn btn-custom btn-bottom-right">Résultats</a>
                                             </div>
                                         {% elseif entity.isFuture %}
                                              <div class="col-10"><p class="btn-in-coming">Inscriptions à partir du

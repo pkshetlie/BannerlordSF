@@ -113,6 +113,10 @@
                                 <a class="nav-link" id="infos-tab" data-toggle="tab" href="#participants" role="tab"
                                    aria-controls="infos" aria-selected="false">Participants</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="infos-tab" data-toggle="tab" href="#classement" role="tab"
+                                   aria-controls="infos" aria-selected="false">Classement</a>
+                            </li>
                         </ul>
                         {# --- Contenu onglets --- #}
                         <div class="tab-content" id="tab-content-challenge">
@@ -147,6 +151,30 @@
                                     <li>{{ rule.label }}</li>
                                     {% endfor %}
                                 </ul>
+                            </div>
+                            <div class="tab-pane fade" id="classement" role="tabpanel" aria-labelledby="classement-tab">
+                                <table class="table">
+                                    <tr>
+                                        <th>Position</th>
+                                        <th>Joueur</th>
+                                        <th>Meilleur score</th>
+                                        <th>Nombre de run</th>
+                                    </tr>
+                                     {% for participation in leaderboard %}
+                                         {% set challenger = participation.user %}
+                                         {% if participation.arbitre is not null %}
+                                             <tr>
+                                                 <td>#{{ loop.index }}</td>
+                                                 <td>
+                                                    <b>{{ challenger.username }}</b>
+                                                 </td>
+                                                 <td class="text-right">{{ challenger.bestScore(challenge)|number_format(0,',','') }}</td>
+                                                 <td class="text-right">{{ challenger.countRun(challenge)|number_format(0,',','') }}</td>
+
+                                             </tr>
+                                         {% endif %}
+                                     {% endfor %}
+                                </table>
                             </div>
                         </div>
                     </div>

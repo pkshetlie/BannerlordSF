@@ -67,7 +67,7 @@ class ChallengeController extends AbstractController
 
                 $this->addFlash('success', "Nous avons bien enregistré votre email afin de vous prévenir de l'ouverture des inscriptions.");
             }
-            $this->addFlash('danger', "Vous etes déjà inscrit pour ce challenge.");
+            $this->addFlash('danger', "Vous êtes déjà inscrit pour ce challenge.");
         } else {
             $this->addFlash('danger', "Probleme lors de la recherche du challenge qui vous interesse.");
         }
@@ -120,9 +120,21 @@ class ChallengeController extends AbstractController
                 $this->addFlash('danger', "Vous devez êtres connecté pour pouvoir vous inscrire.");
             }
         }
+
+        $participations = $participationRepository->findByChallenge($challenge);
+        usort($participations, function(Participation $a,Participation $b)use($challenge){
+            if ($a->getUser()->getBestScore($challenge) == $b->getUser()->getBestScore($challenge)) {
+                return 0;
+            }
+            return ($a->getUser()->getBestScore($challenge) > $b->getUser()->getBestScore($challenge)) ? -1 : 1;
+        });
+
+
+
         return $this->render('frontend/challenge/register.html.twig', [
             'challenge' => $challenge,
             'participations' => $participants,
+            'leaderboard' => $participations,
             'form' => $form->createView()
         ]);
     }
