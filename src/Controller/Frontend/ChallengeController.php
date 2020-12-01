@@ -57,7 +57,7 @@ class ChallengeController extends AbstractController
                 'email' => $request->get('newsletter_email'),
                 'challenge' => $challenge
             ]);
-            if ($newsletter != null) {
+            if ($newsletter == null) {
                 $newsletter = new ChallengeNewsletter();
                 $newsletter->setEmail($request->get('newsletter_email'));
                 $newsletter->setChallenge($challenge);
