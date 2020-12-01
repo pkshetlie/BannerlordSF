@@ -62,7 +62,7 @@
                                     {% if challenge.isFuture %}
                                         Ce challenge n'est pas encore ouvert
                                     {% elseif challenge.isPast %}
-                                        <div class="text-center">Vainqueur : <b>{{ challenge.winner.user.username }}</b></label>
+                                        <div class="text-center">Vainqueur : <b>{{ challenge.winner.user.username }}</b></div>
                                     {% else %}
                                     {% if is_granted('ROLE_USER') %}
                                         {% set participation = app.user.participation(challenge) %}
