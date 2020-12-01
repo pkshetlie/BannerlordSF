@@ -1,0 +1,37 @@
+{% extends 'base_backoffice.html.twig' %}
+
+{% block title %}{{ "Dashboard"|trans }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>{{ statistiquesService.countChallenges() }}</h3>
+
+                    <p>Challenges</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-gamepad"></i>
+                </div>
+                <a href="{{ url("challenge_admin_index") }}" class="small-box-footer">Gérer <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+                <div class="inner">
+                    <h3>{{ statistiquesService.countParticipations() }}</h3>
+
+                    <p>Participations</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <a href="{{ url("challenge_admin_index") }}" class="small-box-footer">Gérer <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

@@ -17,7 +17,7 @@ class DefaultController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('base_backoffice.html.twig', [
+        return $this->render('backend/default/dashboard.html.twig', [
 
         ]);
     }
