@@ -121,15 +121,7 @@ class ChallengeController extends AbstractController
             }
         }
 
-        $participations = $participationRepository->findByChallenge($challenge);
-        usort($participations, function(Participation $a,Participation $b)use($challenge){
-            if ($a->getUser()->getBestScore($challenge) == $b->getUser()->getBestScore($challenge)) {
-                return 0;
-            }
-            return ($a->getUser()->getBestScore($challenge) > $b->getUser()->getBestScore($challenge)) ? -1 : 1;
-        });
-
-
+        $participations = $challenge->getLeaderBoard();
 
         return $this->render('frontend/challenge/register.html.twig', [
             'challenge' => $challenge,
