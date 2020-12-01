@@ -51,7 +51,7 @@
 {#                        <a href="../examples/profile.html" class="dropdown-item">Theme Light</a>#}
 {#                    </div>#}
 {#                </li>#}
-                {% if is_granted("ROLE_USER") %}
+                {% if not is_granted("ROLE_USER") %}
                     <li class="nav-item">
                         <a href="{{ url('app_login') }}" class="nav-link">
                             <i class="ni ni-collection d-lg-none"></i>
