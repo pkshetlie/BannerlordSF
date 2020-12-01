@@ -13,7 +13,7 @@ import 'trumbowyg/dist/trumbowyg.min'
 import 'trumbowyg/dist/langs/fr.min'
 import 'trumbowyg/plugins/table/trumbowyg.table'
 import 'trumbowyg/plugins/allowtagsfrompaste/trumbowyg.allowtagsfrompaste'
-// import 'admin-lte/plugins/chart.js/Chart'
+import 'admin-lte/plugins/chart.js/Chart'
 import 'admin-lte/dist/js/pages/dashboard'
 import 'admin-lte/dist/js/adminlte.min'
 import 'admin-lte/dist/js/demo'
@@ -78,4 +78,21 @@ $(function () {
         plugins: {}
     });
     $("[data-toggle='tooltip']").tooltip();
+
+    var ctx = $('#line-chart');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'participations',
+                data: participations,
+                fill:false,
+                background: 'rgba(0, 0, 0, 0)',
+                borderColor:'rgb(12,112,231)',
+                borderWidth: 1
+            }]
+            ,
+        }
+    });
 });

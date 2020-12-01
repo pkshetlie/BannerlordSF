@@ -3,7 +3,7 @@
 import '../css/app.css';
 import $ from 'jquery';
 import 'bootstrap';
-
+import './argon/plugins/chartjs.min'
 /*global document, window*/
 
 /* DOM elements with background images */
@@ -105,4 +105,6 @@ $(() => {
     if($('.error-modal').length) {
         $('.error-modal').modal('show');
     }
+
+
 });

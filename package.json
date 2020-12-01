@@ -18,6 +18,7 @@
         "admin-lte": "3.0",
         "bigvideo.js": "^1.1.6",
         "bootstrap": "^4.5.2",
+        "chart.js": "^2.9.4",
         "gulp": "latest",
         "gulp-autoprefixer": "latest",
         "gulp-cssbeautify": "^3.0.0",

@@ -6,6 +6,7 @@ use App\Entity\Challenge;
 use App\Entity\Participation;
 use App\Entity\User;
 use App\Repository\ChallengeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 
 class StatistiquesService
@@ -38,4 +39,15 @@ class StatistiquesService
             ->getQuery()->getResult());
 
     }
+
+    /**
+     * @return Challenge[]|ArrayCollection
+     */
+    public function getChallenges()
+    {
+        return $this->em->getRepository(Challenge::class)->findBy([],['registrationOpening'=>"ASC"]);
+    }
+
+
+
 }
