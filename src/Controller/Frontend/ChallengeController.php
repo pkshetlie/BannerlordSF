@@ -43,7 +43,7 @@ class ChallengeController extends AbstractController
     }
 
     /**
-     * @Route("/", name="newsletter_register_challenge", methods={"GET"})
+     * @Route("/newsletter-register", name="newsletter_register_challenge", methods={"GET"})
      * @param Request $request
      * @param ChallengeRepository $challengeRepository
      * @param Calcul $paginationService
