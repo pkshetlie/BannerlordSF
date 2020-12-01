@@ -104,19 +104,18 @@
                                     <i class="flag flag-right"></i>
                                     <i class="flag flag-left"></i>
                                     <div class="modal-body">
-                                        <form action="" method="get" class="">
+                                        <form action="{{ url('newsletter_register_challenge') }}" method="get" class="">
                                             <div class="msg-mail-alert">
                                                 <p class="mb-3">Afin de recevoir une alerte lorsque l'incription sera ouverte, merci de bien renseigner votre email :</p>
                                             </div>
 
                                             <div class="mail-input-alert form-group focused mb-4">
-                                                <input type="email" id="email" required>
+                                                <input type="email" id="email" name="newsletter_email" required>
+                                                <input type="hidden" id="challenge" name="newsletter_challenge" value="{{ entity.id }}">
                                                 <span class="highlight"></span>
                                                 <span class="bar"></span>
                                                 <label for="email" class="required">Email</label>
                                             </div>
-
-
                                             <div class="send-mail-alert"><button type="submit" class="btn btn-custom btn-green active">Envoyer</button></div>
                                         </form>
                                     </div>

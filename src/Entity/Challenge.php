@@ -115,6 +115,11 @@ class Challenge
      */
     private $rules;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ChallengeNewsletter::class, mappedBy="challenge", orphanRemoval=true)
+     */
+    private $challengeNewsletters;
+
     public function __construct()
     {
         $this->rules = new ArrayCollection();
@@ -123,6 +128,7 @@ class Challenge
         $this->challengePrizes = new ArrayCollection();
         $this->challengeSettings = new ArrayCollection();
         $this->runs = new ArrayCollection();
+        $this->challengeNewsletters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -462,6 +468,37 @@ class Challenge
         if ($this->rules->contains($rule)) {
             $this->rules->removeElement($rule);
             $rule->removeChallenge($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ChallengeNewsletter[]
+     */
+    public function getChallengeNewsletters(): Collection
+    {
+        return $this->challengeNewsletters;
+    }
+
+    public function addChallengeNewsletter(ChallengeNewsletter $challengeNewsletter): self
+    {
+        if (!$this->challengeNewsletters->contains($challengeNewsletter)) {
+            $this->challengeNewsletters[] = $challengeNewsletter;
+            $challengeNewsletter->setChallenge($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChallengeNewsletter(ChallengeNewsletter $challengeNewsletter): self
+    {
+        if ($this->challengeNewsletters->contains($challengeNewsletter)) {
+            $this->challengeNewsletters->removeElement($challengeNewsletter);
+            // set the owning side to null (unless already changed)
+            if ($challengeNewsletter->getChallenge() === $this) {
+                $challengeNewsletter->setChallenge(null);
+            }
         }
 
         return $this;

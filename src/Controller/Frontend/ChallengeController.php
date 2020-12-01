@@ -3,9 +3,11 @@
 namespace App\Controller\Frontend;
 
 use App\Entity\Challenge;
+use App\Entity\ChallengeNewsletter;
 use App\Entity\Participation;
 use App\Entity\User;
 use App\Form\ChallengeType;
+use App\Repository\ChallengeNewsletterRepository;
 use App\Repository\ChallengeRepository;
 use App\Repository\ParticipationRepository;
 use Pkshetlie\PaginationBundle\Service\Calcul;
@@ -38,6 +40,40 @@ class ChallengeController extends AbstractController
         return $this->render('frontend/challenge/index.html.twig', [
             'paginator' => $paginator,
         ]);
+    }
+
+    /**
+     * @Route("/", name="newsletter_register_challenge", methods={"GET"})
+     * @param Request $request
+     * @param ChallengeRepository $challengeRepository
+     * @param Calcul $paginationService
+     * @return Response
+     */
+    public function newsletterRegister(Request $request, ChallengeRepository $challengeRepository, ChallengeNewsletterRepository $challengeNewsletterRepository): Response
+    {
+        $challenge = $challengeRepository->find($request->get('newsletter_challenge'));
+        if ($challenge != null) {
+            $newsletter = $challengeNewsletterRepository->findBy([
+                'email' => $request->get('newsletter_email'),
+                'challenge' => $challenge
+            ]);
+            if ($newsletter != null) {
+                $newsletter = new ChallengeNewsletter();
+                $newsletter->setEmail($request->get('newsletter_email'));
+                $newsletter->setChallenge($challenge);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($newsletter);
+                $em->flush();
+
+                $this->addFlash('success', "Nous avons bien enregistré votre email afin de vous prévenir de l'ouverture des inscriptions.");
+            }
+            $this->addFlash('danger', "Vous etes déjà inscrit pour ce challenge.");
+        } else {
+            $this->addFlash('danger', "Probleme lors de la recherche du challenge qui vous interesse.");
+        }
+
+        return $this->redirectToRoute('challenge_index');
+
     }
 
     /**
