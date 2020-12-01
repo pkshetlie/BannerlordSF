@@ -13,6 +13,17 @@
 
 </head>
 <body class="hold-transition sidebar-mini">
+
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-dismissible alert-{{ label }}">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                        aria-hidden="true">×</span></button>
+            {{ message|trans }}
+        </div>
+    {% endfor %}
+{% endfor %}
+
 <div class="wrapper">
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
         <!-- Left navbar links -->
