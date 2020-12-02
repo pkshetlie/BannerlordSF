@@ -43,7 +43,7 @@ class RunService
                     if ($setting->getChallengeSetting()->getIsAffectedByMalus()) {
                         $malusableScore += $setting->getValue() * $setting->getChallengeSetting()->getRatio();
                     } else {
-                        $score += $setting->getValue() * $setting->getChallengeSetting()->getRatio();
+                        $score += floatval($setting->getValue()) * $setting->getChallengeSetting()->getRatio();
                     }
                     if ($setting->getChallengeSetting()->getIsReportedOnTheNextRun() && $computeOther) {
                         /** @var Run $r */

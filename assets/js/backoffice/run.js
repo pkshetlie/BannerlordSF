@@ -11,7 +11,10 @@ function inputCreation() {
                     let input = "<select name='" + t.attr('name') + "' class='form-control form-control-sm' id='" + t.attr('id') + "'><option value=''>-- sélectionner -- </option>";
                     let values = value.split(';');
                     for (let i = 0; values.length > i; i++) {
-                        input += "<option " + (values[i] === t.val() ? "selected='selected'" : "") + " value='" + values[i] + "'>" + values[i] + "</option>";
+                        let select = values[i].split(':');
+                        let val = select[0];
+                        let text = select[1] !== undefined ? select[1] : select[0];
+                        input += "<option " + (val === t.val() ? "selected='selected'" : "") + " value='" + val + "'>" + text + "</option>";
                     }
                     input += "</select>";
                     t.replaceWith(input);
@@ -62,9 +65,9 @@ function totalRun() {
         let tr = $(this).closest('tr');
         if (tr.data("isusedforscore") === 1) {
             if (!isNaN(value) && value.length !== 0) {
-                if(tr.data("isaffectedbymalus") === 1) {
+                if (tr.data("isaffectedbymalus") === 1) {
                     sumMalusable += parseFloat(value);
-                }else{
+                } else {
                     sum += parseFloat(value);
 
                 }
@@ -89,9 +92,28 @@ function totalRun() {
 
 function updateLigne(ligne) {
     let ratio = parseFloat(ligne.find('.ratio').data('ratio').replace(',', '.'));
-
-    let value = ligne.find("input") !== undefined ? (ligne.find("input").is('[type=checkbox]') ? (ligne.find("input").is(':checked') ? ligne.find("input").val() : 0) : parseFloat(ligne.find("input").val())) : parseFloat(ligne.find("select").val().replace(',', '.'));
-    // console.log(value,ratio);
+    let value = 0;
+    // console.log(ligne);
+    // console.log(ligne.find("input"));
+    let input  = ligne.find("input");
+    if (input !== undefined && input.length > 0) {
+        if (input.is('[type=checkbox]')) {
+            // console.log("checkbox")
+            if(input.is(':checked')){
+                // console.log("checked")
+                value = input.val();
+            }
+        } else {
+            // console.log("input")
+            value = input.val();
+        }
+    } else {
+        // console.log("select")
+        value = ligne.find("select").val();
+    }
+    // console.log("value: "+ value);
+    value = parseFloat(value.toString().replace(',','.'));
+    // console.log("float value: "+ value);
 
     let total = ratio * value;
     ligne.find('.total-line').html(total);
@@ -156,7 +178,7 @@ $(function () {
         cancelableXhr = $.ajax({
             url: form.attr('action'),
             type: 'post',
-            data: form.serialize() + "&button=" + $(this).attr('id')+"&challenge="+form.data('challenge'),
+            data: form.serialize() + "&button=" + $(this).attr('id') + "&challenge=" + form.data('challenge'),
             success: function (data) {
                 if (data.refresh) {
                     loadRun(form.data('challenger'), form.data('challenge'));
@@ -173,7 +195,7 @@ $(function () {
         cancelableXhr = $.ajax({
             url: $(this).attr('action'),
             type: 'post',
-            data: $(this).serialize()+"&challenge="+t.data('challenge'),
+            data: $(this).serialize() + "&challenge=" + t.data('challenge'),
             success: function (data) {
                 if (data.refresh) {
                     loadRun(t.data('challenger'), t.data('challenge'));

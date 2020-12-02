@@ -2,6 +2,7 @@
 import '../css/backoffice.scss';
 // import moment from 'moment/moment'
 import * as $ from 'jquery';
+import 'moment/dist/moment'
 import 'admin-lte/plugins/jquery-ui/jquery-ui'
 // import 'admin-lte/plugins/moment/moment-with-locales.min'
 import 'admin-lte/plugins/bootstrap/js/bootstrap.bundle.min'
