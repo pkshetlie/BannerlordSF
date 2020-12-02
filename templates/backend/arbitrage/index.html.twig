@@ -38,6 +38,7 @@
                                         <a
                                                 class="btn text-left btn-xs btn-flat btn-block {% if participation.arbitre is null %}bg-black{% elseif participation.arbitre.id == app.user.id %}bg-purple{% else %}bg-gray{% endif %}"
                                                 href="#"
+                                                title="{{ challenger.twitchID is empty ? challenger.discordID : challenger.twitchID }}"
                                                 data-participation="{{ participation.id }}"
                                                 data-challenger="{{ challenger.id }}"
                                                 data-challenge="{{ challenge.id }}"
@@ -47,7 +48,8 @@
                                                     data-url=""
                                                 {% endif %}
                                         >
-                                            {{ challenger.twitchID is empty ? challenger.discordID : challenger.twitchID }}
+                                            {{ challenger.username }}
+
                                             {% if challenger.twitchId is not empty %}
                                                 <i class="fab fa-twitch text-white float-right mt-1"></i>
                                             {% else %}
