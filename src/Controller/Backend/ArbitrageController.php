@@ -58,8 +58,9 @@ class ArbitrageController extends AbstractController
         $participations = $participationRepository->findByChallenge($challenge);
         $twitch = [];
         foreach ($participations as $participation) {
-            if ($participation->getUser()->getTwitchID() != null) {
-                $twitch[] = $participation->getUser()->getTwitchID();
+            $twitchId = $participation->getUser()->getTwitchID();
+            if ($twitchId != null && !in_array($twitchId, $twitch)) {
+                $twitch[] = $twitchId;
             }
         }
         return $this->render('backend/arbitrage/index.html.twig', [

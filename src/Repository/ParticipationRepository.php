@@ -31,8 +31,7 @@ class ParticipationRepository extends ServiceEntityRepository
             ->leftJoin('p.user', 'user')
             ->where('p.challenge = :challenge')
             ->setParameter('challenge', $challenge)
-            ->addOrderBy('user.twitchID', 'asc')
-            ->addOrderBy('user.discordID', 'asc')
+            ->addOrderBy('user.username', 'asc')
             ->getQuery()->getResult();
     }
     // /**
