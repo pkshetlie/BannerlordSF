@@ -144,8 +144,16 @@ $(function () {
     let cancelableXhr = null;
     $(".twitcher li a").on('click', function () {
         let url = $(this).data('url');
+        let discordId = $(this).data('discordid');
+        if(url !== undefined && url !== ""){
+            $("#twitch_player").attr('src', url).show();
+            $('.display-discord').hide();
+        }else{
+            $("#twitch_player").attr('src', url).hide();
+            $('.display-discord .player').html(discordId)
+            $('.display-discord').show();
+        }
         loadRun($(this).data('challenger'), $(this).data('challenge'))
-        $("#twitch_player").attr('src', url);
         return false;
     })
     inputCreation();

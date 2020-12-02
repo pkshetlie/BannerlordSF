@@ -42,6 +42,7 @@
                                                 data-participation="{{ participation.id }}"
                                                 data-challenger="{{ challenger.id }}"
                                                 data-challenge="{{ challenge.id }}"
+                                                data-discordid="{{ challenger.discordID }}"
                                                 {% if challenger.twitchID is not empty %}
                                                     data-url="https://player.twitch.tv/?channel={{ challenger.twitchID }}&parent={{ app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''}) }}&muted=true&autoplay=false"
                                                 {% else %}
@@ -65,6 +66,11 @@
                         </div>
 
                         <div class="col-md-5">
+                            <h3>Chaîne</h3>
+                            <div class="display-discord text-center" style="display:none;">
+                            <i class="fab fa-discord fa-10x"></i>
+                                <h4 class="player"></h4>
+                            </div>
                             <iframe
                                     id="twitch_player"
                                     src="https://player.twitch.tv/?channel=pompevie74&parent={{ app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''}) }}&muted=true&autoplay=false"
