@@ -67,6 +67,7 @@ class RunController extends AbstractController
             $run = new Run();
             $run->setChallenge($challenge);
             $run->setUser($user);
+            $user->addRun($run);
             $entityManager->persist($run);
             $run->setStartDate(new \DateTime());
             $countRun = $user->countRun($challenge);
@@ -97,7 +98,7 @@ class RunController extends AbstractController
                     $runSetting->setValue($setting->getDefaultValue());
                 }
                 $run->addRunSetting($runSetting);
-                $run->setMalus(1 - ($challenge->getMalusPerRun() * ($countRun) / 100));
+                $run->setMalus(1 - ($challenge->getMalusPerRun() * ($countRun-1) / 100));
                 $entityManager->persist($runSetting);
             }
 

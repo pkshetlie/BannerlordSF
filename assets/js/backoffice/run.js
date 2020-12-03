@@ -36,6 +36,7 @@ function inputCreation() {
 
 
 function loadRun(challenger, challenge) {
+    $("#runScore").hide(300);
     $.ajax({
         url: '/admin/run/user/' + challenger,
         async: true,
@@ -53,6 +54,7 @@ function loadRun(challenger, challenge) {
             } else {
                 $("#runScore").html(data.message);
             }
+            $("#runScore").show(300);
         }
     });
 }
@@ -189,6 +191,7 @@ $(function () {
             data: form.serialize() + "&button=" + $(this).attr('id') + "&challenge=" + form.data('challenge'),
             success: function (data) {
                 if (data.refresh) {
+
                     loadRun(form.data('challenger'), form.data('challenge'));
                 }
             }

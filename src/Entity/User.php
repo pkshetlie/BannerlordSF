@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -431,6 +432,7 @@ class User implements UserInterface
     {
         /** @var Run $run */
         $run = $this->getRuns()->last();
+        if($run === false){return 0;}
         $score = 0;
         foreach($run->getRunSettings() AS $setting){
             if(!$setting->getChallengeSetting()->getIsAffectedByMalus()) {

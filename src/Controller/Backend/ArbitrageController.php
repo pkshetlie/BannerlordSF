@@ -41,7 +41,10 @@ class ArbitrageController extends AbstractController
             ]);
         } else {
             return $this->render('backend/arbitrage/selection_challenge.html.twig', [
-                'challenges' => $challengeRepository->findBy([], ["id" => "asc"]),
+                'challenges' => $challengeRepository->findBy([], [
+                    'season' => 'DESC',
+                    'registrationOpening' => "DESC"
+                ]),
 
             ]);
         }
