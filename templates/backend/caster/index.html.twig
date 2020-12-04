@@ -47,7 +47,6 @@
                                             <td class="text-right">{{ challenger.countRun(challenge)|number_format(0,',','') }}</td>
                                             <td class="text-right">{{ challenger.nonMalusableScore(challenge)|number_format(0,',','') }}</td>
                                             <td class="text-right">{{ (challenger.bestScore(challenge)-challenger.nonMalusableScore(challenge))|number_format(0,',','') }}</td>
-                                            <td class="text-right">{{ challenger.countRun(challenge)|number_format(0,',','') }}</td>
                                             {% for setting in challenge.challengeSettings %}
                                                 {% if setting.displayBestForStats %}
                                                     <td class="text-right">{{ challenger.runBestSettingValue(setting, challenge)|number_format(0,',','') }}</td>

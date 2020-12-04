@@ -79,21 +79,22 @@ $(function () {
         plugins: {}
     });
     $("[data-toggle='tooltip']").tooltip();
-
-    var ctx = $('#line-chart');
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'participations',
-                data: participations,
-                fill:false,
-                background: 'rgba(0, 0, 0, 0)',
-                borderColor:'rgb(12,112,231)',
-                borderWidth: 1
-            }]
-            ,
-        }
-    });
+    if (labels !== undefined) {
+        var ctx = $('#line-chart');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'participations',
+                    data: participations,
+                    fill: false,
+                    background: 'rgba(0, 0, 0, 0)',
+                    borderColor: 'rgb(12,112,231)',
+                    borderWidth: 1
+                }]
+                ,
+            }
+        });
+    }
 });

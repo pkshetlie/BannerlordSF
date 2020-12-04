@@ -436,7 +436,9 @@ class User implements UserInterface
         $score = 0;
         foreach($run->getRunSettings() AS $setting){
             if(!$setting->getChallengeSetting()->getIsAffectedByMalus()) {
-                $score += $setting->getValue();
+                if(is_numeric($setting->getValue())){
+                    $score += $setting->getValue();
+                }
             }
         }
         return $score;
@@ -448,13 +450,13 @@ class User implements UserInterface
             return $run->getChallenge() === $challenge;
         });
         $score = 0;
-        $bestRun = null;
-        /** @var Run $run */
-        foreach ($runs as $run) {
-            $comp = $run->getComputedScore();
-            if ($score <= $comp) {
-                $bestRun = $run;
-                $score = $comp;
+        if(count($runs)> 0) {
+            /** @var Run $run */
+            foreach ($runs as $run) {
+                $comp = $run->getComputedScore();
+                if ($score <= $comp) {
+                    $score = $comp;
+                }
             }
         }
         return $score;
