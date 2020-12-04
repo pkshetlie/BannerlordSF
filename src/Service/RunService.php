@@ -31,6 +31,8 @@ class RunService
         $allruns = $this->em->getRepository(Run::class)
             ->createQueryBuilder('r')
             ->where('r.challenge = :challenge')
+            ->andWhere('r.user = :user')
+            ->setParameter('user', $run->getUser())
             ->setParameter('challenge', $run->getChallenge())
             ->getQuery()
             ->getResult();
@@ -39,6 +41,9 @@ class RunService
             $score = $run->getTempScore();
         } else {
             foreach ($run->getRunSettings() as $setting) {
+                if(!is_numeric($setting->getValue())){
+                    continue;
+                }
                 if ($setting->getChallengeSetting()->getIsUsedForScore()) {
                     if ($setting->getChallengeSetting()->getIsAffectedByMalus()) {
                         $malusableScore += $setting->getValue() * $setting->getChallengeSetting()->getRatio();
