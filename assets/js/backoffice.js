@@ -86,11 +86,19 @@ $(function () {
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'participations',
+                    label: 'Participations',
                     data: participations,
                     fill: false,
                     background: 'rgba(0, 0, 0, 0)',
                     borderColor: 'rgb(12,112,231)',
+                    borderWidth: 1
+                }
+                ,{
+                    label: 'No show',
+                    data: noShow,
+                    fill: false,
+                    background: 'rgba(0, 0, 0, 0)',
+                    borderColor: 'rgb(231,12,30)',
                     borderWidth: 1
                 }]
                 ,

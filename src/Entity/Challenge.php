@@ -256,6 +256,15 @@ class Challenge
             return !$p->getEnabled();
         });
     }
+  /**
+     * @return Collection|Participation[]
+     */
+    public function getNoShowParticipations(): Collection
+    {
+        return $this->participations->filter(function ($p) {
+            return $p->getArbitre() == null;
+        });
+    }
 
     /**
      * @return Collection|Participation[]

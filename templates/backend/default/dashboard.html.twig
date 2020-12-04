@@ -23,7 +23,7 @@
             <div class="small-box bg-success">
                 <div class="inner">
                     <h3>{{ statistiquesService.countParticipations() }}</h3>
-                    <p>Participations</p>
+                    <p>Inscriptions au challenge</p>
                 </div>
                 <div class="icon">
                     <i class="fas fa-headset"></i>
@@ -108,9 +108,11 @@
     <script>
 let labels = [];
 let participations = [];
+let noShow = [];
 {% for challenge in statistiquesService.challenges %}
 labels.push("{{ challenge.title }}");
-participations.push({{ challenge.validatedParticipations|length }});
+participations.push({{ challenge.participations|length }});
+noShow.push({{ challenge.noShowParticipations|length }});
 
 {% endfor %}
 
