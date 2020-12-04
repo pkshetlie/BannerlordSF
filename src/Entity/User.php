@@ -423,7 +423,7 @@ class User implements UserInterface
     public function getCurrentScore(Challenge $challenge)
     {
         /** @var Run $run */
-        $run = $this->getRuns()->last();
+        $run = $this->getRuns()->filter(function($r) use($challenge){ return $r->getChallenge() === $challenge;})->last();
 
         return !$run ? 0 : $run->getComputedScore();
     }
@@ -431,7 +431,7 @@ class User implements UserInterface
     public function getNonMalusableScore(Challenge $challenge)
     {
         /** @var Run $run */
-        $run = $this->getRuns()->last();
+        $run = $this->getRuns()->filter(function($r) use($challenge){ return $r->getChallenge() === $challenge;})->last();
         if($run === false){return 0;}
         $score = 0;
         foreach($run->getRunSettings() AS $setting){
