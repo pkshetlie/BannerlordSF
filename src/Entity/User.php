@@ -449,7 +449,7 @@ class User implements UserInterface
         $runs = $this->getRuns()->filter(function (Run $run) use ($challenge) {
             return $run->getChallenge() === $challenge;
         });
-        $score = 0;
+        $score = -99999999;
         if(count($runs)> 0) {
             /** @var Run $run */
             foreach ($runs as $run) {
