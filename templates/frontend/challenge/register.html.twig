@@ -189,3 +189,13 @@
         </section>
     </main>
 {% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+    setTimeout(function(){
+        window.location.reload();
+    },30*1000);
+</script>
+
+{% endblock %}
