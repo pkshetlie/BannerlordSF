@@ -174,7 +174,7 @@
                                                  <td>
                                                     <b>{{ challenger.username }}</b>
                                                  </td>
-                                                 <td class="text-right">{{ challenger.bestScore(challenge) }}</td>
+                                                 <td class="text-right">{{ challenger.bestScore(challenge)|number_format(0,',','') }}</td>
                                                  <td class="text-right">{{ challenger.countRun(challenge)|number_format(0,',','') }}</td>
 
                                              </tr>
