@@ -88,14 +88,14 @@ class ResetPasswordController extends AbstractController
 
         $token = $this->getTokenFromSession();
         if (null === $token) {
-            throw $this->createNotFoundException('No reset password token found in the URL or in the session.');
+            throw $this->createNotFoundException('Problème avec le lien de réinitialisation.');
         }
 
         try {
             $user = $this->resetPasswordHelper->validateTokenAndFetchUser($token);
         } catch (ResetPasswordExceptionInterface $e) {
             $this->addFlash('reset_password_error', sprintf(
-                'There was a problem validating your reset request - %s',
+                'Nous n\'avons pas pu réinitailiser votre mot de passe - %s',
                 $e->getReason()
             ));
 
@@ -125,7 +125,7 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('reset_password');
         }
 
-        return $this->render('reset_password/reset.html.twig', [
+        return $this->render('frontend/reset_password/reset.html.twig', [
             'resetForm' => $form->createView(),
         ]);
     }
@@ -160,7 +160,7 @@ class ResetPasswordController extends AbstractController
         }
 
         $email = (new TemplatedEmail())
-            ->from(new Address('contact@hardcore-chalenge.com', 'HardCore Challenge Staff'))
+            ->from(new Address($this->getParameter('webmaster_email'), $this->getParameter('webmaster_email_name')))
             ->to($user->getEmail())
             ->subject('Your password reset request')
             ->htmlTemplate('frontend/reset_password/email.html.twig')
