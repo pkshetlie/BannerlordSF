@@ -142,18 +142,23 @@ body {
 
 
 /* Social links */
-.nav-link-social .fa {
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    background-color: $orange-icon;
-    border-radius: 50%;
-    position: relative;
-    &:before {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+.nav-link-social {
+    .fa {
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        background-color: $orange-icon;
+        border-radius: 50%;
+        position: relative;
+        &:before {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+    span {
+        display: none;
     }
 }
 

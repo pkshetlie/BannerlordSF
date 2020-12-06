@@ -126,6 +126,18 @@
     }
 }
 
+@media (max-width: 500px) {
+    .navbar.navbar-main .menu-title-responsive {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 400px) {
+    .navbar.navbar-main .menu-title-responsive {
+        font-size: 0.9em;
+    }
+}
+
 @media all and (min-width: 992px) {
     .navbar .nav-item .dropdown-menu{  display:block; opacity: 0;  visibility: hidden; transition:.3s; margin-top:0;  }
 	.navbar .nav-item:hover .nav-link{ color: $brown;  }

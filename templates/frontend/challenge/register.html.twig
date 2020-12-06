@@ -27,51 +27,38 @@
                                 <h2 class="col-12">{{ challenge.title }}</h2>
                             </div>
                             <div class="col-md-12 d-flex flex-wrap time-globals">
-                                <div class="d-flex col-12 col-sm-6 justify-content-center">
+                                <div class="d-flex col-12 col-lg-6 justify-content-center">
                                     <div class="icon-global"><i class="fa fa-2x fa-calendar"></i></div>
                                     <div class="heures-challenges">
                                         {% for dates in challenge.challengeDates %}
                                             <label>{{ dates.startDate.format('d M. H:i') }}
-                                                - {% if dates.startDate.format('d M') != dates.endDate.format('d M') and dates.endDate.format('H:i') != "00:00" %}{{ dates.endDate.format('d M. H:i') }}{% else %}{{ dates.endDate.format('H:i') }}{% endif %} </label>
-                                        {% endfor %}
+                                                - {% if dates.startDate.format('d M') != dates.endDate.format('d M') and dates.endDate.format('H:i') != "00:00" %}{{ dates.endDate.format('d M. H:i') }}{% else %}{{ dates.endDate.format('H:i') }}{% endif %} </label><br>
+                                       {% endfor %}
 
                                     </div>
                                 </div>
-                                <div class="d-flex justify-content-end col-12 col-sm-6 justify-content-center">
-
-                                </div>
-                            </div>
-                            <div class="col-md-12 d-flex flex-wrap">
-                                <div class="col-12 col-sm-6 justify-content-center text-center">
+                                 <div class="col-12 col-lg-6 d-flex align-items-center justify-content-center text-center">
                                     <div>
                                         <label class="font-weight-bold">{{ challenge.participations|length }}</label>&nbsp;<label>Challengers</label>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-sm-6 justify-content-center text-center">
-                                    <a href="#" class="btn btn-custom btn-grey">{{ challenge.typeStr }}</a>
-
-                                    <div>
-                                        {# <label class="font-weight-bold">Vainqueur #}
-                                        {# :</label>&nbsp;<label>Resuprobe</label> #}
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-12 d-flex flex-wrap encart-global">
 
-                                <div class="col-12 col-lg-8 text-center">
+                                <div class="col-12 col-lg-6 d-flex align-items-center text-center justify-content-center">
                                     {% if challenge.isFuture %}
                                         Ce challenge n'est pas encore ouvert
                                     {% elseif challenge.isPast %}
-                                        <div class="text-center">Vainqueur : <b>{{ challenge.winner.user.username }}</b></div>
+                                        <a href="#" class="btn btn-custom btn-green infos-toornament">Vainqueur : <br><b>{{ challenge.winner.user.username }}</b></a>
                                     {% else %}
                                     {% if is_granted('ROLE_USER') %}
                                         {% set participation = app.user.participation(challenge) %}
                                         {% if participation is not null %}
                                             {% if participation.enabled %}
-                                                <a href="#" class="btn btn-custom btn-green">Votre inscription est
+                                                <a href="#" class="btn btn-custom btn-green infos-toornament">Votre inscription est
                                                     validée</a>
                                             {% else %}
-                                                <a href="#" class="btn btn-custom btn-grey">Votre inscription est en
+                                                <a href="#" class="btn btn-custom btn-grey infos-toornament">Votre inscription est en
                                                     attente de validation</a>
                                             {% endif %}
                                         {% else %}
@@ -88,7 +75,15 @@
                                 <a href="#" class="btn btn-custom btn-red">Bouton non actif rouge</a>
                                 <a href="#" class="btn btn-custom btn-green active">Bouton actif vert</a>
                                 #}
-                                <div class="col-12 col-lg-4 text-right">
+                                <div class="col-12 col-lg-6 text-right">
+                                    <div class="justify-content-center text-center mb-1">
+                                        <a href="#" class="btn btn-custom btn-grey">{{ challenge.typeStr }}</a>
+
+                                        <div>
+                                            {# <label class="font-weight-bold">Vainqueur #}
+                                            {# :</label>&nbsp;<label>Resuprobe</label> #}
+                                        </div>
+                                    </div>
                                     <a href="#"
                                        class="btn btn-custom btn-red"><label>{{ challenge.cashPrize }}</label>&nbsp;<label>euros</label></a>
                                 </div>
