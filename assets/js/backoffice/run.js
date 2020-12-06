@@ -11,7 +11,10 @@ function inputCreation() {
                     let input = "<select name='" + t.attr('name') + "' class='form-control form-control-sm' id='" + t.attr('id') + "'><option value=''>-- sélectionner -- </option>";
                     let values = value.split(';');
                     for (let i = 0; values.length > i; i++) {
-                        input += "<option " + (values[i] === t.val() ? "selected='selected'" : "") + " value='" + values[i] + "'>" + values[i] + "</option>";
+                        let select = values[i].split(':');
+                        let val = select[0];
+                        let text = select[1] !== undefined ? select[1] : select[0];
+                        input += "<option " + (val === t.val() ? "selected='selected'" : "") + " value='" + val + "'>" + text + "</option>";
                     }
                     input += "</select>";
                     t.replaceWith(input);
@@ -33,6 +36,7 @@ function inputCreation() {
 
 
 function loadRun(challenger, challenge) {
+    $("#runScore").hide(300);
     $.ajax({
         url: '/admin/run/user/' + challenger,
         async: true,
@@ -50,45 +54,72 @@ function loadRun(challenger, challenge) {
             } else {
                 $("#runScore").html(data.message);
             }
+            $("#runScore").show(300);
         }
     });
 }
 
 function totalRun() {
+    let sumMalusable = 0;
     let sum = 0;
     $(".total-line").each(function () {
         let value = $(this).text();
         let tr = $(this).closest('tr');
         if (tr.data("isusedforscore") === 1) {
             if (!isNaN(value) && value.length !== 0) {
-                sum += parseFloat(value);
+                if (tr.data("isaffectedbymalus") === 1) {
+                    sumMalusable += parseFloat(value);
+                } else {
+                    sum += parseFloat(value);
+
+                }
             }
         }
     });
     let malus = parseFloat($("#malus-run").data('malus').toString().replace(',', '.'));
-    let total_malus = sum * malus;
+    let total_malus = sumMalusable * malus;
     let tempScore = $("#run_tempScore").val();
     if (tempScore !== null && tempScore !== "" && tempScore !== undefined) {
-        $('.total-run-with-malus').html(tempScore * malus);
+        $('.total-run-with-malus').html(tempScore * malus + sum);
         $("#run_FinDeRun").attr('disabled', "disabled");
-        $("#run_FinDeRun").attr('title', "Rentrez le detail pour pouvoir terminer la run");
+        $("#run_FinDeRun").attr('title', "Rentrez le détail pour pouvoir terminer la run");
     } else {
-        $('.total-run-with-malus').html(total_malus);
+        $('.total-run-with-malus').html(total_malus + sum);
         $("#run_FinDeRun").removeAttr('disabled');
         $("#run_FinDeRun").removeAttr('title');
     }
 
-    $(".total-run").html(sum);
+    $(".total-run").html(sum + sumMalusable);
 }
 
 function updateLigne(ligne) {
     let ratio = parseFloat(ligne.find('.ratio').data('ratio').replace(',', '.'));
-
-    let value = ligne.find("input") !== undefined ? (ligne.find("input").is('[type=checkbox]') ? (ligne.find("input").is(':checked') ? ligne.find("input").val() : 0) : parseFloat(ligne.find("input").val())) : parseFloat(ligne.find("select").val().replace(',', '.'));
-    let total = ratio * value;
-    if (value >= 0) {
-        ligne.find('.total-line').html(total);
+    let value = 0;
+    // console.log(ligne);
+    // console.log(ligne.find("input"));
+    let input  = ligne.find("input");
+    if (input !== undefined && input.length > 0) {
+        if (input.is('[type=checkbox]')) {
+            // console.log("checkbox")
+            if(input.is(':checked')){
+                // console.log("checked")
+                value = input.val();
+            }
+        } else {
+            // console.log("input")
+            value = input.val();
+        }
+    } else {
+        // console.log("select")
+        value = ligne.find("select").val();
     }
+    // console.log("value: "+ value);
+    value = parseFloat(value.toString().replace(',','.'));
+    // console.log("float value: "+ value);
+
+    let total = ratio * value;
+    ligne.find('.total-line').html(total);
+
     if (ligne.data("issteptovictory") === 1) {
         let min = parseFloat(ligne.data("steptovictorymin"));
         let max = parseFloat(ligne.data("steptovictorymax"));
@@ -115,8 +146,16 @@ $(function () {
     let cancelableXhr = null;
     $(".twitcher li a").on('click', function () {
         let url = $(this).data('url');
+        let discordId = $(this).data('discordid');
+        if(url !== undefined && url !== ""){
+            $("#twitch_player").attr('src', url).show();
+            $('.display-discord').hide();
+        }else{
+            $("#twitch_player").attr('src', url).hide();
+            $('.display-discord .player').html(discordId)
+            $('.display-discord').show();
+        }
         loadRun($(this).data('challenger'), $(this).data('challenge'))
-        $("#twitch_player").attr('src', url);
         return false;
     })
     inputCreation();
@@ -149,9 +188,10 @@ $(function () {
         cancelableXhr = $.ajax({
             url: form.attr('action'),
             type: 'post',
-            data: form.serialize() + "&button=" + $(this).attr('id')+"&challenge="+form.data('challenge'),
+            data: form.serialize() + "&button=" + $(this).attr('id') + "&challenge=" + form.data('challenge'),
             success: function (data) {
                 if (data.refresh) {
+
                     loadRun(form.data('challenger'), form.data('challenge'));
                 }
             }
@@ -166,7 +206,7 @@ $(function () {
         cancelableXhr = $.ajax({
             url: $(this).attr('action'),
             type: 'post',
-            data: $(this).serialize()+"&challenge="+t.data('challenge'),
+            data: $(this).serialize() + "&challenge=" + t.data('challenge'),
             success: function (data) {
                 if (data.refresh) {
                     loadRun(t.data('challenger'), t.data('challenge'));

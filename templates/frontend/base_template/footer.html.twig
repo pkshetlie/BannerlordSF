@@ -1,43 +1,5 @@
 <footer class="footer">
     <div class="container">
-         <ul class="navbar-nav align-items-lg-center justify-content-center">
-            <li class="nav-item">
-                <a class="nav-link nav-link-icon nav-link-social" href="https://www.facebook.com/" target="_blank"
-                    data-toggle="tooltip" title="Like us on Facebook">
-                    <i class="fa fa-youtube-play"></i>
-                    <span class="nav-link-inner--text d-lg-none">Youtube</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link nav-link-icon nav-link-social" href="https://www.instagram.com/creativetimofficial"
-                    target="_blank" data-toggle="tooltip" title="Follow us on Instagram">
-                    <i class="fa fa-twitter"></i>
-                    <span class="nav-link-inner--text d-lg-none">Twitter</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link nav-link-icon nav-link-social" href="https://twitter.com/creativetim" target="_blank"
-                    data-toggle="tooltip" title="Follow us on Twitter">
-                    <i class="fa fa-facebook"></i>
-                    <span class="nav-link-inner--text d-lg-none">Facebook</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link nav-link-icon nav-link-social" href="https://github.com/creativetimofficial/argon-design-system"
-                    target="_blank" data-toggle="tooltip" title="Star us on Github">
-                    <i class="fa fa-facebook"></i>
-                    <span class="nav-link-inner--text d-lg-none">Facebook</span>
-                </a>
-            </li>
-        </ul>
-        <div class="row align-items-center justify-content-center other-links">
-            <a href="https://hardcore-challenge.com" target="_blank">Nous contacter</a>
-            <a href="https://hardcore-challenge.com" target="_blank">Mentions légales</a>
-        </div>
-        <div class="row align-items-center justify-content-center">
-            <div class="copyright">
-                &copy; 2020 Bannerlord HardCore Challenge
-            </div>
-        </div>
+        {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'footer',default:""})) }}
     </div>
 </footer>

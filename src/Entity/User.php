@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -422,9 +423,25 @@ class User implements UserInterface
     public function getCurrentScore(Challenge $challenge)
     {
         /** @var Run $run */
-        $run = $this->getRuns()->last();
+        $run = $this->getRuns()->filter(function($r) use($challenge){ return $r->getChallenge() === $challenge;})->last();
 
         return !$run ? 0 : $run->getComputedScore();
+    }
+
+    public function getNonMalusableScore(Challenge $challenge)
+    {
+        /** @var Run $run */
+        $run = $this->getRuns()->filter(function($r) use($challenge){ return $r->getChallenge() === $challenge;})->last();
+        if($run === false){return 0;}
+        $score = 0;
+        foreach($run->getRunSettings() AS $setting){
+            if(!$setting->getChallengeSetting()->getIsAffectedByMalus()) {
+                if(is_numeric($setting->getValue())){
+                    $score += $setting->getValue();
+                }
+            }
+        }
+        return $score;
     }
 
     public function getBestScore(Challenge $challenge)
@@ -432,14 +449,14 @@ class User implements UserInterface
         $runs = $this->getRuns()->filter(function (Run $run) use ($challenge) {
             return $run->getChallenge() === $challenge;
         });
-        $score = 0;
-        $bestRun = null;
-        /** @var Run $run */
-        foreach ($runs as $run) {
-            $comp = $run->getComputedScore();
-            if ($score <= $comp) {
-                $bestRun = $run;
-                $score = $comp;
+        $score = -99999999;
+        if(count($runs)> 0) {
+            /** @var Run $run */
+            foreach ($runs as $run) {
+                $comp = $run->getComputedScore();
+                if ($score <= $comp) {
+                    $score = $comp;
+                }
             }
         }
         return $score;

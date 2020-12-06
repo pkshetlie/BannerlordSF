@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\ChallengeSetting;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -29,8 +30,10 @@ class ChallengeSettingType extends AbstractType
                 "label" => "Valeur par défaut",
                 "attr" => ["placeholder" => ""]
             ])
+            ->add('isAffectedByMalus', null, ['label' => "Est affecté par le malus"])//            ->add('challenge')
+            ->add('isReportedOnTheNextRun', null, ['label' => "Reporté sur chaque run"])//            ->add('challenge')
             ->add('isUsedForScore', null, ['label' => "Est utilisé pour le score"])//            ->add('challenge')
-            ->add('isStepToVictory', null, ['label' => "Est une etape vers la victoire"])//            ->add('challenge')
+            ->add('isStepToVictory', null, ['label' => "Est une étape vers la victoire"])//            ->add('challenge')
             ->add('stepToVictoryMin', null, ['label' => "Valeur min pour valider"])//            ->add('challenge')
             ->add('stepToVictoryMax', null, ['label' => "Valeur max pour valider"])//            ->add('challenge')
             ->add('displayBestForStats', null, ['label' => "Stat : meilleur score seulement"])//            ->add('challenge')

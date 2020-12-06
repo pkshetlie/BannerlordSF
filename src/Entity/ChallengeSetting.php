@@ -92,6 +92,16 @@ class ChallengeSetting
      */
     private $statLabel;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isReportedOnTheNextRun;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isAffectedByMalus;
+
     public function __construct()
     {
         $this->runSettings = new ArrayCollection();
@@ -288,4 +298,29 @@ class ChallengeSetting
 
         return $this;
     }
+
+    public function getIsReportedOnTheNextRun(): ?bool
+    {
+        return $this->isReportedOnTheNextRun;
+    }
+
+    public function setIsReportedOnTheNextRun(?bool $isReportedOnTheNextRun): self
+    {
+        $this->isReportedOnTheNextRun = $isReportedOnTheNextRun;
+
+        return $this;
+    }
+
+    public function getIsAffectedByMalus(): ?bool
+    {
+        return $this->isAffectedByMalus;
+    }
+
+    public function setIsAffectedByMalus(?bool $isAffectedByMalus): self
+    {
+        $this->isAffectedByMalus = $isAffectedByMalus;
+
+        return $this;
+    }
+
 }

@@ -37,6 +37,12 @@
                                     <a class="btn btn-sm btn-info"
                                        href="{{ path('challenge_admin_setting_edit', {'id': settings.id}) }}"><i
                                                 class="fas fa-edit"></i></a>
+                                    <a class="btn btn-sm btn-warning"
+                                       href="{{ path('challenge_admin_setting_duplicate', {'id': settings.id}) }}"><i
+                                                class="fas fa-copy"></i></a>
+                                    <a class="btn btn-sm btn-danger"
+                                       href="{{ path('challenge_admin_setting_delete', {'id': settings.id}) }}"><i
+                                                class="fas fa-trash"></i></a>
 {#                                    <a class="btn btn-sm btn-danger confirm-action"#}
 {#                                       href="{{ path('challenge_admin_delete', {'id': settings.id}) }}"><i#}
 {#                                                class="fas fa-trash"></i></a>#}

@@ -3,7 +3,7 @@
 import '../css/app.css';
 import $ from 'jquery';
 import 'bootstrap';
-
+import './argon/plugins/chartjs.min'
 /*global document, window*/
 
 /* DOM elements with background images */
@@ -96,9 +96,15 @@ $(() => {
             $('#btn-scroll-top').css('display', 'none');
         }
     });
-
+    var hashtag = window.location.hash;
+    $("[href='" + hashtag + "']").click();
+    $(".nav a").on('click', function(){
+        window.location.hash = $(this).attr('href');
+    });
     /* --- GESTION MODAL ERREURS --- */
     if($('.error-modal').length) {
         $('.error-modal').modal('show');
     }
+
+
 });

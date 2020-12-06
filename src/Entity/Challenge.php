@@ -115,6 +115,11 @@ class Challenge
      */
     private $rules;
 
+    /**
+     * @ORM\OneToMany(targetEntity=ChallengeNewsletter::class, mappedBy="challenge", orphanRemoval=true)
+     */
+    private $challengeNewsletters;
+
     public function __construct()
     {
         $this->rules = new ArrayCollection();
@@ -123,6 +128,7 @@ class Challenge
         $this->challengePrizes = new ArrayCollection();
         $this->challengeSettings = new ArrayCollection();
         $this->runs = new ArrayCollection();
+        $this->challengeNewsletters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -248,6 +254,15 @@ class Challenge
     {
         return $this->participations->filter(function ($p) {
             return !$p->getEnabled();
+        });
+    }
+  /**
+     * @return Collection|Participation[]
+     */
+    public function getNoShowParticipations(): Collection
+    {
+        return $this->participations->filter(function ($p) {
+            return $p->getArbitre() == null;
         });
     }
 
@@ -465,5 +480,54 @@ class Challenge
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection|ChallengeNewsletter[]
+     */
+    public function getChallengeNewsletters(): Collection
+    {
+        return $this->challengeNewsletters;
+    }
+
+    public function addChallengeNewsletter(ChallengeNewsletter $challengeNewsletter): self
+    {
+        if (!$this->challengeNewsletters->contains($challengeNewsletter)) {
+            $this->challengeNewsletters[] = $challengeNewsletter;
+            $challengeNewsletter->setChallenge($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChallengeNewsletter(ChallengeNewsletter $challengeNewsletter): self
+    {
+        if ($this->challengeNewsletters->contains($challengeNewsletter)) {
+            $this->challengeNewsletters->removeElement($challengeNewsletter);
+            // set the owning side to null (unless already changed)
+            if ($challengeNewsletter->getChallenge() === $this) {
+                $challengeNewsletter->setChallenge(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getLeaderBoard()
+    {
+        $participations = $this->getValidatedParticipations()->toArray();
+        $challenge = $this;
+        usort($participations, function(Participation $a,Participation $b)use($challenge){
+            if ($a->getUser()->getBestScore($challenge) == $b->getUser()->getBestScore($challenge)) {
+                return 0;
+            }
+            return ($a->getUser()->getBestScore($challenge) > $b->getUser()->getBestScore($challenge)) ? -1 : 1;
+        });
+        return $participations;
+    }
+    public function getWinner()
+    {
+        $leaderboard = $this->getLeaderBoard();
+        return $leaderboard != null ? $leaderboard[0]: null;
     }
 }

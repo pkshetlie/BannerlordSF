@@ -1,5 +1,5 @@
 {{ form_start(form) }}
-<h3>{{ challenger.twitchID is not empty ?  challenger.twitchID :  challenger.discordID }}
+<h3>{{ challenger.username }}
     <small>{{ run.lastVisitedAt == null ? run.startDate.format('d/m/Y H:i'): run.lastVisitedAt.format('d/m/Y H:i') }}</small></h3>
 <a href="{{ url('admin_runs_info',{'id': challenger.id,'id_challenge':challenge.id}) }}" class="float-right" target="_blank"><i class="fas fa-2x fa-info-circle"></i></a>
 <p>Malus de run : <span id="malus-run" data-malus="{{ run.malus }}">{{ ((run.malus-1)*100) }}</span>%, Run n° {{ challenger.countRun(run.challenge) }}</p>
@@ -13,13 +13,15 @@
 {% for setting in form.runSettings %}
 
     <tr class="updatable"
+            data-isaffectedbymalus="{{ setting.vars.data.challengeSetting.isAffectedByMalus }}"
             data-issteptovictory="{{ setting.vars.data.challengeSetting.isStepToVictory }}"
             data-steptovictorymin="{{ setting.vars.data.challengeSetting.stepToVictoryMin }}"
             data-steptovictorymax="{{ setting.vars.data.challengeSetting.stepToVictoryMax }}"
             data-isusedforscore="{{ setting.vars.data.challengeSetting.isUsedForScore }}"
     >
         <td style="font-size: 14px">{{ setting.vars.data.challengeSetting.label }}</td>
-        <td data-default-value="{{ setting.vars.data.challengeSetting.defaultValue }}" data-input-type="{{ setting.vars.data.challengeSetting.inputType }}">{{ form_widget(setting) }}</td>
+        <td data-default-value="{{ setting.vars.data.challengeSetting.defaultValue }}"
+            data-input-type="{{ setting.vars.data.challengeSetting.inputType }}">{{ form_widget(setting) }}</td>
         {% set ratio = setting.vars.data.challengeSetting.ratio  %}
         <td class="ratio" data-ratio="{{ ratio }}">{{ ratio == 0 ? "" : (ratio >=1 ? "x"~(ratio|number_format(1,'.',' ')) : '/'~((1/ratio)|number_format(1,'.',' '))) }}</td>
         <td class="total-line">0</td>
@@ -33,7 +35,11 @@
         <td class=""></td>
     </tr>
     <tr>
-        <td style="font-size: 14px" class="text-bold text-right" colspan="3"><b>Total</b></td>
+        <td style="font-size: 14px" class="text-bold text-right" colspan="3"><b>Total </b></td>
+        <td class="total-run">0</td>
+    </tr>
+    <tr>
+        <td style="font-size: 14px" class="text-bold text-right" colspan="3"><b>Total score</b></td>
         <td class="total-run">0</td>
     </tr>
     <tr>

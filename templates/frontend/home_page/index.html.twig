@@ -5,69 +5,35 @@
 {% endblock %}
 {% block body %}
     <main class="wrapper">
-    
         <section class="section-banner bg1 home-title">
             <h1>Bienvenue au bannerlord hardcore challenge</h1>
         </section>
 
         <section class="section-parallax static home-presentation">
             <div class="container">
-                <p class="text bold">Bienvenue dans la communauté des Bannerlord Hardcore Challenge !</p>
-                <p class="text">Nous organisons des challenges tous les premiers week-end de chaque mois sur Mount & Blade 2 : Bannerlord</p>
-                <p class="">Les formats varient d'une édition à l'autre en terme de durée, d'objectif(s) à atteindre, de règlement ou encore de mode(s) de jeu.</p>
-                <p class="text bold">Le seul élément permanent : le goût du challenge !</p>
-                <div class="row home-videos">
-                    <div class="col-12 col-lg-6">
-                        <p class="text bold">Format "Classique"</p>
-                        <iframe src="https://www.youtube.com/embed/GI2eBGhshAg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                    <div class="col-12 col-lg-6">
-                        <p class="text bold">Format "Roleplay"</p>
-                        <iframe src="https://www.youtube.com/embed/44ggf_67LpE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                </div>
+                {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'homepage-1',default:"A personnaliser"})) }}
             </div>
         </section>
 
         <section class="section">
             <div class="parallax-background bg2 home-join-us">
                 <div class="container">
-                    <p class="text">Tous les participants doivent diffuser leur partie en direct sur Twitch ou Discord afin que les arbitres puissent veiller au respect du règlement mais également pour nous permettre de réaliser des clips qui serviront à alimenter nos montages vidéos et nos réseaux sociaux.</p>
-                    <p class="text bold">Envie de découvrir le format ou l'ambiance des challenges ? Rendez-vous sur la chaîne officielle de l'evénement !</p>
-                    <div class="row home-videos">
-                        <div class="col-6 offset-3">
-                            <iframe src="https://www.youtube.com/embed/44ggf_67LpE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                    </div>
+                    {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'homepage-2',default:"A personnaliser"})) }}
                 </div>
             </div>
         </section>
 
         <section class="section-parallax static home-howto-join-us">
             <div class="container">
-                <p class="text">Vous avez 3 possibilités pour intégrer la communauté des Bannerlord Hardcore Challenge :</p>
-                <div class="row home-videos">
-                    <div class="col-12 col-lg-4">
-                        <img src="{{ asset('build/img_01.jpg') }}">
-                        <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lacinia nisi mattis consectetur convallis. Ut ornare tempor enim, at consequat turpis.</p>
-                    </div>
-                    <div class="col-12 col-lg-4">
-                        <img src="{{ asset('build/img_01.jpg') }}">
-                        <p class="text bold">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-                    </div>
-                    <div class="col-12 col-lg-4">
-                        <img src="{{ asset('build/img_01.jpg') }}">
-                        <p class="text bold">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris lacinia nisi mattis consectetur convallis. Donec luctus a lectus ac aliquam. </p>
-                    </div>
-                </div>
-                 <p class="text">Vous avez 3 possibilités pour intégrer la communauté des Bannerlord Hardcore Challenge :</p>
+                {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'homepage-3',default:"A personnaliser"})) }}
+
             </div>
         </section>
         
         <section class="section parallax-background bg3 home-don">
             <div class="container">
-                <p class="text">Vous avez envie de nous aider à améliorer la compétition, de participer au cash prize ou de simplement de faire un don ?</p>
-                <img src="{{ asset('build/paypal.png') }}">
+                {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'homepage-4',default:"A personnaliser"})) }}
+
             </div>
         </section>
     </main>

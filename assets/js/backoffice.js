@@ -2,6 +2,7 @@
 import '../css/backoffice.scss';
 // import moment from 'moment/moment'
 import * as $ from 'jquery';
+import 'moment/dist/moment'
 import 'admin-lte/plugins/jquery-ui/jquery-ui'
 // import 'admin-lte/plugins/moment/moment-with-locales.min'
 import 'admin-lte/plugins/bootstrap/js/bootstrap.bundle.min'
@@ -13,7 +14,7 @@ import 'trumbowyg/dist/trumbowyg.min'
 import 'trumbowyg/dist/langs/fr.min'
 import 'trumbowyg/plugins/table/trumbowyg.table'
 import 'trumbowyg/plugins/allowtagsfrompaste/trumbowyg.allowtagsfrompaste'
-// import 'admin-lte/plugins/chart.js/Chart'
+import 'admin-lte/plugins/chart.js/Chart'
 import 'admin-lte/dist/js/pages/dashboard'
 import 'admin-lte/dist/js/adminlte.min'
 import 'admin-lte/dist/js/demo'
@@ -78,4 +79,30 @@ $(function () {
         plugins: {}
     });
     $("[data-toggle='tooltip']").tooltip();
+    if (labels !== undefined) {
+        var ctx = $('#line-chart');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Participations',
+                    data: participations,
+                    fill: false,
+                    background: 'rgba(0, 0, 0, 0)',
+                    borderColor: 'rgb(12,112,231)',
+                    borderWidth: 1
+                }
+                ,{
+                    label: 'No show',
+                    data: noShow,
+                    fill: false,
+                    background: 'rgba(0, 0, 0, 0)',
+                    borderColor: 'rgb(231,12,30)',
+                    borderWidth: 1
+                }]
+                ,
+            }
+        });
+    }
 });

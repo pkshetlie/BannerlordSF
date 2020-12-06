@@ -23,6 +23,8 @@
                                     <th class="text-right">Best run</th>
                                     <th class="text-right">Run en cours</th>
                                     <th class="text-right">Nb. run</th>
+                                    <th class="text-right" title="Points non malussables">Pts NM.<br/>(multi)</th>
+                                    <th class="text-right" title="Points malussables">Pts M.<br/>(solo)</th>
                                     {% for setting in challenge.challengeSettings %}
                                         {% if setting.displayBestForStats %}
                                             <th class="text-right">{{ setting.statLabel }} (best)</th>
@@ -40,9 +42,13 @@
                                             <td>
                                                 <a href="{{ url('admin_runs_info',{'id': challenger.id,'id_challenge':challenge.id}) }}" class="" target="_blank">{{ challenger.username }}</a>
                                             </td>
-                                            <td class="text-right">{{ challenger.bestScore(challenge)|number_format(0,',','') }}</td>
+                                            {% set bestScore = challenger.bestScore(challenge) %}
+                                            {% set nonMalusable = challenger.nonMalusableScore(challenge) %}
+                                            <td class="text-right">{{ bestScore|number_format(0,',','') }}</td>
                                             <td class="text-right">{{ challenger.currentScore(challenge)|number_format(0,',','') }}</td>
                                             <td class="text-right">{{ challenger.countRun(challenge)|number_format(0,',','') }}</td>
+                                            <td class="text-right">{{ nonMalusable|number_format(0,',','') }}</td>
+                                            <td class="text-right">{{ (bestScore-nonMalusable)|number_format(0,',','') }}</td>
                                             {% for setting in challenge.challengeSettings %}
                                                 {% if setting.displayBestForStats %}
                                                     <td class="text-right">{{ challenger.runBestSettingValue(setting, challenge)|number_format(0,',','') }}</td>

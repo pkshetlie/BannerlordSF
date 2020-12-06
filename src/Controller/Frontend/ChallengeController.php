@@ -3,9 +3,11 @@
 namespace App\Controller\Frontend;
 
 use App\Entity\Challenge;
+use App\Entity\ChallengeNewsletter;
 use App\Entity\Participation;
 use App\Entity\User;
 use App\Form\ChallengeType;
+use App\Repository\ChallengeNewsletterRepository;
 use App\Repository\ChallengeRepository;
 use App\Repository\ParticipationRepository;
 use Pkshetlie\PaginationBundle\Service\Calcul;
@@ -41,6 +43,40 @@ class ChallengeController extends AbstractController
     }
 
     /**
+     * @Route("/newsletter-register", name="newsletter_register_challenge", methods={"GET"})
+     * @param Request $request
+     * @param ChallengeRepository $challengeRepository
+     * @param Calcul $paginationService
+     * @return Response
+     */
+    public function newsletterRegister(Request $request, ChallengeRepository $challengeRepository, ChallengeNewsletterRepository $challengeNewsletterRepository): Response
+    {
+        $challenge = $challengeRepository->find($request->get('newsletter_challenge'));
+        if ($challenge != null) {
+            $newsletter = $challengeNewsletterRepository->findBy([
+                'email' => $request->get('newsletter_email'),
+                'challenge' => $challenge
+            ]);
+            if ($newsletter == null) {
+                $newsletter = new ChallengeNewsletter();
+                $newsletter->setEmail($request->get('newsletter_email'));
+                $newsletter->setChallenge($challenge);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($newsletter);
+                $em->flush();
+
+                $this->addFlash('success', "Nous avons bien enregistré votre email afin de vous prévenir de l'ouverture des inscriptions.");
+            }
+            $this->addFlash('danger', "Vous êtes déjà inscrit pour ce challenge.");
+        } else {
+            $this->addFlash('danger', "Probleme lors de la recherche du challenge qui vous interesse.");
+        }
+
+        return $this->redirectToRoute('challenge_index');
+
+    }
+
+    /**
      * @Route("/participer/{id}", name="challenge_participer")
      * @param Request $request
      * @param Challenge $challenge
@@ -50,16 +86,21 @@ class ChallengeController extends AbstractController
     public function registerToChallenge(Request $request, Challenge $challenge, ParticipationRepository $participationRepository)
     {
         $form = $this->createFormBuilder()
-            ->add('confirmation', CheckboxType::class, ['required' => true, 'label' => "Je souhaite m'inscrire à cette édition"])
-            ->add('inscription', SubmitType::class)
+            ->add('inscription', SubmitType::class, [
+                'attr' => ['class' => "btn btn-custom btn-green active"]
+
+            ])
             ->getForm();
-        $participants = $challenge->getParticipations()->filter(function(Participation $p){
+        $participants = $challenge->getParticipations()->filter(function (Participation $p) {
             return $p->getUser()->getUsername();
         });
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             if ($this->isGranted('ROLE_USER')) {
-                if($participationRepository->findBy(['user'=>$this->getUser(),'challenge'=>$challenge]) == null) {
+                if ($participationRepository->findBy([
+                        'user' => $this->getUser(),
+                        'challenge' => $challenge
+                    ]) == null) {
                     /** @var User $user */
                     $user = $this->getUser();
                     $participation = new Participation();
@@ -71,17 +112,21 @@ class ChallengeController extends AbstractController
                     $em->persist($participation);
                     $em->flush();
                     $this->addFlash('success', "Votre demande est soumise à validation d'un membre du staff, vous recevrez un mail dès que celle ci sera validée.");
-                }else{
+                } else {
                     $this->addFlash('danger', "Vous êtres déjà inscrit à ce tournois.");
 
                 }
-                } else {
+            } else {
                 $this->addFlash('danger', "Vous devez êtres connecté pour pouvoir vous inscrire.");
             }
         }
+
+        $participations = $challenge->getLeaderBoard();
+
         return $this->render('frontend/challenge/register.html.twig', [
             'challenge' => $challenge,
             'participations' => $participants,
+            'leaderboard' => $participations,
             'form' => $form->createView()
         ]);
     }

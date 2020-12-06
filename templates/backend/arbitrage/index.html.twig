@@ -38,16 +38,19 @@
                                         <a
                                                 class="btn text-left btn-xs btn-flat btn-block {% if participation.arbitre is null %}bg-black{% elseif participation.arbitre.id == app.user.id %}bg-purple{% else %}bg-gray{% endif %}"
                                                 href="#"
+                                                title="{{ challenger.twitchID is empty ? challenger.discordID : challenger.twitchID }}"
                                                 data-participation="{{ participation.id }}"
                                                 data-challenger="{{ challenger.id }}"
                                                 data-challenge="{{ challenge.id }}"
+                                                data-discordid="{{ challenger.discordID }}"
                                                 {% if challenger.twitchID is not empty %}
                                                     data-url="https://player.twitch.tv/?channel={{ challenger.twitchID }}&parent={{ app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''}) }}&muted=true&autoplay=false"
                                                 {% else %}
                                                     data-url=""
                                                 {% endif %}
                                         >
-                                            {{ challenger.twitchID is empty ? challenger.discordID : challenger.twitchID }}
+                                            {{ challenger.username }}
+
                                             {% if challenger.twitchId is not empty %}
                                                 <i class="fab fa-twitch text-white float-right mt-1"></i>
                                             {% else %}
@@ -63,6 +66,11 @@
                         </div>
 
                         <div class="col-md-5">
+                            <h3>Chaîne</h3>
+                            <div class="display-discord text-center" style="display:none;">
+                            <i class="fab fa-discord fa-10x"></i>
+                                <h4 class="player"></h4>
+                            </div>
                             <iframe
                                     id="twitch_player"
                                     src="https://player.twitch.tv/?channel=pompevie74&parent={{ app.request.server.get('HTTP_HOST')|replace({":8000":'',":80":''}) }}&muted=true&autoplay=false"

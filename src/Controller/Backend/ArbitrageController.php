@@ -41,7 +41,10 @@ class ArbitrageController extends AbstractController
             ]);
         } else {
             return $this->render('backend/arbitrage/selection_challenge.html.twig', [
-                'challenges' => $challengeRepository->findBy([], ["id" => "asc"]),
+                'challenges' => $challengeRepository->findBy([], [
+                    'season' => 'DESC',
+                    'registrationOpening' => "DESC"
+                ]),
 
             ]);
         }
@@ -58,8 +61,9 @@ class ArbitrageController extends AbstractController
         $participations = $participationRepository->findByChallenge($challenge);
         $twitch = [];
         foreach ($participations as $participation) {
-            if ($participation->getUser()->getTwitchID() != null) {
-                $twitch[] = $participation->getUser()->getTwitchID();
+            $twitchId = $participation->getUser()->getTwitchID();
+            if ($twitchId != null && !in_array($twitchId, $twitch)) {
+                $twitch[] = $twitchId;
             }
         }
         return $this->render('backend/arbitrage/index.html.twig', [

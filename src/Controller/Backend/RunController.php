@@ -41,18 +41,17 @@ class RunController extends AbstractController
      * @return Response
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function current(Request $request, User $user, Challenge $challenge = null, ChallengeRepository $challengeRepository, RunRepository $runRepository, RunService $runService, $reset = false): Response
+    public function current(Request $request, User $user, ChallengeRepository $challengeRepository, RunRepository $runRepository, RunService $runService, $reset = false): Response
     {
 
+        $challenge = $challengeRepository->find($request->get('challenge'));
         if ($challenge == null) {
-            $challenge = $challengeRepository->find($request->get('challenge'));
-            if ($challenge == null) {
-                return new JsonResponse([
-                    'success' => false,
-                    "message" => "Aucun challenge en cours"
-                ]);
-            }
+            return new JsonResponse([
+                'success' => false,
+                "message" => "Aucun challenge en cours"
+            ]);
         }
+
         $entityManager = $this->getDoctrine()->getManager();
         $run = $runRepository->createQueryBuilder('r')
             ->where('r.user = :user')
@@ -62,23 +61,48 @@ class RunController extends AbstractController
             ->setParameter('user', $user)
             ->getQuery()
             ->getOneOrNullResult();
+
         /** @var Run $run */
         if ($run == null) {
             $run = new Run();
             $run->setChallenge($challenge);
             $run->setUser($user);
+            $user->addRun($run);
             $entityManager->persist($run);
             $run->setStartDate(new \DateTime());
             $countRun = $user->countRun($challenge);
+            /** @var Run $lastrun */
+            $lastrun = $runRepository->createQueryBuilder('r')
+                ->where('r.user = :user')
+                ->andWhere('r.challenge  = :challenge')
+                ->setParameter('challenge', $challenge)
+                ->setParameter('user', $user)
+                ->orderBy("r.endDate", "DESC")
+                ->getQuery()
+                ->setMaxResults(1)
+                ->setFirstResult(0)
+                ->getOneOrNullResult();
+
             foreach ($challenge->getChallengeSettings() as $setting) {
                 $runSetting = new RunSettings();
                 $runSetting->setChallengeSetting($setting);
                 $runSetting->setRun($run);
-                $runSetting->setValue($setting->getDefaultValue());
+                if ($lastrun != null && $setting->getIsReportedOnTheNextRun()) {
+                    foreach ($lastrun->getRunSettings() as $lastSetting) {
+                        if($lastSetting->getChallengeSetting()->getId() == $setting->getId()) {
+                            $runSetting->setValue($lastSetting->getValue());
+                            break;
+                        }
+                    }
+                } else {
+                    $runSetting->setValue($setting->getDefaultValue());
+                }
                 $run->addRunSetting($runSetting);
-                $run->setMalus(1 - ($challenge->getMalusPerRun() * ($countRun) / 100));
+                $run->setMalus(1 - ($challenge->getMalusPerRun() * ($countRun-1) / 100));
                 $entityManager->persist($runSetting);
             }
+
+
             $entityManager->flush();
         }
 
@@ -154,49 +178,6 @@ class RunController extends AbstractController
             'replace' => ""
         ]);
     }
-//
-//    /**
-//     * @Route("/toggle-participation/{id}", name="challenge_admin_toggle_participation", methods={"GET","POST"})
-//     * @param Request $request
-//     * @param Participation $participation
-//     * @return Response
-//     */
-//    public function toggleParticipation(Request $request, Participation $participation, \Swift_Mailer $mailer): Response
-//    {
-//        $participation->setEnabled(!$participation->getEnabled());
-//        $this->getDoctrine()->getManager()->flush();
-//        $message = (new \Swift_Message('Validation de votre inscription au challenge ' . $participation->getChallenge()->getTitle()))
-//            ->setFrom($this->getParameter('webmaster_email'))
-//            ->setTo($participation->getUser()->getEmail())
-//            ->setBody(
-//                $this->renderView(
-//                // templates/emails/registration.html.twig
-//                    "mails/challenge/validated.html.twig",
-//                    ['challenge' => $participation->getChallenge()]
-//                ),
-//                'text/html'
-//            )
-//
-//            // you can remove the following code if you don't define a text version for your emails
-//            ->addPart(
-//                $this->renderView(
-//                // templates/emails/registration.txt.twig
-//                    "mails/challenge/validated.html.twig",
-//                    ['challenge' => $participation->getChallenge()]
-//                ),
-//                'text/plain'
-//            );
-//        try {
-//
-//            $mailer->send($message);
-//        } catch (\Exception $e) {
-//            $x = $e;
-//        }
-//        return new JsonResponse([
-//            'success' => true,
-//            'replace' => $participation->getEnabled() ? "<i class='fas fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>"
-//        ]);
-//    }
 
     /**
      * @Route("/edit/oneshot/{id}", name="admin_run_edit")
@@ -215,7 +196,10 @@ class RunController extends AbstractController
             $runService->ComputeScore($run);
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Run modifiée');
-            return $this->redirectToRoute('admin_runs_info', ['id' => $run->getUser()->getId(),'id_challenge'=>$run->getChallenge()->getId()]);
+            return $this->redirectToRoute('admin_runs_info', [
+                'id' => $run->getUser()->getId(),
+                'id_challenge' => $run->getChallenge()->getId()
+            ]);
         }
         return $this->render('backend/run/edit.html.twig', [
             'form' => $form->createView(),

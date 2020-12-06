@@ -59,6 +59,11 @@
                             <div class="col-md-12 d-flex flex-wrap encart-global">
 
                                 <div class="col-12 col-lg-8 text-center">
+                                    {% if challenge.isFuture %}
+                                        Ce challenge n'est pas encore ouvert
+                                    {% elseif challenge.isPast %}
+                                        <div class="text-center">Vainqueur : <b>{{ challenge.winner.user.username }}</b></div>
+                                    {% else %}
                                     {% if is_granted('ROLE_USER') %}
                                         {% set participation = app.user.participation(challenge) %}
                                         {% if participation is not null %}
@@ -70,11 +75,11 @@
                                                     attente de validation</a>
                                             {% endif %}
                                         {% else %}
-                                            {# {{ form(form) }} #}
-                                            <a href="#" class="btn btn-custom btn-green active">Inscription</a>
+                                             {{ form(form) }}
                                         {% endif %}
                                     {% else %}
                                         Vous devez être connecté pour vous inscrire.
+                                    {% endif %}
                                     {% endif %}
                                 </div>
                                 {# Pour un bouton d'infos (non actif) ne pas lui mettre la classe "active"} #}
@@ -114,6 +119,10 @@
                                 <a class="nav-link" id="infos-tab" data-toggle="tab" href="#participants" role="tab"
                                    aria-controls="infos" aria-selected="false">Participants</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="infos-tab" data-toggle="tab" href="#classement" role="tab"
+                                   aria-controls="infos" aria-selected="false">Classement</a>
+                            </li>
                         </ul>
                         {# --- Contenu onglets --- #}
                         <div class="tab-content" id="tab-content-challenge">
@@ -149,10 +158,44 @@
                                     {% endfor %}
                                 </ul>
                             </div>
+                            <div class="tab-pane fade" id="classement" role="tabpanel" aria-labelledby="classement-tab">
+                                <table class="table">
+                                    <tr>
+                                        <th>Position</th>
+                                        <th>Joueur</th>
+                                        <th>Meilleur score</th>
+                                        <th>Nombre de run</th>
+                                    </tr>
+                                     {% for participation in leaderboard %}
+                                         {% set challenger = participation.user %}
+                                         {% if participation.arbitre is not null %}
+                                             <tr>
+                                                 <td>#{{ loop.index }}</td>
+                                                 <td>
+                                                    <b>{{ challenger.username }}</b>
+                                                 </td>
+                                                 <td class="text-right">{{ challenger.bestScore(challenge)|number_format(0,',','') }}</td>
+                                                 <td class="text-right">{{ challenger.countRun(challenge)|number_format(0,',','') }}</td>
+
+                                             </tr>
+                                         {% endif %}
+                                     {% endfor %}
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+    setTimeout(function(){
+        window.location.reload();
+    },30*1000);
+</script>
+
 {% endblock %}

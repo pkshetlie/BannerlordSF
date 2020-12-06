@@ -36,7 +36,8 @@ class ChallengeController extends AbstractController
     public function index(Request $request, ChallengeRepository $challengeRepository, Calcul $paginationService): Response
     {
         $qb = $challengeRepository->createQueryBuilder('c')
-            ->orderBy('c.registrationOpening', 'DESC');
+            ->orderBy('c.season', 'DESC')
+            ->addOrderBy('c.registrationOpening', 'DESC');
         $paginator = $paginationService->process($qb, $request);
         return $this->render('backend/challenge/index.html.twig', [
             'paginator' => $paginator,
@@ -221,11 +222,6 @@ class ChallengeController extends AbstractController
             }
         }
 
-        $arbitres = $userRepository->createQueryBuilder('u')
-            ->where('u.roles LIKE :employee')
-            ->setParameter('employee', '%ROLE_ARBITRE%')
-            ->orderBy("u.username")
-            ->getQuery()->getResult();
         $arbitres = $userRepository->createQueryBuilder('u')
             ->where('u.roles LIKE :employee')
             ->setParameter('employee', '%ROLE_ARBITRE%')

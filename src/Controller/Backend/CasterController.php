@@ -40,8 +40,10 @@ class CasterController extends AbstractController
         }else{
 
             return $this->render('backend/caster/selection_challenge.html.twig', [
-                'challenges' => $challengeRepository->findBy([],["id"=>"asc"]),
-
+                'challenges' => $challengeRepository->findBy([], [
+                    'season' => 'DESC',
+                    'registrationOpening' => "DESC"
+                ]),
             ]);
         }
     }
