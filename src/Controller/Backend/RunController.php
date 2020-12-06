@@ -169,7 +169,7 @@ class RunController extends AbstractController
      * @param Participation $participation
      * @return Response
      */
-    public function deleteParticipation(Request $request, Participation $participation, \Swift_Mailer $mailer): Response
+    public function deleteParticipation(Request $request, Participation $participation): Response
     {
         $this->getDoctrine()->getManager()->remove($participation);
 
