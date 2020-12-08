@@ -52,7 +52,7 @@
                         </tbody>
                     </table>
                     {% import "@Pagination/Pagination/macro.twig" as macro_pagination  %}
-                    {{ macro_pagination.seeMore(paginator,"Voir plus"|trans) }}
+                    {{ macro_pagination.paginate(paginator) }}
                 </div>
             </div>
         </div>
