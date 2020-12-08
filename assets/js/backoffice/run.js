@@ -65,6 +65,9 @@ function loadRun(challenger, challenge) {
 function totalRun() {
     let sumMalusable = 0;
     let sum = 0;
+    $(".sub-total").each(function(){
+        $(this).text('0');
+    });
     $(".total-line").each(function () {
         let value = $(this).text();
         let tr = $(this).closest('tr');
@@ -74,25 +77,35 @@ function totalRun() {
                     sumMalusable += parseFloat(value);
                 } else {
                     sum += parseFloat(value);
-
                 }
             }
         }
+        let malus = parseFloat($("#malus-run").data('malus').toString().replace(',', '.'));
+        $(".sub-total").each(function() {
+            if($(this).this.data('total') === tr.data('subtotal')){
+                if (tr.data("isaffectedbymalus") === 1) {
+                    $(this).text( Math.floor(parseFloat($(this).text())*malus) + parseFloat(value));
+                } else {
+                    (this).text( parseFloat($(this).text()) + parseFloat(value));
+                }
+            }
+        });
+
     });
     let malus = parseFloat($("#malus-run").data('malus').toString().replace(',', '.'));
-    let total_malus = sumMalusable * malus;
-    let tempScore = $("#run_tempScore").val();
-    if (tempScore !== null && tempScore !== "" && tempScore !== undefined) {
-        $('.total-run-with-malus').html(tempScore * malus + sum);
-        $("#run_FinDeRun").attr('disabled', "disabled");
-        $("#run_FinDeRun").attr('title', "Rentrez le détail pour pouvoir terminer la run");
-    } else {
-        $('.total-run-with-malus').html(total_malus + sum);
-        $("#run_FinDeRun").removeAttr('disabled');
-        $("#run_FinDeRun").removeAttr('title');
-    }
+    // let total_malus = sumMalusable * malus;
+    // let tempScore = $("#run_tempScore").val();
+    // if (tempScore !== null && tempScore !== "" && tempScore !== undefined) {
+    //     $('.total-run-with-malus').html(Math.floor(tempScore * malus + sum));
+    //     $("#run_FinDeRun").attr('disabled', "disabled");
+    //     $("#run_FinDeRun").attr('title', "Rentrez le détail pour pouvoir terminer la run");
+    // } else {
+    //     $('.total-run-with-malus').html(total_malus + sum);
+    //     $("#run_FinDeRun").removeAttr('disabled');
+    //     $("#run_FinDeRun").removeAttr('title');
+    // }
 
-    $(".total-run").html(sum + sumMalusable);
+    $(".total-run").html(Math.floor(sum + sumMalusable*malus));
 }
 
 function updateLigne(ligne) {
