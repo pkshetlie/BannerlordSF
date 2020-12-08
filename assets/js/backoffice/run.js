@@ -23,6 +23,9 @@ function inputCreation() {
                     let checkbox = "<input type='checkbox' " + (parseFloat(value) === parseFloat(t.val()) ? "checked='checked'" : "") + " id='" + t.attr('id') + "' name='" + t.attr('name') + "' value='" + value + "'/>";
                     t.replaceWith(checkbox);
                     break;
+                case 400:
+                    t.attr('type','numeric');
+                    break;
                 default:
                 case 100:
                     break;
