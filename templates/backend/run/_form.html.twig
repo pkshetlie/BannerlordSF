@@ -20,7 +20,7 @@
             data-isusedforscore="{{ setting.vars.data.challengeSetting.isUsedForScore }}"
             data-subtotal="{{ setting.vars.data.challengeSetting.subTotal }}"
     >
-        <td style="font-size: 14px">{{ setting.vars.data.challengeSetting.label }}</td>
+        <td style="font-size: 14px"><label for="{{ setting.children["value"].vars['id'] }}">{{ setting.vars.data.challengeSetting.label }}</label></td>
         <td data-default-value="{{ setting.vars.data.challengeSetting.defaultValue }}"
             data-input-type="{{ setting.vars.data.challengeSetting.inputType }}">{{ form_widget(setting) }}</td>
         {% set ratio = setting.vars.data.challengeSetting.ratio  %}
