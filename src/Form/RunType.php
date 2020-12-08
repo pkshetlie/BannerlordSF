@@ -17,14 +17,14 @@ class RunType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('tempScore', TextType::class, [
-                'label' => "Score temporaire",
-                'required'=>false,
-                'attr' => [
-                    'class' => 'form-control-sm',
-                    'onClick' => "this.select();"
-                ]
-            ])
+//            ->add('tempScore', TextType::class, [
+//                'label' => "Score temporaire",
+//                'required'=>false,
+//                'attr' => [
+//                    'class' => 'form-control-sm',
+//                    'onClick' => "this.select();"
+//                ]
+//            ])
             ->add('runSettings', CollectionType::class, [
                 'entry_type' => RunSettingType::class,
                 'entry_options' => ['label' => false],
