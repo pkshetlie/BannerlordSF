@@ -102,6 +102,11 @@ class ChallengeSetting
      */
     private $isAffectedByMalus;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $subTotal;
+
     public function __construct()
     {
         $this->runSettings = new ArrayCollection();
@@ -319,6 +324,18 @@ class ChallengeSetting
     public function setIsAffectedByMalus(?bool $isAffectedByMalus): self
     {
         $this->isAffectedByMalus = $isAffectedByMalus;
+
+        return $this;
+    }
+
+    public function getSubTotal(): ?string
+    {
+        return $this->subTotal;
+    }
+
+    public function setSubTotal(?string $subTotal): self
+    {
+        $this->subTotal = $subTotal;
 
         return $this;
     }
