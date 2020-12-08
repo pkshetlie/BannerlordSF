@@ -8,7 +8,7 @@
         <th>Libellé</th>
         <th>Valeur</th>
         <th>Multiplicateur</th>
-        <th>Total</th>
+        <th class="text-right">Total</th>
     </tr>
 {% for setting in form.runSettings %}
 
@@ -25,7 +25,7 @@
             data-input-type="{{ setting.vars.data.challengeSetting.inputType }}">{{ form_widget(setting) }}</td>
         {% set ratio = setting.vars.data.challengeSetting.ratio  %}
         <td class="ratio" data-ratio="{{ ratio }}">{{ ratio == 0 ? "" : (ratio >=1 ? "x"~(ratio|number_format(1,'.',' ')) : '/'~((1/ratio)|number_format(1,'.',' '))) }}</td>
-        <td class="total-line">0</td>
+        <td class="text-right total-line">0</td>
     </tr>
 
 {% endfor %}
@@ -39,13 +39,13 @@
     {% for total in run.runTotaux %}
         <tr>
             <td style="font-size: 12px" class="text-right" colspan="3"><b>{{ total }}</b></td>
-            <td class="sub-total" data-total="{{ total }}">0</td>
+            <td class="text-right sub-total" data-total="{{ total }}">0</td>
         </tr>
     {% endfor %}
 
     <tr>
         <td style="font-size: 12px" class="text-right" colspan="3"><b>Total malus compris</b></td>
-        <td class="total-run-with-malus">0</td>
+        <td class="text-right total-run-with-malus">0</td>
     </tr>
 
 </table>
