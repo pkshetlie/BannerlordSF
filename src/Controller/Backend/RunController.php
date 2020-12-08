@@ -89,7 +89,7 @@ class RunController extends AbstractController
                 $runSetting->setRun($run);
                 if ($lastrun != null && $setting->getIsReportedOnTheNextRun()) {
                     foreach ($lastrun->getRunSettings() as $lastSetting) {
-                        if($lastSetting->getChallengeSetting()->getId() == $setting->getId()) {
+                        if ($lastSetting->getChallengeSetting()->getId() == $setting->getId()) {
                             $runSetting->setValue($lastSetting->getValue());
                             break;
                         }
@@ -98,10 +98,9 @@ class RunController extends AbstractController
                     $runSetting->setValue($setting->getDefaultValue());
                 }
                 $run->addRunSetting($runSetting);
-
-                $malus = $challenge->getMalusPerRun() * ($countRun-1);
-                $malus =  $malus >= $challenge->getMalusMax() ? $challenge->getMalusMax() : $malus;
-                $run->setMalus(1 - ( $malus / 100));
+                $malus = $challenge->getMalusPerRun() * ($countRun - 1);
+                $malus = $malus >= $challenge->getMalusMax() ? $challenge->getMalusMax() : $malus;
+                $run->setMalus(1 - ($malus / 100));
                 $entityManager->persist($runSetting);
             }
 
@@ -337,20 +336,39 @@ class RunController extends AbstractController
 //        ]);
 //    }
 
-//    /**
-//     * @Route("/{id}", name="run_admin_delete", methods={"GET"})
-//     * @param Request $request
-//     * @param Challenge $challenge
-//     * @return Response
-//     */
-//    public function delete(Request $request, Challenge $challenge): Response
-//    {
-//        $entityManager = $this->getDoctrine()->getManager();
-//        $entityManager->remove($challenge);
-//        $entityManager->flush();
-//
-//        return $this->redirectToRoute('challenge_admin_index');
-//    }
+    /**
+     * @Route("/{id}", name="run_admin_delete", methods={"GET"})
+     * @param Request $request
+     * @param Run $run
+     * @param RunRepository $runRepository
+     * @return Response
+     */
+    public function delete(Request $request, Run $run, RunRepository $runRepository, RunService $runService): Response
+    {
+
+        $user = $run->getUser();
+        $challenge = $run->getChallenge();
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($challenge);
+        $entityManager->flush();
+
+        $runs = $runRepository->findBy([
+            'user' => $user,
+            "challenge" => $challenge
+        ], ['id' => "ASC"]);
+        $countRun = 1;
+        foreach ($runs as $run) {
+            $malus = $challenge->getMalusPerRun() * ($countRun - 1);
+            $malus = $malus >= $challenge->getMalusMax() ? $challenge->getMalusMax() : $malus;
+            $run->setMalus(1 - ($malus / 100));
+            $runService->ComputeScore($run);
+            $entityManager->flush();
+        }
+
+
+        return $this->redirectToRoute('challenge_admin_index');
+    }
 
 //    /**
 //     * @Route("/add-participation/{id}", name="add_participation")

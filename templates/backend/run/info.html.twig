@@ -29,6 +29,11 @@
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                             {% endif %}
+                                            {% if is_granted('ROLE_ADMIN') %}
+                                                <a class="float-right" onclick="return confirm('La suppression de cette run va engendrer un décalage des malus, voulez-vous continuer ?')" href="{{ url("run_admin_delete",{id:run.id}) }}">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
+                                            {% endif %}
                                         </th>
                                     </tr>
                                     <tr>
