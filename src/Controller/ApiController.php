@@ -46,12 +46,15 @@ class ApiController extends AbstractController
      */
     public function index(Request $request, \Swift_Mailer $mailer)
     {
+        VarDumper::dump($request);
         $message = (new \Swift_Message('API bannerlord'))
             ->setFrom($this->getParameter('webmaster_email'))
             ->setTo("pierrick.pobelle@gmail.com")
             ->setBody(
                 json_encode($request->getQueryString())."\r\n"
                 .json_encode($request->query)."\r\n"
+                .json_encode($_POST)."\r\n"
+                .json_encode($_REQUEST)."\r\n"
                 ,
                 'text/html'
             );
