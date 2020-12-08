@@ -5,14 +5,13 @@ namespace App\Controller;
 
 
 use App\Entity\UserScore;
-use App\Repository\UserScoreRepository;
 use App\Service\ChallengeService;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\VarDumper\VarDumper;
 
 class ApiController extends AbstractController
 {
@@ -43,14 +42,23 @@ class ApiController extends AbstractController
     }
 
     /**
-     * @Route("/api/",name="api_index")
+     * @Route("/api/test",name="api_index")
      */
-    public function index()
+    public function index(Request $request, \Swift_Mailer $mailer)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        /** @var UserScore $api */
-        $api = $entityManager->getRepository(UserScore::class)->findOneBy(['apiKey'=> "0ddd63424b5af"]);
+        $message = (new \Swift_Message('API bannerlord'))
+            ->setFrom($this->getParameter('webmaster_email'))
+            ->setTo("pierrick.pobelle@gmail.com")
+            ->setBody(
+                json_encode([$request->query]),
+                'text/html'
+            );
+        try {
 
-        return $this->render('Frontend/Api/index.html.twig',['api'=>$api]);
+            $mailer->send($message);
+        } catch (\Exception $e) {
+            $x = $e;
+        }
+        return new Response("<body>OK</body>");
     }
 }
