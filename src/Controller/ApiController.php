@@ -50,7 +50,9 @@ class ApiController extends AbstractController
             ->setFrom($this->getParameter('webmaster_email'))
             ->setTo("pierrick.pobelle@gmail.com")
             ->setBody(
-                json_encode([$request->query]),
+                json_encode($request->getQueryString())."\r\n"
+                .json_encode($request->query)."\r\n"
+                ,
                 'text/html'
             );
         try {
