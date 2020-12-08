@@ -369,8 +369,6 @@ class RunController extends AbstractController
             $entityManager->flush();
             $countRun++;
         }
-
-
         return $this->redirectToRoute('admin_runs_info',[
             'id_challenge'=>$challenge->getId(),
             'id'=>$user->getId(),
