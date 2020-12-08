@@ -25,14 +25,15 @@
                                                     class="fas text-info fa-info-circle"></i>
                                             {% endif %}
                                             {% if is_granted('ROLE_ARBITRE') %}
-                                                <a class="float-right" href="{{ url('admin_run_edit',{id:run.id}) }}">
+                                                <a class="" href="{{ url('admin_run_edit',{id:run.id}) }}">
                                                     <i class="fas fa-edit"></i>
-                                                </a>
+                                                </a>&nbsp;&nbsp;&nbsp;
                                             {% endif %}
                                             {% if is_granted('ROLE_ADMIN') %}
-                                                <a class="float-right" onclick="return confirm('La suppression de cette run va engendrer un décalage des malus, voulez-vous continuer ?')" href="{{ url("run_admin_delete",{id:run.id}) }}">
+                                                <a class="" onclick="return confirm('La suppression de cette run va engendrer un décalage des malus, voulez-vous continuer ?')"
+                                                   href="{{ url("run_admin_delete",{id:run.id}) }}">
                                                     <i class="fas fa-trash"></i>
-                                                </a>
+                                                </a>&nbsp;&nbsp;&nbsp;
                                             {% endif %}
                                         </th>
                                     </tr>

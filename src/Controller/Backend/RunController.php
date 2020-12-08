@@ -350,7 +350,10 @@ class RunController extends AbstractController
         $challenge = $run->getChallenge();
 
         $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->remove($challenge);
+        foreach($run->getRunSettings() AS $setting){
+            $entityManager->remove($setting);
+        }
+        $entityManager->remove($run);
         $entityManager->flush();
 
         $runs = $runRepository->findBy([
@@ -364,10 +367,14 @@ class RunController extends AbstractController
             $run->setMalus(1 - ($malus / 100));
             $runService->ComputeScore($run);
             $entityManager->flush();
+            $countRun++;
         }
 
 
-        return $this->redirectToRoute('challenge_admin_index');
+        return $this->redirectToRoute('admin_runs_info',[
+            'id_challenge'=>$challenge->getId(),
+            'id'=>$user->getId(),
+        ]);
     }
 
 //    /**
