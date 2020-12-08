@@ -24,7 +24,7 @@ function inputCreation() {
                     t.replaceWith(checkbox);
                     break;
                 case 400:
-                    t.attr('type','numeric');
+                    t.attr('type','number');
                     break;
                 default:
                 case 100:
