@@ -98,7 +98,10 @@ class RunController extends AbstractController
                     $runSetting->setValue($setting->getDefaultValue());
                 }
                 $run->addRunSetting($runSetting);
-                $run->setMalus(1 - ($challenge->getMalusPerRun() * ($countRun-1) / 100));
+
+                $malus = $challenge->getMalusPerRun() * ($countRun-1);
+                $malus =  $malus >= $challenge->getMalusMax() ? $challenge->getMalusMax() : $malus;
+                $run->setMalus(1 - ( $malus / 100));
                 $entityManager->persist($runSetting);
             }
 
