@@ -120,6 +120,11 @@ class Challenge
      */
     private $challengeNewsletters;
 
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2)
+     */
+    private $malusMax;
+
     public function __construct()
     {
         $this->rules = new ArrayCollection();
@@ -529,5 +534,17 @@ class Challenge
     {
         $leaderboard = $this->getLeaderBoard();
         return $leaderboard != null ? $leaderboard[0]: null;
+    }
+
+    public function getMalusMax(): ?string
+    {
+        return $this->malusMax;
+    }
+
+    public function setMalusMax(string $malusMax): self
+    {
+        $this->malusMax = $malusMax;
+
+        return $this;
     }
 }

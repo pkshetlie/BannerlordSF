@@ -92,6 +92,11 @@ class User implements UserInterface
      */
     private $runs;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $babyProof;
+
     public function __construct()
     {
         $this->userScores = new ArrayCollection();
@@ -498,6 +503,18 @@ class User implements UserInterface
             }
         }
         return $best;
+    }
+
+    public function getBabyProof(): ?bool
+    {
+        return $this->babyProof;
+    }
+
+    public function setBabyProof(?bool $babyProof): self
+    {
+        $this->babyProof = $babyProof;
+
+        return $this;
     }
 
 }

@@ -92,6 +92,9 @@ class ChallengeType extends AbstractType
             ->add('malusPerRun', null, [
                 'label' => "Malus par run (en %age)"
             ])
+            ->add('malusMax', null, [
+                'label' => "Malus maximum"
+            ])
             ->add('challengePrizes', CollectionType::class, [
                 'entry_type' => ChallengePrizeType::class,
                 'entry_options' => ['label' => false],
