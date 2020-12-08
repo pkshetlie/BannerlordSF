@@ -22,6 +22,7 @@ class ChallengeSettingType extends AbstractType
             ->add('inputType',ChoiceType::class,[
                 'choices'=>[
                     "Champ texte"=>ChallengeSetting::TEXT,
+                    "Champ numerique"=>ChallengeSetting::NUMERIC,
                     "Liste déroulante"=>ChallengeSetting::SELECT,
                     "Case à cocher"=>ChallengeSetting::CHECKBOX,
                 ],

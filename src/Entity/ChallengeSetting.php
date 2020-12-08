@@ -15,6 +15,7 @@ class ChallengeSetting
     const TEXT = 100;
     const SELECT = 200;
     const CHECKBOX = 300;
+    const NUMERIC = 400;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
