@@ -35,8 +35,15 @@
         <td class=""></td>
         <td class=""></td>
     </tr>
+    {% set  %}
+    {% for total in run.runTotaux %}
+        <tr>
+            <td style="font-size: 12px" class="text-right" colspan="3"><b>{{ total }}</b></td>
+            <td data-total="{{ total }}">0</td>
+        </tr>
+    {% endfor %}
 
-    <tr id="finalScore">
+    <tr>
         <td style="font-size: 12px" class="text-right" colspan="3"><b>Total malus compris</b></td>
         <td class="total-run-with-malus">0</td>
     </tr>
