@@ -24,7 +24,7 @@
         <td data-default-value="{{ setting.vars.data.challengeSetting.defaultValue }}"
             data-input-type="{{ setting.vars.data.challengeSetting.inputType }}">{{ form_widget(setting) }}</td>
         {% set ratio = setting.vars.data.challengeSetting.ratio  %}
-        <td class="ratio" data-ratio="{{ ratio }}">{{ ratio == 0 ? "" : (ratio >=1 ? "x"~(ratio|number_format(1,'.',' ')) : '/'~((1/ratio)|number_format(1,'.',' '))) }}</td>
+        <td class="ratio" data-ratio="{{ ratio }}">{{ ratio <= 0 ? "x"~(ratio|number_format(1,'.',' ')) : (ratio >=1 ? "x"~(ratio|number_format(1,'.',' ')) : '/'~((1/ratio)|number_format(1,'.',' '))) }}</td>
         <td class="text-right total-line">0</td>
     </tr>
 

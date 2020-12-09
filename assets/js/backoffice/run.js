@@ -134,7 +134,7 @@ function updateLigne(ligne) {
     // console.log("float value: "+ value);
 
     let total = ratio * value;
-    ligne.find('.total-line').html(total);
+    ligne.find('.total-line').html(Math.floor(total));
 
     if (ligne.data("issteptovictory") === 1) {
         let min = parseFloat(ligne.data("steptovictorymin"));
