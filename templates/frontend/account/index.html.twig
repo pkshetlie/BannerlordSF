@@ -12,6 +12,24 @@
         <section class="section-parallax static challenges-list">
             <div class="container">
                 {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'account-1',default:""})) }}
+
+
+                <table>
+                    <tr>
+                        <th>Identifiant : </th>
+                        <td>{{ app.user.username }}</td>
+
+                        <th>Discord ID : </th>
+                        <td>{{ app.user.discordID }}</td>
+                    </tr>
+                    <tr>
+                        <th>E-mail : </th>
+                        <td>{{ app.user.email }}</td>
+
+                        <th>Twitch ID : </th>
+                        <td>{{ app.user.twitchID }}</td>
+                    </tr>
+                </table>
                 <a href="{{ url("user_generate_apikey_file") }}" class="btn btn-success"><i class="fa fa-file"></i> Générer mon fichier de configuration</a>
 
                 {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'account-tuto',default:"Faire un tuto pour le placement du fichier"})) }}
