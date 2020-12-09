@@ -47,7 +47,14 @@
         <td style="font-size: 12px" class="text-right" colspan="3"><b>Total malus compris</b></td>
         <td class="text-right total-run-with-malus">0</td>
     </tr>
-
+    <tr>
+        <td colspan="4">{{ form_widget(form.comment) }}</td>
+    </tr>
+    <tr>
+        <td>{{ form_widget(form.Enregistrer) }}</td>
+        <td colspan="2"></td>
+        <td>{{ form_widget(form.FinDeRun,{"attr":{"onclick":(app.user.babyProof ?"return confirm('Vous allez terminer la run pour "~challenger.username~"')":"")}}) }}</td>
+    </tr>
 </table>
 {{ form_end(form) }}
 

@@ -13,6 +13,14 @@
         <td>{{ form_widget(setting) }}</td>
     </tr>
 {% endfor %}
+    <tr>
+        <td colspan="2">{{ form_widget(form.comment) }}</td>
+    </tr>
+    <tr>
+        <td>{{ form_widget(form.Enregistrer) }}</td>
+        <td>{{ form_widget(form.FinDeRun,{"attr":{"onclick":(app.user.babyProof ?"Vous allez terminer la run pour "~challenger.username:"")}}) }}</td>
+    </tr>
+
 </table>
 {{ form_end(form) }}
 
