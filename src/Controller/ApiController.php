@@ -18,7 +18,7 @@ class ApiController extends AbstractController
 {
 
     /**
-     * @Route("/api/user/{apiKey}",name="api_points")
+     * @Route("/api/user/{apiKey}",name="api_points",methods={"POST"})
      */
     public function api(Request $request, string $apiKey)
     {
@@ -28,12 +28,14 @@ class ApiController extends AbstractController
         $run = $entityManager->getRepository(Run::class)
             ->createQueryBuilder('r')
             ->leftJoin("r.user", 'user')
+            ->where('user.username = :apikey')
+            ->setParameter("apikey", $apiKey)
             ->orderBy('r.id', 'DESC')
             ->setMaxResults(1)
             ->setFirstResult(0)
             ->getQuery()->getOneOrNullResult();
 
-        $score = json_decode($request->getContent());
+        $score = (array)json_decode($request->getContent());
         foreach ($run->getRunSettings() as $runSetting) {
             if (isset($score[$runSetting->getChallengeSetting()->getAutoValue()])) {
                 $runSetting->setValue($score[$runSetting->getChallengeSetting()->getAutoValue()]);
