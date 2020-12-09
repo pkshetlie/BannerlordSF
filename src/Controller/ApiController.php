@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Run;
 use App\Entity\UserScore;
 use App\Service\ChallengeService;
 use Doctrine\ORM\EntityManager;
@@ -17,27 +18,29 @@ class ApiController extends AbstractController
 {
 
     /**
-     * @Route("/api/points/{apiKey}/{points}",name="api_points")
+     * @Route("/api/user/{apiKey}",name="api_points")
      */
-    public function api(string $apiKey,int $run, int $points, ChallengeService $challengeService)
+    public function api(Request $request, string $apiKey)
     {
-/** @var EntityManager $entityManager */
+        /** @var EntityManager $entityManager */
         $entityManager = $this->getDoctrine()->getManager();
-        /** @var UserScore $api */
-        $api = $entityManager->getRepository(UserScore::class)->createQueryBuilder('us')
-->join('us.user','user')
-->where('user.apiKey = :apikey')
-            ->andWhere("us.challengeEdition = :edition")
-            ->andWhere("us.runNumber = :run")
-            ->setParameter('apikey',$apiKey)
-            ->setRun()
+        /** @var Run $run */
+        $run = $entityManager->getRepository(Run::class)
+            ->createQueryBuilder('r')
+            ->leftJoin("r.user", 'user')
+            ->orderBy('r.id', 'DESC')
+            ->setMaxResults(1)
+            ->setFirstResult(0)
             ->getQuery()->getOneOrNullResult();
 
-
-        if ($api != null) {
-            $api->setPoints($points);
-            $entityManager->flush();
+        $score = json_decode($request->getContent());
+        foreach ($run->getRunSettings() as $runSetting) {
+            if (isset($score[$runSetting->getChallengeSetting()->getAutoValue()])) {
+                $runSetting->setValue($score[$runSetting->getChallengeSetting()->getAutoValue()]);
+                $entityManager->flush();
+            }
         }
+
         return new Response('OK');
     }
 
@@ -51,10 +54,10 @@ class ApiController extends AbstractController
             ->setFrom($this->getParameter('webmaster_email'))
             ->setTo("pierrick.pobelle@gmail.com")
             ->setBody(
-                json_encode($request->headers->all())."\r\n"
-                .json_encode($request->query)."\r\n"
-                .json_encode($_POST)."\r\n"
-                .json_encode($_REQUEST)."\r\n"
+                json_encode() . "\r\n"
+                . json_encode($request->query) . "\r\n"
+                . json_encode($_POST) . "\r\n"
+                . json_encode($_REQUEST) . "\r\n"
                 ,
                 'text/html'
             );

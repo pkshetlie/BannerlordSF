@@ -108,6 +108,11 @@ class ChallengeSetting
      */
     private $subTotal;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $autoValue;
+
     public function __construct()
     {
         $this->runSettings = new ArrayCollection();
@@ -337,6 +342,18 @@ class ChallengeSetting
     public function setSubTotal(?string $subTotal): self
     {
         $this->subTotal = $subTotal;
+
+        return $this;
+    }
+
+    public function getAutoValue(): ?string
+    {
+        return $this->autoValue;
+    }
+
+    public function setAutoValue(string $autoValue): self
+    {
+        $this->autoValue = $autoValue;
 
         return $this;
     }

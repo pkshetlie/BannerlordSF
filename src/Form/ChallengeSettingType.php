@@ -19,6 +19,7 @@ class ChallengeSettingType extends AbstractType
             ->add('ratio')
             ->add('position')
             ->add('subTotal',null,['label'=>"Libellé sous total"])
+            ->add('autoValue',null,['label'=>"Valeur Auto"])
             ->add('inputType',ChoiceType::class,[
                 'choices'=>[
                     "Champ texte"=>ChallengeSetting::TEXT,
