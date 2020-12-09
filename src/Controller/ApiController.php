@@ -28,24 +28,30 @@ class ApiController extends AbstractController
         /** @var Run $run */
         $run = $entityManager->getRepository(Run::class)
             ->createQueryBuilder('r')
+            ->leftJoin("r.challenge", 'challenge')
+            ->leftJoin("challenge.challengeDates", 'challenge_dates')
             ->leftJoin("r.user", 'user')
-            ->where('user.username = :apikey')
+            ->where('user.apiKey = :apikey')
+            ->andWhere('challenge_dates.startDate >= :now')
+            ->andWhere('challenge_dates.endDate <= :now')
             ->setParameter("apikey", $apiKey)
+            ->setParameter("now", new \DateTime())
             ->orderBy('r.id', 'DESC')
             ->setMaxResults(1)
             ->setFirstResult(0)
             ->getQuery()->getOneOrNullResult();
 
-        $score = (array)json_decode($request->getContent());
-        foreach ($run->getRunSettings() as $runSetting) {
-            if (isset($score[$runSetting->getChallengeSetting()->getAutoValue()])) {
-                $runSetting->setValue($score[$runSetting->getChallengeSetting()->getAutoValue()]);
-                $entityManager->flush();
+        if ($run != null) {
+            $score = (array)json_decode($request->getContent());
+            foreach ($run->getRunSettings() as $runSetting) {
+                if (isset($score[$runSetting->getChallengeSetting()->getAutoValue()])) {
+                    $runSetting->setValue($score[$runSetting->getChallengeSetting()->getAutoValue()]);
+                    $entityManager->flush();
+                }
             }
+            $runService->ComputeScore($run);
+            $entityManager->flush();
         }
-        $runService->ComputeScore($run);
-        $entityManager->flush();
-
         return new Response('OK');
     }
 
