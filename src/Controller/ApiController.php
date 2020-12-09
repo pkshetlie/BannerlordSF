@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Entity\Run;
 use App\Entity\UserScore;
 use App\Service\ChallengeService;
+use App\Service\RunService;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +21,7 @@ class ApiController extends AbstractController
     /**
      * @Route("/api/user/{apiKey}",name="api_points",methods={"POST"})
      */
-    public function api(Request $request, string $apiKey)
+    public function api(Request $request, string $apiKey, RunService $runService)
     {
         /** @var EntityManager $entityManager */
         $entityManager = $this->getDoctrine()->getManager();
@@ -42,6 +43,8 @@ class ApiController extends AbstractController
                 $entityManager->flush();
             }
         }
+        $runService->ComputeScore($run);
+        $entityManager->flush();
 
         return new Response('OK');
     }
