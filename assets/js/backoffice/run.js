@@ -202,6 +202,12 @@ $(function () {
         }
         let t = $(this)
         let form = $(this).closest('form');
+
+        if(t.closest('td').data('babyproof')){
+            if(!confirm('Vous allez confirmer une fin de run pour '+ t.closest('td').data('challenger')+", êtes vous sur(e) de vouloir continuer ? ")){
+                return;
+            }
+        }
         cancelableXhr = $.ajax({
             url: form.attr('action'),
             type: 'post',
