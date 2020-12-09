@@ -134,6 +134,7 @@ function updateLigne(ligne) {
     // console.log("float value: "+ value);
 
     let total = ratio * value;
+    total = total === undefined || total === null ||isNaN(total)  ?0:total;
     ligne.find('.total-line').html(Math.floor(total));
 
     if (ligne.data("issteptovictory") === 1) {
