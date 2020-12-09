@@ -5,11 +5,13 @@ namespace App\Controller\Backend;
 use App\Entity\User;
 use App\Form\RegistrationAdminType;
 use App\Form\RegistrationFormType;
+use App\Helper\XmlResponse;
 use App\Repository\UserRepository;
 use Pkshetlie\PaginationBundle\Service\Calcul;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -65,7 +67,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if($form->get('plainPassword')->getData() != null) {
+            if ($form->get('plainPassword')->getData() != null) {
                 $user->setPassword(
                     $passwordEncoder->encodePassword(
                         $user,
@@ -97,5 +99,29 @@ class UserController extends AbstractController
         $entityManager->remove($rule);
         $entityManager->flush();
         return $this->redirectToRoute('user_admin_index');
+    }
+
+    /**
+     * @Route("/gen/file/{id}", name="user_admin_generate_apikey_file")
+     *
+     */
+    public function genFile(User $user)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        if ($user->getApiKey() == null) {
+            $user->setApiKey(md5($user->getUsername() . $user->getEmail() . date('d_m_y_s')));
+            $em->flush();
+        }
+
+        $response = new XmlResponse("<configuration>
+    <apiKey value='" . $user->getApiKey() . "'/>
+</configuration>");
+        $response->headers->add([
+            "Content-Disposition" => ResponseHeaderBag::DISPOSITION_ATTACHMENT . "; filename=\"Key.xml\"",
+        ]);
+
+        return $response;
+
     }
 }

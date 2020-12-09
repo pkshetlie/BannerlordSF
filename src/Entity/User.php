@@ -97,6 +97,11 @@ class User implements UserInterface
      */
     private $babyProof;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $apiKey;
+
     public function __construct()
     {
         $this->userScores = new ArrayCollection();
@@ -513,6 +518,18 @@ class User implements UserInterface
     public function setBabyProof(?bool $babyProof): self
     {
         $this->babyProof = $babyProof;
+
+        return $this;
+    }
+
+    public function getApiKey(): ?string
+    {
+        return $this->apiKey;
+    }
+
+    public function setApiKey(?string $apiKey): self
+    {
+        $this->apiKey = $apiKey;
 
         return $this;
     }
