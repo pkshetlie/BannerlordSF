@@ -38,13 +38,20 @@ class ChallengeController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $newChallenge = clone $challenge;
-        $em->clear(Challenge::class);
-
+//        $em->clear(Challenge);
+        foreach($newChallenge->getRuns() AS $run) {
+            $newChallenge->removeRun($run);
+        }
+        foreach($newChallenge->getParticipations() AS $participation) {
+            $newChallenge->removeParticipation($participation);
+        }
+        VarDumper::dump($newChallenge);
         foreach($challenge->getChallengeSettings() AS $setting) {
             $newSetting = clone $setting;
             $em->persist($newSetting);
             $em->clear(ChallengeSetting::class);
             $newChallenge->addChallengeSetting($newSetting);
+            $newSetting->setChallenge($newChallenge);
         }
 
         foreach($challenge->getChallengePrizes() AS $prize) {
@@ -52,10 +59,13 @@ class ChallengeController extends AbstractController
             $em->persist($newPrize);
             $em->clear(ChallengePrize::class);
             $newChallenge->addChallengePrize($newPrize);
+            $newPrize->setChallenge($newChallenge);
+
         }
 
         foreach($challenge->getRules() AS $rules) {
             $newChallenge->addRule($rules);
+            $rules->addChallenge($newChallenge);
         }
 
         foreach($challenge->getChallengeDates() AS $dates) {
@@ -64,10 +74,10 @@ class ChallengeController extends AbstractController
 
             $em->clear(ChallengeDate::class);
             $newChallenge->addChallengeDate($newDate);
+            $newDate->setChallenge($newChallenge);
         }
-
-
         $em->persist($newChallenge);
+
         $em->flush();
 
         return $this->redirectToRoute('');
