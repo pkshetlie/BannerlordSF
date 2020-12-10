@@ -29,7 +29,7 @@ use Symfony\Component\VarDumper\VarDumper;
 class ChallengeController extends AbstractController
 {
     /**
-     * @Route("/duplicate/{id}", name="challenge_admin_index")
+     * @Route("/duplicate/{id}", name="challenge_admin_duplicate")
      * @param Request $request
      * @param Challenge $challenge
      * @return Response
