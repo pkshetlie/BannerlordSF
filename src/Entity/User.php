@@ -102,12 +102,18 @@ class User implements UserInterface
      */
     private $apiKey;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Challenge::class, mappedBy="user")
+     */
+    private $challenges;
+
     public function __construct()
     {
         $this->userScores = new ArrayCollection();
         $this->participations = new ArrayCollection();
         $this->arbitreOf = new ArrayCollection();
         $this->runs = new ArrayCollection();
+        $this->challenges = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -530,6 +536,37 @@ class User implements UserInterface
     public function setApiKey(?string $apiKey): self
     {
         $this->apiKey = $apiKey;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Challenge[]
+     */
+    public function getChallenges(): Collection
+    {
+        return $this->challenges;
+    }
+
+    public function addChallenge(Challenge $challenge): self
+    {
+        if (!$this->challenges->contains($challenge)) {
+            $this->challenges[] = $challenge;
+            $challenge->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChallenge(Challenge $challenge): self
+    {
+        if ($this->challenges->contains($challenge)) {
+            $this->challenges->removeElement($challenge);
+            // set the owning side to null (unless already changed)
+            if ($challenge->getUser() === $this) {
+                $challenge->setUser(null);
+            }
+        }
 
         return $this;
     }

@@ -125,6 +125,16 @@ class Challenge
      */
     private $malusMax;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $display;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="challenges")
+     */
+    private $user;
+
     public function __construct()
     {
         $this->rules = new ArrayCollection();
@@ -544,6 +554,30 @@ class Challenge
     public function setMalusMax(string $malusMax): self
     {
         $this->malusMax = $malusMax;
+
+        return $this;
+    }
+
+    public function getDisplay(): ?bool
+    {
+        return $this->display;
+    }
+
+    public function setDisplay(?bool $display): self
+    {
+        $this->display = $display;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }
