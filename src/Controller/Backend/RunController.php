@@ -122,8 +122,8 @@ class RunController extends AbstractController
             $runService->ComputeScore($run);
             $entityManager->flush();
             if ($request->get('button', null) == "run_FinDeRun" && $reset == false) {
-                $run->setEndDate(new \DateTime());
-                $entityManager->flush();
+                $runService->endOfRun($run);
+
                 $reset = true;
             }
         }

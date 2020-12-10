@@ -40,7 +40,6 @@ class ApiController extends AbstractController
             ->setMaxResults(1)
             ->setFirstResult(0)
             ->getQuery()->getOneOrNullResult();
-
         if ($run != null) {
             $score = (array)json_decode($request->getContent());
             foreach ($run->getRunSettings() as $runSetting) {
@@ -51,6 +50,35 @@ class ApiController extends AbstractController
             }
             $runService->ComputeScore($run);
             $entityManager->flush();
+        }
+        return new Response('OK');
+    }
+
+    /**
+     * @Route("/api/end-run/{apiKey}",name="api_points",methods={"POST"})
+     */
+    public function apiEndRun(Request $request, string $apiKey, RunService $runService)
+    {
+        /** @var EntityManager $entityManager */
+        $entityManager = $this->getDoctrine()->getManager();
+
+        /** @var Run $run */
+        $run = $entityManager->getRepository(Run::class)
+            ->createQueryBuilder('r')
+            ->leftJoin("r.challenge", 'challenge')
+            ->leftJoin("challenge.challengeDates", 'challenge_dates')
+            ->leftJoin("r.user", 'user')
+            ->where('user.apiKey = :apikey')
+            ->andWhere('challenge_dates.startDate >= :now')
+            ->andWhere('challenge_dates.endDate <= :now')
+            ->setParameter("apikey", $apiKey)
+            ->setParameter("now", new \DateTime())
+            ->orderBy('r.id', 'DESC')
+            ->setMaxResults(1)
+            ->setFirstResult(0)
+            ->getQuery()->getOneOrNullResult();
+        if ($run != null) {
+            $runService->endOfRun($run);
         }
         return new Response('OK');
     }
