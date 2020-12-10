@@ -87,7 +87,7 @@ $(function () {
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Participations',
+                    label: 'Inscriptions',
                     data: participations,
                     fill: false,
                     background: 'rgba(0, 0, 0, 0)',
