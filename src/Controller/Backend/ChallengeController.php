@@ -36,6 +36,7 @@ class ChallengeController extends AbstractController
     public function index(Request $request, ChallengeRepository $challengeRepository, Calcul $paginationService): Response
     {
         $qb = $challengeRepository->createQueryBuilder('c')
+            ->where("c.user IS NULL")
             ->orderBy('c.season', 'DESC')
             ->addOrderBy('c.registrationOpening', 'DESC');
         $paginator = $paginationService->process($qb, $request);

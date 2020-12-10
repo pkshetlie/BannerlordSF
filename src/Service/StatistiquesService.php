@@ -25,7 +25,7 @@ class StatistiquesService
 
     public function countChallenges()
     {
-        return $this->em->getRepository(Challenge::class)->count([]);
+        return $this->em->getRepository(Challenge::class)->count(['display'=>true,'user'=>null]);
     }
 
     public function countParticipations()
