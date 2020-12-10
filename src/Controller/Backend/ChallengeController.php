@@ -3,6 +3,8 @@
 namespace App\Controller\Backend;
 
 use App\Entity\Challenge;
+use App\Entity\ChallengeDate;
+use App\Entity\ChallengePrize;
 use App\Entity\ChallengeSetting;
 use App\Entity\Participation;
 use App\Entity\Rule;
@@ -26,6 +28,52 @@ use Symfony\Component\VarDumper\VarDumper;
  */
 class ChallengeController extends AbstractController
 {
+    /**
+     * @Route("/duplicate/{id}", name="challenge_admin_index")
+     * @param Request $request
+     * @param Challenge $challenge
+     * @return Response
+     */
+    public function duplicate(Request $request, Challenge $challenge)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $newChallenge = clone $challenge;
+        $em->clear(Challenge::class);
+
+        foreach($challenge->getChallengeSettings() AS $setting) {
+            $newSetting = clone $setting;
+            $em->persist($newSetting);
+            $em->clear(ChallengeSetting::class);
+            $newChallenge->addChallengeSetting($newSetting);
+        }
+
+        foreach($challenge->getChallengePrizes() AS $prize) {
+            $newPrize = clone $prize;
+            $em->persist($newPrize);
+            $em->clear(ChallengePrize::class);
+            $newChallenge->addChallengePrize($newPrize);
+        }
+
+        foreach($challenge->getRules() AS $rules) {
+            $newChallenge->addRule($rules);
+        }
+
+        foreach($challenge->getChallengeDates() AS $dates) {
+            $newDate = clone $dates;
+            $em->persist($newDate);
+
+            $em->clear(ChallengeDate::class);
+            $newChallenge->addChallengeDate($newDate);
+        }
+
+
+        $em->persist($newChallenge);
+        $em->flush();
+
+        return $this->redirectToRoute('');
+    }
+
+
     /**
      * @Route("/", name="challenge_admin_index", methods={"GET"})
      * @param Request $request
