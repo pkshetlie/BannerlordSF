@@ -55,7 +55,7 @@ class ApiController extends AbstractController
     }
 
     /**
-     * @Route("/api/end-run/{apiKey}",name="api_points",methods={"POST"})
+     * @Route("/api/end-run/{apiKey}",name="api_end_run",methods={"POST"})
      */
     public function apiEndRun(Request $request, string $apiKey, RunService $runService)
     {
