@@ -39,73 +39,7 @@
     .custom-control label {
         cursor: pointer;
     }
-
-    .flag {
-        position: absolute;
-        top: -24px;
-        border-radius: 2px;
-        opacity: 0.7;
-        border: 35px solid;
-        border-top-color: $pastel-orange;
-        border-bottom-color: $pastel-orange;
-    }
-
-    .error-modal .flag {
-        border-top-color: $pastel-red;
-        border-bottom-color: $pastel-red;
-    }
-
-    .flag-left {
-        left: -35px;
-        border-right-color: $pastel-orange;
-        border-left-color: transparent;
-    }
-
-    .error-modal .flag-left {
-        left: -50px;
-        border-right-color: $pastel-red;
-        border-left-color: transparent;
-        z-index: -1;
-    }
-
-    .flag-right {
-        right: -35px;
-        border-right-color: transparent;
-        border-left-color: $pastel-orange;
-    }
-
-    .error-modal .flag-right {
-        right: -50px;
-        border-right-color: transparent;
-        border-left-color: $pastel-red;
-        z-index: -1;
-    }
-
-    .flag-center {
-        width: calc(100% - 13px);
-        height: 55px;
-        background-color: $pastel-orange;
-        position: absolute;
-        z-index: 1;
-        top: -31px;
-        left: 5px;
-        border-radius: 2px;
-        box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        > * {
-            margin: 0rem;
-        }
-    }
-
-    .error-modal .flag-center {
-        background-color: $pastel-red;
-        width: calc(100% + 10px);
-        left: -5px;
-        color: $white;
-    }
-
+    
     @media screen and (max-width: 767px) {
         .card > .row {
             flex-direction: column-reverse;

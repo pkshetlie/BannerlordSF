@@ -18,7 +18,7 @@
             {{ form_start(registration_form) }}
             {% for flashError in app.flashes('verify_email_error') %}
                 {#<div class="alert alert-danger" role="alert">{{ flashError }}</div>#}
-                <div class="modal fade error-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal fade alert-modal error-modal" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="flag-center"><h2>Erreur</h2></div>
@@ -117,7 +117,7 @@
             <form action="{{ url("app_login") }}" method="post" role="form">
                 {% if error %}
                     {#<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
-                    <div class="modal fade error-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal fade alert-modal error-modal" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="flag-center"><h2>Erreur</h2></div>

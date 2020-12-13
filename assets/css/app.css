@@ -347,55 +347,6 @@ footer {
       padding-left: 2.4rem; }
   .login-register .custom-control label {
     cursor: pointer; }
-  .login-register .flag {
-    position: absolute;
-    top: -24px;
-    border-radius: 2px;
-    opacity: 0.7;
-    border: 35px solid;
-    border-top-color: #FBB03B;
-    border-bottom-color: #FBB03B; }
-  .login-register .error-modal .flag {
-    border-top-color: #ff6161;
-    border-bottom-color: #ff6161; }
-  .login-register .flag-left {
-    left: -35px;
-    border-right-color: #FBB03B;
-    border-left-color: transparent; }
-  .login-register .error-modal .flag-left {
-    left: -50px;
-    border-right-color: #ff6161;
-    border-left-color: transparent;
-    z-index: -1; }
-  .login-register .flag-right {
-    right: -35px;
-    border-right-color: transparent;
-    border-left-color: #FBB03B; }
-  .login-register .error-modal .flag-right {
-    right: -50px;
-    border-right-color: transparent;
-    border-left-color: #ff6161;
-    z-index: -1; }
-  .login-register .flag-center {
-    width: calc(100% - 13px);
-    height: 55px;
-    background-color: #FBB03B;
-    position: absolute;
-    z-index: 1;
-    top: -31px;
-    left: 5px;
-    border-radius: 2px;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center; }
-    .login-register .flag-center > * {
-      margin: 0rem; }
-  .login-register .error-modal .flag-center {
-    background-color: #ff6161;
-    width: calc(100% + 10px);
-    left: -5px;
-    color: #ffffff; }
   @media screen and (max-width: 767px) {
     .login-register .card > .row {
       flex-direction: column-reverse; } }
@@ -549,12 +500,12 @@ footer {
   opacity: 0.4; }
 
 .challenges-list .challenge-not-active .card-buttons .btn-bottom-right, .challenges-list .challenge-not-active .card-buttons .btn-cash {
-  background-color: #ff6161;
-  border: 1px solid #ff6161; }
+  background-color: #ce6e6e;
+  border: 1px solid #ce6e6e; }
 
 .challenges-list .challenge-not-active .card-buttons .btn-bottom-right:hover {
   background-color: #ffffff;
-  color: #ff6161; }
+  color: #ce6e6e; }
 
 .challenges-list #alert-futur-modal .modal-header {
   background-color: #FBB03B;
@@ -8128,13 +8079,13 @@ body {
       background-color: #ffffff;
       color: #707070; }
   .btn-custom.btn-red:not(.disabled) {
-    background-color: #ff6161;
-    border: 1px solid #ff6161;
+    background-color: #ce6e6e;
+    border: 1px solid #ce6e6e;
     cursor: default; }
     .btn-custom.btn-red:not(.disabled).active {
       cursor: pointer; }
     .btn-custom.btn-red:not(.disabled).active:hover {
-      color: #ff6161;
+      color: #ce6e6e;
       background-color: #ffffff; }
 
 #btn-scroll-top {
@@ -8206,6 +8157,79 @@ body {
 .modal .connexion_modal .modal-content {
   height: 343px;
   transition: 0.2s; }
+
+.alert-modal .flag-center {
+  width: calc(100% + 10px);
+  height: 55px;
+  background-color: #ce6e6e;
+  position: absolute;
+  z-index: 1;
+  top: -31px;
+  left: -5px;
+  border-radius: 2px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff; }
+  .alert-modal .flag-center > * {
+    margin: 0rem; }
+
+.alert-modal .flag {
+  position: absolute;
+  top: -24px;
+  border-radius: 2px;
+  opacity: 0.7;
+  border: 35px solid; }
+
+.alert-modal .flag-left {
+  left: -50px;
+  border-left-color: transparent;
+  z-index: -1; }
+
+.alert-modal .flag-right {
+  right: -50px;
+  border-right-color: transparent;
+  z-index: -1; }
+
+.alert-modal.error-modal .flag-center {
+  background-color: #ce6e6e; }
+
+.alert-modal.error-modal .flag {
+  border-top-color: #ce6e6e;
+  border-bottom-color: #ce6e6e; }
+
+.alert-modal.error-modal .flag-left {
+  border-right-color: #ce6e6e; }
+
+.alert-modal.error-modal .flag-right {
+  border-left-color: #ce6e6e; }
+
+.alert-modal.warning-modal .flag-center {
+  background-color: #FBB03B; }
+
+.alert-modal.warning-modal .flag {
+  border-top-color: #FBB03B;
+  border-bottom-color: #FBB03B; }
+
+.alert-modal.warning-modal .flag-left {
+  border-right-color: #FBB03B; }
+
+.alert-modal.warning-modal .flag-right {
+  border-left-color: #FBB03B; }
+
+.alert-modal.sucess-modal .flag-center {
+  background-color: #76b385; }
+
+.alert-modal.sucess-modal .flag {
+  border-top-color: #76b385;
+  border-bottom-color: #76b385; }
+
+.alert-modal.sucess-modal .flag-left {
+  border-right-color: #76b385; }
+
+.alert-modal.sucess-modal .flag-right {
+  border-left-color: #76b385; }
 
 /* loaders */
 .loading-container {

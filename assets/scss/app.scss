@@ -11,10 +11,9 @@
  $light-grey: #f2f2f2;
  $grey: #cfcfcf;
  $dark-grey: #606060;
- $pastel-red: #b94e4e;
- $pastel-red: #ff6161;
+ $pastel-red: #ce6e6e;
  $pastel-orange: #FBB03B;
-
+ $pastel-green: #76b385;
 /*
  * IMPORTS
  */
@@ -183,6 +182,90 @@ body {
         transition: 0.2s;
     }
 }
+
+.alert-modal {
+    .flag-center {
+        width: calc(100% + 10px);
+        height: 55px;
+        background-color: $pastel-red;
+        position: absolute;
+        z-index: 1;
+        top: -31px;
+        left: -5px;
+        border-radius: 2px;
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $white;
+        > * {
+            margin: 0rem;
+        }
+    }
+    .flag {
+        position: absolute;
+        top: -24px;
+        border-radius: 2px;
+        opacity: 0.7;
+        border: 35px solid;
+    }
+    .flag-left {
+        left: -50px;
+        border-left-color: transparent;
+        z-index: -1;
+    }
+    .flag-right {
+        right: -50px;
+        border-right-color: transparent;
+        z-index: -1;
+    }
+    &.error-modal {
+        .flag-center {
+            background-color: $pastel-red;
+        }
+        .flag {
+            border-top-color: $pastel-red;
+            border-bottom-color: $pastel-red;
+        }
+        .flag-left {
+            border-right-color: $pastel-red;
+        }
+        .flag-right {
+            border-left-color: $pastel-red;
+        }
+    }
+    &.warning-modal {
+        .flag-center {
+            background-color: $pastel-orange;
+        }
+        .flag {
+            border-top-color: $pastel-orange;
+            border-bottom-color: $pastel-orange;
+        }
+        .flag-left {
+            border-right-color: $pastel-orange;
+        }
+        .flag-right {
+            border-left-color: $pastel-orange;
+        }
+    }
+
+    &.sucess-modal {
+        .flag-center {
+            background-color: $pastel-green;
+        }
+        .flag {
+            border-top-color: $pastel-green;
+            border-bottom-color: $pastel-green;
+        }
+        .flag-left {
+            border-right-color: $pastel-green;
+        }
+        .flag-right {
+            border-left-color: $pastel-green;
+        }
+    }}
+
 
 /* loaders */
 .loading-container {
