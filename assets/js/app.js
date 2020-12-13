@@ -3,7 +3,8 @@
 import '../css/app.css';
 import $ from 'jquery';
 import 'bootstrap';
-import './argon/plugins/chartjs.min'
+import './argon/plugins/chartjs.min';
+import  '../../public/bundles/pagination/js/see-more.js';
 /*global document, window*/
 
 /* DOM elements with background images */

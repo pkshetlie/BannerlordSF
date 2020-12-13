@@ -45,6 +45,10 @@
                                        href="{{ path('challenge_admin_settings_index', {'id': challenge.id}) }}"><i
                                                 class="fas fa-cogs"></i></a>
                                     <a class="btn btn-sm btn-danger confirm-action"
+                                       href="{{ path('challenge_admin_duplicate', {'id': challenge.id}) }}"><i
+                                                class="fas fa-copy"></i></a>
+
+                                    <a class="btn btn-sm btn-danger confirm-action"
                                        href="{{ path('challenge_admin_delete', {'id': challenge.id}) }}"><i
                                                 class="fas fa-trash"></i></a>
                                 </td>

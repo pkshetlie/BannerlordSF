@@ -3,6 +3,8 @@
 namespace App\Controller\Backend;
 
 use App\Entity\Challenge;
+use App\Entity\ChallengeDate;
+use App\Entity\ChallengePrize;
 use App\Entity\ChallengeSetting;
 use App\Entity\Participation;
 use App\Entity\User;
@@ -26,7 +28,6 @@ use Symfony\Component\String\Slugger\SluggerInterface;
  */
 class ChallengeSettingController extends AbstractController
 {
-
     /**
      * @Route("/{id}", name="challenge_admin_settings_index")
      * @param Request $request
@@ -35,7 +36,6 @@ class ChallengeSettingController extends AbstractController
      */
     public function settings(Request $request, Challenge $challenge)
     {
-
         return $this->render('backend/setting/index.html.twig', [
             'challenge' => $challenge
         ]);

@@ -15,6 +15,7 @@ class ChallengeSetting
     const TEXT = 100;
     const SELECT = 200;
     const CHECKBOX = 300;
+    const NUMERIC = 400;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -101,6 +102,16 @@ class ChallengeSetting
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $isAffectedByMalus;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $subTotal;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $autoValue;
 
     public function __construct()
     {
@@ -319,6 +330,30 @@ class ChallengeSetting
     public function setIsAffectedByMalus(?bool $isAffectedByMalus): self
     {
         $this->isAffectedByMalus = $isAffectedByMalus;
+
+        return $this;
+    }
+
+    public function getSubTotal(): ?string
+    {
+        return $this->subTotal;
+    }
+
+    public function setSubTotal(?string $subTotal): self
+    {
+        $this->subTotal = $subTotal;
+
+        return $this;
+    }
+
+    public function getAutoValue(): ?string
+    {
+        return $this->autoValue;
+    }
+
+    public function setAutoValue(string $autoValue): self
+    {
+        $this->autoValue = $autoValue;
 
         return $this;
     }

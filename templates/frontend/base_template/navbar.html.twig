@@ -60,6 +60,11 @@
                     </li>
                 {% else %}
                     <li class="nav-item">
+                        <a href="{{ url('my_account') }}" class="nav-link">
+                            <i class="ni ni-collection d-lg-none"></i>
+                            <span class="nav-link-inner--text">Mon Compte</span>
+                        </a>
+                    </li> <li class="nav-item">
                         <a href="{{ url('app_logout') }}" class="nav-link">
                             <i class="ni ni-collection d-lg-none"></i>
                             <span class="nav-link-inner--text">Déconnexion</span>

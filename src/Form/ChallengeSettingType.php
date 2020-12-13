@@ -18,9 +18,12 @@ class ChallengeSettingType extends AbstractType
             ->add('statLabel', null, ['label'=>"Libellé stat"])
             ->add('ratio')
             ->add('position')
+            ->add('subTotal',null,['label'=>"Libellé sous total"])
+            ->add('autoValue',null,['label'=>"Valeur Auto"])
             ->add('inputType',ChoiceType::class,[
                 'choices'=>[
                     "Champ texte"=>ChallengeSetting::TEXT,
+                    "Champ numerique"=>ChallengeSetting::NUMERIC,
                     "Liste déroulante"=>ChallengeSetting::SELECT,
                     "Case à cocher"=>ChallengeSetting::CHECKBOX,
                 ],

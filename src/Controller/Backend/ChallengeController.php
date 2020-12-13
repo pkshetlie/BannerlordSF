@@ -3,6 +3,8 @@
 namespace App\Controller\Backend;
 
 use App\Entity\Challenge;
+use App\Entity\ChallengeDate;
+use App\Entity\ChallengePrize;
 use App\Entity\ChallengeSetting;
 use App\Entity\Participation;
 use App\Entity\Rule;
@@ -27,6 +29,81 @@ use Symfony\Component\VarDumper\VarDumper;
 class ChallengeController extends AbstractController
 {
     /**
+     * @Route("/duplicate/{id}", name="challenge_admin_duplicate")
+     * @param Request $request
+     * @param Challenge $challenge
+     * @return Response
+     */
+    public function duplicate(Request $request, Challenge $challenge)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $newChallenge = new Challenge();
+        $newChallenge->setType($challenge->getType());
+        $newChallenge->setUser($challenge->getUser());
+        $newChallenge->setMalusPerRun($challenge->getMalusPerRun());
+        $newChallenge->setMalusMax($challenge->getMalusMax());
+        $newChallenge->setDescription($challenge->getDescription());
+        $newChallenge->setSeason($challenge->getSeason());
+        $newChallenge->setRegistrationOpening($challenge->getRegistrationOpening());
+        $newChallenge->setRegistrationClosing($challenge->getRegistrationClosing());
+        $newChallenge->setTitle($challenge->getTitle());
+        $newChallenge->setBanner($challenge->getBanner());
+        $newChallenge->setDisplay($challenge->getDisplay());
+        $newChallenge->setMaxChallenger($challenge->getMaxChallenger());
+
+        foreach ($challenge->getChallengeSettings() as $setting) {
+            $newSetting = new ChallengeSetting();
+            $newSetting->setChallenge($newChallenge);
+            $newSetting->setRatio($setting->getRatio());
+            $newSetting->setAutoValue($setting->getAutoValue());
+            $newSetting->setDefaultValue($setting->getDefaultValue());
+            $newSetting->setlabel($setting->getLabel());
+            $newSetting->setDisplayBestForStats($setting->getDisplayBestForStats());
+            $newSetting->setDisplayForStats($setting->getDisplayForStats());
+            $newSetting->setInputType($setting->getInputType());
+            $newSetting->setPosition($setting->getPosition());
+            $newSetting->setIsAffectedByMalus($setting->getIsAffectedByMalus());
+            $newSetting->setIsReportedOnTheNextRun($setting->getIsReportedOnTheNextRun());
+            $newSetting->setIsStepToVictory($setting->getIsStepToVictory());
+            $newSetting->setIsUsedForScore($setting->getIsUsedForScore());
+            $newSetting->setSubTotal($setting->getSubTotal());
+
+            $em->persist($newSetting);
+            $em->clear(ChallengeSetting::class);
+            $newSetting->setChallenge($newChallenge);
+        }
+
+        foreach ($challenge->getChallengePrizes() as $prize) {
+            $newPrize = clone $prize;
+            $em->clear(ChallengePrize::class);
+            $newChallenge->addChallengePrize($newPrize);
+            $newPrize->setChallenge($newChallenge);
+            $em->persist($newPrize);
+
+        }
+
+        foreach ($challenge->getRules() as $rules) {
+            $newChallenge->addRule($rules);
+            $rules->addChallenge($newChallenge);
+        }
+
+        foreach ($challenge->getChallengeDates() as $dates) {
+            $newDate = clone $dates;
+            $em->clear(ChallengeDate::class);
+            $em->persist($newDate);
+
+            $newChallenge->addChallengeDate($newDate);
+            $newDate->setChallenge($newChallenge);
+        }
+        $em->persist($newChallenge);
+        $em->flush();
+
+        return $this->redirectToRoute('challenge_admin_index');
+    }
+
+
+    /**
      * @Route("/", name="challenge_admin_index", methods={"GET"})
      * @param Request $request
      * @param ChallengeRepository $challengeRepository
@@ -36,8 +113,10 @@ class ChallengeController extends AbstractController
     public function index(Request $request, ChallengeRepository $challengeRepository, Calcul $paginationService): Response
     {
         $qb = $challengeRepository->createQueryBuilder('c')
+            ->where("c.user IS NULL")
             ->orderBy('c.season', 'DESC')
-            ->addOrderBy('c.registrationOpening', 'DESC');
+            ->addOrderBy('c.registrationOpening', 'DESC')
+            ->addOrderBy('c.id', 'DESC');
         $paginator = $paginationService->process($qb, $request);
         return $this->render('backend/challenge/index.html.twig', [
             'paginator' => $paginator,
@@ -69,7 +148,7 @@ class ChallengeController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->remove($participation);
             $em->flush();
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             VarDumper::dump($e);
         }
         return new JsonResponse([
@@ -143,7 +222,7 @@ class ChallengeController extends AbstractController
         foreach ($challenge->getChallengePrizes() as $prize) {
             $originalPrizes->add($prize);
         }
-        $form = $this->createForm(ChallengeType::class, $challenge,['attr'=>['novalidate'=>'novalidate']]);
+        $form = $this->createForm(ChallengeType::class, $challenge, ['attr' => ['novalidate' => 'novalidate']]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -158,9 +237,9 @@ class ChallengeController extends AbstractController
                 }
             }
             /** @var Rule $rule */
-            foreach($originalRules as $rule) {
+            foreach ($originalRules as $rule) {
                 if (false === $challenge->getRules()->contains($rule)) {
-                  $challenge->removeRule($rule);
+                    $challenge->removeRule($rule);
                     $rule->removeChallenge($challenge);
 
                 }
@@ -194,7 +273,7 @@ class ChallengeController extends AbstractController
                 }
                 $challenge->setBanner($newFilename);
             }
-            foreach ($challenge->getRules() AS $rule){
+            foreach ($challenge->getRules() as $rule) {
                 $rule->addChallenge($challenge);
                 $entityManager->persist($rule);
             }

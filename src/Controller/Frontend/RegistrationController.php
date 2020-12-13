@@ -33,7 +33,8 @@ class RegistrationController extends AbstractController
      * @param UserPasswordAuthenticator $authenticator
      * @return Response
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, UserPasswordAuthenticator $authenticator): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler,
+                             UserPasswordAuthenticator $authenticator): Response
     {
         $user = new User();
 

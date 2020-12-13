@@ -13,6 +13,10 @@
         <td>{{ form_widget(setting) }}</td>
     </tr>
 {% endfor %}
+    <tr>
+        <td colspan="2">{{ form_widget(form.comment) }}</td>
+    </tr>
+
 </table>
 {{ form_end(form) }}
 

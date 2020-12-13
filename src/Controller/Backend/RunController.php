@@ -89,7 +89,7 @@ class RunController extends AbstractController
                 $runSetting->setRun($run);
                 if ($lastrun != null && $setting->getIsReportedOnTheNextRun()) {
                     foreach ($lastrun->getRunSettings() as $lastSetting) {
-                        if($lastSetting->getChallengeSetting()->getId() == $setting->getId()) {
+                        if ($lastSetting->getChallengeSetting()->getId() == $setting->getId()) {
                             $runSetting->setValue($lastSetting->getValue());
                             break;
                         }
@@ -98,7 +98,9 @@ class RunController extends AbstractController
                     $runSetting->setValue($setting->getDefaultValue());
                 }
                 $run->addRunSetting($runSetting);
-                $run->setMalus(1 - ($challenge->getMalusPerRun() * ($countRun-1) / 100));
+                $malus = $challenge->getMalusPerRun() * ($countRun - 1);
+                $malus = $malus >= $challenge->getMalusMax() ? $challenge->getMalusMax() : $malus;
+                $run->setMalus(1 - ($malus / 100));
                 $entityManager->persist($runSetting);
             }
 
@@ -120,8 +122,8 @@ class RunController extends AbstractController
             $runService->ComputeScore($run);
             $entityManager->flush();
             if ($request->get('button', null) == "run_FinDeRun" && $reset == false) {
-                $run->setEndDate(new \DateTime());
-                $entityManager->flush();
+                $runService->endOfRun($run);
+
                 $reset = true;
             }
         }
@@ -169,7 +171,7 @@ class RunController extends AbstractController
      * @param Participation $participation
      * @return Response
      */
-    public function deleteParticipation(Request $request, Participation $participation, \Swift_Mailer $mailer): Response
+    public function deleteParticipation(Request $request, Participation $participation): Response
     {
         $this->getDoctrine()->getManager()->remove($participation);
 
@@ -334,20 +336,44 @@ class RunController extends AbstractController
 //        ]);
 //    }
 
-//    /**
-//     * @Route("/{id}", name="run_admin_delete", methods={"GET"})
-//     * @param Request $request
-//     * @param Challenge $challenge
-//     * @return Response
-//     */
-//    public function delete(Request $request, Challenge $challenge): Response
-//    {
-//        $entityManager = $this->getDoctrine()->getManager();
-//        $entityManager->remove($challenge);
-//        $entityManager->flush();
-//
-//        return $this->redirectToRoute('challenge_admin_index');
-//    }
+    /**
+     * @Route("/{id}", name="run_admin_delete", methods={"GET"})
+     * @param Request $request
+     * @param Run $run
+     * @param RunRepository $runRepository
+     * @return Response
+     */
+    public function delete(Request $request, Run $run, RunRepository $runRepository, RunService $runService): Response
+    {
+
+        $user = $run->getUser();
+        $challenge = $run->getChallenge();
+
+        $entityManager = $this->getDoctrine()->getManager();
+        foreach($run->getRunSettings() AS $setting){
+            $entityManager->remove($setting);
+        }
+        $entityManager->remove($run);
+        $entityManager->flush();
+
+        $runs = $runRepository->findBy([
+            'user' => $user,
+            "challenge" => $challenge
+        ], ['id' => "ASC"]);
+        $countRun = 1;
+        foreach ($runs as $run) {
+            $malus = $challenge->getMalusPerRun() * ($countRun - 1);
+            $malus = $malus >= $challenge->getMalusMax() ? $challenge->getMalusMax() : $malus;
+            $run->setMalus(1 - ($malus / 100));
+            $runService->ComputeScore($run);
+            $entityManager->flush();
+            $countRun++;
+        }
+        return $this->redirectToRoute('admin_runs_info',[
+            'id_challenge'=>$challenge->getId(),
+            'id'=>$user->getId(),
+        ]);
+    }
 
 //    /**
 //     * @Route("/add-participation/{id}", name="add_participation")

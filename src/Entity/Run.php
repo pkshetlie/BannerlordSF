@@ -234,4 +234,15 @@ class Run
 
         return $this;
     }
+
+    public function runTotaux()
+    {
+        $tmp = [];
+        foreach ($this->getChallenge()->getChallengeSettings() as $setting) {
+            if ($setting->getSubTotal() != null && !in_array($setting->getSubTotal(), $tmp)) {
+                $tmp[] = $setting->getSubTotal();
+            }
+        }
+        return $tmp;
+    }
 }

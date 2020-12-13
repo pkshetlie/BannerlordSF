@@ -8,6 +8,15 @@
             {{ encore_entry_link_tags('app') }}
             <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
         {% endblock %}
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-GLHHBT4B7G" data-children-count="0"></script>
+        <script data-children-count="0">
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-GLHHBT4B7G');
+        </script>
     </head>
     <body>
     {% include 'frontend/base_template/navbar.html.twig' %}

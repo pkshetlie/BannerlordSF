@@ -19,6 +19,7 @@ import 'admin-lte/dist/js/pages/dashboard'
 import 'admin-lte/dist/js/adminlte.min'
 import 'admin-lte/dist/js/demo'
 import 'select2/dist/js/select2.full.min'
+import  '../../public/bundles/pagination/js/see-more.js';
 
 export {
     $
@@ -86,7 +87,7 @@ $(function () {
             data: {
                 labels: labels,
                 datasets: [{
-                    label: 'Participations',
+                    label: 'Inscriptions',
                     data: participations,
                     fill: false,
                     background: 'rgba(0, 0, 0, 0)',

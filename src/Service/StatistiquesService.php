@@ -25,7 +25,7 @@ class StatistiquesService
 
     public function countChallenges()
     {
-        return $this->em->getRepository(Challenge::class)->count([]);
+        return $this->em->getRepository(Challenge::class)->count(['user'=>null]);
     }
 
     public function countParticipations()
@@ -45,9 +45,6 @@ class StatistiquesService
      */
     public function getChallenges()
     {
-        return $this->em->getRepository(Challenge::class)->findBy([],['registrationOpening'=>"ASC"]);
+        return $this->em->getRepository(Challenge::class)->findBy(['user'=>null,'display'=>true],['registrationOpening'=>"ASC"]);
     }
-
-
-
 }

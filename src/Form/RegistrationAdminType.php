@@ -65,16 +65,9 @@ class RegistrationAdminType extends AbstractType
                     'placeholder' => 'user.placeholder.discordID'
                 ]
             ])
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'label' => 'user.label.agreeTerms',
-                'translation_domain' => 'messages',
-
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
+            ->add('babyProof', CheckboxType::class, [
+                'label' => 'Mode baby proof',
+                'required'=>false,
             ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,

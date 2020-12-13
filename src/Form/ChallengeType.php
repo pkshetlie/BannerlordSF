@@ -59,6 +59,7 @@ class ChallengeType extends AbstractType
                         ])
                     ],
                 ])
+            ->add('display', null, ['label' => 'Afficher en front'])
             ->add('maxChallenger', null, ['label' => 'challenge.label.maxChallenger'])
             ->add('registrationOpening', DateType::class, [
                 'format' => DateType::HTML5_FORMAT,
@@ -91,6 +92,9 @@ class ChallengeType extends AbstractType
             ])
             ->add('malusPerRun', null, [
                 'label' => "Malus par run (en %age)"
+            ])
+            ->add('malusMax', null, [
+                'label' => "Malus maximum"
             ])
             ->add('challengePrizes', CollectionType::class, [
                 'entry_type' => ChallengePrizeType::class,

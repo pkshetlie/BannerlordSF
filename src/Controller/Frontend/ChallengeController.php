@@ -35,7 +35,10 @@ class ChallengeController extends AbstractController
     public function index(Request $request, ChallengeRepository $challengeRepository, Calcul $paginationService): Response
     {
         $qb = $challengeRepository->createQueryBuilder('c')
-            ->orderBy('c.registrationOpening', 'DESC');
+            ->where('c.display = true')
+            ->andWhere('c.user IS NULL')
+            ->orderBy('c.season', 'DESC')
+            ->addOrderBy('c.registrationOpening', 'DESC');
         $paginator = $paginationService->process($qb, $request);
         return $this->render('frontend/challenge/index.html.twig', [
             'paginator' => $paginator,

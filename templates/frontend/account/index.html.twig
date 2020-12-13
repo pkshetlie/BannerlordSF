@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('home') }}
+{% endblock %}
+{% block body %}
+    <main class="wrapper">
+        <section class="section-banner bg1 home-title">
+            <h1>Mon compte</h1>
+        </section>
+
+        <section class="section-parallax static challenges-list">
+            <div class="container">
+                {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'account-1',default:""})) }}
+
+
+                <table>
+                    <tr>
+                        <th>Identifiant : </th>
+                        <td>{{ app.user.username }}</td>
+
+                        <th>Discord ID : </th>
+                        <td>{{ app.user.discordID }}</td>
+                    </tr>
+                    <tr>
+                        <th>E-mail : </th>
+                        <td>{{ app.user.email }}</td>
+
+                        <th>Twitch ID : </th>
+                        <td>{{ app.user.twitchID }}</td>
+                    </tr>
+                </table>
+                <a href="{{ url("user_generate_apikey_file") }}" class="btn btn-success"><i class="fa fa-file"></i> Générer mon fichier de configuration</a>
+
+                {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'account-tuto',default:"Faire un tuto pour le placement du fichier"})) }}
+
+            </div>
+        </section>
+    </main>
+{% endblock %}
