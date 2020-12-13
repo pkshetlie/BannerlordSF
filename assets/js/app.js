@@ -102,8 +102,8 @@ $(() => {
         window.location.hash = $(this).attr('href');
     });
     /* --- GESTION MODAL ERREURS --- */
-    if($('.error-modal').length) {
-        $('.error-modal').modal('show');
+    if($('.alert-modal').length) {
+        $('.alert-modal').modal('show');
     }
 
 
