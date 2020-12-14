@@ -54,14 +54,14 @@
                                     {% if is_granted('ROLE_USER') %}
                                         {% set participation = app.user.participation(challenge) %}
                                         {% if participation is not null %}
-                                            {% if participation.enabled %}
+                                            {% if participation.enabled  %}
                                                 <a href="#" class="btn btn-custom btn-green infos-toornament">Votre inscription est
                                                     validée</a>
                                             {% else %}
                                                 <a href="#" class="btn btn-custom btn-grey infos-toornament">Votre inscription est en
                                                     attente de validation</a>
                                             {% endif %}
-                                        {% else %}
+                                        {% elseif challenge.participations|length < challenge.maxChallenger %}
                                              {{ form(form) }}
                                         {% endif %}
                                     {% else %}
