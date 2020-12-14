@@ -15,10 +15,8 @@
                 {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'challenge-1',default:""})) }}
                 <div class="row">
                   {% include 'frontend/challenge/partial/challenges.html.twig' with {paginator:paginator} %}
-
                 </div>
                 {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'challenge-2',default:""})) }}
-
             </div>
         </section>
     </main>
