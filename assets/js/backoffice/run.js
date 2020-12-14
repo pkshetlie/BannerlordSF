@@ -84,9 +84,9 @@ function totalRun() {
             $(".sub-total").each(function () {
                 if ($(this).data('total') === tr.data('subtotal')) {
                     if (tr.data("isaffectedbymalus") === 1) {
-                        $(this).text(Math.floor(parseFloat($(this).text()) + Math.floor(parseFloat(value) * malus)));
+                        $(this).text(Math.ceil(parseFloat($(this).text()) + Math.ceil(parseFloat(value) * malus)));
                     } else {
-                        $(this).text(Math.floor(parseFloat($(this).text()) + parseFloat(value)));
+                        $(this).text(Math.ceil(parseFloat($(this).text()) + parseFloat(value)));
                     }
                 }
             });
@@ -96,16 +96,16 @@ function totalRun() {
     let total_malus = sumMalusable * malus;
     let tempScore = $("#run_tempScore").val();
     if (tempScore !== null && tempScore !== "" && tempScore !== undefined) {
-        $('.total-run-with-malus').html(Math.floor(tempScore * malus + sum));
+        $('.total-run-with-malus').html(Math.ceil(tempScore * malus + sum));
         $("#run_FinDeRun").attr('disabled', "disabled");
         $("#run_FinDeRun").attr('title', "Rentrez le détail pour pouvoir terminer la run");
     } else {
-        $('.total-run-with-malus').html(Math.floor(total_malus + sum));
+        $('.total-run-with-malus').html(Math.ceil(total_malus + sum));
         $("#run_FinDeRun").removeAttr('disabled');
         $("#run_FinDeRun").removeAttr('title');
     }
 
-    $(".total-run").html(Math.floor(sum + sumMalusable * malus));
+    $(".total-run").html(Math.ceil(sum + sumMalusable * malus));
 }
 
 function updateLigne(ligne) {
@@ -135,7 +135,7 @@ function updateLigne(ligne) {
 
     let total = ratio * value;
     total = total === undefined || total === null || total === "" || isNaN(total)  ?0:total;
-    ligne.find('.total-line').html(Math.floor(total));
+    ligne.find('.total-line').html(Math.ceil(total));
 
     if (ligne.data("issteptovictory") === 1) {
         let min = parseFloat(ligne.data("steptovictorymin"));

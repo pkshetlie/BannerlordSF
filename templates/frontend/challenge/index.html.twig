@@ -51,7 +51,7 @@
                                             <div class="col-7">
                                                 <div class="progress">
                                                     <div class="progress-bar" role="progressbar" style="width: 25%"
-                                                         aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                                                         aria-valuenow="{{ (entity.participations|length / entity.maxChallenger) * 100}}" aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                                 <label class="text-center w-100 nb-inscrit">{{ entity.participations|length }}/{{ entity.maxChallenger }} inscrits</label>
                                             </div>
