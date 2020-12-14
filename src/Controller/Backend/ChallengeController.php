@@ -92,8 +92,8 @@ class ChallengeController extends AbstractController
         foreach ($challenge->getChallengeDates() as $dates) {
             $newDate = new ChallengeDate();
             $newDate->setChallenge($newChallenge);
-            $newDate->setStartDate($dates->getStartDate()->modify("+1 months"));
-            $newDate->setEndDate($dates->getEndDate()->modify("+1 months"));
+            $newDate->setStartDate($dates->getStartDate()->modify("+2 months"));
+            $newDate->setEndDate($dates->getEndDate()->modify("+2 months"));
             $newChallenge->addChallengeDate($newDate);
             $em->persist($newDate);
         }
