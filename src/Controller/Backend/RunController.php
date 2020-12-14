@@ -308,32 +308,6 @@ class RunController extends AbstractController
         ]);
     }
 
-//    /**
-//     * @Route("/arbitre/change/{id}", name="change_arbitre")
-//     * @param Request $request
-//     * @param Participation $participation
-//     */
-//    public function changeArbitre(Request $request, Participation $participation, UserRepository $userRepository)
-//    {
-//        $arbitre = $userRepository->find($request->get('arbitre'));
-//        if ($arbitre != null) {
-//            $participation->setArbitre($arbitre);
-//            $this->getDoctrine()->getManager()->flush();
-//            return new JsonResponse([
-//                'success' => true,
-//                "message" => ""
-//            ]);
-//        } else {
-//            $participation->setArbitre(null);
-//            $this->getDoctrine()->getManager()->flush();
-//
-//        }
-//        return new JsonResponse([
-//            'success' => false,
-//            "message" => "Arbitre non trouvé."
-//        ]);
-//    }
-
     /**
      * @Route("/{id}", name="run_admin_delete", methods={"GET"})
      * @param Request $request
@@ -373,26 +347,4 @@ class RunController extends AbstractController
         ]);
     }
 
-//    /**
-//     * @Route("/add-participation/{id}", name="add_participation")
-//     * @param Request $request
-//     * @param Challenge $challenge
-//     * @param UserRepository $userRepository
-//     * @return \Symfony\Component\HttpFoundation\RedirectResponse
-//     */
-//    public function addParticipation(Request $request, Challenge $challenge, UserRepository $userRepository)
-//    {
-//        foreach ($request->get('participations') as $userId) {
-//            $user = $userRepository->find($userId);
-//            $participation = new Participation();
-//            $participation
-//                ->setChallenge($challenge)
-//                ->setEnabled(true)
-//                ->setUser($user);
-//            $entityManger = $this->getDoctrine()->getManager();
-//            $entityManger->persist($participation);
-//            $entityManger->flush();
-//        }
-//        return $this->redirectToRoute("challenge_admin_edit", ["id" => $challenge->getId()]);
-//    }
 }

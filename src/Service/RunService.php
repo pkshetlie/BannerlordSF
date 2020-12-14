@@ -46,16 +46,16 @@ class RunService
                 }
                 if ($setting->getChallengeSetting()->getIsUsedForScore()) {
                     if ($setting->getChallengeSetting()->getIsAffectedByMalus()) {
-                        $malusableScore += $setting->getValue() * $setting->getChallengeSetting()->getRatio();
+                        $malusableScore += ceil($setting->getValue() * $setting->getChallengeSetting()->getRatio());
                     } else {
-                        $score += floatval($setting->getValue()) * $setting->getChallengeSetting()->getRatio();
+                        $score += ceil(floatval($setting->getValue()) * $setting->getChallengeSetting()->getRatio());
                     }
                     if ($setting->getChallengeSetting()->getIsReportedOnTheNextRun() && $computeOther) {
                         /** @var Run $r */
                         foreach ($allruns as $r) {
                             foreach ($r->getRunSettings() as $r_setting) {
                                 if ($setting->getChallengeSetting() === $r_setting->getChallengeSetting() && $setting->getChallengeSetting()->getIsReportedOnTheNextRun()) {
-                                    $r_setting->setValue($setting->getValue());
+                                    $r_setting->setValue(ceil($setting->getValue()));
                                     $this->ComputeScore($r, false);
                                 }
                             }
@@ -63,7 +63,7 @@ class RunService
                     }
                 }
             }
-            $run->setScore($score);
+            $run->setScore(ceil($score));
         }
         $run->setComputedScore(ceil($score + ($malusableScore * $run->getMalus())));
     }
