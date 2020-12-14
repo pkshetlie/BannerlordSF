@@ -65,7 +65,7 @@ class RunService
             }
             $run->setScore($score);
         }
-        $run->setComputedScore($score + ($malusableScore * $run->getMalus()));
+        $run->setComputedScore(ceil($score + ($malusableScore * $run->getMalus())));
     }
 
     public function endOfRun(Run $runToClose)

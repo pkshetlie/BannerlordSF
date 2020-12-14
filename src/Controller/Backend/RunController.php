@@ -103,8 +103,6 @@ class RunController extends AbstractController
                 $run->setMalus(1 - ($malus / 100));
                 $entityManager->persist($runSetting);
             }
-
-
             $entityManager->flush();
         }
 
