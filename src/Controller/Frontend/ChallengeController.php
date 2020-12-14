@@ -39,7 +39,12 @@ class ChallengeController extends AbstractController
             ->andWhere('c.user IS NULL')
             ->orderBy('c.season', 'DESC')
             ->addOrderBy('c.registrationOpening', 'DESC');
-        $paginator = $paginationService->process($qb, $request);
+        $paginator = $paginationService->setDefaults(9)->process($qb, $request);
+        if($paginator->isPartial()){
+            return $this->render('frontend/challenge/partial/challenges.html.twig', [
+                'paginator' => $paginator,
+            ]);
+        }
         return $this->render('frontend/challenge/index.html.twig', [
             'paginator' => $paginator,
         ]);

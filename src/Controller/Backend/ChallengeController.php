@@ -97,6 +97,8 @@ class ChallengeController extends AbstractController
             $newChallenge->addChallengeDate($newDate);
             $em->persist($newDate);
         }
+        $newChallenge->setRegistrationOpening($challenge->getRegistrationOpening()->modify("+2 months"));
+        $newChallenge->setRegistrationClosing($challenge->getRegistrationClosing()->modify("+2 months"));
         $em->persist($newChallenge);
         $em->flush();
 
