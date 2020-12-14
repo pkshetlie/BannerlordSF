@@ -113,7 +113,7 @@
                         </div>
                     {% endfor %}
                     {% import "@Pagination/Pagination/macro.twig" as macro_pagination %}
-                    {{ macro_pagination.seeMore(paginator,'voir plus','btn btn-primary') }}
+                    {{ macro_pagination.seeMore(paginator,'voir plus','btn btn-block btn-warning') }}
 
                 </div>
                 {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'challenge-2',default:""})) }}
