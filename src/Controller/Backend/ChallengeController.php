@@ -75,12 +75,13 @@ class ChallengeController extends AbstractController
         }
 
         foreach ($challenge->getChallengePrizes() as $prize) {
-            $newPrize = clone $prize;
-            $em->clear(ChallengePrize::class);
-            $newChallenge->addChallengePrize($newPrize);
+            $newPrize = new ChallengePrize();
             $newPrize->setChallenge($newChallenge);
+            $newPrize->setDescription($prize->getDescription());
+            $newPrize->setValue($prize->getValue());
+            $newPrize->setLabel($prize->getLabel());
+            $newChallenge->addChallengePrize($newPrize);
             $em->persist($newPrize);
-
         }
 
         foreach ($challenge->getRules() as $rules) {
@@ -89,12 +90,12 @@ class ChallengeController extends AbstractController
         }
 
         foreach ($challenge->getChallengeDates() as $dates) {
-            $newDate = clone $dates;
-            $em->clear(ChallengeDate::class);
-            $em->persist($newDate);
-
-            $newChallenge->addChallengeDate($newDate);
+            $newDate = new ChallengeDate();
             $newDate->setChallenge($newChallenge);
+            $newDate->setStartDate($dates->getStartDate()->modify("+1 months"));
+            $newDate->setEndDate($dates->getEndDate()->modify("+1 months"));
+            $newChallenge->addChallengeDate($newDate);
+            $em->persist($newDate);
         }
         $em->persist($newChallenge);
         $em->flush();
