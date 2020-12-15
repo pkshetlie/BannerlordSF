@@ -34,7 +34,11 @@
       font-weight: 600; }
   .navbar.navbar-main .home-link {
     color: #707070;
-    font-size: 2em; }
+    font-size: 2em;
+    padding: 0;
+    margin-right: 2rem; }
+    .navbar.navbar-main .home-link .logo {
+      width: 160px; }
   .navbar.navbar-main .btn-connect {
     background-color: #00B42A;
     color: #707070;
@@ -85,7 +89,6 @@
       height: 100%;
       z-index: 2;
       background-color: #ffffff;
-      border-right: 2px solid #000000;
       border-top: 1px solid #000000; }
     .navbar.navbar-main .navbar-collapse.collapsing {
       left: -300px;
@@ -8062,6 +8065,9 @@ body {
   font-family: 'Montserrat', sans-serif; }
   body.hidden {
     overflow: hidden; }
+
+main.wrapper {
+  min-height: calc(100vh - 58px); }
 
 /* =============== GLOBAL =============== */
 .bold {

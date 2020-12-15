@@ -41,6 +41,10 @@ body {
     }
 }
 
+main.wrapper {
+    min-height: calc(100vh - 58px);
+}
+
 /* =============== GLOBAL =============== */
 .bold {
     font-weight: 600;
