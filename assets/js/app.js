@@ -63,6 +63,7 @@ $(() => {
 
     /* --- GESTION INPUT --- */
     $('.form-group').each(function() {
+
         if($(this).find('input').val() != '') {
             $(this).find('input').addClass('active');
         }
@@ -74,7 +75,10 @@ $(() => {
                 $(this).addClass('active');
             }
         });
+
+        $(this).find('input').blur();
     });
+    
 
     /* --- GESTION CLICK MENU FOND SOMBRE --- */
     $('.navbar-toggler').click(function() {

@@ -114,7 +114,7 @@
             <p class="title-sign text-center ">{{ "Sign in"|trans }}</p>
         </div>
         <div class="card-body col-9 m-auto">
-            <form action="{{ url("app_login") }}" method="post" role="form">
+            <form action="{{ url("app_login") }}" method="post" role="form" autocomplete="off">
                 {% if error %}
                     {#<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>#}
                     <div class="modal fade alert-modal error-modal" tabindex="-1" role="dialog" aria-hidden="true">

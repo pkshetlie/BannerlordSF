@@ -347,6 +347,19 @@ footer {
       padding-left: 2.4rem; }
   .login-register .custom-control label {
     cursor: pointer; }
+  .login-register .flag {
+    border-top-color: #FBB03B;
+    border-bottom-color: #FBB03B; }
+  .login-register .flag-left {
+    border-right-color: #FBB03B;
+    z-index: 0; }
+  .login-register .flag-right {
+    border-left-color: #FBB03B;
+    z-index: 0; }
+  .login-register .flag-center {
+    background-color: #FBB03B;
+    width: calc(100% + -10px);
+    left: 5px; }
   @media screen and (max-width: 767px) {
     .login-register .card > .row {
       flex-direction: column-reverse; } }
@@ -888,7 +901,7 @@ footer {
     background-color: #F8BB86; } }
 
 /*!
- * Bootstrap v4.5.2 (https://getbootstrap.com/)
+ * Bootstrap v4.5.3 (https://getbootstrap.com/)
  * Copyright 2011-2020 The Bootstrap Authors
  * Copyright 2011-2020 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
@@ -1068,7 +1081,8 @@ caption {
   caption-side: bottom; }
 
 th {
-  text-align: inherit; }
+  text-align: inherit;
+  text-align: -webkit-match-parent; }
 
 label {
   display: inline-block;
@@ -3532,7 +3546,8 @@ input[type="button"].btn-block {
   z-index: 1;
   display: block;
   min-height: 1.5rem;
-  padding-left: 1.5rem; }
+  padding-left: 1.5rem;
+  color-adjust: exact; }
 
 .custom-control-inline {
   display: inline-flex;
@@ -4591,6 +4606,7 @@ input[type="button"].btn-block {
     position: absolute;
     top: 0;
     right: 0;
+    z-index: 2;
     padding: 0.75rem 1.25rem;
     color: inherit; }
 
@@ -7973,7 +7989,7 @@ a.text-dark:hover, a.text-dark:focus {
 
 .text-break {
   word-break: break-word !important;
-  overflow-wrap: break-word !important; }
+  word-wrap: break-word !important; }
 
 .text-reset {
   color: inherit !important; }
@@ -8158,7 +8174,7 @@ body {
   height: 343px;
   transition: 0.2s; }
 
-.alert-modal .flag-center {
+.flag-center {
   width: calc(100% + 10px);
   height: 55px;
   background-color: #ce6e6e;
@@ -8172,63 +8188,63 @@ body {
   align-items: center;
   justify-content: center;
   color: #ffffff; }
-  .alert-modal .flag-center > * {
+  .flag-center > * {
     margin: 0rem; }
 
-.alert-modal .flag {
+.flag {
   position: absolute;
   top: -24px;
   border-radius: 2px;
   opacity: 0.7;
   border: 35px solid; }
 
-.alert-modal .flag-left {
+.flag-left {
   left: -50px;
   border-left-color: transparent;
   z-index: -1; }
 
-.alert-modal .flag-right {
+.flag-right {
   right: -50px;
   border-right-color: transparent;
   z-index: -1; }
 
-.alert-modal.error-modal .flag-center {
+.error-modal .flag-center {
   background-color: #ce6e6e; }
 
-.alert-modal.error-modal .flag {
+.error-modal .flag {
   border-top-color: #ce6e6e;
   border-bottom-color: #ce6e6e; }
 
-.alert-modal.error-modal .flag-left {
+.error-modal .flag-left {
   border-right-color: #ce6e6e; }
 
-.alert-modal.error-modal .flag-right {
+.error-modal .flag-right {
   border-left-color: #ce6e6e; }
 
-.alert-modal.warning-modal .flag-center {
+.warning-modal .flag-center {
   background-color: #FBB03B; }
 
-.alert-modal.warning-modal .flag {
+.warning-modal .flag {
   border-top-color: #FBB03B;
   border-bottom-color: #FBB03B; }
 
-.alert-modal.warning-modal .flag-left {
+.warning-modal .flag-left {
   border-right-color: #FBB03B; }
 
-.alert-modal.warning-modal .flag-right {
+.warning-modal .flag-right {
   border-left-color: #FBB03B; }
 
-.alert-modal.sucess-modal .flag-center {
+.sucess-modal .flag-center {
   background-color: #76b385; }
 
-.alert-modal.sucess-modal .flag {
+.sucess-modal .flag {
   border-top-color: #76b385;
   border-bottom-color: #76b385; }
 
-.alert-modal.sucess-modal .flag-left {
+.sucess-modal .flag-left {
   border-right-color: #76b385; }
 
-.alert-modal.sucess-modal .flag-right {
+.sucess-modal .flag-right {
   border-left-color: #76b385; }
 
 /* loaders */
@@ -8270,6 +8286,16 @@ body {
     border-right-color: #707070; }
   .sb-loading::after {
     border-top-color: #707070; }
+
+/* Select */
+select {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  transition: 0.2s;
+  cursor: pointer; }
+  select:hover {
+    background-color: #eaeaea; }
 
 @keyframes loading {
   0% {
