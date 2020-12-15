@@ -4,6 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" type="image/png" href="{{ asset('build/castle.ico') }}" />
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
             <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Open+Sans+Condensed:wght@300&display=swap" rel="stylesheet">
@@ -29,6 +30,17 @@
             </div>
         {% endfor %}
     {% endfor %}
+    {% block HtmlBody %}
+            {% block body %}
+            {% endblock %}
+            <div id="btn-scroll-top"><i class="fa fa-angle-up"></i></div>
+            {% include 'frontend/base_template/footer.html.twig' %}
+        {% endblock %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </body>
+</html>
 
 {# =========================== ALERT MODAL =========================== #}
 
@@ -117,14 +129,4 @@
 
 
 
-    {% block HtmlBody %}
-            {% block body %}
-            {% endblock %}
-            <div id="btn-scroll-top"><i class="fa fa-angle-up"></i></div>
-            {% include 'frontend/base_template/footer.html.twig' %}
-        {% endblock %}
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </body>
-</html>
+    

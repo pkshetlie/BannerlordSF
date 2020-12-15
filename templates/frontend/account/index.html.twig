@@ -5,6 +5,7 @@
 {% endblock %}
 {% block body %}
     <main class="wrapper">
+
         <section class="section-banner bg1 home-title">
             <h1>Mon compte</h1>
         </section>
@@ -12,24 +13,116 @@
         <section class="section-parallax static challenges-list">
             <div class="container">
                 {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'account-1',default:""})) }}
+                <div class="row">
+                    <div class="col-12 mt-2 mb-3"><label class="bold">Personnalisez votre compte : </label><label>&nbsp;(infos obligatoires*)</label></div>
+                    <div class="col-6">
+                        <div class="form-group mb-5">
+                            <input type="text" id="champ1" name="" required="required" maxlength="255" class="form-control" value="Coming Soon..." disabled>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label for="registration_form_username" class="required">Nom</label>
+                        </div>
+                    </div>
 
+                    <div class="col-6">
+                        <div class="form-group mb-5">
+                            <input type="text" id="champ2" name="" required="required" maxlength="255" class="form-control" value="Coming Soon..." disabled>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label for="registration_form_username" class="required">Chaîne Twitch</label>
+                        </div>
+                    </div>
 
-                <table>
-                    <tr>
-                        <th>Identifiant : </th>
-                        <td>{{ app.user.username }}</td>
+                    <div class="col-6">
+                        <div class="form-group mb-5">
+                            <input type="text" id="champ3" name="" required="required" maxlength="255" class="form-control" value="Coming Soon..." disabled>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label for="registration_form_username" class="required">Prénom</label>
+                        </div>
+                    </div>
 
-                        <th>Discord ID : </th>
-                        <td>{{ app.user.discordID }}</td>
-                    </tr>
-                    <tr>
-                        <th>E-mail : </th>
-                        <td>{{ app.user.email }}</td>
+                    <div class="col-6">
+                        <div class="form-group mb-5">
+                            <input type="text" id="champ4" name="" required="required" maxlength="255" class="form-control" value="Coming Soon..." disabled>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label for="registration_form_username" class="required">Chaîne Youtube</label>
+                        </div>
+                    </div>
 
-                        <th>Twitch ID : </th>
-                        <td>{{ app.user.twitchID }}</td>
-                    </tr>
-                </table>
+                    <div class="col-6">
+                        <div class="form-group mb-5">
+                            <input type="text" id="champ5" name="" required="required" maxlength="255" class="form-control" value="{{ app.user.username }}">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label for="registration_form_username" class="required">Pseudo</label>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group mb-5">
+                            <input type="text" id="champ6" name="" required="required" maxlength="255" class="form-control" value="{{ app.user.twitchID }}">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label for="registration_form_username" class="required">Compte Twitter</label>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group mb-5">
+                            <input type="text" id="champ7" name="" required="required" maxlength="255" class="form-control" value="{{ app.user.email }}">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label for="registration_form_username" class="required">Mail</label>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group mb-5">
+                            <input type="text" id="champ8" name="" required="required" maxlength="255" class="form-control" value="Coming Soon..." disabled>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label for="registration_form_username" class="required">ID Steam</label>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group mb-5">
+                            <input type="text" id="champ9" name="" required="required" maxlength="255" class="form-control" value="{{ app.user.discordID }}">
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label for="registration_form_username" class="required">ID Discord</label>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group mb-5">
+                            <input type="text" id="champ10" name="" required="required" maxlength="255" class="form-control" value="Coming Soon..." disabled>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label for="registration_form_username" class="required">ID Bannerlord</label>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <div class="form-group mb-5">
+                            <input type="text" id="champ10" name="" required="required" maxlength="255" class="form-control" value="Coming Soon..." disabled>
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label for="registration_form_username" class="required">ID Bannerlord</label>
+                        </div>
+                    </div>
+
+                    <div class="input-field col-6">
+                        <select>
+                            <option value="" disabled selected>Niveau en multi</option>
+                            <option value="1">Occasionnel</option>
+                            <option value="2">Intermédiaire</option>
+                            <option value="3">Expérimenté</option>
+                        </select>
+                    </div>
+
                 <a href="{{ url("user_generate_apikey_file") }}" class="btn btn-success"><i class="fa fa-file"></i> Générer mon fichier de configuration</a>
 
                 {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'account-tuto',default:"Faire un tuto pour le placement du fichier"})) }}

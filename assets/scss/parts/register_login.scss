@@ -39,6 +39,27 @@
     .custom-control label {
         cursor: pointer;
     }
+
+    .flag {
+        border-top-color: $pastel-orange;
+        border-bottom-color: $pastel-orange;
+    }
+
+    .flag-left {
+        border-right-color: $pastel-orange;
+        z-index: 0;
+    }
+
+    .flag-right {
+        border-left-color: $pastel-orange;
+        z-index: 0;
+    }
+
+    .flag-center {
+        background-color: $pastel-orange;
+        width: calc(100% + -10px);
+        left: 5px;
+    }
     
     @media screen and (max-width: 767px) {
         .card > .row {
