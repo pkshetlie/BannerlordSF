@@ -8151,7 +8151,7 @@ main.wrapper {
   transform: translateY(-3px); }
 
 /* Social links */
-.nav-link-social .fab,.nav-link-social .fas, .nav-link-social .far {
+.nav-link-social .fab,.nav-link-social .fas, .nav-link-social .far, .nav-link-social .fab, .nav-link-social .fas {
   width: 30px;
   height: 30px;
   text-align: center;
