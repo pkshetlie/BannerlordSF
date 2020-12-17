@@ -40,9 +40,11 @@
                                     <a class="btn btn-sm btn-warning"
                                        href="{{ path('challenge_admin_setting_duplicate', {'id': settings.id}) }}"><i
                                                 class="fas fa-copy"></i></a>
+                                  {% if not app.user.babyProof %}
                                     <a class="btn btn-sm btn-danger"
                                        href="{{ path('challenge_admin_setting_delete', {'id': settings.id}) }}"><i
                                                 class="fas fa-trash"></i></a>
+                                    {% endif %}
 {#                                    <a class="btn btn-sm btn-danger confirm-action"#}
 {#                                       href="{{ path('challenge_admin_delete', {'id': settings.id}) }}"><i#}
 {#                                                class="fas fa-trash"></i></a>#}

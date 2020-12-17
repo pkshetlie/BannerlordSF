@@ -67,11 +67,11 @@ class UserPasswordAuthenticator extends AbstractFormLoginAuthenticator implement
             throw new InvalidCsrfTokenException();
         }
 
-        $user = $this->entityManager->getRepository(User::class)->findOneBy(['username' => $credentials['username']]);
+        $user = $this->entityManager->getRepository(User::class)->loadUserByUsername( $credentials['username']);
 
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Email could not be found.');
+            throw new CustomUserMessageAuthenticationException('Identifiant ou Email non trouvé.');
         }
 
         return $user;

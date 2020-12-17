@@ -5,16 +5,18 @@ security:
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     role_hierarchy:
-        ROLE_ARBITRE: ROLE_USE
-        ROLE_ADMIN: ROLE_ARBITRE
+        ROLE_ARBITRE: ROLE_USER
+        ROLE_DEVELOPPEUR: ROLE_USER
+        ROLE_REDACTEUR: ROLE_USER
+        ROLE_CASTER: ROLE_USER
+        ROLE_ADMIN: [ROLE_ARBITRE, ROLE_CASTER, ROLE_DEVELOPPEUR, ROLE_REDACTEUR]
         ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
 
     providers:
         # used to reload user from session & other features (e.g. switch_user)
-        app_user_provider:
+        users:
             entity:
                 class: App\Entity\User
-                property: username
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -26,7 +28,7 @@ security:
                 path:     /
             anonymous: true
             lazy: true
-            provider: app_user_provider
+            provider: users
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

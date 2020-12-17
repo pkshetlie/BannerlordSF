@@ -162,6 +162,7 @@
                                                        href="{{ url('challenge_admin_toggle_participation',{id:participation.id}) }}">
                                                         {{ participation.enabled ? "<i class='fas fa-check text-success'></i>" :  "<i class='fas fa-times text-danger'></i>" }}
                                                     </a>
+                                                    {% if not app.user.babyProof %}
                                                     <a class="ajax-link"
                                                        data-remove="closestTr"
                                                        data-toggle="tooltip"
@@ -169,6 +170,7 @@
                                                        href="{{ url('challenge_admin_delete_participation',{id:participation.id}) }}">
                                                         <i class='fas fa-trash text-danger'></i>
                                                     </a>
+                                                    {% endif %}
                                                 </td>
                                             </tr>
                                         {% endfor %}

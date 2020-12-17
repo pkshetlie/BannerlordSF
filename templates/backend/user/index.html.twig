@@ -40,9 +40,17 @@
                                 <td>{{ entity.discordID }}</td>
                                 <td>{{ entity.createdAt.format("d/m/Y h:i") }}</td>
                                 <td>
-                                    <a class="btn btn-sm btn-info" href="{{ path('user_admin_edit', {'id': entity.id}) }}"><i class="fas fa-edit"></i></a>
-                                    <a class="btn btn-sm btn-danger confirm-action" href="{{ path('user_admin_delete', {'id': entity.id}) }}"><i class="fas fa-trash"></i></a>
-                                    <a class="btn btn-sm btn-primary " title="fichier de configuration API" href="{{ path('user_admin_generate_apikey_file', {'id': entity.id}) }}"><i class="fas fa-file"></i></a>
+                                    <a class="btn btn-sm btn-info"
+                                       href="{{ path('user_admin_edit', {'id': entity.id}) }}"><i
+                                                class="fas fa-edit"></i></a>
+                                    {% if not app.user.babyProof %}
+                                        <a class="btn btn-sm btn-danger confirm-action"
+                                           href="{{ path('user_admin_delete', {'id': entity.id}) }}"><i
+                                                    class="fas fa-trash"></i></a>
+                                    {% endif %}
+                                    <a class="btn btn-sm btn-primary " title="fichier de configuration API"
+                                       href="{{ path('user_admin_generate_apikey_file', {'id': entity.id}) }}"><i
+                                                class="fas fa-file"></i></a>
                                 </td>
                             </tr>
                         {% else %}
@@ -52,7 +60,7 @@
                         {% endfor %}
                         </tbody>
                     </table>
-                    {% import "@Pagination/Pagination/macro.twig" as macro_pagination  %}
+                    {% import "@Pagination/Pagination/macro.twig" as macro_pagination %}
                     {{ macro_pagination.paginate(paginator) }}
                 </div>
             </div>
@@ -60,5 +68,5 @@
     </div>
 
 {% endblock %}
-{#    <a href="{{ path('challenge_new') }}">{{ "Create new"|trans }}</a>#}
+{# <a href="{{ path('challenge_new') }}">{{ "Create new"|trans }}</a> #}
 

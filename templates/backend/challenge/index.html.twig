@@ -44,6 +44,7 @@
                                     <a class="btn btn-sm btn-default"
                                        href="{{ path('challenge_admin_settings_index', {'id': challenge.id}) }}"><i
                                                 class="fas fa-cogs"></i></a>
+                                    {%  if not app.user.babyProof %}
                                     <a class="btn btn-sm btn-danger confirm-action"
                                        href="{{ path('challenge_admin_duplicate', {'id': challenge.id}) }}"><i
                                                 class="fas fa-copy"></i></a>
@@ -51,6 +52,7 @@
                                     <a class="btn btn-sm btn-danger confirm-action"
                                        href="{{ path('challenge_admin_delete', {'id': challenge.id}) }}"><i
                                                 class="fas fa-trash"></i></a>
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% else %}
