@@ -194,22 +194,7 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ url('user_admin_index') }}" class="nav-link {% if app.request.get('_route') starts with "user_admin_" %}active{% endif %}">
-                            <i class="nav-icon fas fa-gamepad"></i>
-                            <p>
-                                Joueurs
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ url('challenge_admin_index') }}" class="nav-link {% if app.request.get('_route') starts with "challenge_admin_" %}active{% endif %}">
-                            <i class="nav-icon fas fa-trophy"></i>
-                            <p>
-                                Challenges
-                            </p>
-                        </a>
-                    </li>
+                  {% if is_granted("ROLE_CASTER") %}
                     <li class="nav-item">
                         <a href="{{ url('caster_index') }}" class="nav-link {% if app.request.get('_route') starts with "caster_index" %}active{% endif %}">
                             <i class="nav-icon fas fa-video "></i>
@@ -218,6 +203,8 @@
                             </p>
                         </a>
                     </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_ARBITRE') %}
                     <li class="nav-item">
                         <a href="{{ url('arbitrage_index') }}" class="nav-link {% if app.request.get('_route') starts with "arbitrage_index" %}active{% endif %}">
                             <i class="nav-icon fas fa-id-card-alt"></i>
@@ -226,23 +213,27 @@
                             </p>
                         </a>
                     </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_AIDE_CAMP') %}
                     <li class="nav-item">
-                        <a href="{{ url('video_maker_admin_new') }}" class="nav-link {% if app.request.get('_route') starts with "video_maker_admin_new" %}active{% endif %}">
-                            <i class="nav-icon fas fa-file-video"></i>
-                            <p>
-                                Vue Video Maker
-                            </p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="{{ url('admin_leaderboard_index') }}" target='_blank' class="nav-link {% if app.request.get('_route') starts with "admin_leaderboard_index" %}active{% endif %}">
+                        <a href="{{ url('challenge_admin_index') }}" class="nav-link {% if app.request.get('_route') starts with "challenge_admin_" %}active{% endif %}">
                             <i class="nav-icon fas fa-trophy"></i>
                             <p>
-                                LeaderBoard
+                                Challenges
                             </p>
                         </a>
                     </li>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item">
+                            <a href="{{ url('user_admin_index') }}" class="nav-link {% if app.request.get('_route') starts with "user_admin_" %}active{% endif %}">
+                                <i class="nav-icon fas fa-gamepad"></i>
+                                <p>
+                                    Joueurs
+                                </p>
+                            </a>
+                        </li>
+
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-copy"></i>
@@ -262,7 +253,7 @@
 
                         </ul>
                     </li>
-
+                    {% endif %}
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

@@ -36,22 +36,27 @@
                                 <td>{{ challenge.registrationOpening ? challenge.registrationOpening|date('Y-m-d H:i:s') : '' }}</td>
                                 <td>{{ challenge.registrationClosing ? challenge.registrationClosing|date('Y-m-d H:i:s') : '' }}</td>
                                 <td>{{ challenge.typeStr }}</td>
-                                <td>{{ challenge.validatedParticipations|length }} <span data-toggle="tooltip" title="En attente">(<a href="{{ path('challenge_admin_edit', {'id': challenge.id}) }}#participations">{{ challenge.waitingParticipations|length }}</a>)</span> / {{ challenge.maxChallenger }}</td>
+                                <td>{{ challenge.validatedParticipations|length }} <span data-toggle="tooltip"
+                                                                                         title="En attente">(<a
+                                                href="{{ path('challenge_admin_edit', {'id': challenge.id}) }}#participations">{{ challenge.waitingParticipations|length }}</a>)</span>
+                                    / {{ challenge.maxChallenger }}</td>
                                 <td>
                                     <a class="btn btn-sm btn-info"
                                        href="{{ path('challenge_admin_edit', {'id': challenge.id}) }}"><i
                                                 class="fas fa-edit"></i></a>
-                                    <a class="btn btn-sm btn-default"
-                                       href="{{ path('challenge_admin_settings_index', {'id': challenge.id}) }}"><i
-                                                class="fas fa-cogs"></i></a>
-                                    {%  if not app.user.babyProof %}
-                                    <a class="btn btn-sm btn-danger confirm-action"
-                                       href="{{ path('challenge_admin_duplicate', {'id': challenge.id}) }}"><i
-                                                class="fas fa-copy"></i></a>
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a class="btn btn-sm btn-default"
+                                           href="{{ path('challenge_admin_settings_index', {'id': challenge.id}) }}"><i
+                                                    class="fas fa-cogs"></i></a>
+                                        {% if not app.user.babyProof %}
+                                            <a class="btn btn-sm btn-danger confirm-action"
+                                               href="{{ path('challenge_admin_duplicate', {'id': challenge.id}) }}"><i
+                                                        class="fas fa-copy"></i></a>
 
-                                    <a class="btn btn-sm btn-danger confirm-action"
-                                       href="{{ path('challenge_admin_delete', {'id': challenge.id}) }}"><i
-                                                class="fas fa-trash"></i></a>
+                                            <a class="btn btn-sm btn-danger confirm-action"
+                                               href="{{ path('challenge_admin_delete', {'id': challenge.id}) }}"><i
+                                                        class="fas fa-trash"></i></a>
+                                        {% endif %}
                                     {% endif %}
                                 </td>
                             </tr>

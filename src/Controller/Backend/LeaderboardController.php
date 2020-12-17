@@ -23,6 +23,7 @@ class LeaderboardController extends AbstractController
      */
     public function index(RunRepository $runRepository, ChallengeService $challengeService): Response
     {
+
         $challenge = $challengeService->getRunningChallenge();
         $runs = $runRepository->findByScore($challenge);
         $placed = new ArrayCollection();

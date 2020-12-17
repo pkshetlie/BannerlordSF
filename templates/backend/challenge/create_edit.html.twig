@@ -16,199 +16,229 @@
                     <div class="card card-primary card-outline card-tabs">
                         <div class="card-header p-0 pt-1 border-bottom-0">
                             <ul class="nav nav-tabs" id="custom-tabs-three-tab" role="tablist">
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="pill" href="#infos" role="tab" aria-controls="custom-tabs-three-home" aria-selected="true">
-                                        Infos de base
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill" href="#rules" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="false">
-                                        Règles
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill" href="#participations" role="tab" aria-controls="custom-tabs-three-profile" aria-selected="false">
-                                        Participations
-                                    </a>
-                                </li>
-
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="custom-tabs-three-home-tab" data-toggle="pill"
+                                           href="#infos" role="tab" aria-controls="custom-tabs-three-home"
+                                           aria-selected="true">
+                                            Infos de base
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="custom-tabs-three-profile-tab" data-toggle="pill"
+                                           href="#rules" role="tab" aria-controls="custom-tabs-three-profile"
+                                           aria-selected="false">
+                                            Règles
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                {% if is_granted('ROLE_AIDE_CAMP') %}
+                                    <li class="nav-item">
+                                        <a class="nav-link {% if not is_granted('ROLE_ADMIN') %}active{% endif %}" id="custom-tabs-three-profile-tab" data-toggle="pill"
+                                           href="#participations" role="tab" aria-controls="custom-tabs-three-profile"
+                                           aria-selected="false">
+                                            Participations
+                                        </a>
+                                    </li>
+                                {% endif %}
                             </ul>
                         </div>
-                        {{ form_start(form) }}
                         <div class="card-body">
                             <div class="tab-content" id="custom-tabs-three-tabContent">
-                                {% form_theme form 'bootstrap_4_layout.html.twig' %}
-                                <div class="tab-pane fade show active" id="infos" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    {% form_theme form 'bootstrap_4_layout.html.twig' %}
+                                    {{ form_start(form) }}
+                                    <div class="tab-pane fade show active" id="infos" role="tabpanel"
+                                         aria-labelledby="custom-tabs-three-home-tab">
 
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            {{ form_row(form.title) }}
-                                            {{ form_row(form.season) }}
-                                            {{ form_row(form.type) }}
-                                            {{ form_row(form.description) }}
-                                            {{ form_row(form.banner) }}
-                                        </div>
-                                        <div class="col-md-6">
-                                            {{ form_row(form.registrationOpening) }}
-                                            {{ form_row(form.registrationClosing) }}
-                                            {{ form_row(form.maxChallenger) }}
-                                            {{ form_row(form.malusPerRun) }}
-                                            {{ form_row(form.malusMax) }}
-                                            {{ form_row(form.display) }}
-                                            <div class="form-group">
-                                                <label>Dates du challenge</label>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                {{ form_row(form.title) }}
+                                                {{ form_row(form.season) }}
+                                                {{ form_row(form.type) }}
+                                                {{ form_row(form.description) }}
+                                                {{ form_row(form.banner) }}
+                                            </div>
+                                            <div class="col-md-6">
+                                                {{ form_row(form.registrationOpening) }}
+                                                {{ form_row(form.registrationClosing) }}
+                                                {{ form_row(form.maxChallenger) }}
+                                                {{ form_row(form.malusPerRun) }}
+                                                {{ form_row(form.malusMax) }}
+                                                {{ form_row(form.display) }}
+                                                <div class="form-group">
+                                                    <label>Dates du challenge</label>
 
-                                                <button type="button" class="add-date btn btn-success btn-xs float-right">Ajouter une date</button>
-                                                <table class="dates"
-                                                       data-prototype="
+                                                    <button type="button"
+                                                            class="add-date btn btn-success btn-xs float-right">Ajouter
+                                                        une
+                                                        date
+                                                    </button>
+                                                    <table class="dates"
+                                                           data-prototype="
         <td>{{ form_widget(form.challengeDates.vars.prototype.children.startDate)|e }}</td>
         <td>{{ form_widget(form.challengeDates.vars.prototype.children.endDate)|e }}</td>
         <td><a class='btn btn-sm btn-danger delete-line' href='#'><i class='fa fa-trash'></i></a></td>
         "
-                                                       data-widget-tags="{{ '<tr></tr>'|e }}"
-                                                       data-widget-counter="{{ form.challengeDates |length }}"
-                                                >
+                                                           data-widget-tags="{{ '<tr></tr>'|e }}"
+                                                           data-widget-counter="{{ form.challengeDates |length }}"
+                                                    >
 
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>Début de tranche</td>
-                                                        <td>Fin de tranche</td>
-                                                    </tr>
-                                                    {% for formDate in form.challengeDates %}
+                                                        <tbody>
                                                         <tr>
-                                                            <td>{{ form_widget(formDate.startDate) }}</td>
-                                                            <td>{{ form_widget(formDate.endDate) }}</td>
-                                                            <td><a class='btn btn-sm btn-danger delete-line' href='#'><i class='fa fa-trash'></i></a></td>
+                                                            <td>Début de tranche</td>
+                                                            <td>Fin de tranche</td>
                                                         </tr>
-                                                    {% endfor %}
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Prix du challenge</label>
+                                                        {% for formDate in form.challengeDates %}
+                                                            <tr>
+                                                                <td>{{ form_widget(formDate.startDate) }}</td>
+                                                                <td>{{ form_widget(formDate.endDate) }}</td>
+                                                                <td><a class='btn btn-sm btn-danger delete-line'
+                                                                       href='#'><i
+                                                                                class='fa fa-trash'></i></a></td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Prix du challenge</label>
 
-                                                <button type="button" class="add-prize btn btn-success btn-xs float-right">Ajouter un prix</button>
-                                                <table class="prizes"
-                                                       data-prototype="
+                                                    <button type="button"
+                                                            class="add-prize btn btn-success btn-xs float-right">Ajouter
+                                                        un
+                                                        prix
+                                                    </button>
+                                                    <table class="prizes"
+                                                           data-prototype="
         <td>{{ form_widget(form.challengePrizes.vars.prototype.children.label)|e }}</td>
         <td>{{ form_widget(form.challengePrizes.vars.prototype.children.value)|e }}</td>
         <td><a class='btn btn-sm btn-danger delete-line' href='#'><i class='fa fa-trash'></i></a></td>
         "
-                                                       data-widget-tags="{{ '<tr></tr>'|e }}"
-                                                       data-widget-counter="{{ form.challengePrizes |length }}"
-                                                >
+                                                           data-widget-tags="{{ '<tr></tr>'|e }}"
+                                                           data-widget-counter="{{ form.challengePrizes |length }}"
+                                                    >
 
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>Libellé</td>
-                                                        <td>Valeur (€)</td>
-                                                    </tr>
-                                                    {% for formDate in form.challengePrizes %}
+                                                        <tbody>
                                                         <tr>
-                                                            <td>{{ form_widget(formDate.label) }}</td>
-                                                            <td>{{ form_widget(formDate.value) }}</td>
-                                                            <td><a class='btn btn-sm btn-danger delete-line' href='#'><i class='fa fa-trash'></i></a></td>
+                                                            <td>Libellé</td>
+                                                            <td>Valeur (€)</td>
                                                         </tr>
-                                                    {% endfor %}
-                                                    </tbody>
-                                                </table>
+                                                        {% for formDate in form.challengePrizes %}
+                                                            <tr>
+                                                                <td>{{ form_widget(formDate.label) }}</td>
+                                                                <td>{{ form_widget(formDate.value) }}</td>
+                                                                <td><a class='btn btn-sm btn-danger delete-line'
+                                                                       href='#'><i
+                                                                                class='fa fa-trash'></i></a></td>
+                                                            </tr>
+                                                        {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
+
+
+                                        <button class="btn btn-info">{{ 'Save'|trans }}</button>
+                                        <a class="btn btn-default confirm-action"
+                                           title="Vous allez perdre toutes les informations non enregistrées"
+                                           href="{{ path('challenge_admin_index') }}">{{ "back to list"|trans }}</a>
+
                                     </div>
-
-
-                                    <button class="btn btn-info">{{ 'Save'|trans }}</button>
-                                    <a class="btn btn-default confirm-action" title="Vous allez perdre toutes les informations non enregistrées"
-                                       href="{{ path('challenge_admin_index') }}">{{ "back to list"|trans }}</a>
-
-                                </div>
-                                <div class="tab-pane fade" id="rules" role="tabpanel" aria-labelledby="custom-tabs-three-home-tab">
-                                 {% set type = null %}
-                                  {% for rule_form in form.rules %}
-                                    {{ form_row(rule_form) }}
-                                    {% endfor %}
-                                    <button class="btn btn-info">{{ 'Save'|trans }}</button>
-                                    <a class="btn btn-default confirm-action" title="Vous allez perdre toutes les informations non enregistrées"
-                                       href="{{ path('challenge_admin_index') }}">{{ "back to list"|trans }}</a>
-                                </div>
-                                {{ form_end(form) }}
-
-                                <div class="tab-pane fade" id="participations" role="tabpanel" aria-labelledby="custom-tabs-three-profile-tab">
-                                    <form action="{{ url("add_participation",{id: challenge.id}) }}">
-                                        <select name="participations[]" multiple="multiple" class="select2">
-                                            {% for player in availablePlayer %}
-                                                <option value="{{ player.id }}">{{ player.username ~ " - " ~ player.fullname }}</option>
+                                    <div class="tab-pane fade" id="rules" role="tabpanel"
+                                         aria-labelledby="custom-tabs-three-home-tab">
+                                        {% set type = null %}
+                                        {% for rule_form in form.rules %}
+                                            {{ form_row(rule_form) }}
+                                        {% endfor %}
+                                        <button class="btn btn-info">{{ 'Save'|trans }}</button>
+                                        <a class="btn btn-default confirm-action"
+                                           title="Vous allez perdre toutes les informations non enregistrées"
+                                           href="{{ path('challenge_admin_index') }}">{{ "back to list"|trans }}</a>
+                                    </div>
+                                    {{ form_end(form) }}
+                                {% endif %}
+                                {% if is_granted('ROLE_AIDE_CAMP') %}
+                                    <div class="tab-pane fade {% if not is_granted('ROLE_ADMIN') %}show active{% endif %}"  id="participations" role="tabpanel"
+                                         aria-labelledby="custom-tabs-three-profile-tab">
+                                        <form action="{{ url("add_participation",{id: challenge.id}) }}">
+                                            <select name="participations[]" multiple="multiple" class="select2">
+                                                {% for player in availablePlayer %}
+                                                    <option value="{{ player.id }}">{{ player.username ~ " - " ~ player.fullname }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <button type="submit" class="btn btn-info">Ajouter</button>
+                                        </form>
+                                        <table class="table mt-4">
+                                            <tr>
+                                                <th>Prénom nom (pseudo)</th>
+                                                <th>Date d'inscription</th>
+                                                <th>Arbitre</th>
+                                                <th>Etat</th>
+                                            </tr>
+                                            {% for participation in challenge.waitingParticipations %}
+                                                <tr>
+                                                    <td>{{ participation.user.fullNameUsername }}</td>
+                                                    <td>{{ participation.createdAt.format("d/m/Y H:i") }}</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <a class="ajax-link"
+                                                           data-replace="self"
+                                                           data-toggle="tooltip"
+                                                           title="Changer d'état"
+                                                           href="{{ url('challenge_admin_toggle_participation',{id:participation.id}) }}">
+                                                            {{ participation.enabled ? "<i class='fas fa-check text-success'></i>" :  "<i class='fas fa-times text-danger'></i>" }}
+                                                        </a>
+                                                        {% if not app.user.babyProof %}
+                                                            <a class="ajax-link"
+                                                               data-remove="closestTr"
+                                                               data-toggle="tooltip"
+                                                               title="Refuser/supprimer"
+                                                               href="{{ url('challenge_admin_delete_participation',{id:participation.id}) }}">
+                                                                <i class='fas fa-trash text-danger'></i>
+                                                            </a>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
                                             {% endfor %}
-                                        </select>
-                                        <button type="submit" class="btn btn-info">Ajouter</button>
-                                    </form>
-                                    <table class="table mt-4">
-                                        <tr>
-                                            <th>Prénom nom (pseudo)</th>
-                                            <th>Date d'inscription</th>
-                                            <th>Arbitre</th>
-                                            <th>Etat</th>
-                                        </tr>
-                                        {% for participation in challenge.waitingParticipations %}
-                                            <tr>
-                                                <td>{{ participation.user.fullNameUsername }}</td>
-                                                <td>{{ participation.createdAt.format("d/m/Y H:i") }}</td>
-                                                <td></td>
-                                                <td>
-                                                    <a class="ajax-link"
-                                                       data-replace="self"
-                                                       data-toggle="tooltip"
-                                                       title="Changer d'état"
-                                                       href="{{ url('challenge_admin_toggle_participation',{id:participation.id}) }}">
-                                                        {{ participation.enabled ? "<i class='fas fa-check text-success'></i>" :  "<i class='fas fa-times text-danger'></i>" }}
-                                                    </a>
-                                                    {% if not app.user.babyProof %}
-                                                    <a class="ajax-link"
-                                                       data-remove="closestTr"
-                                                       data-toggle="tooltip"
-                                                       title="Refuser/supprimer"
-                                                       href="{{ url('challenge_admin_delete_participation',{id:participation.id}) }}">
-                                                        <i class='fas fa-trash text-danger'></i>
-                                                    </a>
-                                                    {% endif %}
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                        {% for participation in challenge.validatedParticipations %}
-                                            <tr>
-                                                <td>{{ participation.user.fullNameUsername }}</td>
-                                                <td>{{ participation.createdAt.format("d/m/Y H:i") }}</td>
-                                                <td>
-                                                    <select name="arbitre" class="arbitre form-control"
-                                                            data-change-url="{{ url('change_arbitre',{id:participation.id}) }}">
-                                                        <option value="">-- non défini --</option>
-                                                        {% for arbitre in  arbitres %}
-                                                            <option {% if participation.arbitre is not null and arbitre.id == participation.arbitre.id %}selected="selected"{% endif %}
-                                                                    value="{{ arbitre.id }}">{{ arbitre.username }}</option>
-                                                        {% endfor %}
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <a class="ajax-link"
-                                                       data-replace="self"
-                                                       data-toggle="tooltip"
-                                                       title="Changer d'état"
-                                                       href="{{ url('challenge_admin_toggle_participation',{id:participation.id}) }}">
-                                                        {{ participation.enabled ? "<i class='fas fa-check text-success'></i>" :  "<i class='fas fa-times text-danger'></i>" }}
-                                                    </a>
-                                                    <a class="ajax-link"
-                                                       data-remove="closestTr"
-                                                       data-toggle="tooltip"
-                                                       title="Refuser/supprimer"
-                                                       href="{{ url('challenge_admin_delete_participation',{id:participation.id}) }}">
-                                                        <i class='fas fa-trash text-danger'></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                    </table>
-                                </div>
-
+                                            {% for participation in challenge.validatedParticipations %}
+                                                <tr>
+                                                    <td>{{ participation.user.fullNameUsername }}</td>
+                                                    <td>{{ participation.createdAt.format("d/m/Y H:i") }}</td>
+                                                    <td>
+                                                        {% if is_granted('ROLE_ADMIN') %}
+                                                        <select name="arbitre" class="arbitre form-control"
+                                                                data-change-url="{{ url('change_arbitre',{id:participation.id}) }}">
+                                                            <option value="">-- non défini --</option>
+                                                            {% for arbitre in  arbitres %}
+                                                                <option {% if participation.arbitre is not null and arbitre.id == participation.arbitre.id %}selected="selected"{% endif %}
+                                                                        value="{{ arbitre.id }}">{{ arbitre.username }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>
+                                                        <a class="ajax-link"
+                                                           data-replace="self"
+                                                           data-toggle="tooltip"
+                                                           title="Changer d'état"
+                                                           href="{{ url('challenge_admin_toggle_participation',{id:participation.id}) }}">
+                                                            {{ participation.enabled ? "<i class='fas fa-check text-success'></i>" :  "<i class='fas fa-times text-danger'></i>" }}
+                                                        </a>
+                                                        <a class="ajax-link"
+                                                           data-remove="closestTr"
+                                                           data-toggle="tooltip"
+                                                           title="Refuser/supprimer"
+                                                           href="{{ url('challenge_admin_delete_participation',{id:participation.id}) }}">
+                                                            <i class='fas fa-trash text-danger'></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </table>
+                                    </div>
+                                {% endif %}
                             </div>
                         </div>
 
