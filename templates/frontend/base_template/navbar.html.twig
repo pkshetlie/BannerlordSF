@@ -11,8 +11,10 @@
         </button>
         <div class="navbar-collapse collapse" id="navbar_global">
             <a class="home-link navbar-brand" href="/">
-                <i class="fa fa-fort-awesome"></i>
+                {#<i class="fa fa-fort-awesome"></i>#}
+                <img class="logo" src="{{ asset('build/logo_noir.png') }}" />
             </a>
+            
 
             <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
                 {% if is_granted('ROLE_ADMIN') %}
