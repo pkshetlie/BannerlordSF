@@ -17,7 +17,7 @@
             
 
             <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
-                {% if is_granted('ROLE_ADMIN') %}
+                {% if is_granted('ROLE_EMPLOYEE') %}
                     <li class="nav-item">
                         <a href="{{ url("admin_index") }}" class="nav-link">
                             <i class="ni ni-collection d-lg-none"></i>

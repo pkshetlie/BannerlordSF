@@ -5,12 +5,13 @@ security:
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     role_hierarchy:
-        ROLE_ARBITRE: ROLE_USER
-        ROLE_DEVELOPPEUR: ROLE_USER
-        ROLE_REDACTEUR: ROLE_USER
-        ROLE_CASTER: ROLE_USER
-        ROLE_ASSO: ROLE_USER
-        ROLE_AIDE_CAMP : ROLE_USER
+        ROLE_EMPLOYEE: ROLE_USER
+        ROLE_ARBITRE: ROLE_EMPLOYEE
+        ROLE_DEVELOPPEUR: ROLE_EMPLOYEE
+        ROLE_REDACTEUR: ROLE_EMPLOYEE
+        ROLE_CASTER: ROLE_EMPLOYEE
+        ROLE_ASSO: ROLE_EMPLOYEE
+        ROLE_AIDE_CAMP : ROLE_EMPLOYEE
         ROLE_ADMIN: [ROLE_AIDE_CAMP, ROLE_ASSO, ROLE_ARBITRE, ROLE_CASTER, ROLE_DEVELOPPEUR, ROLE_REDACTEUR]
         ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
 
@@ -48,5 +49,5 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/admin, roles: ROLE_EMPLOYEE }
          #- { path: ^/profile, roles: ROLE_USER }

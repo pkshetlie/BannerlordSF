@@ -44,6 +44,8 @@ class RegistrationAdminType extends AbstractType
             ->add('roles', ChoiceType::class, [
                 'choices' => [
                     "Admin" => "ROLE_ADMIN",
+                    "Aide de camp" => "ROLE_AIDE_CAMP",
+                    "Association" => "ROLE_ASSO",
                     "Arbitre" => "ROLE_ARBITRE",
                     "Caster" => "ROLE_CASTER",
                     "Développeur" => "ROLE_DEVELOPPEUR",
