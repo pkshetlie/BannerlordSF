@@ -87,6 +87,9 @@ class ChallengeSettingController extends AbstractController
     public function deleteSettings(Request $request, ChallengeSetting $setting, EntityManagerInterface $entityManager)
     {
 
+        foreach($setting->getRunSettings() AS $runSetting){
+            $entityManager->remove($runSetting);
+        }
         $entityManager->remove($setting);
         $entityManager->flush();
         return $this->redirectToRoute("challenge_admin_settings_index", [
