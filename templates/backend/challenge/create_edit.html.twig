@@ -44,10 +44,13 @@
                             </ul>
                         </div>
                         <div class="card-body">
+                            {% if is_granted('ROLE_ADMIN') %}
+                            {% form_theme form 'bootstrap_4_layout.html.twig' %}
+                            {{ form_start(form) }}
+                            {% endif %}
                             <div class="tab-content" id="custom-tabs-three-tabContent">
                                 {% if is_granted('ROLE_ADMIN') %}
-                                    {% form_theme form 'bootstrap_4_layout.html.twig' %}
-                                    {{ form_start(form) }}
+
                                     <div class="tab-pane fade show active" id="infos" role="tabpanel"
                                          aria-labelledby="custom-tabs-three-home-tab">
 
@@ -157,8 +160,8 @@
                                            title="Vous allez perdre toutes les informations non enregistrées"
                                            href="{{ path('challenge_admin_index') }}">{{ "back to list"|trans }}</a>
                                     </div>
-                                    {{ form_end(form) }}
-                                {% endif %}
+                                    {% endif %}
+
                                 {% if is_granted('ROLE_AIDE_CAMP') %}
                                     <div class="tab-pane fade {% if not is_granted('ROLE_ADMIN') %}show active{% endif %}"  id="participations" role="tabpanel"
                                          aria-labelledby="custom-tabs-three-profile-tab">
@@ -240,6 +243,9 @@
                                     </div>
                                 {% endif %}
                             </div>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                {{ form_end(form) }}
+                            {% endif %}
                         </div>
 
                         <!-- /.card -->
