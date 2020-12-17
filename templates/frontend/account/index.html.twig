@@ -13,121 +13,103 @@
         <section class="section-parallax static challenges-list">
             <div class="container">
                 {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'account-1',default:""})) }}
+                {{ form_start(form) }}
                 <div class="row">
-                    <div class="col-12 mt-2 mb-3"><label class="bold">Personnalisez votre compte : </label><label>&nbsp;(infos obligatoires*)</label></div>
-                    <div class="col-6">
+                    <div class="col-12 mt-2 mb-3"><label class="bold">Personnalisez votre compte : </label><label>&nbsp;(infos
+                            obligatoires*)</label></div>
+                    <div class="col-md col-6">
                         <div class="form-group mb-5">
-                            <input type="text" id="champ1" name="" required="required" maxlength="255" class="form-control" value="Coming Soon..." disabled>
+                            {{ form_widget(form.lastname) }}
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <label for="registration_form_username" class="required">Nom</label>
+                            <label for="registration_form_username" class="required">Nom<em>*</em></label>
                         </div>
-                    </div>
-
-                    <div class="col-6">
                         <div class="form-group mb-5">
-                            <input type="text" id="champ2" name="" required="required" maxlength="255" class="form-control" value="Coming Soon..." disabled>
+                            {{ form_widget(form.firstname) }}
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <label for="registration_form_username" class="required">Chaîne Twitch</label>
+                            <label for="registration_form_username" class="required">Prénom<em>*</em></label>
                         </div>
-                    </div>
-
-                    <div class="col-6">
                         <div class="form-group mb-5">
-                            <input type="text" id="champ3" name="" required="required" maxlength="255" class="form-control" value="Coming Soon..." disabled>
+                            {{ form_widget(form.username) }}
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <label for="registration_form_username" class="required">Prénom</label>
+                            <label for="registration_form_username" class="required">Identifiant<em>*</em></label>
                         </div>
-                    </div>
-
-                    <div class="col-6">
                         <div class="form-group mb-5">
-                            <input type="text" id="champ4" name="" required="required" maxlength="255" class="form-control" value="Coming Soon..." disabled>
+                            {{ form_widget(form.email) }}
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <label for="registration_form_username" class="required">Chaîne Youtube</label>
+                            <label for="registration_form_username" class="required">Mail<em>*</em></label>
                         </div>
-                    </div>
-
-                    <div class="col-6">
                         <div class="form-group mb-5">
-                            <input type="text" id="champ5" name="" required="required" maxlength="255" class="form-control" value="{{ app.user.username }}">
+
+                        {{ form_widget(form.levelMulti) }}
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <label for="registration_form_username" class="required">Pseudo</label>
+                            <label for="registration_form_username" class="required">Niveau en multi</label>
+
                         </div>
+<p class="mt-5">Pour réinitialiser votre mot de passe veuillez vous deconnecter et passer par mot de passe perdu.</p>
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-md-6">
                         <div class="form-group mb-5">
-                            <input type="text" id="champ6" name="" required="required" maxlength="255" class="form-control" value="{{ app.user.twitchID }}">
+                            {{ form_widget(form.twitchID) }}
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <label for="registration_form_username" class="required">Compte Twitter</label>
+                            <label for="registration_form_username" class="required">ID Twitch</label>
                         </div>
-                    </div>
 
-                    <div class="col-6">
                         <div class="form-group mb-5">
-                            <input type="text" id="champ7" name="" required="required" maxlength="255" class="form-control" value="{{ app.user.email }}">
-                            <span class="highlight"></span>
-                            <span class="bar"></span>
-                            <label for="registration_form_username" class="required">Mail</label>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <div class="form-group mb-5">
-                            <input type="text" id="champ8" name="" required="required" maxlength="255" class="form-control" value="Coming Soon..." disabled>
+                            {{ form_widget(form.steamID) }}
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label for="registration_form_username" class="required">ID Steam</label>
                         </div>
-                    </div>
 
-                    <div class="col-6">
                         <div class="form-group mb-5">
-                            <input type="text" id="champ9" name="" required="required" maxlength="255" class="form-control" value="{{ app.user.discordID }}">
+                            {{ form_widget(form.discordID) }}
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <label for="registration_form_username" class="required">ID Discord</label>
+                            <label for="registration_form_username" class="required">ID Discord<em>*</em></label>
                         </div>
-                    </div>
 
-                    <div class="col-6">
                         <div class="form-group mb-5">
-                            <input type="text" id="champ10" name="" required="required" maxlength="255" class="form-control" value="Coming Soon..." disabled>
+                            {{ form_widget(form.bannerlordID) }}
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label for="registration_form_username" class="required">ID Bannerlord</label>
                         </div>
-                    </div>
 
-                    <div class="col-6">
                         <div class="form-group mb-5">
-                            <input type="text" id="champ10" name="" required="required" maxlength="255" class="form-control" value="Coming Soon..." disabled>
+                            {{ form_widget(form.youtube) }}
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <label for="registration_form_username" class="required">ID Bannerlord</label>
+                            <label for="registration_form_username" class="required">Chaîne Youtube</label>
+                        </div>
+                        <div class="form-group mb-5">
+                            {{ form_widget(form.twitter) }}
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label for="registration_form_username" class="required">Twitter</label>
+                        </div>
+                        <div class="form-group mb-5">
+                            {{ form_widget(form.instagram) }}
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label for="registration_form_username" class="required">Instagram</label>
                         </div>
                     </div>
-
-                    <div class="input-field col-6">
-                        <select>
-                            <option value="" disabled selected>Niveau en multi</option>
-                            <option value="1">Occasionnel</option>
-                            <option value="2">Intermédiaire</option>
-                            <option value="3">Expérimenté</option>
-                        </select>
-                    </div>
-
-                    
-
-                <a href="{{ url("user_generate_apikey_file") }}" class="btn btn-success"><i class="fa fa-file"></i> Générer mon fichier de configuration</a>
-
+<div class="col-md-12">
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+</div>
+                </div>
+                {{ form_end(form) }}
                 {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'account-tuto',default:"Faire un tuto pour le placement du fichier"})) }}
+                <a href="{{ url("user_generate_apikey_file") }}" class="btn btn-success m-auto"><i class="fa fa-file"></i>
+                    Générer mon fichier de configuration</a>
+
 
             </div>
         </section>

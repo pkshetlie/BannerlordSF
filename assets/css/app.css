@@ -303,7 +303,8 @@ footer {
     pointer-events: none;
     transition: all 0.2s ease; }
   .form-group input:focus ~ label,
-  .form-group input.active ~ label {
+  .form-group input.active ~ label,
+  .form-group select ~ label  {
     top: -12px;
     font-size: 10pt;
     color: #5264AE; }

@@ -19,6 +19,10 @@ class User implements UserInterface
 {
     use TimestampableEntity;
 
+    const NIVEAU_DEBUTANT = 10;
+    const NIVEAU_INTERMEDIAIRE = 20;
+    const NIVEAU_CONFIRMED = 30;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -106,6 +110,38 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=Challenge::class, mappedBy="user")
      */
     private $challenges;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $bannerlordID;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $steamID;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $twitter = "https://twitter.com/...";
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $instagram = "https://www.instagram.com/...";
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $youtube = "https://www.youtube.com/channel/...";
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $levelMulti;
+
+
 
     public function __construct()
     {
@@ -568,6 +604,101 @@ class User implements UserInterface
             }
         }
 
+        return $this;
+    }
+
+    public function getBannerlordID(): ?string
+    {
+        return $this->bannerlordID;
+    }
+
+    public function setBannerlordID(?string $bannerlordID): self
+    {
+        $this->bannerlordID = $bannerlordID;
+
+        return $this;
+    }
+
+    public function getSteamID(): ?string
+    {
+        return $this->steamID;
+    }
+
+    public function setSteamID(?string $steamID): self
+    {
+        $this->steamID = $steamID;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTwitter(): ?string
+    {
+        return $this->twitter;
+    }
+
+    /**
+     * @param string $twitter
+     * @return User
+     */
+    public function setTwitter(?string $twitter): User
+    {
+        $this->twitter = $twitter;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getInstagram(): ?string
+    {
+        return $this->instagram;
+    }
+
+    /**
+     * @param string $instagram
+     * @return User
+     */
+    public function setInstagram(?string $instagram): User
+    {
+        $this->instagram = $instagram;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLevelMulti()
+    {
+        return $this->levelMulti;
+    }
+
+    /**
+     * @param mixed $levelMulti
+     * @return User
+     */
+    public function setLevelMulti($levelMulti)
+    {
+        $this->levelMulti = $levelMulti;
+        return $this;
+    }
+    /**
+     * @return string
+     */
+    public function getYoutube()
+    {
+        return $this->youtube;
+    }
+
+    /**
+     * @param string $youtube
+     * @return User
+     */
+    public function setYoutube(?string $youtube)
+    {
+        $this->youtube = $youtube;
         return $this;
     }
 

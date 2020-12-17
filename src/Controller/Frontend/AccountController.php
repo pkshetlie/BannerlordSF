@@ -7,6 +7,7 @@ use App\Entity\ChallengeNewsletter;
 use App\Entity\Participation;
 use App\Entity\User;
 use App\Form\ChallengeType;
+use App\Form\MyAccountType;
 use App\Helper\XmlResponse;
 use App\Repository\ChallengeNewsletterRepository;
 use App\Repository\ChallengeRepository;
@@ -28,7 +29,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 class AccountController extends AbstractController
 {
     /**
-     * @Route("/", name="my_account", methods={"GET"})
+     * @Route("/", name="my_account", methods={"GET","POST"})
      * @param Request $request
      * @param ChallengeRepository $challengeRepository
      * @param Calcul $paginationService
@@ -36,8 +37,16 @@ class AccountController extends AbstractController
      */
     public function index(Request $request, ChallengeRepository $challengeRepository, Calcul $paginationService): Response
     {
+        $form = $this->createForm(MyAccountType::class, $this->getUser());
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success',"Votre compte a été modifié.");
+        }
 
         return $this->render('frontend/account/index.html.twig', [
+            'form' => $form->createView()
         ]);
     }
 
