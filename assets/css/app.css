@@ -8156,12 +8156,14 @@ main.wrapper {
   text-align: center;
   background-color: #EF8003;
   border-radius: 50%;
+  padding-top:6px;
   position: relative; }
   .nav-link-social .fa:before {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%); }
+    transform: translate(-50%, -50%);
+  }
 
 .nav-link-social span {
   display: none; }
