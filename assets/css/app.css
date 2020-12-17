@@ -13,6 +13,7 @@
 @import url(../../node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css);
 @import url(../../node_modules/@fortawesome/fontawesome-free/css/brands.min.css);
 @import url(../../node_modules/@fortawesome/fontawesome-free/css/solid.min.css);
+
 .navbar.navbar-main {
   padding: 0;
   background-color: #ffffff;
@@ -8149,7 +8150,7 @@ main.wrapper {
   transform: translateY(-3px); }
 
 /* Social links */
-.nav-link-social .fa {
+.nav-link-social .fab,.nav-link-social .fas, .nav-link-social .far {
   width: 30px;
   height: 30px;
   text-align: center;
