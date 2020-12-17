@@ -10,7 +10,9 @@
  * 09/2020
  */
 /* Normal menu */
-@import url(../css/font-awesome.css);
+@import url(../../node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css);
+@import url(../../node_modules/@fortawesome/fontawesome-free/css/brands.min.css);
+@import url(../../node_modules/@fortawesome/fontawesome-free/css/solid.min.css);
 .navbar.navbar-main {
   padding: 0;
   background-color: #ffffff;
