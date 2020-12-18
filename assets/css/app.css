@@ -271,10 +271,11 @@ footer {
   background-image: url("../img/login_register.jpg"); }
 
 /**
- * Style des inputs
- * Version 1.0
- * 10/2020
+ * Style des inputs et selects
+ * Version 1.1
+ * 12/2020
  */
+/* --- INPUTS --- */
 .form-group {
   position: relative;
   margin-bottom: 45px; }
@@ -323,6 +324,58 @@ footer {
   .form-group input:focus ~ .bar:before,
   .form-group input:focus ~ .bar:after {
     width: 50%; }
+
+/* --- SELECT --- */
+.light-custom-select {
+  position: relative;
+  /*style the items (options), including the selected item:*/
+  /*style items (options):*/
+  /*hide the items when the select box is closed:*/ }
+  .light-custom-select select {
+    display: none;
+    /*hide original SELECT element:*/ }
+  .light-custom-select .select-items div, .light-custom-select .select-selected {
+    transition: 0.2s;
+    color: #000000;
+    padding: 8px 5px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    user-select: none; }
+    .light-custom-select .select-items div:hover, .light-custom-select .select-selected:hover {
+      background-color: #f2f2f2; }
+  .light-custom-select .select-selected {
+    background-color: #ffffff;
+    border-color: transparent transparent #ccc transparent;
+    position: relative;
+    /* style the arrow inside the select element: */
+    /* point the arrow upwards when the select box is open (active): */ }
+    .light-custom-select .select-selected:after {
+      position: absolute;
+      content: "";
+      top: 50%;
+      transform: translateY(-15%);
+      right: 10px;
+      width: 0;
+      height: 0;
+      border: 6px solid transparent;
+      border-color: #606060 transparent transparent transparent;
+      transition: 0.2s; }
+    .light-custom-select .select-selected.select-arrow-active:after {
+      transform: translateY(-65%) rotate(180deg); }
+  .light-custom-select .select-items {
+    position: absolute;
+    transition: 0.2s;
+    background-color: #ffffff;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99; }
+  .light-custom-select .select-hide {
+    display: none; }
+  .light-custom-select .select-items div:hover, .light-custom-select .same-as-selected {
+    background-color: #f2f2f2; }
+  .light-custom-select .default-value {
+    color: #cfcfcf; }
 
 /**
  * Styles des deux forms (login et inscription)
@@ -421,6 +474,8 @@ footer {
 .challenges-list .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   margin: 15px 0; }
+  .challenges-list .card:hover {
+    cursor: pointer; }
 
 .challenges-list .card-img {
   background-color: grey; }
