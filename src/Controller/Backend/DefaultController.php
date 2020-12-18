@@ -17,6 +17,10 @@ class DefaultController extends AbstractController
      */
     public function index(): Response
     {
+        if(!$this->isGranted('ROLE_ASSO')) {
+            return $this->render('backend/default/empty_dashboard.html.twig');
+        }
+
         return $this->render('backend/default/dashboard.html.twig', [
 
         ]);

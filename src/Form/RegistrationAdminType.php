@@ -19,7 +19,10 @@ class RegistrationAdminType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstname', null, ['label' => 'user.label.firstname','attr' => ['placeholder' => 'user.placeholder.firstname']])
+            ->add('firstname', null, [
+                'label' => 'user.label.firstname',
+                'attr' => ['placeholder' => 'user.placeholder.firstname']
+            ])
             ->add('lastname', null, [
                 'label' => 'user.label.lastname',
                 'attr' => [
@@ -39,13 +42,17 @@ class RegistrationAdminType extends AbstractType
                 ]
             ])
             ->add('roles', ChoiceType::class, [
-                'choices'=>[
-                    "Arbitre"=>"ROLE_ARBITRE",
-                    "Admin"=>"ROLE_ADMIN",
-                    "Joueur"=>"ROLE_USER",
-
+                'choices' => [
+                    "Admin" => "ROLE_ADMIN",
+                    "Aide de camp" => "ROLE_AIDE_CAMP",
+                    "Association" => "ROLE_ASSO",
+                    "Arbitre" => "ROLE_ARBITRE",
+                    "Caster" => "ROLE_CASTER",
+                    "Développeur" => "ROLE_DEVELOPPEUR",
+                    "Rédacteur" => "ROLE_REDACTEUR",
+                    "Joueur" => "ROLE_USER",
                 ],
-                'multiple'=>true,
+                'multiple' => true,
                 'label' => 'user.label.roles',
                 'attr' => [
                     'placeholder' => 'user.placeholder.roles'
@@ -67,13 +74,13 @@ class RegistrationAdminType extends AbstractType
             ])
             ->add('babyProof', CheckboxType::class, [
                 'label' => 'Mode baby proof',
-                'required'=>false,
+                'required' => false,
             ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
-                'required'=>false,
+                'required' => false,
                 'constraints' => [
 
 //                    new Regex([
