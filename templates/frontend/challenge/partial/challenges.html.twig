@@ -2,9 +2,11 @@
 <div class="col-12 col-md-6 col-xl-4">
     <div class="card challenge-in-coming">
         <div class="card-img">
-            <img class="card-img-top"
-                 src="{{ entity.banner is not empty ? asset('/uploads/challenge/banner/'~entity.banner) : asset('build/img_02.jpg') }}"
-                 alt="img challenge">
+            <a class="link-to-chal" href="{{ url("challenge_participer",{id:entity.id}) }}">
+                <img class="card-img-top"
+                     src="{{ entity.banner is not empty ? asset('/uploads/challenge/banner/'~entity.banner) : asset('build/img_02.jpg') }}"
+                     alt="img challenge">
+            </a>
         </div>
         <div class="card-body">
             <a class="link-to-chal" href="{{ url("challenge_participer",{id:entity.id}) }}">
