@@ -113,6 +113,11 @@ class ChallengeSetting
      */
     private $autoValue;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $sendToMod;
+
     public function __construct()
     {
         $this->runSettings = new ArrayCollection();
@@ -354,6 +359,18 @@ class ChallengeSetting
     public function setAutoValue(string $autoValue): self
     {
         $this->autoValue = $autoValue;
+
+        return $this;
+    }
+
+    public function getSendToMod(): ?bool
+    {
+        return $this->sendToMod;
+    }
+
+    public function setSendToMod(?bool $sendToMod): self
+    {
+        $this->sendToMod = $sendToMod;
 
         return $this;
     }

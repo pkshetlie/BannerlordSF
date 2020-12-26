@@ -4,12 +4,14 @@
 namespace App\Controller;
 
 
+use App\Entity\ChallengeSetting;
 use App\Entity\Run;
 use App\Entity\UserScore;
 use App\Service\ChallengeService;
 use App\Service\RunService;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -40,18 +42,66 @@ class ApiController extends AbstractController
             ->setMaxResults(1)
             ->setFirstResult(0)
             ->getQuery()->getOneOrNullResult();
+        $results = [];
         if ($run != null) {
             $score = (array)json_decode($request->getContent());
+            $countEtape = 0;
+            $etapeDone = 0;
+
             foreach ($run->getRunSettings() as $runSetting) {
+                $isStep = false;
+                $isStepDone = false;
                 if (isset($score[$runSetting->getChallengeSetting()->getAutoValue()])) {
                     $runSetting->setValue($score[$runSetting->getChallengeSetting()->getAutoValue()]);
                     $entityManager->flush();
                 }
+                if($runSetting->getChallengeSetting()->getIsStepToVictory()){
+                    $countEtape++;
+                    $isStep = true;
+                    $min = $runSetting->getChallengeSetting()->getStepToVictoryMin() == null ? -999999 : $runSetting->getChallengeSetting()->getStepToVictoryMin() ;
+                    $max = $runSetting->getChallengeSetting()->getStepToVictoryMax() == null ? 999999 : $runSetting->getChallengeSetting()->getStepToVictoryMax() ;
+
+                    if($runSetting->getValue() <= $max && $runSetting->getValue() >= $min){
+                        $etapeDone++;
+                        $isStepDone = true;
+                    }
+                }
+                if($runSetting->getChallengeSetting()->getSendToMod()){
+                    $min = $runSetting->getChallengeSetting()->getStepToVictoryMin() == null ? -999999 : $runSetting->getChallengeSetting()->getStepToVictoryMin() ;
+                    $max = $runSetting->getChallengeSetting()->getStepToVictoryMax() == null ? 999999 : $runSetting->getChallengeSetting()->getStepToVictoryMax() ;
+
+                    $results[] = [
+                        "text"=>$runSetting->getChallengeSetting()->getLabel(),
+                        "value"=>$runSetting->getChallengeSetting()->getInputType() == ChallengeSetting::CHECKBOX ? null  : ($isStep ? "req. ".$min : $runSetting->getValue()),
+                        "score"=>$runSetting->getChallengeSetting()->getInputType() == ChallengeSetting::CHECKBOX ? ($runSetting->getValue() ? "oui":"non") : $runSetting->getValue() * $runSetting->getChallengeSetting()->getRatio(),
+                        "isStepToVictory"=>$isStep,
+                        "isTotal"=>false,
+                        "color"=>!$isStep ? "#FBB03BFF" :( !$isStepDone ? "#FF0000ff": "#00FF00FF"),
+                    ];
+                }
             }
+            $results[] =[
+                "text"=>"Etapes vers la victoire",
+                "value"=>null,
+                "score"=>$etapeDone."/".$countEtape,
+                "isStepToVictory"=>false,
+                "isTotal"=>true,
+                "color"=> "#FBB03BFF",
+            ];
             $runService->ComputeScore($run);
+            $results[] =[
+                "text"=>"Total",
+                "value"=>null,
+                "score"=>$run->getScore(),
+                "isStepToVictory"=>false,
+                "isTotal"=>true,
+                "color"=> "#FBB03BFF",
+            ];
             $entityManager->flush();
+        }else{
+            return new Response("",500);
         }
-        return new Response('OK');
+        return new JsonResponse($results);
     }
 
     /**

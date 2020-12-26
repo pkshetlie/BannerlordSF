@@ -20,6 +20,7 @@ class ChallengeSettingType extends AbstractType
             ->add('position')
             ->add('subTotal',null,['label'=>"Libellé sous total"])
             ->add('autoValue',null,['label'=>"Valeur Auto"])
+            ->add('sendToMod',null,['label'=>"Envoyer au mod"])
             ->add('inputType',ChoiceType::class,[
                 'choices'=>[
                     "Champ texte"=>ChallengeSetting::TEXT,
