@@ -359,7 +359,7 @@ class ChallengeController extends AbstractController
             $entityManager->remove($run);
         }
         foreach ($challenge->getRules() as $rule) {
-            $entityManager->remove($rule);
+            $challenge->removeRule($rule);
         }
         foreach ($challenge->getChallengePrizes() as $prize) {
             $entityManager->remove($prize);
