@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ChallengeRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -170,17 +171,17 @@ class Challenge
 
     public function isOpen(): bool
     {
-        return $this->getRegistrationOpening() <= new \DateTime() && new \DateTime() <= $this->getRegistrationClosing();
+        return $this->getRegistrationOpening() <= new DateTime() && new DateTime() <= $this->getRegistrationClosing();
     }
 
     public function isPast(): bool
     {
-        return new \DateTime() > $this->getRegistrationClosing();
+        return new DateTime() > $this->getRegistrationClosing();
     }
 
     public function isFuture(): bool
     {
-        return new \DateTime() < $this->getRegistrationOpening();
+        return new DateTime() < $this->getRegistrationOpening();
     }
 
     public function setDescription(string $description): self
@@ -231,24 +232,29 @@ class Challenge
         return $this;
     }
 
-    public function getRegistrationOpening(): ?\DateTimeInterface
+    /**
+     * @return \DateTimeInterface|DateTime|null
+     */
+    public function getRegistrationOpening()
     {
         return $this->registrationOpening;
     }
 
-    public function setRegistrationOpening(\DateTime $registrationOpening): self
+    public function setRegistrationOpening(DateTime $registrationOpening): self
     {
         $this->registrationOpening = $registrationOpening->setTime(0, 0, 0);
 
         return $this;
     }
-
-    public function getRegistrationClosing(): ?\DateTimeInterface
+    /**
+     * @return \DateTimeInterface|DateTime|null
+     */
+    public function getRegistrationClosing()
     {
         return $this->registrationClosing;
     }
 
-    public function setRegistrationClosing(\DateTime $registrationClosing): self
+    public function setRegistrationClosing(DateTime $registrationClosing): self
     {
         $this->registrationClosing = $registrationClosing->setTime(23, 59, 59);
         return $this;

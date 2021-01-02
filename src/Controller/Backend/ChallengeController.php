@@ -8,12 +8,14 @@ use App\Entity\ChallengePrize;
 use App\Entity\ChallengeSetting;
 use App\Entity\Participation;
 use App\Entity\Rule;
-use App\Entity\User;
 use App\Form\ChallengeType;
 use App\Repository\ChallengeRepository;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Exception;
 use Pkshetlie\PaginationBundle\Service\Calcul;
+use Swift_Mailer;
+use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -34,7 +36,7 @@ class ChallengeController extends AbstractController
      * @param Challenge $challenge
      * @return Response
      */
-    public function duplicate(Request $request, Challenge $challenge)
+    public function duplicate(Challenge $challenge)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -51,6 +53,7 @@ class ChallengeController extends AbstractController
         $newChallenge->setBanner($challenge->getBanner());
         $newChallenge->setDisplay($challenge->getDisplay());
         $newChallenge->setMaxChallenger($challenge->getMaxChallenger());
+        $em->persist($newChallenge);
 
         foreach ($challenge->getChallengeSettings() as $setting) {
             $newSetting = new ChallengeSetting();
@@ -70,8 +73,7 @@ class ChallengeController extends AbstractController
             $newSetting->setSubTotal($setting->getSubTotal());
 
             $em->persist($newSetting);
-            $em->clear(ChallengeSetting::class);
-            $newSetting->setChallenge($newChallenge);
+//            $em->clear(ChallengeSetting::class);
         }
 
         foreach ($challenge->getChallengePrizes() as $prize) {
@@ -140,18 +142,17 @@ class ChallengeController extends AbstractController
 
     /**
      * @Route("/delete-participation/{id}", name="challenge_admin_delete_participation", methods={"GET","POST"})
-     * @param Request $request
      * @param Participation $participation
      * @return Response
      */
-    public function deleteParticipation(Request $request, Participation $participation): Response
+    public function deleteParticipation(Participation $participation): Response
     {
         try {
             $participation->setChallenge(null);
             $em = $this->getDoctrine()->getManager();
             $em->remove($participation);
             $em->flush();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             VarDumper::dump($e);
         }
         return new JsonResponse([
@@ -166,11 +167,11 @@ class ChallengeController extends AbstractController
      * @param Participation $participation
      * @return Response
      */
-    public function toggleParticipation(Request $request, Participation $participation, \Swift_Mailer $mailer): Response
+    public function toggleParticipation(Participation $participation, Swift_Mailer $mailer): Response
     {
         $participation->setEnabled(!$participation->getEnabled());
         $this->getDoctrine()->getManager()->flush();
-        $message = (new \Swift_Message('Validation de votre inscription au challenge ' . $participation->getChallenge()->getTitle()))
+        $message = (new Swift_Message('Validation de votre inscription au challenge ' . $participation->getChallenge()->getTitle()))
             ->setFrom($this->getParameter('webmaster_email'))
             ->setTo($participation->getUser()->getEmail())
             ->setBody(
@@ -194,8 +195,8 @@ class ChallengeController extends AbstractController
         try {
 
             $mailer->send($message);
-        } catch (\Exception $e) {
-            $x = $e;
+        } catch (Exception $e) {
+
         }
         return new JsonResponse([
             'success' => true,
@@ -345,14 +346,36 @@ class ChallengeController extends AbstractController
 
     /**
      * @Route("/{id}", name="challenge_admin_delete", methods={"GET"})
-     * @param Request $request
      * @param Challenge $challenge
      * @return Response
      */
-    public function delete(Request $request, Challenge $challenge): Response
+    public function delete(Challenge $challenge): Response
     {
         $entityManager = $this->getDoctrine()->getManager();
+        foreach ($challenge->getParticipations() as $participation) {
+            $entityManager->remove($participation);
+        }
+        foreach ($challenge->getRuns() as $run) {
+            $entityManager->remove($run);
+        }
+        foreach ($challenge->getRules() as $rule) {
+            $entityManager->remove($rule);
+        }
+        foreach ($challenge->getChallengePrizes() as $prize) {
+            $entityManager->remove($prize);
+        }
+        foreach ($challenge->getChallengeDates() as $date) {
+            $entityManager->remove($date);
+        }
+        foreach ($challenge->getChallengeSettings() as $setting) {
+            $entityManager->remove($setting);
+        }
+        foreach ($challenge->getChallengeNewsletters() as $newsletter) {
+            $entityManager->remove($newsletter);
+        }
+
         $entityManager->remove($challenge);
+
         $entityManager->flush();
 
         return $this->redirectToRoute('challenge_admin_index');
