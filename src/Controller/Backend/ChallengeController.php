@@ -53,6 +53,8 @@ class ChallengeController extends AbstractController
         $newChallenge->setBanner($challenge->getBanner());
         $newChallenge->setDisplay($challenge->getDisplay());
         $newChallenge->setMaxChallenger($challenge->getMaxChallenger());
+        $newChallenge->setDisplayRulesAndRatiosBeforeStart($challenge->getDisplayRulesAndRatiosBeforeStart());
+        $newChallenge->setDisplayTotalInMod($challenge->getDisplayTotalInMod());
         $em->persist($newChallenge);
 
         foreach ($challenge->getChallengeSettings() as $setting) {

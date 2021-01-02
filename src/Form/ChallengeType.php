@@ -97,10 +97,10 @@ class ChallengeType extends AbstractType
                 'label' => "Malus maximum"
             ])
             ->add('displayRulesAndRatiosBeforeStart', null, [
-                'label' => "Affichage des règles et barème avant le début"
+                'label' => "Afficher les règles et barèmes avant le début"
             ])
             ->add('displayTotalInMod', null, [
-                'label' => "Affichage Le total des points dans le mod"
+                'label' => "Afficher le total des points dans le mod"
             ])
             ->add('challengePrizes', CollectionType::class, [
                 'entry_type' => ChallengePrizeType::class,
