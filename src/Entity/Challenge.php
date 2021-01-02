@@ -142,7 +142,7 @@ class Challenge
     private $displayTotalInMod;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     private $displayRulesAndRatiosBeforeStart;
 
