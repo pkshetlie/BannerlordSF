@@ -6,16 +6,14 @@ namespace App\Controller;
 
 use App\Entity\ChallengeSetting;
 use App\Entity\Run;
-use App\Entity\UserScore;
-use App\Service\ChallengeService;
 use App\Service\RunService;
+use DateTime;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\VarDumper\VarDumper;
 
 class ApiController extends AbstractController
 {
@@ -37,7 +35,7 @@ class ApiController extends AbstractController
             ->andWhere('challenge_dates.startDate <= :now')
             ->andWhere('challenge_dates.endDate >= :now')
             ->setParameter("apikey", $apiKey)
-            ->setParameter("now", new \DateTime())
+            ->setParameter("now", new DateTime())
             ->orderBy('r.id', 'DESC')
             ->setMaxResults(1)
             ->setFirstResult(0)
@@ -68,7 +66,6 @@ class ApiController extends AbstractController
                 }
                 if($runSetting->getChallengeSetting()->getSendToMod()){
                     $min = $runSetting->getChallengeSetting()->getStepToVictoryMin() == null ? -999999 : $runSetting->getChallengeSetting()->getStepToVictoryMin() ;
-                    $max = $runSetting->getChallengeSetting()->getStepToVictoryMax() == null ? 999999 : $runSetting->getChallengeSetting()->getStepToVictoryMax() ;
 
                     $results[] = [
                         "text"=>$runSetting->getChallengeSetting()->getLabel(),
@@ -89,14 +86,16 @@ class ApiController extends AbstractController
                 "color"=> "#FBB03BFF",
             ];
             $runService->ComputeScore($run);
-            $results[] =[
-                "text"=>"Total",
-                "value"=>null,
-                "score"=>$run->getScore(),
-                "isStepToVictory"=>false,
-                "isTotal"=>true,
-                "color"=> "#FBB03BFF",
-            ];
+            if($run->getChallenge()->getDisplayTotalInMod()) {
+                $results[] = [
+                    "text" => "Total",
+                    "value" => null,
+                    "score" => $run->getScore(),
+                    "isStepToVictory" => false,
+                    "isTotal" => true,
+                    "color" => "#FBB03BFF",
+                ];
+            }
             $entityManager->flush();
         }else{
             return new Response("",500);
@@ -107,7 +106,7 @@ class ApiController extends AbstractController
     /**
      * @Route("/api/end-run/{apiKey}",name="api_end_run",methods={"POST"})
      */
-    public function apiEndRun(Request $request, string $apiKey, RunService $runService)
+    public function apiEndRun(string $apiKey, RunService $runService)
     {
         /** @var EntityManager $entityManager */
         $entityManager = $this->getDoctrine()->getManager();
@@ -122,7 +121,7 @@ class ApiController extends AbstractController
             ->andWhere('challenge_dates.startDate >= :now')
             ->andWhere('challenge_dates.endDate <= :now')
             ->setParameter("apikey", $apiKey)
-            ->setParameter("now", new \DateTime())
+            ->setParameter("now", new DateTime())
             ->orderBy('r.id', 'DESC')
             ->setMaxResults(1)
             ->setFirstResult(0)
@@ -131,31 +130,5 @@ class ApiController extends AbstractController
             $runService->endOfRun($run);
         }
         return new Response('OK');
-    }
-
-    /**
-     * @Route("/api/test",name="api_index")
-     */
-    public function index(Request $request, \Swift_Mailer $mailer)
-    {
-        VarDumper::dump($request);
-        $message = (new \Swift_Message('API bannerlord'))
-            ->setFrom($this->getParameter('webmaster_email'))
-            ->setTo("pierrick.pobelle@gmail.com")
-            ->setBody(
-                json_encode() . "\r\n"
-                . json_encode($request->query) . "\r\n"
-                . json_encode($_POST) . "\r\n"
-                . json_encode($_REQUEST) . "\r\n"
-                ,
-                'text/html'
-            );
-        try {
-
-            $mailer->send($message);
-        } catch (\Exception $e) {
-            $x = $e;
-        }
-        return new Response("<body>OK</body>");
     }
 }

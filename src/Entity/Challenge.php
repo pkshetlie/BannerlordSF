@@ -136,6 +136,16 @@ class Challenge
      */
     private $user;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $displayTotalInMod;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $displayRulesAndRatiosBeforeStart;
+
     public function __construct()
     {
         $this->rules = new ArrayCollection();
@@ -584,6 +594,30 @@ class Challenge
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getDisplayTotalInMod(): ?bool
+    {
+        return $this->displayTotalInMod;
+    }
+
+    public function setDisplayTotalInMod(?bool $displayTotalInMod): self
+    {
+        $this->displayTotalInMod = $displayTotalInMod;
+
+        return $this;
+    }
+
+    public function getDisplayRulesAndRatiosBeforeStart(): ?bool
+    {
+        return $this->displayRulesAndRatiosBeforeStart;
+    }
+
+    public function setDisplayRulesAndRatiosBeforeStart(bool $displayRulesAndRatiosBeforeStart): self
+    {
+        $this->displayRulesAndRatiosBeforeStart = $displayRulesAndRatiosBeforeStart;
 
         return $this;
     }
