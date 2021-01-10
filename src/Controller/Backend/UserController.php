@@ -35,6 +35,14 @@ class UserController extends AbstractController
             ->orderBy('u.createdAt', 'DESC')
             ->addOrderBy("u.id", "DESC");
         $paginator = $pagination->setDefaults(50)->process($qb, $request);
+if($this->isGranted('ROLE_USER')){
+    $user = $this->getUser();
+    $em = $this->getDoctrine()->getManager();
+    if ($user->getApiKey() == null) {
+        $user->setApiKey(md5($user->getUsername() . $user->getEmail() . date('d_m_y_s')));
+        $em->flush();
+    }
+}
 
         return $this->render('backend/user/index.html.twig', [
             'paginator' => $paginator,
