@@ -45,6 +45,14 @@ class AccountController extends AbstractController
             $this->addFlash('success',"Votre compte a été modifié.");
         }
 
+        if ($this->isGranted('ROLE_USER')) {
+            $user = $this->getUser();
+            $em = $this->getDoctrine()->getManager();
+            if ($user->getApiKey() == null) {
+                $user->setApiKey(md5($user->getUsername() . $user->getEmail() . date('d_m_y_s')));
+                $em->flush();
+            }
+        }
         return $this->render('frontend/account/index.html.twig', [
             'form' => $form->createView()
         ]);
