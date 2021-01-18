@@ -199,7 +199,7 @@
                                         entrainement</a>
                                     <ul>
                                         {% for run in  app.user.getTrainingRun(challenge) %}
-                                            <li>le {{ run.startDate.format('d/m/Y HH:ii')}}  {{ run.computedScore }} pts</li>
+                                            <li>le {{ run.startDate.format('d/m/Y H:i')}}  {{ run.computedScore }} pts</li>
                                         {% endfor %}
                                     </ul>
                                 </div>
