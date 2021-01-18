@@ -39,6 +39,7 @@ class RunService
 
         if ($run->getTempScore() != null) {
             $score = $run->getTempScore();
+            $run->setScore($score);
         } else {
             foreach ($run->getRunSettings() as $setting) {
                 if (!is_numeric($setting->getValue())) {

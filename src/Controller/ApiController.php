@@ -40,7 +40,23 @@ class ApiController extends AbstractController
             ->setMaxResults(1)
             ->setFirstResult(0)
             ->getQuery()->getOneOrNullResult();
+
+        if($run == null){
+            $run = $entityManager->getRepository(Run::class)
+                ->createQueryBuilder('r')
+                ->leftJoin("r.user", 'user')
+                ->where('user.apiKey = :apikey')
+                ->andWhere('r.training = true')
+                ->andWhere('r.training_open = true')
+                ->setParameter("apikey", $apiKey)
+                ->orderBy('r.id', 'DESC')
+                ->setMaxResults(1)
+                ->setFirstResult(0)
+                ->getQuery()->getOneOrNullResult();
+        }
         $results = [];
+
+
         if ($run != null) {
             $score = (array)json_decode($request->getContent());
             $countEtape = 0;
@@ -69,15 +85,16 @@ class ApiController extends AbstractController
 
                     $results[] = [
                         "text"=>$runSetting->getChallengeSetting()->getLabel(),
-                        "value"=>$runSetting->getChallengeSetting()->getInputType() == ChallengeSetting::CHECKBOX ? null  : ($isStep ? "req. ".$min : $runSetting->getValue()),
-                        "score"=>$runSetting->getChallengeSetting()->getInputType() == ChallengeSetting::CHECKBOX ? ($runSetting->getValue() ? "oui":"non") : $runSetting->getValue() * $runSetting->getChallengeSetting()->getRatio(),
+                        "value"=>$runSetting->getChallengeSetting()->getInputType() == ChallengeSetting::CHECKBOX ? null  : ($isStep ? "req. ".$min : ceil($runSetting->getValue())),
+                        "score"=>$runSetting->getChallengeSetting()->getInputType() == ChallengeSetting::CHECKBOX ? ($runSetting->getValue() ? "oui":"non") : ceil($runSetting->getValue() * $runSetting->getChallengeSetting()->getRatio()),
                         "isStepToVictory"=>$isStep,
                         "isTotal"=>false,
                         "color"=>!$isStep ? "#FBB03BFF" :( !$isStepDone ? "#FF0000ff": "#00FF00FF"),
                     ];
                 }
             }
-            $results[] =[
+          if($countEtape != 0){
+              $results[] = [
                 "text"=>"Etapes vers la victoire",
                 "value"=>null,
                 "score"=>$etapeDone."/".$countEtape,
@@ -85,12 +102,13 @@ class ApiController extends AbstractController
                 "isTotal"=>true,
                 "color"=> "#FBB03BFF",
             ];
+        }
             $runService->ComputeScore($run);
             if($run->getChallenge()->getDisplayTotalInMod()) {
                 $results[] = [
                     "text" => "Total",
                     "value" => null,
-                    "score" => $run->getScore(),
+                    "score" => $run->getComputedScore(),
                     "isStepToVictory" => false,
                     "isTotal" => true,
                     "color" => "#FBB03BFF",

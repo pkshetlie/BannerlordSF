@@ -74,6 +74,16 @@ class Run
      */
     private $tempScore;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $training;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $training_open;
+
     public function __construct()
     {
         $this->runSettings = new ArrayCollection();
@@ -244,5 +254,29 @@ class Run
             }
         }
         return $tmp;
+    }
+
+    public function getTraining(): ?bool
+    {
+        return $this->training;
+    }
+
+    public function setTraining(bool $training): self
+    {
+        $this->training = $training;
+
+        return $this;
+    }
+
+    public function getTrainingOpen(): ?bool
+    {
+        return $this->training_open;
+    }
+
+    public function setTrainingOpen(bool $training_open): self
+    {
+        $this->training_open = $training_open;
+
+        return $this;
     }
 }

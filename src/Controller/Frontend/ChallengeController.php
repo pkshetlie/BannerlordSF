@@ -5,11 +5,16 @@ namespace App\Controller\Frontend;
 use App\Entity\Challenge;
 use App\Entity\ChallengeNewsletter;
 use App\Entity\Participation;
+use App\Entity\Run;
+use App\Entity\RunSettings;
 use App\Entity\User;
 use App\Form\ChallengeType;
 use App\Repository\ChallengeNewsletterRepository;
 use App\Repository\ChallengeRepository;
 use App\Repository\ParticipationRepository;
+use App\Repository\RunRepository;
+use App\Service\RunService;
+use Doctrine\ORM\EntityManagerInterface;
 use Pkshetlie\PaginationBundle\Service\Calcul;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -40,7 +45,7 @@ class ChallengeController extends AbstractController
             ->orderBy('c.season', 'DESC')
             ->addOrderBy('c.registrationOpening', 'DESC');
         $paginator = $paginationService->setDefaults(9)->process($qb, $request);
-        if($paginator->isPartial()){
+        if ($paginator->isPartial()) {
             return $this->render('frontend/challenge/partial/challenges.html.twig', [
                 'paginator' => $paginator,
             ]);
@@ -137,5 +142,57 @@ class ChallengeController extends AbstractController
             'leaderboard' => $participations,
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/entrainement/{id}", name="challenge_training")
+     * @param Request $request
+     * @param Challenge $challenge
+     * @param ParticipationRepository $participationRepository
+     * @return Response
+     */
+    public function train(Challenge $challenge, RunRepository $runRepository, EntityManagerInterface $entityManager, RunService $runService)
+    {
+        if (!$challenge->getDisplayRulesAndRatiosBeforeStart()) {
+            $this->addFlash('danger', "Il n'est pas possible de s'entrainer sur ce challenge");
+            return $this->redirectToRoute('challenge_participer', ['id' => $challenge->getId()]);
+        }
+
+        /** @var User $user */
+        $user = $this->getUser();
+        /** @var Run $run */
+        foreach ($user->getTrainingRun($challenge) as $run) {
+            $run->setTrainingOpen(false);
+        }
+        $entityManager->flush();
+
+
+        $run = new Run();
+        $run->setChallenge($challenge);
+        $run->setUser($user);
+        $run->setTrainingOpen(true);
+        $run->setTraining(true);
+        $user->addRun($run);
+        $entityManager->persist($run);
+        $run->setStartDate(new \DateTime());
+        $countRun = 0;
+        /** @var Run $lastrun */
+
+        foreach ($challenge->getChallengeSettings() as $setting) {
+            $runSetting = new RunSettings();
+            $runSetting->setChallengeSetting($setting);
+            $runSetting->setRun($run);
+
+            $runSetting->setValue($setting->getDefaultValue());
+            $run->addRunSetting($runSetting);
+            $malus = $challenge->getMalusPerRun() * ($countRun - 1);
+            $malus = $malus >= $challenge->getMalusMax() ? $challenge->getMalusMax() : $malus;
+            $run->setMalus(1 - ($malus / 100));
+            $entityManager->persist($runSetting);
+        }
+        $entityManager->flush();
+        $runService->ComputeScore($run);
+
+        return $this->redirect($this->generateUrl('challenge_participer', ['id' => $challenge->getId()]) . '#training');
     }
 }

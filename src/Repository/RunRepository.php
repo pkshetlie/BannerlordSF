@@ -30,6 +30,7 @@ class RunRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('r')
             ->where('r.challenge = :challenge')
+            ->andWhere('r.training != true')
             ->setParameter('challenge', $challenge)
             ->orderBy('r.ComputedScore', 'Desc')
         ;

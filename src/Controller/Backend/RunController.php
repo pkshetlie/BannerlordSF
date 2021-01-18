@@ -57,6 +57,7 @@ class RunController extends AbstractController
             ->where('r.user = :user')
             ->andWhere('r.challenge  = :challenge')
             ->andWhere('r.endDate IS NULL')
+            ->andWhere('r.training != null ')
             ->setParameter('challenge', $challenge)
             ->setParameter('user', $user)
             ->getQuery()
@@ -75,6 +76,7 @@ class RunController extends AbstractController
             $lastrun = $runRepository->createQueryBuilder('r')
                 ->where('r.user = :user')
                 ->andWhere('r.challenge  = :challenge')
+                ->andWhere('r.training != null ')
                 ->setParameter('challenge', $challenge)
                 ->setParameter('user', $user)
                 ->orderBy("r.endDate", "DESC")
@@ -201,6 +203,7 @@ class RunController extends AbstractController
                 'id_challenge' => $run->getChallenge()->getId()
             ]);
         }
+
         return $this->render('backend/run/edit.html.twig', [
             'form' => $form->createView(),
             'run' => $run,

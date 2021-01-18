@@ -142,7 +142,6 @@ class User implements UserInterface
     private $levelMulti;
 
 
-
     public function __construct()
     {
         $this->userScores = new ArrayCollection();
@@ -475,7 +474,9 @@ class User implements UserInterface
     public function getCurrentScore(Challenge $challenge)
     {
         /** @var Run $run */
-        $run = $this->getRuns()->filter(function($r) use($challenge){ return $r->getChallenge() === $challenge;})->last();
+        $run = $this->getRuns()->filter(function ($r) use ($challenge) {
+            return $r->getChallenge() === $challenge;
+        })->last();
 
         return !$run ? 0 : $run->getComputedScore();
     }
@@ -483,12 +484,16 @@ class User implements UserInterface
     public function getNonMalusableScore(Challenge $challenge)
     {
         /** @var Run $run */
-        $run = $this->getRuns()->filter(function($r) use($challenge){ return $r->getChallenge() === $challenge;})->last();
-        if($run === false){return 0;}
+        $run = $this->getRuns()->filter(function ($r) use ($challenge) {
+            return $r->getChallenge() === $challenge;
+        })->last();
+        if ($run === false) {
+            return 0;
+        }
         $score = 0;
-        foreach($run->getRunSettings() AS $setting){
-            if(!$setting->getChallengeSetting()->getIsAffectedByMalus()) {
-                if(is_numeric($setting->getValue())){
+        foreach ($run->getRunSettings() as $setting) {
+            if (!$setting->getChallengeSetting()->getIsAffectedByMalus()) {
+                if (is_numeric($setting->getValue())) {
                     $score += $setting->getValue();
                 }
             }
@@ -502,7 +507,7 @@ class User implements UserInterface
             return $run->getChallenge() === $challenge;
         });
         $score = -99999999;
-        if(count($runs)> 0) {
+        if (count($runs) > 0) {
             /** @var Run $run */
             foreach ($runs as $run) {
                 $comp = $run->getComputedScore();
@@ -684,6 +689,7 @@ class User implements UserInterface
         $this->levelMulti = $levelMulti;
         return $this;
     }
+
     /**
      * @return string
      */
@@ -702,4 +708,15 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getTrainingRun(Challenge $challenge)
+    {
+        $tmp = [];
+        /** @var Run $run */
+        foreach($this->getRuns() AS $run){
+            if($run->getTraining() && $run->getChallenge() === $challenge){
+                $tmp[] = $run;
+            }
+        }
+        return $tmp;
+    }
 }
