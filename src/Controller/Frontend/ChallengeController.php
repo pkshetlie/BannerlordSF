@@ -183,6 +183,7 @@ class ChallengeController extends AbstractController
             $runSetting->setChallengeSetting($setting);
             $runSetting->setRun($run);
 
+
             $runSetting->setValue($setting->getDefaultValue());
             $run->addRunSetting($runSetting);
             $malus = $challenge->getMalusPerRun() * ($countRun - 1);
@@ -190,8 +191,8 @@ class ChallengeController extends AbstractController
             $run->setMalus(1 - ($malus / 100));
             $entityManager->persist($runSetting);
         }
-        $entityManager->flush();
         $runService->ComputeScore($run);
+        $entityManager->flush();
 
         return $this->redirect($this->generateUrl('challenge_participer', ['id' => $challenge->getId()]) . '#training');
     }
