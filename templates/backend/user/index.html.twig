@@ -35,7 +35,7 @@
                                 <td>{{ entity.lastname }}</td>
                                 <td>{{ entity.username }}</td>
                                 <td>{{ entity.email }}</td>
-                                <td>{{ entity.roles|join(',') }}</td>
+                                <td><small>{{ entity.roles|join(', ') }}</small></td>
                                 <td>{{ entity.createdAt.format("d/m/Y h:i") }}</td>
                                 <td>
                                     <a class="btn btn-sm btn-info"

@@ -58,6 +58,15 @@ class RegistrationAdminType extends AbstractType
                     'placeholder' => 'user.placeholder.roles'
                 ]
             ])
+            ->add('levelMulti', ChoiceType::class,[
+                'choices'=>[
+                    "Occasionnel"=>User::NIVEAU_DEBUTANT,
+                    "Intermédiaire"=>User::NIVEAU_INTERMEDIAIRE,
+                    "Confirmé"=>User::NIVEAU_CONFIRMED,
+                ],
+                'required'=>false,
+                "placeholder"=>"-- Séléctionner --"
+            ])
             ->add('twitchID', null, [
                 'label' => 'user.label.twitchID',
                 'required' => false,
@@ -70,6 +79,34 @@ class RegistrationAdminType extends AbstractType
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'user.placeholder.discordID'
+                ]
+            ])
+            ->add('steamID', null, [
+                'label' => 'user.label.steamID',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'user.placeholder.steamID'
+                ]
+            ])
+            ->add('bannerlordID', null, [
+                'label' => 'user.label.bannerlordID',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'user.placeholder.bannerlordID'
+                ]
+            ])
+            ->add('youtube', null, [
+                'label' => 'user.label.youtube',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'user.placeholder.youtube'
+                ]
+            ])
+            ->add('twitter', null, [
+                'label' => 'user.label.twitter',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'user.placeholder.twitter'
                 ]
             ])
             ->add('babyProof', CheckboxType::class, [
