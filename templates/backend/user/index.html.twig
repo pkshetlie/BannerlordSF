@@ -22,8 +22,7 @@
                             <th>{{ "user.label.lastname"|trans }}</th>
                             <th>{{ "user.label.username"|trans }}</th>
                             <th>{{ "user.label.email"|trans }}</th>
-                            <th>{{ "user.label.twitchID"|trans }}</th>
-                            <th>{{ "user.label.discordID"|trans }}</th>
+                            <th>{{ "user.label.roles"|trans }}</th>
                             <th>{{ "user.label.createdAt"|trans }}</th>
                             <th>{{ "Actions"|trans }}</th>
                         </tr>
@@ -36,8 +35,7 @@
                                 <td>{{ entity.lastname }}</td>
                                 <td>{{ entity.username }}</td>
                                 <td>{{ entity.email }}</td>
-                                <td>{{ entity.twitchID }}</td>
-                                <td>{{ entity.discordID }}</td>
+                                <td>{{ entity.roles|join(',') }}</td>
                                 <td>{{ entity.createdAt.format("d/m/Y h:i") }}</td>
                                 <td>
                                     <a class="btn btn-sm btn-info"
