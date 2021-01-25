@@ -115,6 +115,10 @@
                                    aria-controls="reglement" aria-selected="false">Règlement</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" id="bareme-tab" data-toggle="tab" href="#bareme" role="tab"
+                                   aria-controls="bareme" aria-selected="false">Barème</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" id="infos-tab" data-toggle="tab" href="#participants" role="tab"
                                    aria-controls="infos" aria-selected="false">Participants</a>
                             </li>
@@ -135,6 +139,11 @@
                             <div class="tab-pane fade show active" id="presentation" role="tabpanel"
                                  aria-labelledby="presentation-tab">
                                 {{ challenge.description|raw }}
+                            </div>
+                            <div class="tab-pane fade show" id="bareme" role="tabpanel"
+                                       aria-labelledby="bareme-tab">
+                                {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'bareme-challenge-'~challenge.id,default:"Bientôt le barème"})) }}
+
                             </div>
                             {# Onglet Infos #}
                             <div class="tab-pane fade row" id="participants" role="tabpanel"
