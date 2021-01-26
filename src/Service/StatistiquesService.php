@@ -36,7 +36,7 @@ class StatistiquesService
     {
         $rep = $this->em->getRepository(User::class)
             ->createQueryBuilder('u')
-            ->select('COUNT(*)')
+            ->select('COUNT(u.id)')
             ->join('u.participations','p')
             ->where("p.enabled = true")
             ->distinct()
