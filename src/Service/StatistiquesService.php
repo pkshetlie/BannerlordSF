@@ -36,13 +36,13 @@ class StatistiquesService
     {
         $rep = $this->em->getRepository(User::class)
             ->createQueryBuilder('u')
-            ->select('COUNT(u.id)')
+            ->select('COUNT(u.id) as count')
             ->join('u.participations','p')
             ->where("p.enabled = true")
             ->distinct()
             ->getQuery()
             ->getOneOrNullResult();
-        return $rep[0];
+        return $rep["count"];
     }
     public function countTwitchers()
     {
