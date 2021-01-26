@@ -32,7 +32,18 @@ class StatistiquesService
     {
         return $this->em->getRepository(Participation::class)->count(["enabled"=>true]);
     }
-
+    public function countParticipationsUniques()
+    {
+        $rep = $this->em->getRepository(User::class)
+            ->createQueryBuilder('u')
+            ->select('COUNT(*)')
+            ->join('u.participations','p')
+            ->where("p.enabled = true")
+            ->distinct()
+            ->getQuery()
+            ->getOneOrNullResult();
+        return $rep[0];
+    }
     public function countTwitchers()
     {
         return count($this->em->getRepository(User::class)->createQueryBuilder('u')->where("u.twitchID is not null")
