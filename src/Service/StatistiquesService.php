@@ -25,25 +25,28 @@ class StatistiquesService
 
     public function countChallenges()
     {
-        return $this->em->getRepository(Challenge::class)->count(['user'=>null]);
+        return $this->em->getRepository(Challenge::class)->count(['user' => null]);
     }
 
     public function countParticipations()
     {
-        return $this->em->getRepository(Participation::class)->count(["enabled"=>true]);
+        return $this->em->getRepository(Participation::class)->count(["enabled" => true]);
     }
+
     public function countParticipationsUniques()
     {
         $rep = $this->em->getRepository(User::class)
             ->createQueryBuilder('u')
             ->select('COUNT(u.id) as count')
-            ->join('u.participations','p')
+            ->join('u.participations', 'p')
             ->where("p.enabled = true")
             ->distinct()
+            ->groupBY('u.id')
             ->getQuery()
             ->getOneOrNullResult();
         return $rep["count"];
     }
+
     public function countTwitchers()
     {
         return count($this->em->getRepository(User::class)->createQueryBuilder('u')->where("u.twitchID is not null")
@@ -56,6 +59,9 @@ class StatistiquesService
      */
     public function getChallenges()
     {
-        return $this->em->getRepository(Challenge::class)->findBy(['user'=>null,'display'=>true],['registrationOpening'=>"ASC"]);
+        return $this->em->getRepository(Challenge::class)->findBy([
+            'user' => null,
+            'display' => true
+        ], ['registrationOpening' => "ASC"]);
     }
 }
