@@ -41,7 +41,6 @@ class StatistiquesService
             ->join('u.participations', 'p')
             ->where("p.enabled = true")
             ->distinct()
-            ->groupBY('u.id')
             ->getQuery()
             ->getOneOrNullResult();
         return $rep["count"];
