@@ -133,6 +133,12 @@ main.wrapper {
 }
 
 
+// et on masque le input
+.input-file {
+    display: none;
+}
+
+
 /* Cards effect */
 .card {
     transition: 0.2s;
@@ -141,7 +147,7 @@ main.wrapper {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
     box-shadow: 0 2px 30px #e2dee5;
     -webkit-transform: translateY(-3px);
-    transform: translateY(-3px);
+    transform: translateY(-3px); 
 }
 
 
