@@ -186,9 +186,9 @@ class ChallengeController extends AbstractController
 
             $runSetting->setValue($setting->getDefaultValue());
             $run->addRunSetting($runSetting);
-            $malus = $challenge->getMalusPerRun() * ($countRun - 1);
-            $malus = $malus >= $challenge->getMalusMax() ? $challenge->getMalusMax() : $malus;
-            $run->setMalus(1 - ($malus / 100));
+//            $malus = $challenge->getMalusPerRun() * ($countRun - 1);
+//            $malus = $malus >= $challenge->getMalusMax() ? $challenge->getMalusMax() : $malus;
+            $run->setMalus(1);
             $entityManager->persist($runSetting);
         }
         $runService->ComputeScore($run);

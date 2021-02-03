@@ -65,6 +65,9 @@ class ApiController extends AbstractController
             foreach ($run->getRunSettings() as $runSetting) {
                 $isStep = false;
                 $isStepDone = false;
+                $label = $runSetting->getChallengeSetting()->getLabel();
+                $auto_value = $runSetting->getChallengeSetting()->getAutoValue();
+                $mix = $label.$auto_value;
                 if (isset($score[$runSetting->getChallengeSetting()->getAutoValue()])) {
                     $runSetting->setValue($score[$runSetting->getChallengeSetting()->getAutoValue()]);
                     $entityManager->flush();
@@ -85,8 +88,10 @@ class ApiController extends AbstractController
 
                     $results[] = [
                         "text"=>$runSetting->getChallengeSetting()->getLabel(),
-                        "value"=>$runSetting->getChallengeSetting()->getInputType() == ChallengeSetting::CHECKBOX ? null  : ($isStep ? "req. ".$min : ceil($runSetting->getValue())),
-                        "score"=>$runSetting->getChallengeSetting()->getInputType() == ChallengeSetting::CHECKBOX ? ($runSetting->getValue() ? "oui":"non") : ceil($runSetting->getValue() * $runSetting->getChallengeSetting()->getRatio()),
+                        "value"=>$runSetting->getChallengeSetting()->getInputType() == ChallengeSetting::CHECKBOX ? null  :
+                            ($isStep ? "req. ".$min :
+                                (is_numeric($runSetting->getValue()) ? ceil(floatval($runSetting->getValue())):$runSetting->getValue())),
+                        "score"=>$runSetting->getChallengeSetting()->getInputType() == ChallengeSetting::CHECKBOX ? ($runSetting->getValue() ? "oui":"non") : ceil(floatval($runSetting->getValue()) * $runSetting->getChallengeSetting()->getRatio()),
                         "isStepToVictory"=>$isStep,
                         "isTotal"=>false,
                         "color"=>!$isStep ? "#FBB03BFF" :( !$isStepDone ? "#FF0000ff": "#00FF00FF"),

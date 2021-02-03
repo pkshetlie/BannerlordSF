@@ -68,3 +68,4 @@ setting:
     label: 'Label'
     defaultValue: 'Valeur par défaut'
     isUsedForScore: 'Utilisé pour le score'
+    autovalue: 'Val. auto.'

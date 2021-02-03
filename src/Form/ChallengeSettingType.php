@@ -19,7 +19,7 @@ class ChallengeSettingType extends AbstractType
             ->add('ratio')
             ->add('position')
             ->add('subTotal',null,['label'=>"Libellé sous total"])
-            ->add('autoValue',null,['label'=>"Valeur Auto"])
+            ->add('autoValue',null,['label'=>"Valeur Auto",'required'=>false])
             ->add('sendToMod',null,['label'=>"Envoyer au mod"])
             ->add('inputType',ChoiceType::class,[
                 'choices'=>[
