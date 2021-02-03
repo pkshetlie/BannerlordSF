@@ -36,14 +36,10 @@
 
                     </div>
                     {% for entity in entities %}
-                        <div class="col-12 col-md-4 col-lg-3">
-
-                            <iframe
-                                    frameborder="0"
-                                    scrolling="no"
-                                    allowfullscreen="true"
-                                    width="100%"
-                                    src="https://player.twitch.tv/?muted=true&channel={{ entity.TwitchId }}&parent=bannerlord.hardcore-challenge.com&autoplay=false"></iframe>
+                        <div class="col-12 col-md-4 col-lg-3 card-twitch-player">
+                            <a href="https://twitch.tv/{{ entity.TwitchId }}" target="_blank" class="bg_image_default">
+                                <p>{{ entity.TwitchId }}</p>
+                            </a>
                         </div>
                     {% endfor %}
                 </div>
