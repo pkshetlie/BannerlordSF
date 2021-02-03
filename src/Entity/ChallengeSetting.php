@@ -356,7 +356,7 @@ class ChallengeSetting
         return $this->autoValue;
     }
 
-    public function setAutoValue(string $autoValue): self
+    public function setAutoValue(?string $autoValue): self
     {
         $this->autoValue = $autoValue;
 
