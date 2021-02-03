@@ -467,15 +467,15 @@ class User implements UserInterface
     public function countRun(Challenge $challenge)
     {
         return $this->getRuns()->filter(function (Run $run) use ($challenge) {
-            return $run->getChallenge() === $challenge;
+            return $run->getChallenge() === $challenge && $run->getTraining() == false;
         })->Count();
     }
 
     public function getCurrentScore(Challenge $challenge)
     {
         /** @var Run $run */
-        $run = $this->getRuns()->filter(function ($r) use ($challenge) {
-            return $r->getChallenge() === $challenge;
+        $run = $this->getRuns()->filter(function (Run $r) use ($challenge) {
+            return $r->getChallenge() === $challenge && $r->getTraining() == false;
         })->last();
 
         return !$run ? 0 : $run->getComputedScore();
@@ -485,7 +485,7 @@ class User implements UserInterface
     {
         /** @var Run $run */
         $run = $this->getRuns()->filter(function ($r) use ($challenge) {
-            return $r->getChallenge() === $challenge;
+            return $r->getChallenge() === $challenge && $r->getTraining() == false;
         })->last();
         if ($run === false) {
             return 0;
@@ -504,7 +504,7 @@ class User implements UserInterface
     public function getBestScore(Challenge $challenge)
     {
         $runs = $this->getRuns()->filter(function (Run $run) use ($challenge) {
-            return $run->getChallenge() === $challenge;
+            return $run->getChallenge() === $challenge && $run->getTraining() == false;
         });
         $score = -99999999;
         if (count($runs) > 0) {
@@ -525,7 +525,7 @@ class User implements UserInterface
         $cumul = 0;
         /** @var Run[] $runs */
         $runs = $this->getRuns()->filter(function (Run $run) use ($challenge) {
-            return $run->getChallenge() === $challenge;
+            return $run->getChallenge() === $challenge && $run->getTraining() == false;
         });
 
         foreach ($runs as $run) {
@@ -544,7 +544,7 @@ class User implements UserInterface
         $best = 0;
         /** @var Run[] $runs */
         $runs = $this->getRuns()->filter(function (Run $run) use ($challenge) {
-            return $run->getChallenge() === $challenge;
+            return $run->getChallenge() === $challenge && $run->getTraining() == false;
         });
 
         foreach ($runs as $run) {
