@@ -328,24 +328,37 @@ class ChallengeController extends AbstractController
      */
     public function changeArbitre(Request $request, Participation $participation, UserRepository $userRepository)
     {
-        $arbitre = $userRepository->find($request->get('arbitre'));
-        if ($arbitre != null) {
-            $participation->setArbitre($arbitre);
+        if($request->get('arbitre', null)) {
+            $arbitre = $userRepository->find($request->get('arbitre'));
+            if ($arbitre != null) {
+                $participation->setArbitre($arbitre);
+                $this->getDoctrine()->getManager()->flush();
+                return new JsonResponse([
+                    'success' => true,
+                    "message" => ""
+                ]);
+            } else {
+                $participation->setArbitre(null);
+                $this->getDoctrine()->getManager()->flush();
+
+            }
+        }
+        if($request->get('openChallenge', null)){
+            $participation->setOpenChallenge(new \DateTime($request->get('openChallenge', null)));
             $this->getDoctrine()->getManager()->flush();
             return new JsonResponse([
                 'success' => true,
                 "message" => ""
             ]);
-        } else {
-            $participation->setArbitre(null);
-            $this->getDoctrine()->getManager()->flush();
-
         }
-        if($request->get('openChallenge', null)){
-            $participation->setOpenChallenge($request->get('openChallenge', null));
+        if($request->get('closeChallenge')){
+            $participation->setCloseChallenge(new \DateTime($request->get('closeChallenge', null)));
             $this->getDoctrine()->getManager()->flush();
+            return new JsonResponse([
+                'success' => true,
+                "message" => ""
+            ]);
         }
-
 
         return new JsonResponse([
             'success' => false,
