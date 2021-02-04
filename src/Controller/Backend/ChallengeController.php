@@ -19,6 +19,7 @@ use Swift_Message;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -388,11 +389,11 @@ class ChallengeController extends AbstractController
      * @param Request $request
      * @param Challenge $challenge
      * @param UserRepository $userRepository
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return Response
      */
     public function addParticipation(Request $request, Challenge $challenge, UserRepository $userRepository)
     {
-        foreach ($request->get('participations') as $userId) {
+        foreach ($request->get('participations',[]) as $userId) {
             $user = $userRepository->find($userId);
             $participation = new Participation();
             $participation
@@ -403,6 +404,31 @@ class ChallengeController extends AbstractController
             $entityManger->persist($participation);
             $entityManger->flush();
         }
-        return $this->redirectToRoute("challenge_admin_edit", ["id" => $challenge->getId()]);
+        $allPlayers = $userRepository->createQueryBuilder('u')
+            ->orderBy('u.username')
+            ->getQuery()
+            ->getResult();
+
+        $availablePlayer = [];
+        foreach ($allPlayers as $user) {
+            $result = true;
+            foreach ($user->getParticipations() as $participation) {
+                if ($participation->getChallenge() === $challenge) {
+                    $result = false;
+                }
+            }
+            if ($result) {
+                $availablePlayer[] = $user;
+            }
+        }
+
+        $arbitres = $userRepository->createQueryBuilder('u')
+            ->where('u.roles LIKE :employee')
+            ->setParameter('employee', '%ROLE_ARBITRE%')
+            ->orderBy("u.username")
+            ->getQuery()->getResult();
+        return $this->render("backend/challenge/participations.html.twig", ["challenge" => $challenge,
+            'arbitres' => $arbitres,
+            'availablePlayer' => $availablePlayer,]);
     }
 }

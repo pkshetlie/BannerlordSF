@@ -41,6 +41,16 @@ class Participation
      */
     private $arbitre;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $OpenChallenge;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $CloseChallenge;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +100,30 @@ class Participation
     public function setArbitre(?User $arbitre): self
     {
         $this->arbitre = $arbitre;
+
+        return $this;
+    }
+
+    public function getOpenChallenge(): ?\DateTimeInterface
+    {
+        return $this->OpenChallenge;
+    }
+
+    public function setOpenChallenge(?\DateTimeInterface $OpenChallenge): self
+    {
+        $this->OpenChallenge = $OpenChallenge;
+
+        return $this;
+    }
+
+    public function getCloseChallenge(): ?\DateTimeInterface
+    {
+        return $this->CloseChallenge;
+    }
+
+    public function setCloseChallenge(?\DateTimeInterface $CloseChallenge): self
+    {
+        $this->CloseChallenge = $CloseChallenge;
 
         return $this;
     }

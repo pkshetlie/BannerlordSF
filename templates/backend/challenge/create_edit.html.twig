@@ -32,15 +32,7 @@
                                         </a>
                                     </li>
                                 {% endif %}
-                                {% if is_granted('ROLE_AIDE_CAMP') %}
-                                    <li class="nav-item">
-                                        <a class="nav-link {% if not is_granted('ROLE_ADMIN') %}active{% endif %}" id="custom-tabs-three-profile-tab" data-toggle="pill"
-                                           href="#participations" role="tab" aria-controls="custom-tabs-three-profile"
-                                           aria-selected="false">
-                                            Participations
-                                        </a>
-                                    </li>
-                                {% endif %}
+
                             </ul>
                         </div>
                         <div class="card-body">
@@ -166,86 +158,7 @@
                                     </div>
                                     {% endif %}
 
-                                {% if is_granted('ROLE_AIDE_CAMP') %}
-                                    <div class="tab-pane fade {% if not is_granted('ROLE_ADMIN') %}show active{% endif %}"  id="participations" role="tabpanel"
-                                         aria-labelledby="custom-tabs-three-profile-tab">
-                                        <form action="{{ url("add_participation",{id: challenge.id}) }}">
-                                            <select name="participations[]" multiple="multiple" class="select2">
-                                                {% for player in availablePlayer %}
-                                                    <option value="{{ player.id }}">{{ player.username ~ " - " ~ player.fullname }}</option>
-                                                {% endfor %}
-                                            </select>
-                                            <button type="submit" class="btn btn-info">Ajouter</button>
-                                        </form>
-                                        <table class="table mt-4">
-                                            <tr>
-                                                <th>Prénom nom (pseudo)</th>
-                                                <th>Date d'inscription</th>
-                                                <th>Arbitre</th>
-                                                <th>Etat</th>
-                                            </tr>
-                                            {% for participation in challenge.waitingParticipations %}
-                                                <tr>
-                                                    <td>{{ participation.user.fullNameUsername }}</td>
-                                                    <td>{{ participation.createdAt.format("d/m/Y H:i") }}</td>
-                                                    <td></td>
-                                                    <td>
-                                                        <a class="ajax-link"
-                                                           data-replace="self"
-                                                           data-toggle="tooltip"
-                                                           title="Changer d'état"
-                                                           href="{{ url('challenge_admin_toggle_participation',{id:participation.id}) }}">
-                                                            {{ participation.enabled ? "<i class='fas fa-check text-success'></i>" :  "<i class='fas fa-times text-danger'></i>" }}
-                                                        </a>
-                                                        {% if not app.user.babyProof %}
-                                                            <a class="ajax-link"
-                                                               data-remove="closestTr"
-                                                               data-toggle="tooltip"
-                                                               title="Refuser/supprimer"
-                                                               href="{{ url('challenge_admin_delete_participation',{id:participation.id}) }}">
-                                                                <i class='fas fa-trash text-danger'></i>
-                                                            </a>
-                                                        {% endif %}
-                                                    </td>
-                                                </tr>
-                                            {% endfor %}
-                                            {% for participation in challenge.validatedParticipations %}
-                                                <tr>
-                                                    <td>{{ participation.user.fullNameUsername }}</td>
-                                                    <td>{{ participation.createdAt.format("d/m/Y H:i") }}</td>
-                                                    <td>
-                                                        {% if is_granted('ROLE_ADMIN') %}
-                                                        <select name="arbitre" class="arbitre form-control"
-                                                                data-change-url="{{ url('change_arbitre',{id:participation.id}) }}">
-                                                            <option value="">-- non défini --</option>
-                                                            {% for arbitre in  arbitres %}
-                                                                <option {% if participation.arbitre is not null and arbitre.id == participation.arbitre.id %}selected="selected"{% endif %}
-                                                                        value="{{ arbitre.id }}">{{ arbitre.username }}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                        {% endif %}
-                                                    </td>
-                                                    <td>
-                                                        <a class="ajax-link"
-                                                           data-replace="self"
-                                                           data-toggle="tooltip"
-                                                           title="Changer d'état"
-                                                           href="{{ url('challenge_admin_toggle_participation',{id:participation.id}) }}">
-                                                            {{ participation.enabled ? "<i class='fas fa-check text-success'></i>" :  "<i class='fas fa-times text-danger'></i>" }}
-                                                        </a>
-                                                        <a class="ajax-link"
-                                                           data-remove="closestTr"
-                                                           data-toggle="tooltip"
-                                                           title="Refuser/supprimer"
-                                                           href="{{ url('challenge_admin_delete_participation',{id:participation.id}) }}">
-                                                            <i class='fas fa-trash text-danger'></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            {% endfor %}
-                                        </table>
-                                    </div>
-                                {% endif %}
+
                             </div>
                             {% if is_granted('ROLE_ADMIN') %}
                                 {{ form_end(form) }}

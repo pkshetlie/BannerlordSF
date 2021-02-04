@@ -48,6 +48,7 @@
                                         <a class="btn btn-sm btn-default"
                                            href="{{ path('challenge_admin_settings_index', {'id': challenge.id}) }}"><i
                                                     class="fas fa-cogs"></i></a>
+                                        <a  class="btn btn-sm btn-warning" title="participations" href="{{ url("add_participation",{id: challenge.id}) }}"><i class="fas fa-users-cog"></i></a>
                                         {% if not app.user.babyProof %}
                                             <a class="btn btn-sm btn-danger confirm-action"
                                                href="{{ path('challenge_admin_duplicate', {'id': challenge.id}) }}"><i
