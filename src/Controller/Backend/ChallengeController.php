@@ -341,6 +341,12 @@ class ChallengeController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
         }
+        if($request->get('openChallenge', null)){
+            $participation->setOpenChallenge($request->get('openChallenge', null));
+            $this->getDoctrine()->getManager()->flush();
+        }
+
+
         return new JsonResponse([
             'success' => false,
             "message" => "Arbitre non trouvé."

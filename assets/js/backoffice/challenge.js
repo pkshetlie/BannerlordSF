@@ -5,7 +5,6 @@ $(function () {
         $(this).closest('tr').remove();
         return false;
     });
-
     $('.arbitre').on('change', function () {
         let url = $(this).data('change-url');
         $.ajax({
@@ -16,6 +15,28 @@ $(function () {
                 }
         })
     });
+    $('[name="closeChallenge"]').on('change', function () {
+        let url = $(this).data('change-url');
+        $.ajax({
+            url: url,
+            data:
+                {
+                    closeChallenge: $(this).val()
+                }
+        })
+    });
+    $('[name="openChallenge"]').on('change', function () {
+        let url = $(this).data('change-url');
+        $.ajax({
+            url: url,
+            data:
+                {
+                    openChallenge: $(this).val()
+                }
+        })
+    });
+
+
     let $collectionHolder;
     $collectionHolder = $('.dates');
     $collectionHolder.data('index', $collectionHolder.find('input').length);

@@ -3,18 +3,18 @@
 {% block title %}{{ "Challenges"|trans }}{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-12">
-        <div class="card card-default color-palette-box">
-            <div class="card-header">
-                <h3 class="card-title">
-                    <i class="fas fa-tag"></i>
-                    {{ "Challenges"|trans }} n° {{ challenge.title }} - {{ challenge.season.label }}
-                </h3>
-            </div>
-            <div class="card-body">
-                <div class="card card-primary card-outline card-tabs">
-                    <div class="card-header p-0 pt-1 border-bottom-0">
+    <div class="row">
+        <div class="col-12">
+            <div class="card card-default color-palette-box">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-tag"></i>
+                        {{ "Challenges"|trans }} n° {{ challenge.title }} - {{ challenge.season.label }}
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="card card-primary card-outline card-tabs">
+                        <div class="card-header p-0 pt-1 border-bottom-0">
 
                             <form action="{{ url("add_participation",{id: challenge.id}) }}">
                                 <select name="participations[]" multiple="multiple" class="select2">
@@ -28,6 +28,8 @@
                                 <tr>
                                     <th>Prénom nom (pseudo)</th>
                                     <th>Date d'inscription</th>
+                                    <td>Forcer ouverture</td>
+                                    <td>Forcer fermeture</td>
                                     <th>Arbitre</th>
                                     <th>Etat</th>
                                 </tr>
@@ -35,6 +37,9 @@
                                     <tr>
                                         <td>{{ participation.user.fullNameUsername }}</td>
                                         <td>{{ participation.createdAt.format("d/m/Y H:i") }}</td>
+
+                                        <td></td>
+                                        <td></td>
                                         <td></td>
                                         <td>
                                             <a class="ajax-link"
@@ -60,6 +65,20 @@
                                     <tr>
                                         <td>{{ participation.user.fullNameUsername }}</td>
                                         <td>{{ participation.createdAt.format("d/m/Y H:i") }}</td>
+                                        <td>
+                                            <input
+                                                    data-change-url="{{ url('change_arbitre',{id:participation.id}) }}"
+                                                    type="datetime-local"
+                                                    name="openChallenge"
+                                                    value="{{ participation.closeChallenge is not null ? participation.openChallenge.format("d/m/Y H:i") : "" }}"/>
+                                        </td>
+                                        <td>
+                                            <input
+                                                    data-change-url="{{ url('change_arbitre',{id:participation.id}) }}"
+                                                    type="datetime-local"
+                                                    name="closeChallenge"
+                                                    value="{{ participation.closeChallenge is not null ? participation.closeChallenge.format("d/m/Y H:i") : "" }}"/>
+                                        </td>
                                         <td>
                                             {% if is_granted('ROLE_ADMIN') %}
                                                 <select name="arbitre" class="arbitre form-control"
@@ -92,11 +111,11 @@
                                 {% endfor %}
                             </table>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}

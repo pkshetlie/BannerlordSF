@@ -10,11 +10,6 @@
  * 09/2020
  */
 /* Normal menu */
-@import url(../../node_modules/@fortawesome/fontawesome-free/css/fontawesome.min.css);
-@import url(../../node_modules/@fortawesome/fontawesome-free/css/brands.min.css);
-@import url(../../node_modules/@fortawesome/fontawesome-free/css/regular.min.css);
-@import url(../../node_modules/@fortawesome/fontawesome-free/css/solid.min.css);
-
 .navbar.navbar-main {
   padding: 0;
   background-color: #ffffff;
@@ -305,8 +300,7 @@ footer {
     pointer-events: none;
     transition: all 0.2s ease; }
   .form-group input:focus ~ label,
-  .form-group input.active ~ label,
-  .form-group select ~ label  {
+  .form-group input.active ~ label {
     top: -12px;
     font-size: 10pt;
     color: #5264AE; }
@@ -693,6 +687,40 @@ footer {
  */
 .tv-main-list {
   padding: 40px 0; }
+
+.bg_image_default {
+  background-image: url("../img/default_twitch_image.jpg");
+  background-position: center;
+  background-size: cover; }
+
+.card-twitch-player {
+  transition: 0.3s;
+  min-height: 157px;
+  margin: 15px 0; }
+  .card-twitch-player a {
+    width: 100%;
+    height: 100%;
+    color: #545454;
+    box-shadow: 0 4px 6px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s; }
+    .card-twitch-player a:hover {
+      -webkit-transform: translateY(-3px);
+      transform: translateY(-3px);
+      box-shadow: 0 4px 10px 0;
+      cursor: pointer;
+      color: #545454;
+      text-decoration: none; }
+  .card-twitch-player p {
+    color: #ffffff;
+    margin: 0;
+    font-size: 1.5em;
+    overflow: hidden;
+    white-space: nowrap;
+    /* Don't forget this one */
+    text-overflow: ellipsis; }
 
 /**
  * Styles des icon d'alertes
@@ -8196,6 +8224,9 @@ main.wrapper {
     color: #ffffff;
     transition: 0.2s; }
 
+.input-file {
+  display: none; }
+
 /* Cards effect */
 .card {
   transition: 0.2s; }
@@ -8207,20 +8238,18 @@ main.wrapper {
   transform: translateY(-3px); }
 
 /* Social links */
-.nav-link-social .fab,.nav-link-social .fas, .nav-link-social .far, .nav-link-social .fab, .nav-link-social .fas {
+.nav-link-social .fa {
   width: 30px;
   height: 30px;
   text-align: center;
   background-color: #EF8003;
   border-radius: 50%;
-  padding-top:6px;
   position: relative; }
   .nav-link-social .fa:before {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-  }
+    transform: translate(-50%, -50%); }
 
 .nav-link-social span {
   display: none; }
