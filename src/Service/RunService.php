@@ -32,6 +32,7 @@ class RunService
             ->createQueryBuilder('r')
             ->where('r.challenge = :challenge')
             ->andWhere('r.user = :user')
+            ->andWhere('r.training = false')
             ->setParameter('user', $run->getUser())
             ->setParameter('challenge', $run->getChallenge())
             ->getQuery()
@@ -79,8 +80,10 @@ class RunService
             ->where('r.user = :user')
             ->andWhere('r.challenge  = :challenge')
             ->andWhere('r.endDate IS NULL')
+            ->andWhere('r.training = false')
             ->setParameter('challenge', $challenge)
             ->setParameter('user', $user)
+            ->setFirstResult(0)->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
 

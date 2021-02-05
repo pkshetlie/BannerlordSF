@@ -57,9 +57,12 @@ class RunController extends AbstractController
             ->where('r.user = :user')
             ->andWhere('r.challenge  = :challenge')
             ->andWhere('r.endDate IS NULL')
-            ->andWhere('r.training != null ')
+            ->andWhere('r.training  IS NULL OR r.training = 0 ')
             ->setParameter('challenge', $challenge)
             ->setParameter('user', $user)
+            ->orderBy('r.id', 'DESC')
+            ->setFirstResult(0)->setMaxResults(1)
+
             ->getQuery()
             ->getOneOrNullResult();
 
@@ -76,7 +79,7 @@ class RunController extends AbstractController
             $lastrun = $runRepository->createQueryBuilder('r')
                 ->where('r.user = :user')
                 ->andWhere('r.challenge  = :challenge')
-                ->andWhere('r.training != null ')
+                ->andWhere('r.training IS NOT NULL')
                 ->setParameter('challenge', $challenge)
                 ->setParameter('user', $user)
                 ->orderBy("r.endDate", "DESC")

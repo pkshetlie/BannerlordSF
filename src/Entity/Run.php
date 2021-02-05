@@ -77,12 +77,12 @@ class Run
     /**
      * @ORM\Column(type="boolean")
      */
-    private $training;
+    private $training = false;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $training_open;
+    private $training_open = false;
 
     public function __construct()
     {
