@@ -65,9 +65,6 @@ class ApiController extends AbstractController
             foreach ($run->getRunSettings() as $runSetting) {
                 $isStep = false;
                 $isStepDone = false;
-                $label = $runSetting->getChallengeSetting()->getLabel();
-                $auto_value = $runSetting->getChallengeSetting()->getAutoValue();
-                $mix = $label.$auto_value;
                 if (isset($score[$runSetting->getChallengeSetting()->getAutoValue()])) {
                     $runSetting->setValue($score[$runSetting->getChallengeSetting()->getAutoValue()]);
                     $entityManager->flush();

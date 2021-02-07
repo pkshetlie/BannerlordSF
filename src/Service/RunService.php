@@ -38,17 +38,17 @@ class RunService
             ->getQuery()
             ->getResult();
 
-        if ($run->getTempScore() != null) {
-            $score = $run->getTempScore();
-            $run->setScore($score);
-        } else {
+//        if ($run->getTempScore() != null) {
+//            $score = $run->getTempScore();
+//            $run->setScore($score);
+//        } else {
             foreach ($run->getRunSettings() as $setting) {
                 if (!is_numeric($setting->getValue())) {
                     continue;
                 }
                 if ($setting->getChallengeSetting()->getIsUsedForScore()) {
                     if ($setting->getChallengeSetting()->getIsAffectedByMalus()) {
-                        $malusableScore += ceil($setting->getValue() * $setting->getChallengeSetting()->getRatio());
+                        $malusableScore += ceil(floatval($setting->getValue()) * $setting->getChallengeSetting()->getRatio());
                     } else {
                         $score += ceil(floatval($setting->getValue()) * $setting->getChallengeSetting()->getRatio());
                     }
@@ -64,10 +64,10 @@ class RunService
                         }
                     }
                 }
-            }
+//            }
             $run->setScore(ceil($score));
         }
-        $run->setComputedScore(ceil($score + ($malusableScore * $run->getMalus())));
+        $run->setComputedScore(ceil($score + ($malusableScore * (2-$run->getMalus()))));
     }
 
     public function endOfRun(Run $runToClose)
