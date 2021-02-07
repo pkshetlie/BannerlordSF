@@ -336,6 +336,7 @@ class RunController extends AbstractController
 
         $runs = $runRepository->findBy([
             'user' => $user,
+            'training'=>false,
             "challenge" => $challenge
         ], ['id' => "ASC"]);
         $countRun = 1;

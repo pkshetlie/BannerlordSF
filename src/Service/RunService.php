@@ -38,10 +38,7 @@ class RunService
             ->getQuery()
             ->getResult();
 
-//        if ($run->getTempScore() != null) {
-//            $score = $run->getTempScore();
-//            $run->setScore($score);
-//        } else {
+
             foreach ($run->getRunSettings() as $setting) {
                 if (!is_numeric($setting->getValue())) {
                     continue;
@@ -64,7 +61,6 @@ class RunService
                         }
                     }
                 }
-//            }
             $run->setScore(ceil($score));
         }
         $run->setComputedScore(ceil($score + ($malusableScore * (2-$run->getMalus()))));
