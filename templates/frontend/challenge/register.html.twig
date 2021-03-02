@@ -143,16 +143,16 @@
 
                             <div class="tab-pane fade show" id="bareme" role="tabpanel"
                                  aria-labelledby="bareme-tab">
-                                {% if is_granted('ROLE_ADMIN') OR (challenge.displayRulesAndRatiosBeforeStart or challenge.past) %}
-                                {# ᓚᘏᗢ #}
-                                {% if (challenge.displayRulesAndRatiosBeforeStart or challenge.past) AND is_granted('ROLE_ADMIN') %}
-                                    <p>vous voyez cette section car vous etes administrateur</p>
-                                {% endif %}
-                                {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'bareme-challenge-'~challenge.id,default:"Bientôt le barème"})) }}
-                                {% if challenge.theFile is not null %}
-                                    <h2>Fichier joint</h2>
-                                    <a href="{{ challenge.theFile }}">Télécharger le fichier</a>
-                                {% endif %}
+                                {% if is_granted('ROLE_ADMIN') or (challenge.displayRulesAndRatiosBeforeStart or challenge.past) %}
+                                    {# ᓚᘏᗢ #}
+                                    {% if is_granted('ROLE_ADMIN') and not (challenge.displayRulesAndRatiosBeforeStart or challenge.past) %}
+                                        <p>vous voyez cette section car vous etes administrateur</p>
+                                    {% endif %}
+                                    {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'bareme-challenge-'~challenge.id,default:"Bientôt le barème"})) }}
+                                    {% if challenge.theFile is not null %}
+                                        <h2>Fichier joint</h2>
+                                        <a href="{{ challenge.theFile }}">Télécharger le fichier</a>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                             {# Onglet Infos #}
