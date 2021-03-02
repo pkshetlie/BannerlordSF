@@ -146,7 +146,7 @@
                                 {% if is_granted('ROLE_ADMIN') or (challenge.displayRulesAndRatiosBeforeStart or challenge.past) %}
                                     {# ᓚᘏᗢ #}
                                     {% if is_granted('ROLE_ADMIN') and not (challenge.displayRulesAndRatiosBeforeStart or challenge.past) %}
-                                        <p>vous voyez cette section car vous etes administrateur</p>
+                                        <small>vous voyez cette section car vous etes administrateur</small>
                                     {% endif %}
                                     {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'bareme-challenge-'~challenge.id,default:"Bientôt le barème"})) }}
                                     {% if challenge.theFile is not null %}
@@ -154,7 +154,8 @@
                                         <a href="{{ challenge.theFile }}">Télécharger le fichier</a>
                                     {% endif %}
                                 {% else %}
-                                  <p>Le barème officiel sera dévoilé le jour de l'événement sur la chaine officielle.</p>
+                                    <p>Le barème officiel sera dévoilé le jour de l'événement sur la chaine
+                                        officielle.</p>
                                 {% endif %}
                             </div>
                             {# Onglet Infos #}
