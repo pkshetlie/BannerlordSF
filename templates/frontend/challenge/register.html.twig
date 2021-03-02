@@ -151,7 +151,7 @@
                                     {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'bareme-challenge-'~challenge.id,default:"Bientôt le barème"})) }}
                                     {% if challenge.theFile is not null %}
                                         <h2>Fichier joint</h2>
-                                        <a href="{{ asset('/uploads/challenge/files/'~challenge.theFile) }}">Télécharger le fichier</a>
+                                        <a target="_blank" href="{{ asset('/uploads/challenge/files/'~challenge.theFile) }}">Télécharger le fichier</a>
                                     {% endif %}
                                 {% else %}
                                     <p>Le barème officiel sera dévoilé le jour de l'événement sur la chaine
