@@ -236,6 +236,7 @@ class ChallengeController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
 
             $banner = $form->get('banner')->getData();
+            $theFile = $form->get('theFile')->getData();
             foreach ($originalDates as $date) {
                 if (false === $challenge->getChallengeDates()->contains($date)) {
                     $date->setChallenge(null);
@@ -280,6 +281,20 @@ class ChallengeController extends AbstractController
                 }
                 $challenge->setBanner($newFilename);
             }
+
+            if ($theFile) {
+                $originalFilename = pathinfo($theFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $theFile->guessExtension();
+                try {
+                    $banner->move(
+                        $this->getParameter('challenge_file_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                }
+                $challenge->setTheFile($newFilename);
+            }
             foreach ($challenge->getRules() as $rule) {
                 $rule->addChallenge($challenge);
                 $entityManager->persist($rule);
@@ -313,6 +328,7 @@ class ChallengeController extends AbstractController
             ->setParameter('employee', '%ROLE_ARBITRE%')
             ->orderBy("u.username")
             ->getQuery()->getResult();
+
         return $this->render('backend/challenge/create_edit.html.twig', [
             'challenge' => $challenge,
             'form' => $form->createView(),

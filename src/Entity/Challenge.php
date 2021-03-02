@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ChallengeRepository;
 use DateTime;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -146,6 +147,11 @@ class Challenge
      */
     private $displayRulesAndRatiosBeforeStart;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $theFile;
+
     public function __construct()
     {
         $this->rules = new ArrayCollection();
@@ -243,7 +249,7 @@ class Challenge
     }
 
     /**
-     * @return \DateTimeInterface|DateTime|null
+     * @return DateTimeInterface|DateTime|null
      */
     public function getRegistrationOpening()
     {
@@ -256,8 +262,9 @@ class Challenge
 
         return $this;
     }
+
     /**
-     * @return \DateTimeInterface|DateTime|null
+     * @return DateTimeInterface|DateTime|null
      */
     public function getRegistrationClosing()
     {
@@ -287,7 +294,8 @@ class Challenge
             return !$p->getEnabled();
         });
     }
-  /**
+
+    /**
      * @return Collection|Participation[]
      */
     public function getNoShowParticipations(): Collection
@@ -369,13 +377,15 @@ class Challenge
         return $this->challengePrizes;
     }
 
-    public function getCashPrize(){
-       $sum = 0;
-        foreach($this->getChallengePrizes() AS $prize){
+    public function getCashPrize()
+    {
+        $sum = 0;
+        foreach ($this->getChallengePrizes() as $prize) {
             $sum += $prize->getValue();
         }
         return $sum;
     }
+
     public function addChallengePrize(ChallengePrize $challengePrize): self
     {
         if (!$this->challengePrizes->contains($challengePrize)) {
@@ -548,7 +558,7 @@ class Challenge
     {
         $participations = $this->getValidatedParticipations()->toArray();
         $challenge = $this;
-        usort($participations, function(Participation $a,Participation $b)use($challenge){
+        usort($participations, function (Participation $a, Participation $b) use ($challenge) {
             if ($a->getUser()->getBestScore($challenge) == $b->getUser()->getBestScore($challenge)) {
                 return 0;
             }
@@ -556,10 +566,11 @@ class Challenge
         });
         return $participations;
     }
+
     public function getWinner()
     {
         $leaderboard = $this->getLeaderBoard();
-        return $leaderboard != null ? $leaderboard[0]: null;
+        return $leaderboard != null ? $leaderboard[0] : null;
     }
 
     public function getMalusMax(): ?string
@@ -618,6 +629,18 @@ class Challenge
     public function setDisplayRulesAndRatiosBeforeStart(bool $displayRulesAndRatiosBeforeStart): self
     {
         $this->displayRulesAndRatiosBeforeStart = $displayRulesAndRatiosBeforeStart;
+
+        return $this;
+    }
+
+    public function getTheFile(): ?string
+    {
+        return $this->theFile;
+    }
+
+    public function setTheFile(string $theFile): self
+    {
+        $this->theFile = $theFile;
 
         return $this;
     }
