@@ -109,6 +109,10 @@ class RegistrationAdminType extends AbstractType
                     'placeholder' => 'user.placeholder.twitter'
                 ]
             ])
+            ->add('displayOnTv', CheckboxType::class, [
+                'label' => 'Afficher sur le page TV',
+                'required' => false,
+            ])
             ->add('babyProof', CheckboxType::class, [
                 'label' => 'Mode baby proof',
                 'required' => false,

@@ -141,6 +141,11 @@ class User implements UserInterface
      */
     private $levelMulti;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $displayOnTv;
+
 
     public function __construct()
     {
@@ -718,5 +723,17 @@ class User implements UserInterface
             }
         }
         return $tmp;
+    }
+
+    public function getDisplayOnTv(): ?bool
+    {
+        return $this->displayOnTv;
+    }
+
+    public function setDisplayOnTv(?bool $displayOnTv): self
+    {
+        $this->displayOnTv = $displayOnTv;
+
+        return $this;
     }
 }
