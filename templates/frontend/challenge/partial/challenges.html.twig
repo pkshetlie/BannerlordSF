@@ -11,7 +11,6 @@
         <div class="card-body">
             <a class="link-to-chal" href="{{ url("challenge_participer",{id:entity.id}) }}">
                 <h5 class="card-title">{{ entity.title }}</h5>
-
                 <div class="card-text d-flex justify-content-center align-items-center">
                     <div class="dates-icon text-right">
                         <i class="far fa-calendar-alt fa-2x ml-2"></i>
@@ -28,7 +27,6 @@
                     <p class="btn-cash"><label>Cash prize</label> {{ entity.cashPrize }} &euro;
                     </p>
                 </div>
-
                 {% if entity.isOpen %}
                     <div class="col-7">
                         <div class="progress">

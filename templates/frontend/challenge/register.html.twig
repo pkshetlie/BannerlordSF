@@ -140,10 +140,19 @@
                                  aria-labelledby="presentation-tab">
                                 {{ challenge.description|raw }}
                             </div>
-                            <div class="tab-pane fade show" id="bareme" role="tabpanel"
-                                       aria-labelledby="bareme-tab">
-                                {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'bareme-challenge-'~challenge.id,default:"Bientôt le barème"})) }}
 
+                            <div class="tab-pane fade show" id="bareme" role="tabpanel"
+                                 aria-labelledby="bareme-tab">
+                                {% if is_granted('ROLE_ADMIN') OR (challenge.displayRulesAndRatiosBeforeStart or challenge.past) %}
+                                {# ᓚᘏᗢ #}
+                                {% if (challenge.displayRulesAndRatiosBeforeStart or challenge.past) AND is_granted('ROLE_ADMIN') %}
+                                    <p>vous voyez cette section car vous etes administrateur</p>
+                                {% endif %}
+                                {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'bareme-challenge-'~challenge.id,default:"Bientôt le barème"})) }}
+                                {% if challenge.theFile is not null %}
+                                    <h2>Fichier joint</h2>
+                                    <a href="{{ challenge.theFile }}">Télécharger le fichier</a>
+                                {% endif %}
                             </div>
                             {# Onglet Infos #}
                             <div class="tab-pane fade row" id="participants" role="tabpanel"
@@ -208,7 +217,9 @@
                                         entrainement</a>
                                     <ul>
                                         {% for run in  app.user.getTrainingRun(challenge) %}
-                                            <li>le {{ run.startDate.format('d/m/Y H:i')}}  {{ run.computedScore }} pts</li>
+                                            <li>le {{ run.startDate.format('d/m/Y H:i') }}  {{ run.computedScore }}
+                                                pts
+                                            </li>
                                         {% endfor %}
                                     </ul>
                                 </div>

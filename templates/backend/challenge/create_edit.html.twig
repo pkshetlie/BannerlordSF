@@ -68,7 +68,6 @@
                                                 {{ form_row(form.display) }}
                                                 <div class="form-group">
                                                     <label>Dates du challenge</label>
-
                                                     <button type="button"
                                                             class="add-date btn btn-success btn-xs float-right">Ajouter
                                                         une
@@ -76,10 +75,10 @@
                                                     </button>
                                                     <table class="dates"
                                                            data-prototype="
-        <td>{{ form_widget(form.challengeDates.vars.prototype.children.startDate)|e }}</td>
-        <td>{{ form_widget(form.challengeDates.vars.prototype.children.endDate)|e }}</td>
-        <td><a class='btn btn-sm btn-danger delete-line' href='#'><i class='fa fa-trash'></i></a></td>
-        "
+                                                           <td>{{ form_widget(form.challengeDates.vars.prototype.children.startDate)|e }}</td>
+                                                           <td>{{ form_widget(form.challengeDates.vars.prototype.children.endDate)|e }}</td>
+                                                           <td><a class='btn btn-sm btn-danger delete-line' href='#'><i class='fa fa-trash'></i></a></td>
+                                                           "
                                                            data-widget-tags="{{ '<tr></tr>'|e }}"
                                                            data-widget-counter="{{ form.challengeDates |length }}"
                                                     >
