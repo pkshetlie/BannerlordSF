@@ -287,7 +287,7 @@ class ChallengeController extends AbstractController
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename . '-' . uniqid() . '.' . $theFile->guessExtension();
                 try {
-                    $banner->move(
+                    $theFile->move(
                         $this->getParameter('challenge_file_directory'),
                         $newFilename
                     );
