@@ -633,6 +633,16 @@ class Challenge
         return $this;
     }
 
+    public function isStarted()
+    {
+        foreach($this->getChallengeDates() AS $dates){
+            if($dates->getStartDate() <= new DateTime()){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public function getTheFile(): ?string
     {
         return $this->theFile;
