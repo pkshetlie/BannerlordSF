@@ -101,7 +101,6 @@ class ChallengeController extends AbstractController
         $form = $this->createFormBuilder()
             ->add('inscription', SubmitType::class, [
                 'attr' => ['class' => "btn btn-custom btn-green active"]
-
             ])
             ->getForm();
         $participants = $challenge->getParticipations()->filter(function (Participation $p) {
@@ -127,7 +126,6 @@ class ChallengeController extends AbstractController
                     $this->addFlash('success', "Votre demande est soumise à validation d'un membre du staff, vous recevrez un mail dès que celle ci sera validée.");
                 } else {
                     $this->addFlash('danger', "Vous êtres déjà inscrit à ce tournois.");
-
                 }
             } else {
                 $this->addFlash('danger', "Vous devez êtres connecté pour pouvoir vous inscrire.");

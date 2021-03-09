@@ -52,6 +52,11 @@ class RunSettings
 
     public function getValue(): ?string
     {
+        $exp = explode(';',$this->value);
+        if(count($exp)>1){
+            $expexp=explode(':', $exp);
+            return $expexp[0];
+        }
         return $this->value;
     }
 
