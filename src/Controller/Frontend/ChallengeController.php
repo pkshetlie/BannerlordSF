@@ -153,7 +153,7 @@ class ChallengeController extends AbstractController
      */
     public function train(Challenge $challenge, RunRepository $runRepository, EntityManagerInterface $entityManager, RunService $runService)
     {
-        if (!$challenge->getDisplayRulesAndRatiosBeforeStart() && $challenge->isStarted()) {
+        if (!$challenge->getDisplayRulesAndRatiosBeforeStart() && !$challenge->isStarted()) {
             $this->addFlash('danger', "Il n'est pas possible de s'entrainer sur ce challenge");
             return $this->redirectToRoute('challenge_participer', ['id' => $challenge->getId()]);
         }
@@ -165,7 +165,6 @@ class ChallengeController extends AbstractController
             $run->setTrainingOpen(false);
         }
         $entityManager->flush();
-
 
         $run = new Run();
         $run->setChallenge($challenge);
