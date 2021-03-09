@@ -52,9 +52,9 @@ class RunSettings
 
     public function getValue(): ?string
     {
-        $exp = explode(';',$this->value);
-        if(count($exp)>1){
-            $expexp=explode(':', $exp);
+        $exp = explode(';', $this->value);
+        if (count($exp) > 1) {
+            $expexp = explode(':', $exp[0]);
             return $expexp[0];
         }
         return $this->value;
@@ -82,8 +82,8 @@ class RunSettings
     public function isCompleted()
     {
         $sett = $this->getChallengeSetting();
-        $min = $sett->getStepToVictoryMin() == null ? -99999999999 :  $sett->getStepToVictoryMin();
-        $max = $sett->getStepToVictoryMax() == null ? 99999999999 :  $sett->getStepToVictoryMax();
+        $min = $sett->getStepToVictoryMin() == null ? -99999999999 : $sett->getStepToVictoryMin();
+        $max = $sett->getStepToVictoryMax() == null ? 99999999999 : $sett->getStepToVictoryMax();
 
         return $this->getValue() >= $min && $this->getValue() <= $max;
     }

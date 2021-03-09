@@ -9,6 +9,7 @@ use App\Entity\Run;
 use App\Entity\RunSettings;
 use App\Entity\User;
 use App\Form\ChallengeType;
+use App\Form\RunType;
 use App\Repository\ChallengeNewsletterRepository;
 use App\Repository\ChallengeRepository;
 use App\Repository\ParticipationRepository;
@@ -89,6 +90,35 @@ class ChallengeController extends AbstractController
 
     }
 
+    /**
+     * @Route("/edit-run/{id}", name="run_edit")
+     * @param Request $request
+     * @param Challenge $challenge
+     * @param ParticipationRepository $participationRepository
+     * @return Response
+     */
+    public function runEdit(Request $request, Run $run, RunService $runService)
+    {
+        $form = $this->createForm(RunType::class, $run);
+        $form->remove('FinDeRun');
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $runService->ComputeScore($run);
+            $this->getDoctrine()->getManager()->flush();
+            $this->addFlash('success', 'Run modifiée');
+            return $this->redirectToRoute('challenge_participer', [
+                'id' => $run->getChallenge()->getId()
+            ]);
+        }
+
+        return $this->render('frontend/run/edit.html.twig', [
+            'form' => $form->createView(),
+            'run' => $run,
+            'challenger' => $run->getUser(),
+            'challenge' => $run->getChallenge()
+        ]);
+    }
     /**
      * @Route("/participer/{id}", name="challenge_participer")
      * @param Request $request
