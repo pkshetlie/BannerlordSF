@@ -163,6 +163,7 @@ class ChallengeController extends AbstractController
         /** @var Run $run */
         foreach ($user->getTrainingRun($challenge) as $run) {
             $run->setTrainingOpen(false);
+            $run->setEndDate(new \DateTime());
         }
         $entityManager->flush();
 
