@@ -219,9 +219,9 @@
                                     <a href="{{ url('challenge_training',{id:challenge.id}) }}"
                                        class="btn btn-success ">Nouvel
                                         entrainement</a>
-                                    <ul>
+                                    <div class="row">
                                         {% for run in  app.user.getTrainingRun(challenge) %}
-                                             <div class="col-3">
+                                             <div class="col-4">
                                                     <table class="table table-sm">
                                                         <tr>
                                                             <th colspan="3" class="text-center bg-gray disabled">Run n°{{ loop.index }}
@@ -280,7 +280,7 @@
                                                     </table>
                                                 </div>
                                         {% endfor %}
-                                    </ul>
+                                </div>
                                 </div>
                             {% endif %}
                         </div>
