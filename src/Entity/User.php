@@ -722,7 +722,7 @@ class User implements UserInterface
                 $tmp[] = $run;
             }
         }
-        return $tmp;
+        return array_reverse($tmp);
     }
 
     public function getDisplayOnTv(): ?bool
