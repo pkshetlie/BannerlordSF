@@ -107,9 +107,9 @@ class ChallengeController extends AbstractController
             $runService->ComputeScore($run);
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'Run modifiée');
-            return $this->redirectToRoute('challenge_participer', [
+            return $this->redirect($this->generateUrl('challenge_participer', [
                 'id' => $run->getChallenge()->getId()
-            ]);
+            ])."#training");
         }
 
         return $this->render('frontend/run/edit.html.twig', [
