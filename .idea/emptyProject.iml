@@ -133,6 +133,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/hpack" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/socket" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/amphp/http-client" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/deprecations" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

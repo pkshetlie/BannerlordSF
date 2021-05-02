@@ -8,6 +8,8 @@ use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\Translatable\Translatable;
 
 /**
  * @ORM\Entity(repositoryClass=ChallengeRepository::class)
@@ -564,12 +566,23 @@ class Challenge
             }
             return ($a->getUser()->getBestScore($challenge) > $b->getUser()->getBestScore($challenge)) ? -1 : 1;
         });
+
         return $participations;
     }
 
     public function getWinner()
     {
         $leaderboard = $this->getLeaderBoard();
+
+        if($leaderboard == null){
+            return null;
+        }
+        /** @var User $user */
+        $user= $leaderboard[0]->getUser();
+        $score = $user->getBestScore($this);
+        if($score <= 0){
+            return null;
+        }
         return $leaderboard != null ? $leaderboard[0] : null;
     }
 
