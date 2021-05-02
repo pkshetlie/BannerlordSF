@@ -52,7 +52,8 @@
                                     {% elseif challenge.isPast %}
                                         {% if challenge.winner is not null %}
                                             <a href="#" class="btn btn-custom btn-green infos-toornament">Vainqueur :
-                                            <br><b>{{ challenge.winner.user.username }}</b></a>{% endif %}
+                                            <br><b>{{ challenge.winner.user.username }}</b></a>
+                                        {% endif %}
                                     {% else %}
                                         {% if is_granted('ROLE_USER') %}
                                             {% set participation = app.user.participation(challenge) %}
