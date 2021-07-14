@@ -176,7 +176,7 @@
                             </div>
                             {# Onglet Règlement #}
                             <div class="tab-pane fade" id="reglement" role="tabpanel" aria-labelledby="reglement-tab">
-                                {% if (challenge.displayRulesAndRatiosBeforeStart or challenge.started) %}
+{#                                {% if (challenge.displayRulesAndRatiosBeforeStart or challenge.started) %}#}
                                     {% set type = null %}
                                     <ul>
                                     {% for rule in challenge.rules %}
@@ -190,9 +190,9 @@
                                         <li>{{ rule.label }}</li>
                                     {% endfor %}
                                     </ul>
-                                {% else %}
-                                    <p>Ces informations sont cachées jusqu'à l'ouverture du challenge</p>
-                                {% endif %}
+{#                                {% else %}#}
+{#                                    <p>Ces informations sont cachées jusqu'à l'ouverture du challenge</p>#}
+{#                                {% endif %}#}
                             </div>
                             <div class="tab-pane fade" id="classement" role="tabpanel" aria-labelledby="classement-tab">
                                 <table class="table">

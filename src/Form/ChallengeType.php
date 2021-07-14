@@ -114,7 +114,7 @@ class ChallengeType extends AbstractType
                 'label' => "Malus maximum"
             ])
             ->add('displayRulesAndRatiosBeforeStart', null, [
-                'label' => "Afficher les règles et barèmes avant le début"
+                'label' => "Afficher les barèmes avant le début"
             ])
             ->add('displayTotalInMod', null, [
                 'label' => "Afficher le total des points dans le mod"
