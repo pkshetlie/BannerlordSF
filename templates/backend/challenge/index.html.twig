@@ -41,6 +41,9 @@
                                                 href="{{ path('challenge_admin_edit', {'id': challenge.id}) }}#participations">{{ challenge.waitingParticipations|length }}</a>)</span>
                                     / {{ challenge.maxChallenger }}</td>
                                 <td>
+                                    <a class="btn btn-sm"
+                                       href="{{ path('admin_leaderboard_index', {'id': challenge.id}) }}"><i
+                                                class="fas fa-list"></i></a>
                                     <a class="btn btn-sm btn-info"
                                        href="{{ path('challenge_admin_edit', {'id': challenge.id}) }}"><i
                                                 class="fas fa-edit"></i></a>

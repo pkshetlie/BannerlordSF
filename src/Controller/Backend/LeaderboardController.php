@@ -2,6 +2,7 @@
 
 namespace App\Controller\Backend;
 
+use App\Entity\Challenge;
 use App\Repository\ParticipationRepository;
 use App\Repository\RunRepository;
 use App\Service\ChallengeService;
@@ -16,19 +17,20 @@ use Symfony\Component\Routing\Annotation\Route;
 class LeaderboardController extends AbstractController
 {
     /**
-     * @Route("/", name="admin_leaderboard_index", methods={"GET"})
+     * @Route("/{id}", name="admin_leaderboard_index", methods={"GET"})
      * @param RunRepository $runRepository
      * @param ChallengeService $challengeService
      * @return Response
      */
-    public function index(RunRepository $runRepository, ChallengeService $challengeService): Response
+    public function index(RunRepository $runRepository, ChallengeService $challengeService, Challenge $challenge = null): Response
     {
-
-        $challenge = $challengeService->getRunningChallenge();
+        if ($challenge === null) {
+            $challenge = $challengeService->getRunningChallenge();
+        }
         $runs = $runRepository->findByScore($challenge);
         $placed = new ArrayCollection();
-        foreach($runs AS $i=>$run){
-            if($placed->contains($run->getUser()) || $placed->count()>=10){
+        foreach ($runs as $i => $run) {
+            if ($placed->contains($run->getUser()) || $placed->count() >= 10) {
                 unset($runs[$i]);
                 continue;
             }

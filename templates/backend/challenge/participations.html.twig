@@ -70,7 +70,7 @@
                                                     data-change-url="{{ url('change_arbitre',{id:participation.id}) }}"
                                                     type="datetime-local"
                                                     name="openChallenge"
-                                                    value="{{ participation.closeChallenge is not null ? participation.closeChallenge.format("Y-m-d")~"T"~participation.closeChallenge.format("H:i") : "" }}"/>
+                                                    value="{{ participation.openChallenge is not null ? participation.openChallenge.format("Y-m-d")~"T"~participation.openChallenge.format("H:i") : "" }}"/>
                                         </td>
                                         <td>
                                             <input
