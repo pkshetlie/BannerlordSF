@@ -1,6 +1,7 @@
 {% extends 'base_backoffice.html.twig' %}
 
 {% block title %}{{ "Users"|trans }}{% endblock %}
+                    {% import "@Pagination/Pagination/macro.twig" as macro_pagination %}
 
 {% block content %}
     <div class="row">
@@ -13,8 +14,18 @@
                     </h3>
                 </div>
                 <div class="card-body">
+                    <div class="col-md-6">
+                    <form>
+                        <div class="d-flex">
+                        <input type="search" name="search" class="form-control"/> <button class="btn btn-info" type="submit">Chercher</button>
+                        </div>
+                    </form>
+                    </div>
+
                     <a class="btn btn-success float-right"
                        href="{{ path('user_admin_new') }}">{{ "Create new"|trans }}</a>
+                    {{ macro_pagination.paginate(paginator) }}
+
                     <table class="table table-condensed">
                         <thead>
                         <tr>
@@ -58,7 +69,6 @@
                         {% endfor %}
                         </tbody>
                     </table>
-                    {% import "@Pagination/Pagination/macro.twig" as macro_pagination %}
                     {{ macro_pagination.paginate(paginator) }}
                 </div>
             </div>

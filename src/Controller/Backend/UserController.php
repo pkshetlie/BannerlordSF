@@ -34,6 +34,14 @@ class UserController extends AbstractController
             ->createQueryBuilder('u')
             ->orderBy('u.createdAt', 'DESC')
             ->addOrderBy("u.id", "DESC");
+if($request->get('search')) {
+    $qb->where('u.username LIKE :search')
+        ->orWhere("u.email LIKE :search")
+        ->orWhere("u.lastname LIKE :search")
+        ->orWhere("u.firstname LIKE :search")
+        ->setParameter('search', "%" . $request->get('search') . "%");
+}
+
         $paginator = $pagination->setDefaults(50)->process($qb, $request);
         if ($this->isGranted('ROLE_USER')) {
             $user = $this->getUser();
