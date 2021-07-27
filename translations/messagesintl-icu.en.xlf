@@ -183,7 +183,7 @@
       </trans-unit>
       <trans-unit id="YVxUUQX" resname="infos&#10;                    obligatoires*">
         <source>infos
-          obligatoires*</source>
+                    obligatoires*</source>
         <target>mandatory informations*</target>
       </trans-unit>
       <trans-unit id="ssEkU20" resname="Nom">
@@ -208,7 +208,7 @@
       </trans-unit>
       <trans-unit id="dywfl6v" resname="Pour réinitialiser votre mot de passe veuillez vous deconnecter et passer&#10;                            par mot de passe perdu.">
         <source>Pour réinitialiser votre mot de passe veuillez vous deconnecter et passer
-          par mot de passe perdu.</source>
+                            par mot de passe perdu.</source>
         <target>To reset your password please log out and go to lost password.</target>
       </trans-unit>
       <trans-unit id="4oGKLRV" resname="ID Twitch">
@@ -297,7 +297,7 @@
       </trans-unit>
       <trans-unit id="ib04R06" resname="Afin de recevoir une alerte lorsque l'incription sera ouverte, merci de bien&#10;                            renseigner votre email :">
         <source>Afin de recevoir une alerte lorsque l'incription sera ouverte, merci de bien
-          renseigner votre email :</source>
+                            renseigner votre email :</source>
         <target>In order to receive an alert when registration is open, please enter your email:</target>
       </trans-unit>
       <trans-unit id="lpzL089" resname="Email">
@@ -366,7 +366,7 @@
       </trans-unit>
       <trans-unit id="y6atwnN" resname="Le barème officiel sera dévoilé le jour de l'événement sur la chaine&#10;                                        officielle.">
         <source>Le barème officiel sera dévoilé le jour de l'événement sur la chaine
-          officielle.</source>
+                                        officielle.</source>
         <target>The official scale will be revealed on the day of the event on the official channel.</target>
       </trans-unit>
       <trans-unit id="bQMa8Q2" resname="Position">
