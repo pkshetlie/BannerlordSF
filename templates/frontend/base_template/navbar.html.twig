@@ -2,19 +2,19 @@
     <div class="container-nav">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_global"
                 aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
-                <div id="nav-icon-menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+            <div id="nav-icon-menu">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </button>
         <div class="navbar-collapse collapse" id="navbar_global">
             <a class="home-link navbar-brand" href="/">
-                {#<i class="fa fa-fort-awesome"></i>#}
-                <img class="logo" src="{{ asset('build/logo_noir.png') }}" />
+                {# <i class="fa fa-fort-awesome"></i> #}
+                <img class="logo" src="{{ asset('build/logo_noir.png') }}"/>
             </a>
-            
+
 
             <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
                 {% if is_granted('ROLE_EMPLOYEE') %}
@@ -32,27 +32,28 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('hardcore_tv') }}" class="nav-link" >
+                    <a href="{{ url('hardcore_tv') }}" class="nav-link">
                         <i class="ni ni-collection d-lg-none"></i>
                         <span class="nav-link-inner--text">Hardcore TV</span>
                     </a>
                 </li>
-{#                <li class="nav-item dropdown">#}
-{#                    <a href="#" class="nav-link" data-toggle="dropdown" role="button">#}
-{#                        <i class="ni ni-collection d-lg-none"></i>#}
-{#                        <span class="nav-link-inner--text">Ligue BHC</span>#}
-{#                    </a>#}
-{#                </li>#}
-{#                <li class="nav-item dropdown">#}
-{#                    <a href="#" class="nav-link" data-toggle="dropdown" role="button">#}
-{#                        <i class="ni ni-collection d-lg-none"></i>#}
-{#                        <span class="nav-link-inner--text">Partenaires</span>#}
-{#                    </a>#}
-{#                    <div class="dropdown-menu">#}
-{#                        <a href="../examples/landing.html" class="dropdown-item">Theme Dark</a>#}
-{#                        <a href="../examples/profile.html" class="dropdown-item">Theme Light</a>#}
-{#                    </div>#}
-{#                </li>#}
+
+                {# <li class="nav-item dropdown"> #}
+                {# <a href="#" class="nav-link" data-toggle="dropdown" role="button"> #}
+                {# <i class="ni ni-collection d-lg-none"></i> #}
+                {# <span class="nav-link-inner--text">Ligue BHC</span> #}
+                {# </a> #}
+                {# </li> #}
+                {# <li class="nav-item dropdown"> #}
+                {# <a href="#" class="nav-link" data-toggle="dropdown" role="button"> #}
+                {# <i class="ni ni-collection d-lg-none"></i> #}
+                {# <span class="nav-link-inner--text">Partenaires</span> #}
+                {# </a> #}
+                {# <div class="dropdown-menu"> #}
+                {# <a href="../examples/landing.html" class="dropdown-item">Theme Dark</a> #}
+                {# <a href="../examples/profile.html" class="dropdown-item">Theme Light</a> #}
+                {# </div> #}
+                {# </li> #}
                 {% if not is_granted("ROLE_USER") %}
                     <li class="nav-item">
                         <a href="{{ url('app_login') }}" class="nav-link">
@@ -66,10 +67,24 @@
                             <i class="ni ni-collection d-lg-none"></i>
                             <span class="nav-link-inner--text">Mon Compte</span>
                         </a>
-                    </li> <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ url('app_logout') }}" class="nav-link">
                             <i class="ni ni-collection d-lg-none"></i>
                             <span class="nav-link-inner--text">Déconnexion</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if app.request.locale == 'en' %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url("change_locale",{locale:"fr"}) }}">
+                            <img style="max-height:12px;" src="/flags/france.png" alt="fr"/>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url("change_locale",{locale:"en"}) }}">
+                            <img style="max-height:12px;" src="/flags/united-kingdom.png" alt="en"/>
                         </a>
                     </li>
                 {% endif %}

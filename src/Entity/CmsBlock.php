@@ -4,6 +4,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use App\Repository\CmsBlockRepository;
+use Gedmo\Translatable\Translatable;
 
 
 /**
@@ -12,7 +13,7 @@ use App\Repository\CmsBlockRepository;
  * @ORM\Table(name="block_cms")
  * @ORM\Entity(repositoryClass=CmsBlockRepository::class)
  */
-class CmsBlock
+class CmsBlock implements Translatable
 {
     const TITLE_ONLY = 0;
     const TEXT_WYSIWYG = 1;
@@ -42,7 +43,7 @@ class CmsBlock
 
     /**
      * @var string
-     *
+     * @Gedmo\Translatable
      * @ORM\Column(name="content",type="text", nullable=true)
      */
     protected $content;
@@ -53,6 +54,12 @@ class CmsBlock
      * @ORM\Column(name="type",type="integer")
      */
     protected $type;
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
 
     /**
      * @var \DateTime
@@ -226,5 +233,10 @@ class CmsBlock
     public function getDateUpdated()
     {
         return $this->dateUpdated;
+    }
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 }

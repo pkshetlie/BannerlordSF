@@ -5,9 +5,13 @@ namespace App\Controller\Component;
 use App\Entity\CmsBlock;
 use App\Form\CmsBlockType;
 use App\Repository\CmsBlockRepository;
+use Gedmo\Translatable\Entity\Repository\TranslationRepository;
+use Gedmo\Translatable\Entity\Translation;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\VarDumper\VarDumper;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CmsBlockController extends AbstractController
 {
@@ -18,8 +22,9 @@ class CmsBlockController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Exception
      */
-    public function getCmsBlock($slug, CmsBlockRepository $cmsBlockRepository,$default='Text personnalisé')
+    public function getCmsBlock(Request $request,$slug, CmsBlockRepository $cmsBlockRepository,$default='Text personnalisé')
     {
+        $em = $this->getDoctrine()->getManager();
         $cmsBlock = $cmsBlockRepository->findOneBy(["slug" => $slug]);
         if($cmsBlock == null){
             $cmsBlock = new CmsBlock();
@@ -36,7 +41,16 @@ class CmsBlockController extends AbstractController
             $this->getDoctrine()->getManager()->persist($cmsBlock);
             $this->getDoctrine()->getManager()->flush();
         }
-        return $this->render('component/cms_block/_block.html.twig', ['cmsBlock' => $cmsBlock]);
+
+        $translationRepository = $em->getRepository(Translation::class);
+        $translation = $translationRepository->findTranslations($cmsBlock);
+
+        $content = isset($translation[$request->getLocale()])?$translation[$request->getLocale()]['content']: $translation[0]['content'];
+
+        return $this->render('component/cms_block/_block.html.twig', [
+            'cmsBlock' => $cmsBlock,
+            'content' => $content,
+        ]);
     }
 
     /**
@@ -73,6 +87,7 @@ class CmsBlockController extends AbstractController
         $form = $this->createForm(CmsBlockType::class, $block);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $block->setTranslatableLocale($request->getLocale());
             $em->persist($block);
             $em->flush();
             $this->addFlash('success', "Bloc CMS modifié, vérifiez le résultat, puis fermez cet onglet.");
