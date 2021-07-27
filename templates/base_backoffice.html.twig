@@ -37,6 +37,19 @@
             <li class="nav-item d-none d-sm-inline-block">
 {#                <a href="#" class="nav-link">Contact</a>#}
             </li>
+            {% if app.request.locale == 'en' %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url("change_locale",{locale:"fr"}) }}">
+                        <img style="max-height:12px;" src="/flags/france.png" alt="fr"/> vous editez les textes EN
+                    </a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url("change_locale",{locale:"en"}) }}">
+                        <img style="max-height:12px;" src="/flags/united-kingdom.png" alt="en"/> vous editez les textes FR
+                    </a>
+                </li>
+            {% endif %}
         </ul>
 
         <!-- SEARCH FORM -->

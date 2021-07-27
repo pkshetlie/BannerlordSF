@@ -19,7 +19,8 @@ class RuleType extends AbstractType
                     "Obligation" => Rule::REQUIRED,
                 ]
             ])
-            ->add('label');
+            ->add('label')
+            ->add('position');
     }
 
     public function configureOptions(OptionsResolver $resolver)

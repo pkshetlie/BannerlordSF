@@ -234,6 +234,7 @@ class ChallengeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $challenge->setTranslatableLocale($request->getLocale());
 
             $banner = $form->get('banner')->getData();
             $theFile = $form->get('theFile')->getData();

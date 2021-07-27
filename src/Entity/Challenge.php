@@ -47,6 +47,7 @@ class Challenge
     private $title;
 
     /**
+     * @Gedmo\Translatable
      * @ORM\Column(type="text")
      */
     private $description;
@@ -115,7 +116,7 @@ class Challenge
 
     /**
      * @ORM\ManyToMany(targetEntity=Rule::class, mappedBy="challenges",cascade={"persist","remove"})
-     * @ORM\OrderBy({"type"="ASC"})
+     * @ORM\OrderBy({"type"="ASC","position"="ASC"})
      */
     private $rules;
 
@@ -148,6 +149,13 @@ class Challenge
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $displayRulesAndRatiosBeforeStart;
+
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -666,5 +674,9 @@ class Challenge
         $this->theFile = $theFile;
 
         return $this;
+    }
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 }

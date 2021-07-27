@@ -44,6 +44,7 @@ class RuleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $rule->setTranslatableLocale($request->getLocale());
             $this->getDoctrine()->getManager()->persist($rule);
             $this->getDoctrine()->getManager()->flush();
 

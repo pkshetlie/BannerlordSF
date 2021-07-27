@@ -6,6 +6,7 @@ use App\Repository\RuleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=RuleRepository::class)
@@ -22,6 +23,8 @@ class Rule
     private $id;
 
     /**
+     * @Gedmo\Translatable
+
      * @ORM\Column(type="text")
      */
     private $label;
@@ -36,6 +39,18 @@ class Rule
      *
      */
     private $challenges;
+
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    private $locale;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $position;
 
     public function __construct()
     {
@@ -106,5 +121,22 @@ class Rule
         }
 
         return $this;
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(?int $position): self
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 }
