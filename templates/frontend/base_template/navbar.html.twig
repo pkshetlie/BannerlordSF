@@ -21,20 +21,20 @@
                     <li class="nav-item">
                         <a href="{{ url("admin_index") }}" class="nav-link">
                             <i class="ni ni-collection d-lg-none"></i>
-                            <span class="nav-link-inner--text">Administration</span>
+                            <span class="nav-link-inner--text">{{ "Administration"|trans }}</span>
                         </a>
                     </li>
                 {% endif %}
                 <li class="nav-item">
                     <a href="{{ url("challenge_index") }}" class="nav-link">
                         <i class="ni ni-collection d-lg-none"></i>
-                        <span class="nav-link-inner--text">Challenges</span>
+                        <span class="nav-link-inner--text">{{ "Challenges"|trans }}</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ url('hardcore_tv') }}" class="nav-link">
                         <i class="ni ni-collection d-lg-none"></i>
-                        <span class="nav-link-inner--text">Hardcore TV</span>
+                        <span class="nav-link-inner--text">{{ "Hardcore TV"|trans }}</span>
                     </a>
                 </li>
 
@@ -58,20 +58,20 @@
                     <li class="nav-item">
                         <a href="{{ url('app_login') }}" class="nav-link">
                             <i class="ni ni-collection d-lg-none"></i>
-                            <span class="nav-link-inner--text">Mon Compte</span>
+                            <span class="nav-link-inner--text">{{ "Mon Compte"|trans }}</span>
                         </a>
                     </li>
                 {% else %}
                     <li class="nav-item">
                         <a href="{{ url('my_account') }}" class="nav-link">
                             <i class="ni ni-collection d-lg-none"></i>
-                            <span class="nav-link-inner--text">Mon Compte</span>
+                            <span class="nav-link-inner--text">{{ "Mon Compte"|trans }}</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ url('app_logout') }}" class="nav-link">
                             <i class="ni ni-collection d-lg-none"></i>
-                            <span class="nav-link-inner--text">Déconnexion</span>
+                            <span class="nav-link-inner--text">{{"Déconnexion"|trans}}</span>
                         </a>
                     </li>
                 {% endif %}
@@ -99,7 +99,7 @@
                 </div>
             </div>-->
         </div>
-        <h2 class="menu-title-responsive">Bannerlord Hardcore Challenge</h2>
+        <h2 class="menu-title-responsive">{{ "Bannerlord Hardcore Challenge"|trans }}</h2>
     </div>
 </nav>
 <div class="responsive-dark-background"></div>

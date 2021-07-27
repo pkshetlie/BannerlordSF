@@ -24,7 +24,7 @@
             </a>
             <div class="card-buttons row">
                 <div class="col-12">
-                    <p class="btn-cash"><label>Cash prize</label> {{ entity.cashPrize }} &euro;
+                    <p class="btn-cash"><label>{{ "Cash prize"|trans }}</label> {{ entity.cashPrize }} &euro;
                     </p>
                 </div>
                 {% if entity.isOpen %}
@@ -33,10 +33,11 @@
                             <div class="progress-bar" role="progressbar" style="width: {{ (entity.participations|length / entity.maxChallenger) * 100}}%"
                                  aria-valuenow="{{ (entity.participations|length / entity.maxChallenger) * 100}}" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <label class="text-center w-100 nb-inscrit">{{ entity.participations|length }}/{{ entity.maxChallenger }} inscrits</label>
+                        <label class="text-center w-100 nb-inscrit">{{ entity.participations|length }}/{{ entity.maxChallenger }}
+                            {{ "inscrits"|trans }}</label>
                     </div>
                     <div class="col-5">
-                        <a href="{{ url("challenge_participer",{id:entity.id}) }}" class="btn btn-custom btn-bottom-right">S'inscrire</a>
+                        <a href="{{ url("challenge_participer",{id:entity.id}) }}" class="btn btn-custom btn-bottom-right">{{ "S'inscrire"|trans}}</a>
                     </div>
                 {% elseif entity.isPast %}
                     {% if entity.winner is not null %}<div class="col-7 nom-gagnant justify-content-center">
@@ -46,10 +47,10 @@
                     </div>
                         {% endif %}
                     <div class="col-5">
-                        <a href="{{ url("challenge_participer",{id:entity.id}) }}#classement" class="btn btn-custom btn-bottom-right">Résultats</a>
+                        <a href="{{ url("challenge_participer",{id:entity.id}) }}#classement" class="btn btn-custom btn-bottom-right">{{"Résultats"|trans}}</a>
                     </div>
                 {% elseif entity.isFuture %}
-                    <div class="col-10"><p class="btn-in-coming">Inscriptions à partir du
+                    <div class="col-10"><p class="btn-in-coming">{{"Inscriptions à partir du"|trans}}
                             <label>{{ entity.registrationOpening.format('d/m') }}</label>
                     </div>
                     <div class="col-2 alert-bell">
@@ -67,7 +68,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-center">Restez en alerte !</h5>
+                <h5 class="modal-title text-center">{{"Restez en alerte !"|trans}}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -77,16 +78,17 @@
             <div class="modal-body">
                 <form action="{{ url('newsletter_register_challenge') }}" method="get" class="">
                     <div class="msg-mail-alert">
-                        <p class="mb-3">Afin de recevoir une alerte lorsque l'incription sera ouverte, merci de bien renseigner votre email :</p>
+                        <p class="mb-3">{{ "Afin de recevoir une alerte lorsque l'incription sera ouverte, merci de bien
+                            renseigner votre email :"|trans}}</p>
                     </div>
                     <div class="mail-input-alert form-group focused mb-4">
                         <input type="email" id="email" name="newsletter_email" required>
                         <input type="hidden" id="challenge" name="newsletter_challenge" value="{{ entity.id }}">
                         <span class="highlight"></span>
                         <span class="bar"></span>
-                        <label for="email" class="required">Email</label>
+                        <label for="email" class="required">{{ "Email"|trans }}</label>
                     </div>
-                    <div class="send-mail-alert"><button type="submit" class="btn btn-custom btn-green active">Envoyer</button></div>
+                    <div class="send-mail-alert"><button type="submit" class="btn btn-custom btn-green active">{{ "Envoyer"|trans }}</button></div>
                 </form>
             </div>
         </div>

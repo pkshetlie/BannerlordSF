@@ -21,7 +21,7 @@
                 <div class="modal fade alert-modal error-modal" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
-                            <div class="flag-center"><h2>Erreur</h2></div>
+                            <div class="flag-center"><h2>{{ "Erreur"|trans }}</h2></div>
                             <i class="flag flag-right"></i>
                             <i class="flag flag-left"></i>
                             <div class="modal-body">
@@ -48,49 +48,49 @@
                     {{ form_widget(registration_form.lastname) }}
                     <span class="highlight"></span>
                     <span class="bar"></span>
-                    <label for="registration_form_lastname" class="required">Nom</label>
+                    <label for="registration_form_lastname" class="required">{{ "Nom"|trans }}</label>
                 </div>
 
                 <div class="form-group col-md-6 mb-4">
                     {{ form_widget(registration_form.firstname) }}
                     <span class="highlight"></span>
                     <span class="bar"></span>
-                    <label for="registration_form_firstname" class="required">Prénom</label>
+                    <label for="registration_form_firstname" class="required">{{"Prénom"|trans}}</label>
                 </div>
 
                 <div class="form-group col-12 mb-4">
                     {{ form_widget(registration_form.username) }}
                     <span class="highlight"></span>
                     <span class="bar"></span>
-                    <label for="registration_form_username" class="required">Identifiant</label>
+                    <label for="registration_form_username" class="required">{{ "Identifiant"|trans }}</label>
                 </div>
 
                 <div class="form-group col-12 mb-4">
                     {{ form_widget(registration_form.email) }}
                     <span class="highlight"></span>
                     <span class="bar"></span>
-                    <label for="registration_form_email" class="required">Email</label>
+                    <label for="registration_form_email" class="required">{{ "Email"|trans }}</label>
                 </div>
 
                 <div class="form-group col-12 mb-4">
                     {{ form_widget(registration_form.plainPassword) }}
                     <span class="highlight"></span>
                     <span class="bar"></span>
-                    <label for="registration_form_plainPassword" class="required">Mot de passe</label>
+                    <label for="registration_form_plainPassword" class="required">{{ "Mot de passe"|trans }}</label>
                 </div>
 
                 <div class="form-group col-12 mb-4">
                     {{ form_widget(registration_form.twitchID) }}
                     <span class="highlight"></span>
                     <span class="bar"></span>
-                    <label for="registration_form_twitchID">ID Twitch</label>
+                    <label for="registration_form_twitchID">{{ "ID Twitch"|trans }}</label>
                 </div>
 
                 <div class="form-group col-12 mb-4">
                     {{ form_widget(registration_form.discordID) }}
                     <span class="highlight"></span>
                     <span class="bar"></span>
-                    <label for="registration_form_discordID">ID Discord</label>
+                    <label for="registration_form_discordID">{{ "ID Discord"|trans }}</label>
                 </div>
 
                 <div class="custom-control custom-control-alternative custom-checkbox custom-control-terms col-12 mb-5">
@@ -120,7 +120,7 @@
                     <div class="modal fade alert-modal error-modal" tabindex="-1" role="dialog" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
-                                <div class="flag-center"><h2>Erreur</h2></div>
+                                <div class="flag-center"><h2>{{ "Erreur"|trans }}</h2></div>
                                 <i class="flag flag-right"></i>
                                 <i class="flag flag-left"></i>
                                 <div class="modal-body">
@@ -145,7 +145,7 @@
 
                 {% if app.user %}
                     <div class="mb-3">
-                        You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                        {{"Vous êtes connecté en tant que"|trans}} {{ app.user.username }}, <a href="{{ path('app_logout') }}">{{"Déconnexion"|trans}}</a>
                     </div>
                 {% endif %}
 
