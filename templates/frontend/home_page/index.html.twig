@@ -6,7 +6,7 @@
 {% block body %}
     <main class="wrapper">
         <section class="section-banner bg1 home-title">
-            <h1>{{ "Bienvenue au bannerlord hardcore challenge"|trans }}</h1>
+            {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'homepage-title-1',default:"<h1>A personnaliser</h1>"})) }}
         </section>
 
         <section class="section-parallax static home-presentation">
