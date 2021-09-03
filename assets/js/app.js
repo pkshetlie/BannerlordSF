@@ -81,15 +81,15 @@ $(() => {
     });
 
     $(window).on("scroll", function() {
-        var scrollHeight = $(document).height();
-        var scrollPosition = $(window).height() + $(window).scrollTop();
+        let scrollHeight = $(document).height();
+        let scrollPosition = $(window).height() + $(window).scrollTop();
         if ((scrollHeight - scrollPosition) / scrollHeight <= 0.5) {
             $('#btn-scroll-top').css('display', 'block');
         } else {
             $('#btn-scroll-top').css('display', 'none');
         }
     });
-    var hashtag = window.location.hash;
+    let hashtag = window.location.hash;
     $("[href='" + hashtag + "']").click();
     $(".nav a").on('click', function(){
         window.location.hash = $(this).attr('href');
