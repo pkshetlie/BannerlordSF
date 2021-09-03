@@ -5,7 +5,7 @@
 {% endblock %}
 {% block body %}
     <main class="wrapper">
-        <section class="section-banner bg1 home-title" style="background-image:url()">
+        <section class="section-banner bg1 home-title" style="background-image:url('{{ parameter_service.value('header_bg_1') }}')">
             {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'homepage-title-1',default:"<h1>A personnaliser</h1>"})) }}
         </section>
 
@@ -16,7 +16,7 @@
         </section>
 
         <section class="section">
-            <div class="parallax-background bg2 home-join-us">
+            <div class="parallax-background bg2 home-join-us" style="background-image:url('{{ parameter_service.value('home_bg_2') }}')">
                 <div class="container">
                     {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'homepage-2',default:"A personnaliser"})) }}
                 </div>
@@ -30,7 +30,7 @@
                 </div>
         </section>
 
-        <section class="section-parallax parallax-background bg3  home-howto-join-us">
+        <section class="section-parallax parallax-background bg3  home-howto-join-us" style="background-image:url('{{ parameter_service.value('home_bg_3') }}')">
             <div class="container">
                 {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'homepage-3',default:"A personnaliser"})) }}
 
