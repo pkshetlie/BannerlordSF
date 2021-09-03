@@ -5,7 +5,7 @@
 {% endblock %}
 {% block body %}
     <main class="wrapper">
-        <section class="section-banner bg1 home-title">
+        <section class="section-banner bg1 home-title" style="background-image:url()">
             {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'homepage-title-1',default:"<h1>A personnaliser</h1>"})) }}
         </section>
 
