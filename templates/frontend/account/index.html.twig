@@ -116,9 +116,11 @@
                     </div>
                 </div>
                 {{ form_end(form) }}
+                {% if parameter_service.value('enable_api_key')  %}
                 {{ render(controller("\\App\\Controller\\Component\\CmsBlockController::getCmsBlock",{slug:'account-tuto',default:"Faire un tuto pour le placement du fichier"})) }}
                 <br/>
                 {{ "Votre clé API :"|trans }} <input type="text" value="{{ app.user.apiKey }}"/>
+                {% endif %}
             </div>
         </section>
     </main>

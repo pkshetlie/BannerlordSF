@@ -8,12 +8,12 @@ use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 /**
- * @Route("/hardcore-tv")
+ * @Route("/presentation")
  */
-class HardcoreTvController extends AbstractController
+class PresentationPageController extends AbstractController
 {
     /**
-     * @Route("/",name="hardcore_tv")
+     * @Route("/",name="presentation_page")
      */
     public function index(UserRepository $userRepository)
     {
@@ -21,7 +21,7 @@ class HardcoreTvController extends AbstractController
      ->where('u.twitchID IS NOT NULL')
      ->orderBy("u.twitchID", 'ASC')->getQuery()->getResult();
 
-        return $this->render('frontend/hardcoretv/index.html.twig',[
+        return $this->render('frontend/presentation/index.html.twig',[
             'entities'=>$entities
         ]);
     }
