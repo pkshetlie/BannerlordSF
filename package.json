@@ -29,7 +29,7 @@
         "gulp-sass": "latest",
         "jquery": "^3.5.1",
         "jquery-resizable": "^1.0.6",
-        "jquery-ui": "^1.12.1",
+        "jquery-ui": "^1.13.2",
         "moment": "^2.29.1",
         "node-sass": "^4.14.1",
         "popper.js": "^1.16.1",
