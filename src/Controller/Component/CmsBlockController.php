@@ -44,8 +44,7 @@ class CmsBlockController extends AbstractController
 
         $translationRepository = $em->getRepository(Translation::class);
         $translation = $translationRepository->findTranslations($cmsBlock);
-
-        $content = isset($translation[$request->getLocale()])?$translation[$request->getLocale()]['content']: $translation[0]['content'];
+        $content = isset($translation[$request->getLocale()])?$translation[$request->getLocale()]['content']: $translation['fr']['content'];
 
         return $this->render('component/cms_block/_block.html.twig', [
             'cmsBlock' => $cmsBlock,

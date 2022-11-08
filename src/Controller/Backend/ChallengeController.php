@@ -11,6 +11,7 @@ use App\Entity\Rule;
 use App\Form\ChallengeType;
 use App\Repository\ChallengeRepository;
 use App\Repository\UserRepository;
+use App\Service\DiscordService;
 use Doctrine\Common\Collections\ArrayCollection;
 use Exception;
 use Pkshetlie\PaginationBundle\Service\Calcul;
@@ -170,7 +171,7 @@ class ChallengeController extends AbstractController
      * @param Participation $participation
      * @return Response
      */
-    public function toggleParticipation(Participation $participation, Swift_Mailer $mailer): Response
+    public function toggleParticipation(Participation $participation, Swift_Mailer $mailer, DiscordService $discord): Response
     {
         $participation->setEnabled(!$participation->getEnabled());
         $this->getDoctrine()->getManager()->flush();
@@ -198,6 +199,9 @@ class ChallengeController extends AbstractController
         try {
 
             $mailer->send($message);
+            if($participation->getEnabled()){
+                $discord->sendValidatedParticipation($participation);
+            }
         } catch (Exception $e) {
 
         }
@@ -237,6 +241,7 @@ class ChallengeController extends AbstractController
             $challenge->setTranslatableLocale($request->getLocale());
 
             $banner = $form->get('banner')->getData();
+            $validationImage = $form->get('validationParticipationImage')->getData();
             $theFile = $form->get('theFile')->getData();
             foreach ($originalDates as $date) {
                 if (false === $challenge->getChallengeDates()->contains($date)) {
@@ -281,6 +286,19 @@ class ChallengeController extends AbstractController
                 } catch (FileException $e) {
                 }
                 $challenge->setBanner($newFilename);
+            }
+            if ($validationImage) {
+                $originalFilename = pathinfo($validationImage->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename . '-' . uniqid() . '.' . $validationImage->guessExtension();
+                try {
+                    $validationImage->move(
+                        $this->getParameter('challenge_banner_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                }
+                $challenge->setValidationParticipationImage($newFilename);
             }
 
             if ($theFile) {

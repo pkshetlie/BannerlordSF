@@ -27,11 +27,14 @@ challenge:
     title: Titre
     dateStart: 'date de debut'
     dateEnd: 'date de fin'
+    season: Saison
     type: Type
     challengers: Challengers
     actions: actions
     description: Description
+    theFile: Le fichier
     banner: Bannière
+    validationParticipationImage: Image de validation de participation
     maxChallenger: 'Nombre de challenger max'
     registrationOpening: 'Ouverture des inscriptions'
     registrationClosing: 'Fermeture des inscriptions'

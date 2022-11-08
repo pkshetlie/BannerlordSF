@@ -63,6 +63,11 @@ class Challenge
     private $banner;
 
     /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $validationParticipationImage;
+
+    /**
      * @ORM\Column(type="integer")
      */
     private $maxChallenger;
@@ -679,4 +684,24 @@ class Challenge
     {
         $this->locale = $locale;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getValidationParticipationImage()
+    {
+        return $this->validationParticipationImage;
+    }
+
+    /**
+     * @param mixed $validationParticipationImage
+     * @return Challenge
+     */
+    public function setValidationParticipationImage($validationParticipationImage)
+    {
+        $this->validationParticipationImage = $validationParticipationImage;
+        return $this;
+    }
+
+
 }
