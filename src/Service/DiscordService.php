@@ -28,7 +28,7 @@ class DiscordService
 //            "content" => "Hi vikings, there is a new map",
 
             // Username
-            "username" => "HC Bot",
+            "username" => "Dator Vali",
             "avatar_url"=> $this->url_generator->generate('home',[],UrlGeneratorInterface::ABSOLUTE_URL)."flags/hc-bot.png",
 
             // Text-to-speech
