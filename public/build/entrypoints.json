@@ -1,0 +1,80 @@
+{
+  "entrypoints": {
+    "app": {
+      "js": [
+        "/build/runtime.js",
+        "/build/0.js",
+        "/build/1.js",
+        "/build/app.js"
+      ],
+      "css": [
+        "/build/app.css"
+      ]
+    },
+    "backoffice": {
+      "js": [
+        "/build/runtime.js",
+        "/build/0.js",
+        "/build/1.js",
+        "/build/backoffice.js"
+      ],
+      "css": [
+        "/build/backoffice.css"
+      ]
+    },
+    "bo_challenge": {
+      "js": [
+        "/build/runtime.js",
+        "/build/0.js",
+        "/build/1.js",
+        "/build/bo_challenge.js"
+      ]
+    },
+    "bo_run": {
+      "js": [
+        "/build/runtime.js",
+        "/build/0.js",
+        "/build/1.js",
+        "/build/bo_run.js"
+      ]
+    },
+    "bo_caster": {
+      "js": [
+        "/build/runtime.js",
+        "/build/0.js",
+        "/build/1.js",
+        "/build/bo_caster.js"
+      ]
+    },
+    "leaderboard": {
+      "js": [
+        "/build/runtime.js",
+        "/build/0.js",
+        "/build/leaderboard.js"
+      ],
+      "css": [
+        "/build/leaderboard.css"
+      ]
+    },
+    "home": {
+      "js": [
+        "/build/runtime.js",
+        "/build/home.js"
+      ],
+      "css": [
+        "/build/home.css"
+      ]
+    },
+    "form_cms_block": {
+      "js": [
+        "/build/runtime.js",
+        "/build/0.js",
+        "/build/2.js",
+        "/build/form_cms_block.js"
+      ],
+      "css": [
+        "/build/form_cms_block.css"
+      ]
+    }
+  }
+}
